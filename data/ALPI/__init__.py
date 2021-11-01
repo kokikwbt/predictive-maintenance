@@ -692,7 +692,7 @@ def convert_to_npz(store_path, filename, verbose=0):
                         x_test=x_test_segments, y_test=y_test_segments, stratify_test=stratify_test)
 
 
-def load_from_npz(store_path, filename, verbose=0):
+def load_from_npz():
     """ 
     function to load dataset from json format
 
@@ -713,7 +713,8 @@ def load_from_npz(store_path, filename, verbose=0):
         y_test: contain samples of output for test, each sample is a sequence of alarms
         serials_test: for each test sample is indicated the serial that produced that sample
     """
-    filepath = os.path.join(store_path, filename)
+    # filepath = os.path.join(store_path, filename)
+    filepath = os.path.dirname(__file__) + '/alarms_log_data/processed/all_alarms.npz'
     loaded = np.load(filepath, allow_pickle=True)
     keys = ["x_train", "y_train", "stratify_train",
             "x_test", "y_test", "stratify_test"]
