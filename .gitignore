@@ -130,3 +130,6 @@ dmypy.json
 raw
 processed
 out
+
+*.pdf
+*.png
