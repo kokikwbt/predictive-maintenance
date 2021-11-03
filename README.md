@@ -11,22 +11,22 @@ The mark \* on dataset names shows
 the richness of attributes you may check them up with higher priority.
 
 <!-- :white_check_mark: -->
-<!--  -->
+<!-- :ballot_box_with_check: -->
 
 <center>
 
-|      | Time | uni. sensor | multi sensors | uni. alarm | multi alarms | RUL |　License |
+| | Timestamp | #Sensor | #Alarm | RUL |　License |
 | :--- | :--: | :--: | :--: | :--: | :--- |
-| ALPI*     | :white_check_mark: |   |  | :white_check_mark: | :white_check_mark: | CC-BY |
-| UFD       |  |  | :white_check_mark: |  | :white_check_mark: |  | Other |
+| ALPI*     | x |  | 140 | x | CC-BY |
+| UFD       |  | 37-52 | 4 |  | Other |
 | NASA-B    |  |  |  |  | Other |
 | CWRU-B    |  |  |  |  | CC-BY-SA |
-| MAPM*     | :white_check_mark: |  | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | Other |
-| HydSys*   | :white_check_mark: |  | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | Other |
+| MAPM*     | x | 4 | 5 | x | Other |
+| HydSys*   | x | 17 | 2-4 | x | Other |
 | PHM           |  |  |  |  | CC-BY |
-| GFD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: |  | CC-BY-SA |
-| PPD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: |  | CC-BY-SA |
-| GDD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: | :white_check_mark: | CC-BY-NC-SA |
+| GFD       | x | x | | x | CC-BY-SA |
+| PPD       | x | x | | x | CC-BY-SA |
+| GDD       | x | 5(1) | 3 | x | CC-BY-NC-SA |
 
 </center>
 
