@@ -10,20 +10,23 @@ where the marks show:
 The mark \* on dataset names shows
 the richness of attributes you may check them up with higher priority.
 
+<!-- :white_check_mark: -->
+<!--  -->
+
 <center>
 
-|      | Time | Sensors | Alarms  |  RUL |　License |
+|      | Time | uni. sensor | multi sensors | uni. alarm | multi alarms | RUL |　License |
 | :--- | :--: | :--: | :--: | :--: | :--- |
-| ALPI*          | x |   | m | x | CC-BY |
-| UFD           |   | m | m |  | Other |
-| NASA-B        |  |  |  |  | Other |
-| CWRU-B        |  |  |  |  | CC-BY-SA |
-| MAPM*          | x | m | m | x | Other |
-| HydSys*        | x | m | m | x | Other |
+| ALPI*     | :white_check_mark: |   |  | :white_check_mark: | :white_check_mark: | CC-BY |
+| UFD       |  |  | :white_check_mark: |  | :white_check_mark: |  | Other |
+| NASA-B    |  |  |  |  | Other |
+| CWRU-B    |  |  |  |  | CC-BY-SA |
+| MAPM*     | :white_check_mark: |  | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | Other |
+| HydSys*   | :white_check_mark: |  | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | Other |
 | PHM           |  |  |  |  | CC-BY |
-| GFD           | x | m | m |  | CC-BY-SA |
-| PPD          | x| m | u | x | CC-BY-SA |
-| GDD           |  |  |  |  | CC-BY-NC-SA |
+| GFD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: |  | CC-BY-SA |
+| PPD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: |  | CC-BY-SA |
+| GDD       | :white_check_mark: |  | :white_check_mark: | | :white_check_mark: | :white_check_mark: | CC-BY-NC-SA |
 
 </center>
 
