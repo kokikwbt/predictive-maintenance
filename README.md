@@ -1,14 +1,10 @@
 # Predictive Maintenance
 
-This repository is intended to enable quick access to datasets for predictive maintenance (PM) tasks.
+This repository is intended to enable quick access to datasets for predictive maintenance (PM) tasks (under development).
 The following table summarizes the available features,
-where the marks show:
-- `x`: satisfying availability
-- `u`: univariate features
-- `m`: multivariate features
-
-The mark \* on dataset names shows
+where the mark \* on dataset names shows
 the richness of attributes you may check them up with higher priority.
+Note that RUL means remaining useful life.
 
 <!-- :white_check_mark: -->
 <!-- :ballot_box_with_check: -->
@@ -37,9 +33,15 @@ Please put `datasets` directory into your workspace and import it like:
 ```python
 import datasets
 
-# Exmaple
-datasets.ufd.load_data()
+datasets.ufd.load_data()  # dataset-specific values will be returned
 ```
+
+Each dataset class has the following functions:
+- ```load_data(index)```:  
+    it loads dataset specified by 'index'.
+    Please see README.md in each dataset directory for more details.
+- ```gen_summary(outdir)```:
+    it produces a pdf file of full dataset visualization at ```outdir``` directory.
 
 ## Notebooks
 

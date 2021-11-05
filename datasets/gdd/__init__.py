@@ -133,7 +133,6 @@ def plot_genesis_nonlabels(df, figsize=(15, 20), cmap='tab10'):
 def gen_summary(outdir='../out'):
 
     os.makedirs(outdir, exist_ok=True)
-    fp = os.path.dirname(__file__)
     sns.set(font_scale=1.1, style='whitegrid')
 
     with PdfPages(outdir + '/gdd_summary.pdf') as pp:
