@@ -1,64 +1,57 @@
 import os
 import numpy as np
 import pandas as pd
+import tqdm
 
 
-def make_pressure_dataframe(fp, cycle_id=0):
-    """ 100 Hz. 6000 samples in each cycle
-    """
-    data = pd.DataFrame(columns=[f'PS{i+1}' for i in range(6)])
-    for i in range(6):
-        data[f'PS{i+1}'] = np.loadtxt(fp + f'/PS{i+1}.txt.gz')[cycle_id]
+def load_data(sensor=None, rw=0):
+    
+    if sensor is None:
+        # load full data
+        # rw is ignored to concatenate all sensor data
+        df = []
+        df.append(load_sensor_data('PS', rw=10))  # default length: 6000
+        df.append(load_sensor_data('EPS', rw=10))  # default length: 6000
+        df.append(load_sensor_data('FS', rw=0))  # default length: 600
+        # df.append(load_sensor_data('TS', rw=0))  # default length: 60
+        return pd.concat(df)
 
-    return data
+    else:
+        return load_sensor_data(sensor, rw)
+        
 
+def load_sensor_data(sensor, rw=0):
 
-def make_motor_power_dataframe(fp, cycle_id=0):
-    """ 100 Hz. 6000 samples in each cycle
-    """
-    return pd.DataFrame(np.loadtxt(fp + '/EPS1.txt.gz')[cycle_id], columns=['EPS1'])
-
-
-def make_volume_flow_dataframe(fp, cycle_id=0):
-    """ 10 Hz. 600 samples in each cycle
-    """
-    data = pd.DataFrame(columns=['FS1', 'FS2'])
-    data['FS1'] = np.loadtxt(fp + '/FS1.txt.gz')[cycle_id]
-    data['FS2'] = np.loadtxt(fp + '/FS2.txt.gz')[cycle_id]
-    return data
-
-
-def make_temp_dataframe(cycle_id=0):
-    """ 1 Hz. 60 samples in each cycle
-    """
+    data = []
+    sensor_list = get_sensor_list(sensor)
     fp = os.path.dirname(__file__)
-    data = pd.DataFrame(columns=[f'TS{i+1}' for i in range(4)])
-    data['TS1'] = np.loadtxt(fp + '/TS1.txt.gz')[cycle_id]
-    data['TS2'] = np.loadtxt(fp + '/TS2.txt.gz')[cycle_id]
-    data['TS3'] = np.loadtxt(fp + '/TS3.txt.gz')[cycle_id]
-    data['TS4'] = np.loadtxt(fp + '/TS4.txt.gz')[cycle_id]
-    return data
+
+    for name in tqdm.tqdm(sensor_list, desc=sensor):
+        df = pd.DataFrame(np.loadtxt(fp + f'/{name}.txt.gz'))
+        df = resample(df, rw)
+        df['sensor'] = name
+        df['cycle'] = df.index.values
+        data.append(df)
+
+    return pd.concat(data).set_index(['cycle', 'sensor']).reset_index()
 
 
-def make_vibration_dataframe(cycle_id=0):
-    fp = os.path.dirname(__file__)
-    return pd.DataFrame(np.loadtxt(fp + '/VS1.txt.gz')[cycle_id], columns=['VS1'])
+def get_sensor_list(name):
+    if name == 'PS':
+        return [f'PS{i+1}' for i in range(6)]
+    elif name == 'EPS':
+        return ['EPS1']
+    elif name == 'FS':
+        return [f'FS{i+1}' for i in range(2)]
+    elif name == 'TS':
+        return [f'TS{i+1}' for i in range(4)]
+    elif name == 'VS':
+        return ['VS1']
+    else:
+        raise ValueError
 
 
-def make_efficiency_dataframe(cycle_id=0):
-    fp = os.path.dirname(__file__)
-    return pd.DataFrame(np.loadtxt(fp + '/SE.txt.gz')[cycle_id], columns=['SE'])
-
-
-def make_cooling_dataframe(cycle_id=0):
-    fp = os.path.dirname(__file__)
-    data = pd.DataFrame(columns=['CE', 'CP'])
-    data['CE'] = np.loadtxt(fp + '/CE.txt.gz')[cycle_id]
-    data['CP'] = np.loadtxt(fp + '/CP.txt.gz')[cycle_id]
-    return data
-
-
-def make_condition_dataframe():
+def load_labels():
     fp = os.path.dirname(__file__)
     return pd.DataFrame(np.loadtxt(fp + '/profile.txt'),
         columns=[
@@ -68,5 +61,16 @@ def make_condition_dataframe():
             'hydraulic_accumulator',
             'stable_flag']).reset_index().rename(
                 columns={'index': 'cycle'})
+
+
+def resample(df, rw=0):
+    if rw > 0:
+        # Resampling
+        df = df.T
+        df['index'] = df.index.values // rw
+        df = df.groupby('index').mean()
+        df = df.T
+
+    return df
 
 
