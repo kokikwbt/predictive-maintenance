@@ -130,7 +130,10 @@ def plot_genesis_nonlabels(df, figsize=(15, 20), cmap='tab10'):
     return fig, ax
 
 
-def gen_summary(outdir='../out'):
+def gen_summary(outdir=None):
+
+    if outdir is None:
+        outdir = os.path.dirname(__file__)
 
     os.makedirs(outdir, exist_ok=True)
     sns.set(font_scale=1.1, style='whitegrid')

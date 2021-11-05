@@ -67,7 +67,7 @@ def rename_components(df):
     return df
 
 
-def gen_summary(outdir='../out'):
+def gen_summary(outdir=None):
 
     if outdir is None:
         outdir = os.path.dirname(__file__)
