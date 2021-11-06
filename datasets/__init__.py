@@ -1,5 +1,6 @@
 from . import alpi
 from . import cbm
+from . import cmapss
 from . import gdd
 from . import gfd
 from . import hydsys

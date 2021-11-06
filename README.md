@@ -16,6 +16,7 @@ Note that RUL means remaining useful life.
 | ALPI*     | x |  | 140 | x | CC-BY |
 | UFD       |  | 37-52 | 4 |  | Other |
 | NASA-B    |  |  |  |  | Other |
+| CMAPSS    | x | 26 | 2-6 | x | CC0: Public Domain |
 | CWRU-B    |  |  |  |  | CC-BY-SA |
 | MAPM*     | x | 4 | 5 | x | Other |
 | HydSys*   | x | 17 | 2-4 | x | Other |
@@ -70,6 +71,8 @@ There are Jupyter notebooks for all datasets, which may help interactive process
 [https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics](https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics)
 1. NASA Bearing Dataset:  
 [https://www.kaggle.com/vinayak123tyagi/bearing-dataset](https://www.kaggle.com/vinayak123tyagi/bearing-dataset)
+1. CMAPSS: NASA Turbofan Jet Engine Data Set:  
+[https://www.kaggle.com/behrad3d/nasa-cmaps](https://www.kaggle.com/behrad3d/nasa-cmaps) 
 1. CWRU Bearing Dataset:  
 [https://www.kaggle.com/brjapon/cwru-bearing-datasets](https://www.kaggle.com/brjapon/cwru-bearing-datasets)
 1. MAPM: Microsoft Azure Predictive Maintenance:  
