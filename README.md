@@ -14,18 +14,19 @@ Note that RUL means remaining useful life.
 | | Timestamp | #Sensor | #Alarm | RUL |　License |
 | :--- | :--: | :--: | :--: | :--: | :--- |
 | ALPI*     | x |  | 140 | x | CC-BY |
-| UFD       |  | 37-52 | 4 |  | Other |
-| NASA-B    |  |  |  |  | Other |
+| CBM       | x | 15 | 3 | x | Other |
 | CMAPSS    | x | 26 | 2-6 | x | CC0: Public Domain |
-| CWRU-B    |  |  |  |  | CC-BY-SA |
-| MAPM*     | x | 4 | 5 | x | Other |
-| HydSys*   | x | 17 | 2-4 | x | Other |
-| PHM           |  |  |  |  | CC-BY |
-| GFD       | x | x | | x | CC-BY-SA |
-| PPD       | x | x | | x | CC-BY-SA |
 | GDD       | x | 5(1) | 3 | x | CC-BY-NC-SA |
+| GFD       | x | 4 | 2 |  | CC-BY-SA |
+| HydSys*   | x | 17 | 2-4 | x | Other |
+| MAPM*     | x | 4 | 5 | x | Other |
+| PPD       | x | x | | x | CC-BY-SA |
+| UFD       |  | 37-52 | 4 |  | Other |
 
 </center>
+
+<!-- | NASA-B    |  |  |  |  | Other |
+| CWRU-B    |  |  |  |  | CC-BY-SA | -->
 
 ## Usage
 
@@ -34,15 +35,19 @@ Please put `datasets` directory into your workspace and import it like:
 ```python
 import datasets
 
-datasets.ufd.load_data()  # dataset-specific values will be returned
+# Dataset-specific values will be returned
+datasets.ufd.load_data()
+
+# A visualization pdf will be generated
+datasets.ufd.gen_summary()
 ```
 
 Each dataset class has the following functions:
 - ```load_data(index)```:  
-    it loads dataset specified by 'index'.
+    Dataset loading specified by 'index'.
     Please see README.md in each dataset directory for more details.
-- ```gen_summary(outdir)```:
-    it produces a pdf file of full dataset visualization at ```outdir``` directory.
+- ```gen_summary(outdir)```:  
+    PDF file generation for full dataset visualization.
 
 ## Notebooks
 
@@ -67,33 +72,38 @@ There are Jupyter notebooks for all datasets, which may help interactive process
 
 1. ALPI: Diego Tosato, Davide Dalle Pezze, Chiara Masiero, Gian Antonio Susto, Alessandro Beghi, 2020. Alarm Logs in Packaging Industry (ALPI).  
 [https://dx.doi.org/10.21227/nfv6-k750](https://dx.doi.org/10.21227/nfv6-k750)
-1. UFD: Ultrasonic flowmeter diagnostics Data Set:  
-[https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics](https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics)
-1. NASA Bearing Dataset:  
-[https://www.kaggle.com/vinayak123tyagi/bearing-dataset](https://www.kaggle.com/vinayak123tyagi/bearing-dataset)
+1. CBM: Condition Based Maintenance of Naval Propulsion Plants Data Set  
+[http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants](http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants)
 1. CMAPSS: NASA Turbofan Jet Engine Data Set:  
 [https://www.kaggle.com/behrad3d/nasa-cmaps](https://www.kaggle.com/behrad3d/nasa-cmaps) 
-1. CWRU Bearing Dataset:  
-[https://www.kaggle.com/brjapon/cwru-bearing-datasets](https://www.kaggle.com/brjapon/cwru-bearing-datasets)
-1. MAPM: Microsoft Azure Predictive Maintenance:  
-[https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance](https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance)
-1. HydSys: Predictive Maintenance Of Hydraulics System:  
-[https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems](https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems)
-1. GFD: Gearbox Fault Diagnosis:  
-[https://www.kaggle.com/brjapon/gearbox-fault-diagnosis](https://www.kaggle.com/brjapon/gearbox-fault-diagnosis)
-1. PPD: Production Plant Data for Condition Monitoring:  
-[https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring](https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring)
 1. GDD: Genesis demonstrator data for machine learning:  
 [https://www.kaggle.com/inIT-OWL/genesis-demonstrator-data-for-machine-learning](https://www.kaggle.com/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
-
-<!-- 1. Condition Based Maintenance (CBM) of Naval Propulsion Plants Data Set  
-[http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants](http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants) -->
+1. GFD: Gearbox Fault Diagnosis:  
+[https://www.kaggle.com/brjapon/gearbox-fault-diagnosis](https://www.kaggle.com/brjapon/gearbox-fault-diagnosis)
+1. HydSys: Predictive Maintenance Of Hydraulics System:  
+[https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems](https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems)
+1. MAPM: Microsoft Azure Predictive Maintenance:  
+[https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance](https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance)
+1. PPD: Production Plant Data for Condition Monitoring:  
+[https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring](https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring)
+1. UFD: Ultrasonic flowmeter diagnostics Data Set:  
+[https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics](https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics)
 
 
 ### TODO
 
 1. Birkl, Christoph. Oxford Battery Degradation Dataset 1. University of Oxford, 2017.  
 [https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
+1. Lu, Jiahuan; Xiong, Rui; Tian, Jinpeng; Wang, Chenxu; Hsu, Chia-Wei; Tsou, Nien-Ti; Sun, Fengchun; Li, Ju (2021), “Battery Degradation Dataset (Fixed Current Profiles＆Arbitrary Uses Profiles)”, Mendeley Data, V2.  
+[https://data.mendeley.com/datasets/kw34hhw7xg/2](https://data.mendeley.com/datasets/kw34hhw7xg/2)
+1. One Year Industrial Component Degradation  
+[https://www.kaggle.com/inIT-OWL/one-year-industrial-component-degradation](https://www.kaggle.com/inIT-OWL/one-year-industrial-component-degradation)
+1. Vega shrink-wrapper component degradation  
+[https://www.kaggle.com/inIT-OWL/vega-shrinkwrapper-runtofailure-data](https://www.kaggle.com/inIT-OWL/vega-shrinkwrapper-runtofailure-data)
+1. NASA Bearing Dataset:  
+[https://www.kaggle.com/vinayak123tyagi/bearing-dataset](https://www.kaggle.com/vinayak123tyagi/bearing-dataset)
+1. CWRU Bearing Dataset:  
+[https://www.kaggle.com/brjapon/cwru-bearing-datasets](https://www.kaggle.com/brjapon/cwru-bearing-datasets)
 
 
 ## License
