@@ -44,7 +44,7 @@ def gen_summary(outdir=None, st=0, ed=500, wd=20, hg=8):
 
     with PdfPages(outdir + '/gfd_summary.pdf') as pp:
         for label in ['h', 'b']:
-            for load in tqdm.trange(10, 100, 10, desc=label):
+            for load in tqdm.trange(0, 100, 10, desc=label):
                 fig, ax = plt.subplots(5)
 
                 plot_sequence(load_data(label=label, load=load), st=st, ed=ed, ax=ax[:4], figsize=(wd, hg), individual=True)
