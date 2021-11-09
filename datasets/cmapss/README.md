@@ -35,3 +35,10 @@ The data are provided as a zip-compressed text file with 26 columns of numbers, 
 "Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation",
 in the Proceedings of the Ist International Conference on Prognostics
 and Health Management (PHM08), Denver CO, Oct 2008.
+
+## Reference for analysis
+1. Heimes, Felix. (2008). Recurrent neural networks for remaining useful life estimation. 1 - 6. 10.1109/PHM.2008.4711422. 
+https://www.researchgate.net/publication/224358896_Recurrent_neural_networks_for_remaining_useful_life_estimation
+
+2.Lee, Jay. (2008). A Similarity-Based Prognostics Approach for Remaining Useful Life Estimation of Engineered Systems. 
+https://www.researchgate.net/publication/269167324_A_Similarity-Based_Prognostics_Approach_for_Remaining_Useful_Life_Estimation_of_Engineered_Systems
