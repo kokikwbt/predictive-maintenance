@@ -7,8 +7,10 @@ The dataset summary is as follows.
 | FD001 | 100 | 100 | 1 | 1 |
 | FD002 | 260 | 259 | 6 | 1 |
 | FD003 | 100 | 100 | 1 | 2 |
-| FD004 | 248 | 249 | 6 | 2 |
+| FD004 | 249※ | 248※ | 6 | 2 |
 
+※ In official data description, \# of trian and test tarajectories in FD004 are 248 and 249 respectively. 
+In fact, each of them are 249 and 248 in actual dataset.
 
 ## Experimental Scenario
 
@@ -36,9 +38,8 @@ The data are provided as a zip-compressed text file with 26 columns of numbers, 
 in the Proceedings of the Ist International Conference on Prognostics
 and Health Management (PHM08), Denver CO, Oct 2008.
 
-## Reference for analysis
+## Reference for analysis  
 1. Heimes, Felix. (2008). Recurrent neural networks for remaining useful life estimation. 1 - 6. 10.1109/PHM.2008.4711422. 
 https://www.researchgate.net/publication/224358896_Recurrent_neural_networks_for_remaining_useful_life_estimation
-
-2.Lee, Jay. (2008). A Similarity-Based Prognostics Approach for Remaining Useful Life Estimation of Engineered Systems. 
+2. Lee, Jay. (2008). A Similarity-Based Prognostics Approach for Remaining Useful Life Estimation of Engineered Systems. 
 https://www.researchgate.net/publication/269167324_A_Similarity-Based_Prognostics_Approach_for_Remaining_Useful_Life_Estimation_of_Engineered_Systems
