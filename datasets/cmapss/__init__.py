@@ -30,8 +30,8 @@ def load_data(index="FD004"):
         print("Fault Modes: TWO (HPC Degradation, Fan Degradation)\n")
 
     if index == "FD004":
-        print("Train trjectories: 248")
-        print("Test trajectories: 249")
+        print("Train trjectories: 249")
+        print("Test trajectories: 248")
         print("Conditions: SIX")
         print("Fault Modes: TWO (HPC Degradation, Fan Degradation)\n")
 
@@ -55,10 +55,38 @@ def load_data(index="FD004"):
 
     return train_set, test_set, labels
 
-
 def cleaning(df):
     raise NotImplementedError
 
 
 def load_clean_data():
     raise NotImplementedError
+
+def load_mesurement_list(
+    index="FD004", 
+    features=[2, 3, 4, 7, 11, 12 ,15],
+    ):
+    
+    """
+    * transform train_set and test_set into the lists of multivariate senser mesurements according to unit numbers.
+    * features: Applied features as default is follows as previous research, 
+    `A Similarity-Based Prognostics Approach for Remaining Useful Life Estimation of Engineered Systems'.
+    """
+    assert index in ["FD001", "FD002", "FD003", "FD004"]
+    train_set, test_set, labels = load_data(index=index)
+
+    refined_train_set =[]
+    for _, seq_df in train_set.groupby("unit number"):
+        seq_df  = seq_df.sort_values("time")
+        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index()
+        refined_train_set.append(ex_seq_df)
+
+    refined_test_set =[]
+    for _, seq_df in test_set.groupby("unit number"):
+        seq_df  = seq_df.sort_values("time")
+        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index()
+        refined_test_set.append(ex_seq_df)
+
+    return refined_train_set, refined_test_set, labels
+
+    
