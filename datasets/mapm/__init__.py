@@ -1,8 +1,10 @@
 import os
 import tqdm
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+from collections import Counter
 
 
 def load_data():
@@ -25,7 +27,6 @@ def load_data():
     data.datetime = pd.to_datetime(data.datetime)
 
     return data
-
 
 
 def cleaning(df):
@@ -51,6 +52,95 @@ def cleaning(df):
 
 def load_clean_data():
     return cleaning(load_data())
+
+
+def generate_run_to_failure(raw_data, health_cencor_aug=1000, seed=123, outfn=None):
+
+    run_to_failure = []
+    error_ids = raw_data.errorID.dropna().sort_values().unique().tolist()
+
+    for machine_id, g in tqdm.tqdm(raw_data.groupby('machineID'), desc='run-to-failure'):
+        g = g.set_index('datetime').sort_index()
+
+        start_date = g.index.values[0]
+        failures = g.loc[~g.failure.isnull()]
+
+        for event_time, event in failures.iterrows():
+            # Extracting a single cycle/process
+            cycle = g[start_date:event_time].drop('machineID', axis=1)
+
+            lifetime = (event_time - start_date).days
+            if lifetime < 1:
+                start_date = event_time
+                continue
+
+            numerical_features = cycle.agg(['min', 'max', 'mean']).unstack().reset_index()
+            numerical_features['feature'] = numerical_features.level_0.str.cat(numerical_features.level_1, sep='_')
+            numerical_features = numerical_features.pivot_table(columns='feature', values=0)
+
+            categorical_features = pd.DataFrame(Counter(cycle.errorID), columns=error_ids, index=[0])
+
+            sample = pd.concat([numerical_features, categorical_features], axis=1)
+            sample[['machine_id', 'lifetime', 'broken']] = machine_id, lifetime, 1
+
+            run_to_failure.append(sample)
+            start_date = event_time
+
+    run_to_failure = pd.concat(run_to_failure, axis=0).fillna(0).reset_index(drop=True)
+    health_censors = cencoring_augmentation(raw_data, n_samples=health_cencor_aug, seed=seed)
+    run_to_failure = pd.concat([run_to_failure, health_censors])
+    # Shuffle
+    run_to_failure = run_to_failure.sample(frac=1, random_state=seed).reset_index(drop=True)
+    
+    if outfn is not None:
+        run_to_failure.to_csv(outfn, index=False)
+
+    return run_to_failure
+
+
+def cencoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetime=2, seed=123):
+
+    error_ids = raw_data.errorID.dropna().sort_values().unique().tolist()
+    np.random.seed(seed)
+    samples = []
+    pbar = tqdm.tqdm(total=n_samples, desc='augmentation')
+
+    while len(samples) < n_samples:
+        
+        cencor_timing = np.random.randint(min_lifetime, max_lifetime)
+        machine_id = np.random.randint(100) + 1
+        tmp = raw_data[raw_data.machineID == machine_id]
+        tmp = tmp.drop('machineID', axis=1).set_index('datetime').sort_index()
+
+        failures = tmp[~tmp.failure.isnull()]
+        if failures.shape[0] < 2:
+            continue
+
+        failure_id = np.random.randint(failures.shape[0])
+        failure = failures.iloc[failure_id]
+        event_time = failure.name
+        start_date = tmp.index.values[0] if failure_id == 0 else failures.iloc[failure_id - 1].name
+
+        # cencoring
+        cycle = tmp[start_date:event_time]
+        cycle = cycle.iloc[:cencor_timing]
+
+        if not cycle.shape[0] == cencor_timing:
+            continue
+
+        numerical_features = cycle.agg(['min', 'max', 'mean']).unstack().reset_index()
+        numerical_features['feature'] = numerical_features.level_0.str.cat(numerical_features.level_1, sep='_')
+        numerical_features = numerical_features.pivot_table(columns='feature', values=0)
+
+        categorical_features = pd.DataFrame(Counter(cycle.errorID), columns=error_ids, index=[0])
+
+        sample = pd.concat([numerical_features, categorical_features], axis=1)
+        sample[['machine_id', 'lifetime', 'broken']] = machine_id, cencor_timing, 0
+        samples.append(sample)
+        pbar.update(1)
+
+    pbar.close()
+    return pd.concat(samples).reset_index(drop=True).fillna(0)
 
 
 def plot_sequence_and_events(data, machine_id=1):

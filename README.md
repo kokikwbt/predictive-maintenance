@@ -49,9 +49,20 @@ Each dataset class has the following functions:
 - ```gen_summary(outdir)```:  
     PDF file generation for full dataset visualization.
 
+## Features
+
+### Run-to-Falure
+
+Run-to-Falure data require:
+- time column
+- event/cencoring column (categorical)
+- numerical/categorical feature columns (optional)
+
 ## Notebooks
 
-There are Jupyter notebooks for all datasets, which may help interactive processing and visualization of data.
+There are Jupyter notebooks for all datasets,
+which may help interactive data processing and visualization.
+
 
 ## References
 
