@@ -32,6 +32,30 @@ The data are provided as a zip-compressed text file with 26 columns of numbers, 
 26)	sensor measurement  26
 ```
 
+### Sensor details  
+Each sensor mesurements are below:  
+1. T2 Total temperature at fan inlet °R  
+2. T24 Total temperature at LPC outlet °R  
+3. T30 Total temperature at HPC outlet °R    
+4. T50 Total temperature at LPT outlet °R  
+5. P2 Pressure at fan inlet psia  
+6. P15 Total pressure in bypass-duct psia  
+7. P30 Total pressure at HPC outlet psia  
+8. Nf Physical fan speed rpm
+9. Nc Physical core speed rpm  
+10. epr Engine pressure ratio (P50/P2) --  
+11. Ps30 Static pressure at HPC  
+12. outlet psia phi Ratio of fuel flow to Ps30 pps/psi  
+13. NRf Corrected fan speed rpm  
+14. NRc Corrected core speed rpm  
+15. BPR Bypass Ratio --  
+16. farB Burner fuel-air ratio --
+17. htBleed Bleed Enthalpy --
+18. Nf_dmd Demanded fan speed rpm
+19. PCNfR_dmd Demanded corrected fan speed rpm
+20. W31 HPT coolant bleed lbm/s
+21. W32 LPT coolant bleed lbm/s
+
 ## Reference
 1. A. Saxena, K. Goebel, D. Simon, and N. Eklund,
 "Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation",
@@ -43,3 +67,5 @@ and Health Management (PHM08), Denver CO, Oct 2008.
 https://www.researchgate.net/publication/224358896_Recurrent_neural_networks_for_remaining_useful_life_estimation
 2. Lee, Jay. (2008). A Similarity-Based Prognostics Approach for Remaining Useful Life Estimation of Engineered Systems. 
 https://www.researchgate.net/publication/269167324_A_Similarity-Based_Prognostics_Approach_for_Remaining_Useful_Life_Estimation_of_Engineered_Systems
+3. Malhotra, Pankaj & Tv, Vishnu & Ramakrishnan, Anusha & Anand, Gaurangi & Vig, Lovekesh & Agarwal, Puneet & Shroff, Gautam. (2016). Multi-Sensor Prognostics using an Unsupervised Health Index based on LSTM Encoder-Decoder. 1st SIGKDD Workshop on Machine Learning for Prognostics and Health Management. 
+https://www.researchgate.net/publication/306376888_Multi-Sensor_Prognostics_using_an_Unsupervised_Health_Index_based_on_LSTM_Encoder-Decoder

@@ -78,13 +78,13 @@ def load_mesurement_list(
     refined_train_set =[]
     for _, seq_df in train_set.groupby("unit number"):
         seq_df  = seq_df.sort_values("time")
-        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index()
+        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index(drop=True)
         refined_train_set.append(ex_seq_df)
 
     refined_test_set =[]
     for _, seq_df in test_set.groupby("unit number"):
         seq_df  = seq_df.sort_values("time")
-        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index()
+        ex_seq_df = seq_df[[f"sensor measurement {f_id}" for f_id in features]].reset_index(drop=True)
         refined_test_set.append(ex_seq_df)
 
     return refined_train_set, refined_test_set, labels
