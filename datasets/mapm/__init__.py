@@ -54,7 +54,9 @@ def load_clean_data():
     return cleaning(load_data())
 
 
-def generate_run_to_failure(raw_data, health_cencor_aug=1000, seed=123, outfn=None):
+def generate_run_to_failure(raw_data, health_cencor_aug=1000,
+                            min_lifetime=2, max_lifetime=300,
+                            seed=123, outfn=None):
 
     run_to_failure = []
     error_ids = raw_data.errorID.dropna().sort_values().unique().tolist()
@@ -87,8 +89,15 @@ def generate_run_to_failure(raw_data, health_cencor_aug=1000, seed=123, outfn=No
             start_date = event_time
 
     run_to_failure = pd.concat(run_to_failure, axis=0).fillna(0).reset_index(drop=True)
-    health_censors = cencoring_augmentation(raw_data, n_samples=health_cencor_aug, seed=seed)
+
+    health_censors = cencoring_augmentation(raw_data,
+        n_samples=health_cencor_aug,
+        min_lifetime=min_lifetime,
+        max_lifetime=max_lifetime,
+        seed=seed)
+
     run_to_failure = pd.concat([run_to_failure, health_censors])
+
     # Shuffle
     run_to_failure = run_to_failure.sample(frac=1, random_state=seed).reset_index(drop=True)
     

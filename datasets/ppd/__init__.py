@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -64,7 +65,54 @@ def rename_components(df):
     df = df.rename(columns={f'B_{i}': f'c6_val{i}' for i in range(1, 6)})
     df = df.rename(columns={f'C_{i}': f'c7_val{i}' for i in range(1, 6)})
 
+    return df[df.columns.sort_values()]
+
+
+def load_clean_data(index=0):
+    return rename_components(load_data(index=index))
+
+
+def set_broken_labels(df, size):
+    labels = np.zeros(df.shape[0])
+    labels[-size:] = 1
+    df['broken'] = labels
     return df
+
+
+def run_to_failure_aux(df, n_sample, desc=''):
+
+    seq_len = df.shape[0]
+    samples = []
+    pbar = tqdm.tqdm(total=n_sample, desc=desc)
+
+    while len(samples) < n_sample:
+        # random censoring
+        t = np.random.randint(seq_len)
+        sample = {'lifetime': t, 'broken': df.loc[t, 'broken']}
+        sample = pd.DataFrame(sample, index=[0])
+        features = df.iloc[:t].mean(axis=0)[:-1]
+        sample[features.keys()] = features.values
+        samples.append(sample)
+        # break
+        pbar.update(1)
+
+    return pd.concat(samples, axis=0).reset_index(drop=True)
+
+
+def generate_run_to_failure(n_sample=1000, bronken_holdout_steps=2000):
+
+    samples = []
+    print('Generating run-to-failure data:')
+
+    for index in range(8):
+        raw_df = load_clean_data(index=index).set_index('Timestamp')
+        raw_df = set_broken_labels(raw_df, size=bronken_holdout_steps)
+        sample = run_to_failure_aux(
+            raw_df, n_sample, desc=f'component {index+1}/8')
+        sample['trial_id'] = index
+        samples.append(sample)
+
+    return pd.concat(samples, axis=0).reset_index(drop=True)
 
 
 def gen_summary(outdir=None):
