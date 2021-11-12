@@ -54,7 +54,7 @@ def load_clean_data():
     return cleaning(load_data())
 
 
-def generate_run_to_failure(raw_data, health_cencor_aug=1000,
+def generate_run_to_failure(raw_data, health_censor_aug=1000,
                             min_lifetime=2, max_lifetime=300,
                             seed=123, outfn=None):
 
@@ -90,8 +90,8 @@ def generate_run_to_failure(raw_data, health_cencor_aug=1000,
 
     run_to_failure = pd.concat(run_to_failure, axis=0).fillna(0).reset_index(drop=True)
 
-    health_censors = cencoring_augmentation(raw_data,
-        n_samples=health_cencor_aug,
+    health_censors = censoring_augmentation(raw_data,
+        n_samples=health_censor_aug,
         min_lifetime=min_lifetime,
         max_lifetime=max_lifetime,
         seed=seed)
@@ -107,7 +107,7 @@ def generate_run_to_failure(raw_data, health_cencor_aug=1000,
     return run_to_failure
 
 
-def cencoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetime=2, seed=123):
+def censoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetime=2, seed=123):
 
     error_ids = raw_data.errorID.dropna().sort_values().unique().tolist()
     np.random.seed(seed)
@@ -116,7 +116,7 @@ def cencoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
 
     while len(samples) < n_samples:
         
-        cencor_timing = np.random.randint(min_lifetime, max_lifetime)
+        censor_timing = np.random.randint(min_lifetime, max_lifetime)
         machine_id = np.random.randint(100) + 1
         tmp = raw_data[raw_data.machineID == machine_id]
         tmp = tmp.drop('machineID', axis=1).set_index('datetime').sort_index()
@@ -130,11 +130,11 @@ def cencoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
         event_time = failure.name
         start_date = tmp.index.values[0] if failure_id == 0 else failures.iloc[failure_id - 1].name
 
-        # cencoring
+        # censoring
         cycle = tmp[start_date:event_time]
-        cycle = cycle.iloc[:cencor_timing]
+        cycle = cycle.iloc[:censor_timing]
 
-        if not cycle.shape[0] == cencor_timing:
+        if not cycle.shape[0] == censor_timing:
             continue
 
         numerical_features = cycle.agg(['min', 'max', 'mean']).unstack().reset_index()
@@ -144,7 +144,7 @@ def cencoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
         categorical_features = pd.DataFrame(Counter(cycle.errorID), columns=error_ids, index=[0])
 
         sample = pd.concat([numerical_features, categorical_features], axis=1)
-        sample[['machine_id', 'lifetime', 'broken']] = machine_id, cencor_timing, 0
+        sample[['machine_id', 'lifetime', 'broken']] = machine_id, censor_timing, 0
         samples.append(sample)
         pbar.update(1)
 
