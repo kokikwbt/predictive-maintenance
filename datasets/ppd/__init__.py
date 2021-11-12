@@ -87,7 +87,7 @@ def run_to_failure_aux(df, n_sample, desc=''):
 
     while len(samples) < n_sample:
         # random censoring
-        t = np.random.randint(seq_len)
+        t = np.random.randint(2, seq_len)
         sample = {'lifetime': t, 'broken': df.loc[t, 'broken']}
         sample = pd.DataFrame(sample, index=[0])
         features = df.iloc[:t].mean(axis=0)[:-1]
