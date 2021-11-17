@@ -69,3 +69,4 @@ https://www.researchgate.net/publication/224358896_Recurrent_neural_networks_for
 https://www.researchgate.net/publication/269167324_A_Similarity-Based_Prognostics_Approach_for_Remaining_Useful_Life_Estimation_of_Engineered_Systems
 3. Malhotra, Pankaj & Tv, Vishnu & Ramakrishnan, Anusha & Anand, Gaurangi & Vig, Lovekesh & Agarwal, Puneet & Shroff, Gautam. (2016). Multi-Sensor Prognostics using an Unsupervised Health Index based on LSTM Encoder-Decoder. 1st SIGKDD Workshop on Machine Learning for Prognostics and Health Management. 
 https://www.researchgate.net/publication/306376888_Multi-Sensor_Prognostics_using_an_Unsupervised_Health_Index_based_on_LSTM_Encoder-Decoder
+4. https://hal.archives-ouvertes.fr/hal-01324729/document
