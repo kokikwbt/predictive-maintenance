@@ -7,9 +7,9 @@ The dataset summary is as follows.
 | FD001 | 100 | 100 | 1 | 1 |
 | FD002 | 260 | 259 | 6 | 1 |
 | FD003 | 100 | 100 | 1 | 2 |
-| FD004 | 249※ | 248※ | 6 | 2 |
+| FD004 | 249* | 248* | 6 | 2 |
 
-※ In official data description, \# of trian and test tarajectories in FD004 are 248 and 249 respectively. 
+\* In official data description, \# of trian and test tarajectories in FD004 are 248 and 249 respectively. 
 In fact, each of them are 249 and 248 in actual dataset.
 
 ## Experimental Scenario

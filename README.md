@@ -13,12 +13,12 @@ Note that RUL means remaining useful life.
 
 | | Timestamp | #Sensor | #Alarm | RUL |　License |
 | :--- | :--: | :--: | :--: | :--: | :--- |
-| ALPI*     | x |  | 140 | x | CC-BY |
-| CBM       | x | 15 | 3 | x | Other |
+| ALPI*     | x |  | 140 |  | CC-BY |
+| CBM       | x | 15 | 3 |  | Other |
 | CMAPSS    | x | 26 | 2-6 | x | CC0: Public Domain |
-| GDD       | x | 5(1) | 3 | x | CC-BY-NC-SA |
+| GDD       | x | 5(1) | 3 |  | CC-BY-NC-SA |
 | GFD       | x | 4 | 2 |  | CC-BY-SA |
-| HydSys*   | x | 17 | 2-4 | x | Other |
+| HydSys*   | x | 17 | 2-4 |  | Other |
 | MAPM*     | x | 4 | 5 | x | Other |
 | PPD       | x | x | | x | CC-BY-SA |
 | UFD       |  | 37-52 | 4 |  | Other |
@@ -27,6 +27,11 @@ Note that RUL means remaining useful life.
 
 <!-- | NASA-B    |  |  |  |  | Other |
 | CWRU-B    |  |  |  |  | CC-BY-SA | -->
+
+## Installation
+
+- Python=3.7
+- pandas=1.1.2
 
 ## Usage
 
@@ -92,7 +97,7 @@ which may help interactive data processing and visualization.
 1. GFD: Gearbox Fault Diagnosis:  
 [https://www.kaggle.com/brjapon/gearbox-fault-diagnosis](https://www.kaggle.com/brjapon/gearbox-fault-diagnosis)
 1. HydSys: Predictive Maintenance Of Hydraulics System:  
-[https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems](https://www.kaggle.com/mayank1897/condition-monitoring-of-hydraulic-systems)
+[https://archive.ics.uci.edu/ml/datasets/Condition+monitoring+of+hydraulic+systems](https://archive.ics.uci.edu/ml/datasets/Condition+monitoring+of+hydraulic+systems)
 1. MAPM: Microsoft Azure Predictive Maintenance:  
 [https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance](https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance)
 1. PPD: Production Plant Data for Condition Monitoring:  
