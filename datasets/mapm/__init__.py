@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from collections import Counter
+from sklearn import model_selection
 
 
 def load_data():
@@ -150,6 +151,35 @@ def censoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
 
     pbar.close()
     return pd.concat(samples).reset_index(drop=True).fillna(0)
+
+
+def load_validation_sets(method='kfold', n_splits=5, n_sampling=1000, seed=123):
+
+    validation_sets = []
+
+    if method == 'kfold':
+        # K-fold cross validation
+        assert type(n_splits) == int
+        assert n_splits > 2
+
+        raw_data = load_data()
+        censored_data = generate_run_to_failure(raw_data,
+            health_censor_aug=n_sampling, seed=seed)
+
+        # Shuffle has been already performed
+        # while converting the original data
+        # to run-to-failure datasets
+        for train_index, test_index in model_selection.KFold(
+            n_splits=n_splits).split(censored_data):
+
+            validation_sets.append((
+                censored_data.iloc[train_index].copy(),
+                censored_data.iloc[test_index].copy()))
+    
+    elif method == 'leave-one-out':
+        raise NotImplementedError
+    
+    return validation_sets
 
 
 def plot_sequence_and_events(data, machine_id=1):
