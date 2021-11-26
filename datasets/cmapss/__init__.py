@@ -202,3 +202,34 @@ def leave_one_out(target='run-to-failure',
         subsets[subsets.fold == i].reset_index(drop=True)) for i in range(4)]
 
     return train_test_sets
+
+
+def generate_validation_sets(method='leave-one-out', n_splits=5, seed=123, outdir=None):
+    validation_sets = []
+
+    if method == 'kfold':
+        raise NotImplementedError
+
+    elif method == 'leave-one-out':
+        validation_sets = leave_one_out(target='run-to-failure',
+                                        health_censor_aug=1000,
+                                        seed=seed)
+
+        if outdir is not None:
+            for i, (train_data, test_data) in enumerate(validation_sets):
+                train_data.to_csv(outdir + f'/train_{i}.csv.gz', index=False)
+                test_data.to_csv(outdir + f'/test_{i}.csv.gz', index=False)        
+
+    return validation_sets
+
+
+def load_validation_sets(filepath, method='leave-one-out', n_splits=5):
+    if method == 'kfold':
+        return [(pd.read_csv(filepath + f'/train_{i}.csv.gz'),
+                 pd.read_csv(filepath + f'/test_{i}.csv.gz'))
+                 for i in range(n_splits)]
+
+    elif method == 'leave-one-out':
+        return [(pd.read_csv(filepath + f'/train_{i}.csv.gz'),
+                 pd.read_csv(filepath + f'/test_{i}.csv.gz'))
+                 for i in range(4)]

@@ -56,7 +56,7 @@ def load_clean_data():
 
 
 def generate_run_to_failure(raw_data, health_censor_aug=1000,
-                            min_lifetime=2, max_lifetime=300,
+                            min_lifetime=10, max_lifetime=300,
                             seed=123, outfn=None):
 
     run_to_failure = []
@@ -89,7 +89,7 @@ def generate_run_to_failure(raw_data, health_censor_aug=1000,
             run_to_failure.append(sample)
             start_date = event_time
 
-    run_to_failure = pd.concat(run_to_failure, axis=0).fillna(0).reset_index(drop=True)
+    run_to_failure = pd.concat(run_to_failure, axis=0).reset_index(drop=True)
 
     health_censors = censoring_augmentation(raw_data,
         n_samples=health_censor_aug,
@@ -101,6 +101,7 @@ def generate_run_to_failure(raw_data, health_censor_aug=1000,
 
     # Shuffle
     run_to_failure = run_to_failure.sample(frac=1, random_state=seed).reset_index(drop=True)
+    run_to_failure = run_to_failure.fillna(0.)
     
     if outfn is not None:
         run_to_failure.to_csv(outfn, index=False)
@@ -138,7 +139,7 @@ def censoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
         if not cycle.shape[0] == censor_timing:
             continue
 
-        numerical_features = cycle.agg(['min', 'max', 'mean']).unstack().reset_index()
+        numerical_features = cycle.agg(['min', 'max', 'mean', 'std']).unstack().reset_index()
         numerical_features['feature'] = numerical_features.level_0.str.cat(numerical_features.level_1, sep='_')
         numerical_features = numerical_features.pivot_table(columns='feature', values=0)
 
@@ -153,7 +154,7 @@ def censoring_augmentation(raw_data, n_samples=10, max_lifetime=150, min_lifetim
     return pd.concat(samples).reset_index(drop=True).fillna(0)
 
 
-def load_validation_sets(method='kfold', n_splits=5, n_sampling=1000, seed=123):
+def generate_validation_sets(method='kfold', n_splits=5, seed=123, outdir=None):
 
     validation_sets = []
 
@@ -163,23 +164,42 @@ def load_validation_sets(method='kfold', n_splits=5, n_sampling=1000, seed=123):
         assert n_splits > 2
 
         raw_data = load_data()
-        censored_data = generate_run_to_failure(raw_data,
-            health_censor_aug=n_sampling, seed=seed)
 
-        # Shuffle has been already performed
-        # while converting the original data
-        # to run-to-failure datasets
-        for train_index, test_index in model_selection.KFold(
-            n_splits=n_splits).split(censored_data):
+        kfold = model_selection.KFold(n_splits=n_splits, shuffle=True, random_state=seed)
+        for i, (train_index, test_index) in enumerate(kfold.split(np.arange(100))):
+            
+            print('K-fold {}/{}'.format(i+1, n_splits))
+            # train/test split by machine ID
+            train_machines = raw_data[raw_data.machineID.isin(train_index)]
+            test_machines = raw_data[raw_data.machineID.isin(test_index)]
+            # print('train:', train_machines.shape)
+            # print('test:', test_machines.shape)
 
-            validation_sets.append((
-                censored_data.iloc[train_index].copy(),
-                censored_data.iloc[test_index].copy()))
-    
+            # convert the two sets into run-to-failure data
+            train_censored_data = generate_run_to_failure(
+                train_machines, health_censor_aug=len(train_index)*10, seed=seed)
+            test_consored_data = generate_run_to_failure(
+                test_machines, health_censor_aug=len(test_index)*10, seed=seed)
+
+            # print('train:', train_censored_data.shape)
+            # print('test:', test_consored_data.shape)
+
+            validation_sets.append((train_censored_data, test_consored_data))
+
+            if outdir is not None:
+                train_censored_data.to_csv(outdir + f'/train_{i}.csv.gz', index=False)
+                test_consored_data.to_csv(outdir + f'/test_{i}.csv.gz', index=False)
+
     elif method == 'leave-one-out':
         raise NotImplementedError
-    
+
     return validation_sets
+
+
+def load_validation_sets(filepath, n_splits=5):
+    return [(pd.read_csv(filepath + f'/train_{i}.csv.gz'),
+             pd.read_csv(filepath + f'/test_{i}.csv.gz'))
+             for i in range(n_splits)]
 
 
 def plot_sequence_and_events(data, machine_id=1):
