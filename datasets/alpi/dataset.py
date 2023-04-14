@@ -11,12 +11,12 @@ import time
 from scipy import sparse
 from sklearn.model_selection import train_test_split
 
-FAMILY = 'MACHINE_TYPE_00'
+FAMILY = "MACHINE_TYPE_00"
 
 
 # UTILS
 def zip_dir(dir_path, zip_path):
-    shutil.make_archive(zip_path, 'zip', dir_path)
+    shutil.make_archive(zip_path, "zip", dir_path)
 
 
 def drop_files(dir_path, extension):
@@ -27,7 +27,9 @@ def drop_files(dir_path, extension):
 
 
 def prune(alarms):
-    return alarms.loc[alarms.alarm.shift() != alarms.alarm].alarm.values.astype('uint16')
+    return alarms.loc[alarms.alarm.shift() != alarms.alarm].alarm.values.astype(
+        "uint16"
+    )
 
 
 def prune_series(seq):
@@ -38,24 +40,24 @@ def prune_series(seq):
 
 def padding_sequence(seq, sequence_length):
     new_seq = np.zeros(sequence_length)
-    new_seq[sequence_length - len(seq):] = seq
+    new_seq[sequence_length - len(seq) :] = seq
     return new_seq
 
 
 def return_variables(params):
-    window_input = params['window_input']
-    window_output = params['window_output']
-    offset = params['offset']
-    verbose = params['verbose']
-    store_path = params['store_path']  # store_path is used to save data
-    min_count = params['min_count']
-    sigma = params['sigma']
+    window_input = params["window_input"]
+    window_output = params["window_output"]
+    offset = params["offset"]
+    verbose = params["verbose"]
+    store_path = params["store_path"]  # store_path is used to save data
+    min_count = params["min_count"]
+    sigma = params["sigma"]
     return window_input, window_output, offset, verbose, store_path, min_count, sigma
 
 
 def find_serials_offsets(store_path):
     filepath = store_path + "/" + store_path.split("/")[-1] + ".config"
-    with open(filepath, 'rb') as f:
+    with open(filepath, "rb") as f:
         serials, offsets = pickle.load(f)
     return serials, offsets
 
@@ -78,31 +80,40 @@ def return_index(date_range, target):
 
 
 def create_params_list(data_path, params, verbose=True):
-    windows_input = params['windows_input']
-    windows_output = params['windows_output']
-    min_counts = params['min_counts']
-    sigmas = params['sigmas']
-    offsets = params['offsets']
+    windows_input = params["windows_input"]
+    windows_output = params["windows_output"]
+    min_counts = params["min_counts"]
+    sigmas = params["sigmas"]
+    offsets = params["offsets"]
     params_list = []
-    dir_template = data_path + '/' + FAMILY + \
-        '_alarms_window_input_{window_input}_window_output_{window_output}_offset_{offset}_min_count_{min_count}_sigma_{sigma}'
+    dir_template = (
+        data_path
+        + "/"
+        + FAMILY
+        + "_alarms_window_input_{window_input}_window_output_{window_output}_offset_{offset}_min_count_{min_count}_sigma_{sigma}"
+    )
     for window_input in windows_input:
         for window_output in windows_output:
             for min_count in min_counts:
                 for sigma in sigmas:
                     for offset in offsets:
                         store_path = dir_template.format(
-                            window_input=window_input, window_output=window_output, offset=offset, min_count=min_count, sigma=sigma)
+                            window_input=window_input,
+                            window_output=window_output,
+                            offset=offset,
+                            min_count=min_count,
+                            sigma=sigma,
+                        )
                         if not os.path.isdir(store_path):
                             os.makedirs(store_path)
                         params = {
-                            'window_input': window_input,
-                            'window_output': window_output,
-                            'offset': offset,
-                            'min_count': min_count,
-                            'sigma': sigma,
-                            'verbose': verbose,
-                            'store_path': store_path
+                            "window_input": window_input,
+                            "window_output": window_output,
+                            "offset": offset,
+                            "min_count": min_count,
+                            "sigma": sigma,
+                            "verbose": verbose,
+                            "store_path": store_path,
                         }
                         params_list.append(params)
     return params_list
@@ -114,8 +125,7 @@ def create_params_list(data_path, params, verbose=True):
 def generate_dataset_by_serial_offset(data, params, current_offset):
     data["current_offset"] = current_offset
     current_offset = datetime.timedelta(minutes=current_offset)
-    window_input, window_output, _, _, _, _, _ = return_variables(
-        params)
+    window_input, window_output, _, _, _, _, _ = return_variables(params)
 
     min_timestamp = data.index.min()
     min_timestamp += current_offset
@@ -123,24 +133,28 @@ def generate_dataset_by_serial_offset(data, params, current_offset):
 
     # create date range for input
     date_range = pd.date_range(
-        start=min_timestamp, end=max_timestamp, freq=str(window_input) + "min")
+        start=min_timestamp, end=max_timestamp, freq=str(window_input) + "min"
+    )
     date_range = [d for d in date_range]
 
     # create date range for output
     delta_in = datetime.timedelta(minutes=window_input)
     delta_out = datetime.timedelta(minutes=window_output)
-    date_range_output = [(d + delta_in, d + delta_in + delta_out)
-                         for d in date_range]  # ranges of outputs
+    date_range_output = [
+        (d + delta_in, d + delta_in + delta_out) for d in date_range
+    ]  # ranges of outputs
     date_range_output = np.asarray(date_range_output).reshape(1, -1)[0]
 
     # create samples
     series = pd.Series(data.index).apply(
-        lambda target: return_index(date_range, target))
+        lambda target: return_index(date_range, target)
+    )
     series.index = data.index
     data["bin_input"] = series
 
     series = pd.Series(data.index).apply(
-        lambda target: return_index_output(date_range_output, target))
+        lambda target: return_index_output(date_range_output, target)
+    )
     series.index = data.index
     data["bin_output"] = series
 
@@ -149,14 +163,14 @@ def generate_dataset_by_serial_offset(data, params, current_offset):
     unique2 = data["bin_output"].unique()
     periods_id = list(set(unique1).intersection(set(unique2)) - set([-1]))
 
-    data = data[(data["bin_input"].isin(periods_id)) |
-                (data["bin_output"].isin(periods_id))]
+    data = data[
+        (data["bin_input"].isin(periods_id)) | (data["bin_output"].isin(periods_id))
+    ]
     return data
 
 
 def generate_dataset_by_serial(data, params):
-    window_input, _, offset, verbose, store_path, _, _ = return_variables(
-        params)
+    window_input, _, offset, verbose, store_path, _, _ = return_variables(params)
     serial = data["serial"][0]
     if verbose:
         print("serial: ", serial)
@@ -164,9 +178,9 @@ def generate_dataset_by_serial(data, params):
     offsets = list(range(0, window_input, offset))
     offset_data = []
     for current_offset in offsets:
-        df_offset = generate_dataset_by_serial_offset(data.copy(),
-                                                      params,
-                                                      current_offset)
+        df_offset = generate_dataset_by_serial_offset(
+            data.copy(), params, current_offset
+        )
         offset_data.append(df_offset)
     dataset = pd.concat(offset_data)
     if verbose:
@@ -176,13 +190,14 @@ def generate_dataset_by_serial(data, params):
 
 
 def generate_dataset(data, params):
-    grouped_data = data.groupby('serial')
+    grouped_data = data.groupby("serial")
     for _, data_serial in grouped_data:
         generate_dataset_by_serial(data_serial, params)
     return
 
 
 # PHASE 2
+
 
 def prune_dataset(params):
     _, _, _, _, store_path, _, _ = return_variables(params)
@@ -198,8 +213,7 @@ def prune_dataset(params):
 
 
 def prune_df(df, serial_id, params):
-    _, _, offset, verbose, store_path, min_count, _ = return_variables(
-        params)
+    _, _, offset, verbose, store_path, min_count, _ = return_variables(params)
 
     offsets = df["current_offset"].unique()
     for offset in offsets:
@@ -215,27 +229,37 @@ def prune_df(df, serial_id, params):
         periods_id = list(set(unique1).intersection(set(unique2)) - set([-1]))
         periods_id.sort()  # temporal sorting
 
-        diz_input = {bin_id: group.alarm.sort_index(
-        ).values for bin_id, group in groups_input if bin_id in periods_id}
-        diz_output = {bin_id: group.alarm.sort_index(
-        ).values for bin_id, group in groups_output if bin_id in periods_id}
+        diz_input = {
+            bin_id: group.alarm.sort_index().values
+            for bin_id, group in groups_input
+            if bin_id in periods_id
+        }
+        diz_output = {
+            bin_id: group.alarm.sort_index().values
+            for bin_id, group in groups_output
+            if bin_id in periods_id
+        }
 
         # list of [seq_x,seq_y]
-        X_Y_offset = [[diz_input[bin_id], diz_output[bin_id]]
-                      for bin_id in periods_id]
+        X_Y_offset = [[diz_input[bin_id], diz_output[bin_id]] for bin_id in periods_id]
 
         # apply min_count: remove sequences with count<min_count
-        X_Y_offset = [seq for seq in X_Y_offset if len(
-            seq[0]) >= min_count and len(seq[1]) >= min_count]
+        X_Y_offset = [
+            seq
+            for seq in X_Y_offset
+            if len(seq[0]) >= min_count and len(seq[1]) >= min_count
+        ]
 
         # save list on file
         # for each (serial,offset) a different list is saved
         if verbose:
-            print("{} has length: {}".format(str(serial_id) +
-                                             "_offset_" + str(offset) + ".npz", len(X_Y_offset)))
-        filepath = store_path + "/" + \
-            str(serial_id) + "_offset_" + str(offset) + ".npz"
-        with open(filepath, 'wb') as f:
+            print(
+                "{} has length: {}".format(
+                    str(serial_id) + "_offset_" + str(offset) + ".npz", len(X_Y_offset)
+                )
+            )
+        filepath = store_path + "/" + str(serial_id) + "_offset_" + str(offset) + ".npz"
+        with open(filepath, "wb") as f:
             pickle.dump(X_Y_offset, f)
 
     return offsets
@@ -243,9 +267,18 @@ def prune_df(df, serial_id, params):
 
 # PHASE 3
 
-def create_final_dataset(params, serials, offsets, sequence_input_length, sequence_output_length, removal_alarms=None, relevance_alarms=None, file_tag='all_alarms'):
-    _, _, offset, verbose, store_path, _, sigma = return_variables(
-        params)
+
+def create_final_dataset(
+    params,
+    serials,
+    offsets,
+    sequence_input_length,
+    sequence_output_length,
+    removal_alarms=None,
+    relevance_alarms=None,
+    file_tag="all_alarms",
+):
+    _, _, offset, verbose, store_path, _, sigma = return_variables(params)
     padding_mode = "after"
     if "padding_mode" in params:
         padding_mode = params["padding_mode"]
@@ -266,24 +299,37 @@ def create_final_dataset(params, serials, offsets, sequence_input_length, sequen
         for offset in offsets:
             sentinel += 1
             if verbose:
-                print("{}/{}:  serial: {}  offset: {}".format(sentinel,
-                                                              tot_combo,
-                                                              serial,
-                                                              offset))
+                print(
+                    "{}/{}:  serial: {}  offset: {}".format(
+                        sentinel, tot_combo, serial, offset
+                    )
+                )
             filename = str(serial) + "_offset_" + str(offset) + ".npz"
             if filename in os.listdir(store_path):
                 file_path = os.path.join(store_path, filename)
-                with open(file_path, 'rb') as f:
+                with open(file_path, "rb") as f:
                     seqences = pickle.load(f)
                     if removal_alarms != None and len(removal_alarms) > 0:
-                        X = [[alarm for alarm in seq_x if (
-                            alarm not in removal_alarms and alarm != 0)] for seq_x, seq_y in seqences]
+                        X = [
+                            [
+                                alarm
+                                for alarm in seq_x
+                                if (alarm not in removal_alarms and alarm != 0)
+                            ]
+                            for seq_x, seq_y in seqences
+                        ]
                     else:
                         X = [seq_x for seq_x, seq_y in seqences]
 
                     if relevance_alarms != None and len(relevance_alarms) > 0:
-                        Y = [[alarm for alarm in seq_y if (
-                            alarm in relevance_alarms and alarm != 0)] for seq_x, seq_y in seqences]
+                        Y = [
+                            [
+                                alarm
+                                for alarm in seq_y
+                                if (alarm in relevance_alarms and alarm != 0)
+                            ]
+                            for seq_x, seq_y in seqences
+                        ]
                     else:
                         Y = [seq_y for seq_x, seq_y in seqences]
 
@@ -301,8 +347,9 @@ def create_final_dataset(params, serials, offsets, sequence_input_length, sequen
     lengths_Y = np.asarray(lengths_Y)
     mu_sequence_input_length = lengths_X.mean()
     std_sequence_input_length = lengths_X.std()
-    sequence_input_length = int(
-        mu_sequence_input_length + sigma * std_sequence_input_length) + 1
+    sequence_input_length = (
+        int(mu_sequence_input_length + sigma * std_sequence_input_length) + 1
+    )
     sequence_output_length = np.max(lengths_Y)
     sentinel = 0
     # it is iterated on all combinations of serials and offsets
@@ -314,28 +361,29 @@ def create_final_dataset(params, serials, offsets, sequence_input_length, sequen
 
         # PADDING
         if padding_mode == "after":
-            X = [np.pad(seq_x, (0, sequence_input_length - len(seq_x)))
-                 for seq_x in X]
-            Y = [np.pad(seq_y, (0, sequence_output_length - len(seq_y)))
-                 for seq_y in Y]
+            X = [np.pad(seq_x, (0, sequence_input_length - len(seq_x))) for seq_x in X]
+            Y = [np.pad(seq_y, (0, sequence_output_length - len(seq_y))) for seq_y in Y]
         elif padding_mode == "before":
             X = [padding_sequence(seq_x, sequence_input_length) for seq_x in X]
-            Y = [padding_sequence(seq_y, sequence_output_length)
-                 for seq_y in Y]
+            Y = [padding_sequence(seq_y, sequence_output_length) for seq_y in Y]
 
         if len(X) > 1:
             X_train, X_test, Y_train, Y_test = train_test_split(
-                X, Y, test_size=0.3, shuffle=False)
+                X, Y, test_size=0.3, shuffle=False
+            )
         else:
             X_train, X_test, Y_train, Y_test = [], [], [], []
 
-        stratify.append({
-            "serial": combos[sentinel][0],
-            "offset": combos[sentinel][1],
-            "X_train": len(X_train),
-            "X_test": len(X_test),
-            "Y_train": len(Y_train),
-            "Y_test": len(Y_test)})
+        stratify.append(
+            {
+                "serial": combos[sentinel][0],
+                "offset": combos[sentinel][1],
+                "X_train": len(X_train),
+                "X_test": len(X_test),
+                "Y_train": len(Y_train),
+                "Y_test": len(Y_test),
+            }
+        )
 
         cont += len(X_train) + len(X_test)
         X_train_tot += X_train
@@ -366,10 +414,19 @@ def create_final_dataset(params, serials, offsets, sequence_input_length, sequen
     stratify = stratify_new
 
     # Sparse Matrix
-    X_train, X_test, Y_train, Y_test = sparse.csr_matrix(X_train), sparse.csr_matrix(
-        X_test), sparse.csr_matrix(Y_train), sparse.csr_matrix(Y_test)
+    X_train, X_test, Y_train, Y_test = (
+        sparse.csr_matrix(X_train),
+        sparse.csr_matrix(X_test),
+        sparse.csr_matrix(Y_train),
+        sparse.csr_matrix(Y_test),
+    )
 
-    x_train_segments, x_test_segments, y_train_segments, y_test_segments = X_train, X_test, Y_train, Y_test
+    x_train_segments, x_test_segments, y_train_segments, y_test_segments = (
+        X_train,
+        X_test,
+        Y_train,
+        Y_test,
+    )
 
     if verbose:
         print(x_train_segments.shape)
@@ -378,19 +435,27 @@ def create_final_dataset(params, serials, offsets, sequence_input_length, sequen
         print(y_test_segments.shape)
 
     file_path = os.path.join(store_path, f"{file_tag}.pickle")
-    with open(file_path, 'wb') as f:
-        pickle.dump([x_train_segments, x_test_segments,
-                     y_train_segments, y_test_segments, stratify], f)
+    with open(file_path, "wb") as f:
+        pickle.dump(
+            [
+                x_train_segments,
+                x_test_segments,
+                y_train_segments,
+                y_test_segments,
+                stratify,
+            ],
+            f,
+        )
 
 
-def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
+def create_datasets(data, params_list, start_point=0, file_tag="all_alarms"):
     """
     Parameters:
         data : csv file of raw data
-        params_list: list of dictionaries i.e. params 
+        params_list: list of dictionaries i.e. params
                     each params is a dictionary with all parameters necessary to create the dataset
                     such as window_input, window_output, sigma, min_count,ecc.
-        start_point: it tells from which phase to start to create dataset(i.e. if start_point=2 then it is assumed that phase1 is executed) 
+        start_point: it tells from which phase to start to create dataset(i.e. if start_point=2 then it is assumed that phase1 is executed)
         file_tag: name of dataset
 
     There are 3 phases(start_point:1,2,3):
@@ -399,7 +464,7 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
              each file contains a list of x,y with pruning of consecutive alarms
     -PHASE3: some alarms in input are removed based on list associated with key 'removal_alarms' to variable params.
              only a subset of alarms in output is keeped based on a list associated with key 'relevance_alarms' to variable params.
-             Padding is performed based on values defined by keys 'sequence_input_length' and 'sequence_output_length' in params  
+             Padding is performed based on values defined by keys 'sequence_input_length' and 'sequence_output_length' in params
 
 
     Example:
@@ -415,7 +480,7 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
         #relevance_alarms =  [] <- only if you want to keep a subset of alrams in output
 
         #additional parameters for phase3, comment the section if you don't want to use it
-        for params in params_list:       
+        for params in params_list:
             params["removal_alarms"] = []
             params["relevance_alarms"] = []
 
@@ -424,7 +489,7 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
     """
 
     for params in params_list:
-        print('-- run ', params)
+        print("-- run ", params)
         verbose = params["verbose"]
         if verbose:
             print(params)
@@ -447,7 +512,7 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
             # save serials and offsets
             store_path = params["store_path"]
             filepath = store_path + "/" + store_path.split("/")[-1] + ".config"
-            with open(filepath, 'wb') as f:
+            with open(filepath, "wb") as f:
                 pickle.dump((serials, offsets), f)
 
         end = time.time()
@@ -474,9 +539,17 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
             if "removal_alarms" in params and "relevance_alarms" in params:
                 removal_alarms = params["removal_alarms"]
                 relevance_alarms = params["relevance_alarms"]
-            create_final_dataset(params, serials, offsets, sequence_input_length,
-                                 sequence_output_length, removal_alarms, relevance_alarms, file_tag)
-            drop_files(params["store_path"], '.csv')
+            create_final_dataset(
+                params,
+                serials,
+                offsets,
+                sequence_input_length,
+                sequence_output_length,
+                removal_alarms,
+                relevance_alarms,
+                file_tag,
+            )
+            drop_files(params["store_path"], ".csv")
         end = time.time()
         elapsed_time = end - start
         print("phase 3/3 elapsed Time: {}".format(elapsed_time))
@@ -484,10 +557,11 @@ def create_datasets(data, params_list, start_point=0, file_tag='all_alarms'):
 
 # POST BUILD
 
+
 def clean(data_path):
     for filename_dir in os.listdir(data_path):
         print("directory: ", filename_dir)
-        filepath_dir = data_path + '/' + filename_dir
+        filepath_dir = data_path + "/" + filename_dir
         if os.path.isdir(filepath_dir):
             cont_csv, cont_npz, cont_pickle = 0, 0, 0
             for filename in os.listdir(filepath_dir):
@@ -498,11 +572,14 @@ def clean(data_path):
                     cont_npz += os.stat(filepath).st_size
                 elif filename.endswith(".pickle"):
                     cont_pickle += os.stat(filepath).st_size
-            print("cont_csv: {}MB  cont_npz: {}MB   cont_pickle: {}MB ".format(
-                int(cont_csv / 1e6), int(cont_npz / 1e6), int(cont_pickle / 1e6)))
+            print(
+                "cont_csv: {}MB  cont_npz: {}MB   cont_pickle: {}MB ".format(
+                    int(cont_csv / 1e6), int(cont_npz / 1e6), int(cont_pickle / 1e6)
+                )
+            )
     for filename_dir in os.listdir(data_path):
         print("prune directory ", filename_dir)
-        filepath_dir = data_path + '/' + filename_dir
+        filepath_dir = data_path + "/" + filename_dir
         if os.path.isdir(filepath_dir):
             for filename in os.listdir(filepath_dir):
                 filepath = filepath_dir + "/" + filename
@@ -515,7 +592,7 @@ def clean(data_path):
 
 
 def convert_to_json(store_path, filename, verbose=0):
-    """ 
+    """
     function to convert pickle dataset in json format which will have same name of original dataset
     but with json extension and stored in the same path of the original dataset
 
@@ -531,9 +608,14 @@ def convert_to_json(store_path, filename, verbose=0):
     """
     # load dataset
     filepath = os.path.join(store_path, filename)
-    with open(filepath, 'rb') as f:
-        x_train_segments, x_test_segments, y_train_segments, y_test_segments, stratify = pickle.load(
-            f)
+    with open(filepath, "rb") as f:
+        (
+            x_train_segments,
+            x_test_segments,
+            y_train_segments,
+            y_test_segments,
+            stratify,
+        ) = pickle.load(f)
 
     x_train_segments = x_train_segments.toarray()
     x_test_segments = x_test_segments.toarray()
@@ -559,38 +641,42 @@ def convert_to_json(store_path, filename, verbose=0):
         print("serials_test.shape: ", len(stratify["test"]))
 
     diz = {}
-    for i, (seq_x, seq_y, serial_id) in enumerate(zip(x_train_segments, y_train_segments, stratify["train"]), start=1):
-        key = "sample"+str(i)
+    for i, (seq_x, seq_y, serial_id) in enumerate(
+        zip(x_train_segments, y_train_segments, stratify["train"]), start=1
+    ):
+        key = "sample" + str(i)
         diz[key] = {}
         diz[key]["x_train"] = seq_x
         diz[key]["y_train"] = seq_y
         diz[key]["serial"] = serial_id
 
-    for i, (seq_x, seq_y, serial_id) in enumerate(zip(x_test_segments, y_test_segments, stratify["test"]), start=i+1):
-        key = "sample"+str(i)
+    for i, (seq_x, seq_y, serial_id) in enumerate(
+        zip(x_test_segments, y_test_segments, stratify["test"]), start=i + 1
+    ):
+        key = "sample" + str(i)
         diz[key] = {}
         diz[key]["x_test"] = seq_x
         diz[key]["y_test"] = seq_y
         diz[key]["serial"] = serial_id
 
     text = json.dumps(diz)
-    filename_json = os.path.splitext(filename)[0]+".json"
+    filename_json = os.path.splitext(filename)[0] + ".json"
     filepath_json = os.path.join(store_path, filename_json)
     if verbose:
         print("filepath_json: ", filepath_json)
-    with open(filepath_json, 'w') as f:
+    with open(filepath_json, "w") as f:
         f.write(text)
 
 
 def load_json_dataset(store_path, filename_json, verbose=0):
-    """ 
+    """
     function to load dataset from json format
 
     Example:
             $#load data in json format
             $store_path = "../data/MACHINE_TYPE_00_alarms_window_input_1720_window_output_480_offset_60_min_count_20_sigma_3"
             $filename_json = "all_alarms.json"
-            $filepath = os.path.join(store_path, filename_json)    
+            $filepath = os.path.join(store_path, filename_json)
             $x_train,y_train,serials_train,x_test,y_test,serials_test = load_json_dataset(store_path, filename_json, verbose=1)
 
 
@@ -608,22 +694,32 @@ def load_json_dataset(store_path, filename_json, verbose=0):
     """
 
     filepath = os.path.join(store_path, filename_json)
-    with open(filepath, 'r') as f:
+    with open(filepath, "r") as f:
         dataset = json.load(f)
 
-    x_train = [sample["x_train"]
-               for sample_id, sample in dataset.items() if "x_train" in sample]
-    y_train = [sample["x_train"]
-               for sample_id, sample in dataset.items() if "x_train" in sample]
-    stratify_train = [sample["serial"] for sample_id,
-                      sample in dataset.items() if "x_train" in sample]
+    x_train = [
+        sample["x_train"]
+        for sample_id, sample in dataset.items()
+        if "x_train" in sample
+    ]
+    y_train = [
+        sample["x_train"]
+        for sample_id, sample in dataset.items()
+        if "x_train" in sample
+    ]
+    stratify_train = [
+        sample["serial"] for sample_id, sample in dataset.items() if "x_train" in sample
+    ]
 
-    x_test = [sample["x_test"]
-              for sample_id, sample in dataset.items() if "x_test" in sample]
-    y_test = [sample["x_test"]
-              for sample_id, sample in dataset.items() if "x_test" in sample]
-    stratify_test = [sample["serial"]
-                     for sample_id, sample in dataset.items() if "x_test" in sample]
+    x_test = [
+        sample["x_test"] for sample_id, sample in dataset.items() if "x_test" in sample
+    ]
+    y_test = [
+        sample["x_test"] for sample_id, sample in dataset.items() if "x_test" in sample
+    ]
+    stratify_test = [
+        sample["serial"] for sample_id, sample in dataset.items() if "x_test" in sample
+    ]
 
     x_train = np.asarray(x_train)
     y_train = np.asarray(y_train)
@@ -642,14 +738,14 @@ def load_json_dataset(store_path, filename_json, verbose=0):
 
 
 def convert_to_npz(store_path, filename, verbose=0):
-    """ 
+    """
     function to convert pickle dataset in npz format which will have same name of original dataset
     but with npz extension and stored in the same path of the original dataset
 
     Example:
             $#save data in npz format
             $store_path = "../data/MACHINE_TYPE_00_alarms_window_input_1720_window_output_480_offset_60_min_count_20_sigma_3"
-            $filename= "all_alarms.pickle"    
+            $filename= "all_alarms.pickle"
             $convert_to_npz(store_path, filename, verbose=1)
 
     Args:
@@ -658,9 +754,14 @@ def convert_to_npz(store_path, filename, verbose=0):
     """
     # load dataset
     filepath = os.path.join(store_path, filename)
-    with open(filepath, 'rb') as f:
-        x_train_segments, x_test_segments, y_train_segments, y_test_segments, stratify = pickle.load(
-            f)
+    with open(filepath, "rb") as f:
+        (
+            x_train_segments,
+            x_test_segments,
+            y_train_segments,
+            y_test_segments,
+            stratify,
+        ) = pickle.load(f)
 
     x_train_segments = x_train_segments.toarray()
     x_test_segments = x_test_segments.toarray()
@@ -683,17 +784,23 @@ def convert_to_npz(store_path, filename, verbose=0):
         print("y_test.shape: ", y_test_segments.shape)
         print("serials_test.shape: ", len(stratify["test"]))
 
-    filename_npz = os.path.splitext(filename)[0]+".npz"
+    filename_npz = os.path.splitext(filename)[0] + ".npz"
     filepath_npz = os.path.join(store_path, filename_npz)
     if verbose:
         print("filepath_npz: ", filepath_npz)
-    np.savez_compressed(filepath_npz,
-                        x_train=x_train_segments, y_train=y_train_segments, stratify_train=stratify_train,
-                        x_test=x_test_segments, y_test=y_test_segments, stratify_test=stratify_test)
+    np.savez_compressed(
+        filepath_npz,
+        x_train=x_train_segments,
+        y_train=y_train_segments,
+        stratify_train=stratify_train,
+        x_test=x_test_segments,
+        y_test=y_test_segments,
+        stratify_test=stratify_test,
+    )
 
 
 def load_from_npz(store_path, filename, verbose=0):
-    """ 
+    """
     function to load dataset from json format
 
     Example:
@@ -715,6 +822,5 @@ def load_from_npz(store_path, filename, verbose=0):
     """
     filepath = os.path.join(store_path, filename)
     loaded = np.load(filepath, allow_pickle=True)
-    keys = ["x_train", "y_train", "stratify_train",
-            "x_test", "y_test", "stratify_test"]
+    keys = ["x_train", "y_train", "stratify_train", "x_test", "y_test", "stratify_test"]
     return [loaded[k] for k in keys]
