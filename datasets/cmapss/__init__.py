@@ -2,6 +2,8 @@ import os
 import numpy as np
 import pandas as pd
 import tqdm
+# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold
 
 
 _applied_features = [2, 3, 4, 7, 11, 12, 15]
@@ -105,6 +107,33 @@ def load_clean_data_rul(
 
     return train_df_list, test_df_list
 
+
+def load_clean_data_rul_k_folds(
+    split_ind,
+    indices=["FD004",],
+    k=5,
+    features=[2, 3, 4, 7, 11, 12, 15],
+    random_state=0,
+):
+    df_list = []
+    for index in indices:
+        train_df_list, test_df_list = load_clean_data_rul(index=index, features=features,)
+        df_list.extend(train_df_list)
+        df_list.extend(test_df_list)
+    
+    data_index = range(len(df_list))
+    
+    kf = KFold(
+        n_splits=k,
+        random_state=random_state,
+        shuffle=True,)
+
+    train_idx,test_idx = list(kf.split(data_index))[split_ind]
+
+    new_train_df_list = [df_list[i] for i in train_idx]
+    new_test_df_list = [df_list[i] for i in test_idx]
+
+    return new_train_df_list, new_test_df_list
 
 def load_mesurement_list(
     index="FD004",
