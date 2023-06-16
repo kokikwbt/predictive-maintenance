@@ -10,7 +10,6 @@ _applied_features = [2, 3, 4, 7, 11, 12, 15]
 
 
 def load_data(index="FD004", features=None):
-
     if type(index) == str:
         assert index in ["FD001", "FD002", "FD003", "FD004"]
     elif type(index) == int:

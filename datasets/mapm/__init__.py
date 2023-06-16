@@ -1,12 +1,16 @@
 import os
-import tqdm
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from collections import Counter
 from sklearn import model_selection
+from sklearn.model_selection import KFold
 
+
+
+sensors=["volt","rotate","pressure","vibration"]
 
 def load_data():
     fp = os.path.dirname(__file__)
@@ -41,8 +45,8 @@ def cleaning(df):
     df.failure = df.failure.factorize()[0]
     df = df.sort_values(["machineID", "datetime"])
 
-    df.errorID = df.errorID.astype("category")
-    df.failure = df.failure.astype("category")
+    df.errorID = df.errorID.astype("int")
+    df.failure = df.failure.astype("int")
 
     df.volt = df.volt.astype("float32")
     df.rotate = df.rotate.astype("float32")
@@ -283,3 +287,123 @@ def gen_summary(outdir=None):
             fig.savefig(pp, format="pdf")
             plt.clf()
             plt.close()
+
+
+def load_failure_sequences_list(dim=sensors):
+    """
+
+    Returns
+    -------
+    run-to-failure sequences  [# of seq, [dim, time]]
+    failure labels  [# of seq]
+    """
+
+    clean_df =load_clean_data()
+    sequence_df_list = []
+    failure_list = []
+    
+    # source_df = pd.DataFrame(colums=["seq_id","machine_id"])
+
+    clean_df["seq_id"] = 0
+    for machine_id, m_df in tqdm(clean_df.groupby("machineID"),desc="Segment each machine data"):
+        # sort 
+        m_df = m_df.sort_values("datetime")
+
+        # segment & set seq_id
+        failures_index = m_df["failure"][m_df["failure"]>-1].index
+        failures_values = m_df["failure"][m_df["failure"]>-1].values
+
+        for ind in failures_index:
+            m_df.loc[ind:,"seq_id"] +=1        
+        
+        for (seq_id, seq_df), f_val in zip(m_df.groupby("seq_id"),failures_values):
+            sequence_df_list.append(seq_df.sort_values("datetime").reset_index(drop=True).loc[:,dim])
+            failure_list.append(f_val)
+        
+    return sequence_df_list, failure_list
+
+def load_clean_data_rul_k_folds(
+        split_ind,
+        k=5,
+        random_state=0,
+):
+
+    df_list = add_rul(*refine_data(*load_failure_sequences_list()))
+
+    data_index = range(len(df_list))
+    
+    kf = KFold(
+        n_splits=k,
+        random_state=random_state,
+        shuffle=True,)
+
+    train_idx,test_idx = list(kf.split(data_index))[split_ind]
+
+    train_df_list = [df_list[i] for i in train_idx]
+    test_df_list = [df_list[i] for i in test_idx]
+
+    return train_df_list, test_df_list
+
+
+def refine_data(sequence_df_list, failure_list, event_type="only",min_len=100):
+    """
+    refine_event: This data contain some sequences with complex/mulitple failue 
+    if "only",
+    use sequences with only a failue, remove sequences with mulitple failue
+    elif "all"
+    use all sequences, and regard complex failues as a new types of failure 
+    """
+
+    num_seq = len(failure_list)
+    length_arr = np.array([len(ss) for ss in sequence_df_list])
+    complex_ind = np.arange(num_seq)[length_arr<=1]
+
+    # whether all complex failues contains two types of failues or not
+    assert not np.sum(np.diff(complex_ind)<2), "complex failue events contain three or more failues"
+    
+    # remove complex_ind 
+    apply_arr = length_arr>1
+
+    if event_type=="only":
+        # remove complex_ind-1 
+        for c_id in complex_ind:
+            apply_arr[c_id-1] = False
+         
+    elif event_type=="all":
+        NotImplementedError
+        # check combination and define new type failures
+        # complex_val = np.array(failure_list)[complex_ind]
+
+        # # set new failure
+        # for c_id,n_f in zip(complex_ind,new_failures):
+        #     failure_list[c_id-1] = n_f        
+    else:
+        NotImplementedError
+    
+    # remove sequences that not contain min_len values
+    apply_length_arr = length_arr>min_len
+    apply_arr &= apply_length_arr 
+    
+    refined_sequence_df_list=[]
+    refined_failure_list=[]
+    for a, seq, failure in zip(apply_arr,sequence_df_list, failure_list):
+        if a:
+            refined_sequence_df_list.append(seq)
+            refined_failure_list.append(failure)
+
+    return refined_sequence_df_list,refined_failure_list
+
+
+def add_rul(sequence_df_list, failure_list):
+    
+    label_name = "RUL"
+    class_label_name="Class"
+    # 
+    df_list = []
+    for seq_df, class_label in zip(sequence_df_list, failure_list):
+        seq_df[class_label_name] = class_label
+        rul_array = np.arange(len(seq_df))[::-1]
+        seq_df[label_name] = rul_array
+        df_list.append(seq_df)
+
+    return df_list

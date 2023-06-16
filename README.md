@@ -14,13 +14,13 @@ Note that RUL means remaining useful life.
 | | Timestamp | #Sensor | #Alarm | RUL |　License |
 | :--- | :--: | :--: | :--: | :--: | :--- |
 | ALPI*     | x |  | 140 |  | CC-BY |
-| CBM       | x | 15 | 3 |  | Other |
+| CBM       | x | 16 | 3 |  | Other |
 | CMAPSS    | x | 26 | 2-6 | x | CC0: Public Domain |
 | GDD       | x | 5(1) | 3 |  | CC-BY-NC-SA |
 | GFD       | x | 4 | 2 |  | CC-BY-SA |
 | HydSys*   | x | 17 | 2-4 |  | Other |
 | MAPM*     | x | 4 | 5 | x | Other |
-| PPD       | x | x | | x | CC-BY-SA |
+| PPD       | x | 25 | | x | CC-BY-SA |
 | UFD       |  | 37-52 | 4 |  | Other |
 
 </center>
