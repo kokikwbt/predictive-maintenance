@@ -5,7 +5,6 @@ import tqdm
 
 
 def load_data(sensor=None, rw=0):
-
     if sensor is None:
         # load full data
         # rw is ignored to concatenate all sensor data
@@ -21,7 +20,6 @@ def load_data(sensor=None, rw=0):
 
 
 def load_sensor_data(sensor, rw=0):
-
     data = []
     sensor_list = get_sensor_list(sensor)
     fp = os.path.dirname(__file__)

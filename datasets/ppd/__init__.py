@@ -79,7 +79,6 @@ def set_broken_labels(df, size):
 
 
 def run_to_failure_aux(df, n_sample, desc=""):
-
     seq_len = df.shape[0]
     samples = []
     pbar = tqdm.tqdm(total=n_sample, desc=desc)
@@ -99,7 +98,6 @@ def run_to_failure_aux(df, n_sample, desc=""):
 
 
 def generate_run_to_failure(n_sample=1000, bronken_holdout_steps=2000):
-
     samples = []
     print("Generating run-to-failure data:")
 
@@ -114,7 +112,6 @@ def generate_run_to_failure(n_sample=1000, bronken_holdout_steps=2000):
 
 
 def gen_summary(outdir=None):
-
     if outdir is None:
         outdir = os.path.dirname(__file__)
 

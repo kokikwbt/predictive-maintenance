@@ -7,7 +7,6 @@ import pandas as pd
 
 
 def parse_feature_names(fn):
-
     with open(fn) as f:
         names, lines = [], f.readlines()
         for line in lines:
@@ -17,7 +16,6 @@ def parse_feature_names(fn):
 
 
 def load_data(shorten_feature_names=True):
-
     fp = os.path.dirname(__file__)
     raw_data = np.loadtxt(fp + "/data.txt.gz")
     features = parse_feature_names(fp + "/Features.txt")
@@ -51,7 +49,6 @@ def load_clean_data():
 
 
 def gen_summary(wd=400, outdir=None):
-
     if outdir is None:
         outdir = os.path.dirname(__file__)
 

@@ -9,7 +9,6 @@ def train_test_split(arrays, test_size=0.2, random_state=None, shuffle=False):
 
 
 def hist_survival_time(data, ax=None, figsize=(6, 4), bins_0=20, bins_1=30):
-
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)
 

@@ -121,6 +121,7 @@ def create_params_list(data_path, params, verbose=True):
 
 # PHASE 1
 
+
 # current_offset must be an integer and it must indicate minutes
 def generate_dataset_by_serial_offset(data, params, current_offset):
     data["current_offset"] = current_offset

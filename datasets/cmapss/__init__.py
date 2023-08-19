@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import tqdm
+
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 
@@ -86,6 +87,13 @@ def load_clean_data_rul(
 ):
     train, test, labels = load_mesurement_list(index=index, features=features)
     label = "RUL"
+    class_label_name = "Class"
+    if index=="FD001" or index=="FD002":
+        class_=1
+    elif index=="FD003" or index=="FD004":
+        class_=2
+    else:
+        class_=0
 
     # train
     train_df_list = []
@@ -93,6 +101,7 @@ def load_clean_data_rul(
         max_rul = len(tt)
         rul_array = np.array(range(max_rul))[::-1]
         tt[label] = rul_array
+        tt[class_label_name] = class_
         train_df_list.append(tt)
 
     # test
@@ -102,6 +111,7 @@ def load_clean_data_rul(
         rul_array = np.array(range(max_rul))[::-1]
         rul_array += int(la)
         tt[label] = rul_array
+        tt[class_label_name] = class_
         test_df_list.append(tt)
 
     return train_df_list, test_df_list
@@ -109,30 +119,46 @@ def load_clean_data_rul(
 
 def load_clean_data_rul_k_folds(
     split_ind,
-    indices=["FD004",],
+    indices=[
+        "FD004",
+    ],
     k=5,
     features=[2, 3, 4, 7, 11, 12, 15],
     random_state=0,
+    use_test=True,
+    val=0.1,
 ):
     df_list = []
     for index in indices:
-        train_df_list, test_df_list = load_clean_data_rul(index=index, features=features,)
+        train_df_list, test_df_list = load_clean_data_rul(
+            index=index,
+            features=features,
+        )
         df_list.extend(train_df_list)
-        df_list.extend(test_df_list)
-    
+        if use_test:
+            df_list.extend(test_df_list)
+
     data_index = range(len(df_list))
-    
+
     kf = KFold(
         n_splits=k,
         random_state=random_state,
-        shuffle=True,)
+        shuffle=True,
+    )
 
-    train_idx,test_idx = list(kf.split(data_index))[split_ind]
+    train_idx, test_idx = list(kf.split(data_index))[split_ind]
+    len(train_idx)
+    print(f"all index:{len(data_index)}")
+    print(train_idx)
+    print(test_idx)
 
     new_train_df_list = [df_list[i] for i in train_idx]
     new_test_df_list = [df_list[i] for i in test_idx]
 
     return new_train_df_list, new_test_df_list
+
+
+
 
 def load_mesurement_list(
     index="FD004",
@@ -168,7 +194,6 @@ def load_mesurement_list(
 
 
 def run_to_failure_aux(df, lifetime, unit_number):
-
     assert lifetime <= df.shape[0]
     broken = 0 if lifetime < df.shape[0] else 1
     sample = pd.DataFrame(
@@ -187,7 +212,6 @@ def run_to_failure_aux(df, lifetime, unit_number):
 
 
 def censoring_augmentation(raw_data, n_samples=10, seed=123):
-
     np.random.seed(seed)
     datasets = [g for _, g in raw_data.groupby("unit_number")]
     timeseries = raw_data.groupby("unit_number").size()
@@ -206,7 +230,6 @@ def censoring_augmentation(raw_data, n_samples=10, seed=123):
 
 
 def generate_run_to_failure(df, health_censor_aug=0, seed=123):
-
     samples = []
     for unit_id, timeseries in tqdm.tqdm(df.groupby("unit_number"), desc="RUL"):
         samples.append(run_to_failure_aux(timeseries, timeseries.shape[0], unit_id))
@@ -227,7 +250,6 @@ def leave_one_out(
     input_fn=None,
     output_fn=None,
 ):
-
     if input_fn is not None:
         subsets = pd.read_csv(input_fn)
 

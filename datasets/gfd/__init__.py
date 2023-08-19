@@ -44,7 +44,6 @@ def plot_sequence(df, st=0, ed=None, ax=None, figsize=(10, 3), individual=True):
 
 
 def gen_summary(outdir=None, st=0, ed=500, wd=20, hg=8):
-
     if outdir is None:
         outdir = os.path.dirname(__file__)
 

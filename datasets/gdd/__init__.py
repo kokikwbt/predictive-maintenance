@@ -7,7 +7,6 @@ import seaborn as sns
 
 
 def load_data(index="state"):
-
     assert index in ["state", "anomaly", "normal", "linear", "pressure"]
     fp = os.path.dirname(__file__)
 
@@ -163,7 +162,6 @@ def plot_genesis_nonlabels(df, figsize=(15, 20), cmap="tab10"):
 
 
 def gen_summary(outdir=None):
-
     if outdir is None:
         outdir = os.path.dirname(__file__)
 
@@ -171,7 +169,6 @@ def gen_summary(outdir=None):
     sns.set(font_scale=1.1, style="whitegrid")
 
     with PdfPages(outdir + "/gdd_summary.pdf") as pp:
-
         print("Plotting Genesis_StateMachineLabel...")
         df = load_data(index="state")
         fig, _ = plot_genesis_labels(df)
