@@ -1,4 +1,4 @@
-# Human Activity Recognition Using Smartphones Dataset
+# Simulation and Analysis of Gas Turbine Propulsion Decay in Naval Vessels
 
 The experiments have been carried out by means of a numerical simulator of a naval vessel (Frigate) characterized by a Gas Turbine (GT) propulsion plant. The different blocks forming the complete simulator (Propeller, Hull, GT, Gear Box and Controller) have been developed and fine tuned over the year on several similar real propulsion plants. In view of these observations the available data are in agreement with a possible real vessel.
 In this release of the simulator it is also possible to take into account the performance decay over time of the GT components such as GT compressor and turbines.
