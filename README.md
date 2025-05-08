@@ -87,7 +87,7 @@ which may help interactive data processing and visualization.
 ### Dataset Sources
 
 1. ALPI: Diego Tosato, Davide Dalle Pezze, Chiara Masiero, Gian Antonio Susto, Alessandro Beghi, 2020. Alarm Logs in Packaging Industry (ALPI).  
-[https://dx.doi.org/10.21227/nfv6-k750](https://dx.doi.org/10.21227/nfv6-k750)
+[https://ieee-dataport.org/open-access/alarm-logs-packaging-industry-alpi](https://ieee-dataport.org/open-access/alarm-logs-packaging-industry-alpi)
 1. CBM: Condition Based Maintenance of Naval Propulsion Plants Data Set  
 [http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants](http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants)
 1. CMAPSS: NASA Turbofan Jet Engine Data Set:  
