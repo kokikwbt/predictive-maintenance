@@ -1,0 +1,44 @@
+{
+  "id": "hydsys",
+  "short_name": "HydSys",
+  "name": "Condition Monitoring of Hydraulic Systems",
+  "summary": "Repeated load cycles from a hydraulic test rig measured by 17 sensors at multiple sampling rates, with condition labels for four components.",
+  "source": {
+    "name": "UCI Machine Learning Repository",
+    "landing_page": "https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems",
+    "doi": "10.24432/C5CW21",
+    "doi_url": "https://doi.org/10.24432/C5CW21"
+  },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {"status": "available", "checked_at": "2026-07-24", "access": "Direct download / ucimlrepo"},
+  "download": {
+    "url": "https://archive.ics.uci.edu/static/public/447/condition+monitoring+of+hydraulic+systems.zip",
+    "filename": "condition-monitoring-of-hydraulic-systems.zip",
+    "archive": "zip",
+    "expected_files": ["PS1.txt", "EPS1.txt", "FS1.txt", "TS1.txt", "VS1.txt", "CE.txt", "CP.txt", "SE.txt", "profile.txt"]
+  },
+  "characteristics": {"kind": "Multirate multivariate time series"},
+  "tasks": ["Fault classification", "Condition estimation", "Regression"],
+  "attributes": [
+    {"name": "PS1..PS6", "dtype": "Float64", "role": "sensor", "description": "Pressure sensors sampled at 100 Hz, with 6,000 points per cycle."},
+    {"name": "EPS1", "dtype": "Float64", "role": "sensor", "description": "Motor-power sensor sampled at 100 Hz, with 6,000 points per cycle."},
+    {"name": "FS1..FS2", "dtype": "Float64", "role": "sensor", "description": "Volume-flow sensors sampled at 10 Hz, with 600 points per cycle."},
+    {"name": "TS1..TS4", "dtype": "Float64", "role": "sensor", "description": "Temperature sensors sampled at 1 Hz, with 60 points per cycle."},
+    {"name": "VS1", "dtype": "Float64", "role": "sensor", "description": "Vibration sensor sampled at 1 Hz, with 60 points per cycle."},
+    {"name": "SE", "dtype": "Float64", "role": "sensor", "description": "Efficiency factor sampled at 1 Hz, with 60 points per cycle."},
+    {"name": "CE", "dtype": "Float64", "role": "sensor", "description": "Virtual cooling-efficiency sensor sampled at 1 Hz."},
+    {"name": "CP", "dtype": "Float64", "role": "sensor", "description": "Virtual cooling-power sensor sampled at 1 Hz."},
+    {"name": "cooler_condition", "dtype": "Int16", "role": "target", "description": "Cooler efficiency [%], with values 3, 20, and 100."},
+    {"name": "valve_condition", "dtype": "Int16", "role": "target", "description": "Valve switching condition [%], with values 73, 80, 90, and 100."},
+    {"name": "internal_pump_leakage", "dtype": "UInt8", "role": "target", "description": "Internal pump leakage: 0 none, 1 weak, and 2 severe."},
+    {"name": "hydraulic_accumulator", "dtype": "Int16", "role": "target", "description": "Hydraulic accumulator pressure [bar]."},
+    {"name": "stable_flag", "dtype": "UInt8", "role": "quality-flag", "description": "0 indicates stable conditions; 1 indicates that steady state may not have been reached."}
+  ],
+  "notes": ["The dataset contains 2,205 cycles and no missing values.", "Signals sampled at different rates should not be naively joined into the same rows."],
+  "citation": "Helwig, N., Pignanelli, E. and Schütze, A. (2015). Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics."
+}

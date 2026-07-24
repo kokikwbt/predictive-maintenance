@@ -1,0 +1,8 @@
+numpy
+scipy
+polars
+matplotlib
+scikit-learn
+jupyterlab
+ipykernel
+kaggle

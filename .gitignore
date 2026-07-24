@@ -129,5 +129,8 @@ dmypy.json
 .pyre/
 out
 
+# Downloaded datasets and generated manifests
+/data/raw/
+
 *.pdf
 *.png

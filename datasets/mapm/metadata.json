@@ -1,0 +1,37 @@
+{
+  "id": "mapm",
+  "short_name": "MAPM",
+  "name": "Microsoft Azure Predictive Maintenance",
+  "summary": "Synthetic data linking 2015 sensor telemetry, errors, maintenance, failures, and machine metadata for 100 simulated machines.",
+  "source": {
+    "name": "Microsoft Azure sample / Kaggle mirror",
+    "landing_page": "https://www.kaggle.com/datasets/arnabbiswas1/microsoft-azure-predictive-maintenance",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {"name": "Unknown", "url": "", "commercial_use": null, "redistribution": null},
+  "availability": {"status": "available", "checked_at": "2026-07-24", "access": "Kaggle CLI"},
+  "download": {
+    "method": "kaggle",
+    "dataset": "arnabbiswas1/microsoft-azure-predictive-maintenance",
+    "filename": "microsoft-azure-predictive-maintenance.zip",
+    "archive": "zip",
+    "expected_files": ["PdM_telemetry.csv", "PdM_errors.csv", "PdM_maint.csv", "PdM_failures.csv", "PdM_machines.csv"]
+  },
+  "characteristics": {"kind": "Multi-table time series"},
+  "tasks": ["Failure prediction", "RUL estimation", "Maintenance analysis"],
+  "attributes": [
+    {"name": "datetime", "dtype": "Datetime", "role": "timestamp", "description": "Timestamp for telemetry, error, maintenance, and failure events."},
+    {"name": "machineID", "dtype": "UInt16", "role": "entity", "description": "Machine identifier from 1 through 100."},
+    {"name": "volt", "dtype": "Float64", "role": "sensor", "description": "Hourly mean voltage."},
+    {"name": "rotate", "dtype": "Float64", "role": "sensor", "description": "Hourly mean rotation."},
+    {"name": "pressure", "dtype": "Float64", "role": "sensor", "description": "Hourly mean pressure."},
+    {"name": "vibration", "dtype": "Float64", "role": "sensor", "description": "Hourly mean vibration."},
+    {"name": "errorID", "dtype": "Categorical", "role": "event", "description": "Type of non-fatal machine error."},
+    {"name": "comp", "dtype": "Categorical", "role": "maintenance-event", "description": "Component replaced during maintenance or after failure."},
+    {"name": "model", "dtype": "Categorical", "role": "asset-attribute", "description": "Machine model."},
+    {"name": "age", "dtype": "UInt8", "role": "asset-attribute", "description": "Machine age."}
+  ],
+  "notes": ["The original Azure AI Notebook was retired in 2020.", "The former Microsoft Azure Blob URLs were unavailable when checked on 2026-07-24; automated retrieval uses the Kaggle mirror.", "Treat this as synthetic data.", "No dataset-specific license was found, so redistribution and commercial-use rights cannot be asserted."],
+  "citation": "Microsoft Azure Predictive Maintenance sample dataset."
+}

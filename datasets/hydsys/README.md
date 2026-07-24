@@ -1,10 +1,70 @@
 # Condition monitoring of hydraulic systems
 
+<!-- BEGIN GENERATED METADATA -->
+
+> This section is generated from `metadata.json`. Do not edit it directly.
+
+## Dataset overview
+
+Repeated load cycles from a hydraulic test rig measured by 17 sensors at multiple sampling rates, with condition labels for four components.
+
+| Item | Details |
+|---|---|
+| ID | `hydsys` |
+| Name | Condition Monitoring of Hydraulic Systems |
+| Provider | [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems) |
+| DOI | [10.24432/C5CW21](https://doi.org/10.24432/C5CW21) |
+| Availability | available (checked: 2026-07-24) |
+| Access | Direct download / ucimlrepo |
+| License | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Commercial use | Yes |
+| Redistribution | Yes |
+| Data type | Multirate multivariate time series |
+| Tasks | Fault classification, Condition estimation, Regression |
+
+## Attributes
+
+| Attribute or group | Type | Role | Description |
+|---|---|---|---|
+| `PS1..PS6` | Float64 | sensor | Pressure sensors sampled at 100 Hz, with 6,000 points per cycle. |
+| `EPS1` | Float64 | sensor | Motor-power sensor sampled at 100 Hz, with 6,000 points per cycle. |
+| `FS1..FS2` | Float64 | sensor | Volume-flow sensors sampled at 10 Hz, with 600 points per cycle. |
+| `TS1..TS4` | Float64 | sensor | Temperature sensors sampled at 1 Hz, with 60 points per cycle. |
+| `VS1` | Float64 | sensor | Vibration sensor sampled at 1 Hz, with 60 points per cycle. |
+| `SE` | Float64 | sensor | Efficiency factor sampled at 1 Hz, with 60 points per cycle. |
+| `CE` | Float64 | sensor | Virtual cooling-efficiency sensor sampled at 1 Hz. |
+| `CP` | Float64 | sensor | Virtual cooling-power sensor sampled at 1 Hz. |
+| `cooler_condition` | Int16 | target | Cooler efficiency [%], with values 3, 20, and 100. |
+| `valve_condition` | Int16 | target | Valve switching condition [%], with values 73, 80, 90, and 100. |
+| `internal_pump_leakage` | UInt8 | target | Internal pump leakage: 0 none, 1 weak, and 2 severe. |
+| `hydraulic_accumulator` | Int16 | target | Hydraulic accumulator pressure [bar]. |
+| `stable_flag` | UInt8 | quality-flag | 0 indicates stable conditions; 1 indicates that steady state may not have been reached. |
+
+## Usage notes
+
+- The dataset contains 2,205 cycles and no missing values.
+- Signals sampled at different rates should not be naively joined into the same rows.
+
+## Download
+
+```bash
+python scripts/download.py hydsys
+```
+
+Source archive: [condition-monitoring-of-hydraulic-systems.zip](https://archive.ics.uci.edu/static/public/447/condition+monitoring+of+hydraulic+systems.zip)
+
+## Suggested citation
+
+Helwig, N., Pignanelli, E. and Schütze, A. (2015). Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics.
+
+<!-- END GENERATED METADATA -->
+
+
 ## Source Information
    - Creator: Nikolai Helwig, ZeMA gGmbH, Eschberger Weg 46, 66121 Saarbr�cken
    - Donors (with approval from creator): M. Bastuck (m.bastuck@lmt.uni-saarland.de), T. Schneider (t.schneider@zema.de)
    - Date: April, 2018
- 
+
 ## Past Usage:
    1. Nikolai Helwig, Eliseo Pignanelli, Andreas Sch�tze, �Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics�, in Proc. I2MTC-2015 - 2015 IEEE International Instrumentation and Measurement Technology Conference, paper PPS1-39, Pisa, Italy, May 11-14, 2015. doi: 10.1109/I2MTC.2015.7151267
       - detailed description of data and measurement setup

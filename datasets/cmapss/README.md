@@ -1,5 +1,58 @@
 # NASA Trubofun Jet Engine Dataset
 
+<!-- BEGIN GENERATED METADATA -->
+
+> This section is generated from `metadata.json`. Do not edit it directly.
+
+## Dataset overview
+
+A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engines generated with NASA's C-MAPSS simulator.
+
+| Item | Details |
+|---|---|
+| ID | `cmapss` |
+| Name | Turbofan Engine Degradation Simulation Data Set |
+| Provider | [NASA Prognostics Center of Excellence](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/) |
+| DOI | None |
+| Availability | available (checked: 2026-07-24) |
+| Access | Direct download from NASA |
+| License | Unspecified |
+| Commercial use | Unknown |
+| Redistribution | Unknown |
+| Data type | Multivariate run-to-failure time series |
+| Tasks | RUL estimation, Prognostics, Anomaly detection |
+
+## Attributes
+
+| Attribute or group | Type | Role | Description |
+|---|---|---|---|
+| `unit_number` | UInt16 | entity | Identifier of the simulated engine. |
+| `cycle` | UInt32 | time | Operating-cycle number. |
+| `operation_1..3` | Float64 | operating-condition | Three operating settings that affect engine performance. |
+| `sensor_1..21` | Float64 | sensor | Twenty-one sensor channels describing engine condition. |
+| `RUL` | UInt32 | target | Remaining operating cycles from the end of a test sequence to failure, stored in a separate RUL file. |
+
+## Usage notes
+
+- FD001 through FD004 differ in the number of operating conditions and fault modes.
+- Training sequences continue to failure; test sequences are censored before failure.
+- NASA does not specify a license in the dataset metadata, so this project does not classify it as CC0.
+
+## Download
+
+```bash
+python scripts/download.py cmapss
+```
+
+Source archive: [turbofan-engine-degradation-simulation.zip](https://phm-datasets.s3.amazonaws.com/NASA/6.+Turbofan+Engine+Degradation+Simulation+Data+Set.zip)
+
+## Suggested citation
+
+Saxena, A. and Goebel, K. (2008). Turbofan Engine Degradation Simulation Data Set. NASA Ames Prognostics Data Repository.
+
+<!-- END GENERATED METADATA -->
+
+
 The dataset summary is as follows.
 
 | Dataset | Train trajectories | Test trajectries | Conditions | Fault Modes |

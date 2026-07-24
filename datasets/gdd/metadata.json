@@ -1,0 +1,35 @@
+{
+  "id": "gdd",
+  "short_name": "GDD",
+  "name": "Genesis Demonstrator Data for Machine Learning",
+  "summary": "Time-series data from a portable pick-and-place demonstrator, including continuous signals, discrete states, and anomaly labels.",
+  "source": {
+    "name": "inIT-OWL on Kaggle",
+    "landing_page": "https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {"name": "Requires verification", "url": "", "commercial_use": null, "redistribution": null},
+  "availability": {"status": "available", "checked_at": "2026-07-24", "access": "Kaggle"},
+  "download": {
+    "method": "kaggle",
+    "dataset": "inIT-OWL/genesis-demonstrator-data-for-machine-learning",
+    "filename": "genesis-demonstrator-data-for-machine-learning.zip",
+    "archive": "zip",
+    "expected_files": ["Genesis_AnomalyLabels.csv", "Genesis_StateMachineLabel.csv", "Genesis_lineardrive.csv", "Genesis_normal.csv", "Genesis_pressure.csv"]
+  },
+  "characteristics": {"kind": "Multivariate time series"},
+  "tasks": ["Anomaly detection", "State classification"],
+  "attributes": [
+    {"name": "Timestamp", "dtype": "Datetime", "role": "timestamp", "description": "Observation time recorded as a Unix timestamp."},
+    {"name": "MotorData.SetCurrent / ActCurrent", "dtype": "Float64", "role": "sensor", "description": "Motor-current setpoint and measured value."},
+    {"name": "MotorData.SetPosition / ActPosition", "dtype": "Float64", "role": "sensor", "description": "Motor-position setpoint and measured value."},
+    {"name": "MotorData.SetSpeed / ActSpeed", "dtype": "Float64", "role": "sensor", "description": "Motor-speed setpoint and measured value."},
+    {"name": "MotorData.SetAcceleration / IsAcceleration", "dtype": "Float64", "role": "sensor", "description": "Acceleration setpoint and measured value."},
+    {"name": "MotorData.SetForce / IsForce", "dtype": "Float64", "role": "sensor", "description": "Force setpoint and measured value."},
+    {"name": "MotorData.*, PLC_PRG.*, NVL_*", "dtype": "Boolean/Integer", "role": "machine-state", "description": "Discrete state signals for position, gripping, material, and storage mechanisms."},
+    {"name": "Label", "dtype": "Integer", "role": "target", "description": "Labels for normal operation and two anomaly states; present only in some files."}
+  ],
+  "notes": ["Distribution depends on Kaggle.", "The column set and presence of the Label column vary by file."],
+  "citation": "Schuster, R., Moriz, N. and von Birgelen, A. (2018). Genesis demonstrator data for machine learning."
+}
