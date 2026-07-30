@@ -23,6 +23,12 @@
   },
   "characteristics": {"kind": "Event sequence"},
   "tasks": ["Alarm forecasting", "Anomaly detection", "Sequence forecasting"],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "derived",
+    "event_forecasting": "direct"
+  },
   "attributes": [
     {"name": "timestamp", "dtype": "Datetime", "role": "timestamp", "description": "Date and time at which the alarm was recorded."},
     {"name": "alarm", "dtype": "UInt16", "role": "event", "description": "Alarm code with 154 distinct values."},

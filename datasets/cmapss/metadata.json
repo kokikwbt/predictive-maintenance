@@ -19,6 +19,13 @@
   },
   "characteristics": {"kind": "Multivariate run-to-failure time series"},
   "tasks": ["RUL estimation", "Prognostics", "Anomaly detection"],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "direct",
+    "time_to_event": "direct",
+    "survival_analysis": "direct"
+  },
   "attributes": [
     {"name": "unit_number", "dtype": "UInt16", "role": "entity", "description": "Identifier of the simulated engine."},
     {"name": "cycle", "dtype": "UInt32", "role": "time", "description": "Operating-cycle number."},

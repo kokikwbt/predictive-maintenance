@@ -25,6 +25,13 @@
   },
   "characteristics": {"kind": "Run-to-failure time series"},
   "tasks": ["Degradation estimation", "Anomaly detection", "RUL research"],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived",
+    "survival_analysis": "derived"
+  },
   "attributes": [
     {"name": "Timestamp", "dtype": "Integer", "role": "time", "description": "Time index indicating observation order within an experiment."},
     {"name": "L_1..L_10", "dtype": "Float64", "role": "sensor", "description": "Paired current- and speed-related signals for five components."},

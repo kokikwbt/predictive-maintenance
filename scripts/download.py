@@ -19,6 +19,10 @@ def main() -> None:
     parser.add_argument("--no-extract", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument(
+        "--variant",
+        help="download variant, such as 2025-q1 for Backblaze",
+    )
+    parser.add_argument(
         "--print-command",
         action="store_true",
         help="print the external download command without executing it",
@@ -26,7 +30,11 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.print_command:
-        print(download_command(args.dataset, args.output_dir))
+        print(
+            download_command(
+                args.dataset, args.output_dir, variant=args.variant
+            )
+        )
         return
 
     result = download(
@@ -34,6 +42,7 @@ def main() -> None:
         args.output_dir,
         extract=not args.no_extract,
         overwrite=args.overwrite,
+        variant=args.variant,
     )
     print("Archive: {}".format(result["archive"]))
     print("SHA-256: {}".format(result["sha256"]))

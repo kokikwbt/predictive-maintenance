@@ -38,6 +38,14 @@
     "Operating-mode classification",
     "RUL research"
   ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "operating_state_classification": "direct",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived",
+    "survival_analysis": "derived"
+  },
   "attributes": [
     {
       "name": "timestamp",

@@ -22,6 +22,13 @@ Repeated load cycles from a hydraulic test rig measured by 17 sensors at multipl
 | Data type | Multirate multivariate time series |
 | Tasks | Fault classification, Condition estimation, Regression |
 
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Fault or health-state classification | Direct |
+| Condition estimation | Direct |
+
 ## Attributes
 
 | Attribute or group | Type | Role | Description |

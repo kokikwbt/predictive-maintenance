@@ -24,6 +24,10 @@
   },
   "characteristics": {"kind": "Vibration time series"},
   "tasks": ["Fault classification", "Signal analysis"],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "direct"
+  },
   "attributes": [
     {"name": "sensor1..4", "dtype": "Float64", "role": "sensor", "description": "Measurements from vibration sensors mounted in four directions; the source CSV columns are a1 through a4."},
     {"name": "condition", "dtype": "Categorical", "role": "target", "description": "Healthy (h) or broken-tooth (b) condition encoded in the file name."},

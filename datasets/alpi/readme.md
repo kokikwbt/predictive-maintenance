@@ -22,6 +22,15 @@ A sequence of timestamped alarm events collected from 20 industrial packaging ma
 | Data type | Event sequence |
 | Tasks | Alarm forecasting, Anomaly detection, Sequence forecasting |
 
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Time-to-event prediction | Direct |
+| Survival analysis | Requires target derivation |
+| Event or sequence forecasting | Direct |
+
 ## Attributes
 
 | Attribute or group | Type | Role | Description |

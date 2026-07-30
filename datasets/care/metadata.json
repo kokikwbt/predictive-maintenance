@@ -1,0 +1,78 @@
+{
+  "id": "care",
+  "short_name": "CARE",
+  "name": "Wind Turbine SCADA Data for Early Fault Detection",
+  "summary": "A real-world early-fault-detection benchmark containing 89 years of SCADA time series from 36 wind turbines across three wind farms.",
+  "source": {
+    "name": "Fraunhofer IEE on Zenodo",
+    "landing_page": "https://zenodo.org/records/15846963",
+    "doi": "10.5281/zenodo.15846963",
+    "doi_url": "https://doi.org/10.5281/zenodo.15846963"
+  },
+  "license": {
+    "name": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-07-25",
+    "access": "Direct download from Zenodo"
+  },
+  "download": {
+    "url": "https://zenodo.org/records/15846963/files/CARE_To_Compare.zip?download=1",
+    "filename": "CARE_To_Compare.zip",
+    "archive": "zip",
+    "expected_files": [],
+    "bulk": false
+  },
+  "characteristics": {
+    "kind": "Large labeled wind-turbine SCADA time series"
+  },
+  "tasks": [
+    "Early fault detection",
+    "Anomaly detection",
+    "Failure prediction"
+  ],
+  "task_support": {
+    "anomaly_detection": "direct",
+    "fault_classification": "direct",
+    "condition_estimation": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "derived"
+  },
+  "attributes": [
+    {
+      "name": "timestamp",
+      "dtype": "Datetime",
+      "role": "timestamp",
+      "description": "SCADA observation time within an anonymized turbine event series."
+    },
+    {
+      "name": "sensor statistics",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Per-timestamp average, minimum, maximum, and standard-deviation statistics; feature counts differ by wind farm."
+    },
+    {
+      "name": "status_type_id",
+      "dtype": "Categorical",
+      "role": "target",
+      "description": "Turbine-status label used for training-data quality filtering and anomaly evaluation."
+    },
+    {
+      "name": "event metadata",
+      "dtype": "Mixed",
+      "role": "event",
+      "description": "Fault descriptions, event timing, asset identifiers, and prediction intervals supplied with event series."
+    }
+  ],
+  "notes": [
+    "Version 6 corrects labels, timestamps, units, and event descriptions from earlier versions.",
+    "The collection has 95 datasets: 45 lead up to labeled turbine faults and 50 represent normal behavior.",
+    "The provider recommends using average signals cautiously and documents implausible Min, Max, and Std values for some features.",
+    "The 5.5 GB archive is opt-in and is not downloaded by scripts/bootstrap.sh."
+  ],
+  "citation": "Gück, C. and Roelofs, C. (2025). Wind Turbine SCADA Data For Early Fault Detection, Version 6. Zenodo. https://doi.org/10.5281/zenodo.15846963"
+}

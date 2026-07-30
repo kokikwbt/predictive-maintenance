@@ -13,7 +13,7 @@ Synthetic data linking 2015 sensor telemetry, errors, maintenance, failures, and
 | ID | `mapm` |
 | Name | Microsoft Azure Predictive Maintenance |
 | Provider | [Microsoft Azure sample / Kaggle mirror](https://www.kaggle.com/datasets/arnabbiswas1/microsoft-azure-predictive-maintenance) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Kaggle CLI |
 | License | Unknown |
@@ -21,6 +21,18 @@ Synthetic data linking 2015 sensor telemetry, errors, maintenance, failures, and
 | Redistribution | Unknown |
 | Data type | Multi-table time series |
 | Tasks | Failure prediction, RUL estimation, Maintenance analysis |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Fault or health-state classification | Direct |
+| Remaining useful life prediction | Requires target derivation |
+| Time-to-event prediction | Direct |
+| Survival analysis | Direct |
+| Event or sequence forecasting | Direct |
+| Maintenance-policy evaluation | Requires target derivation |
 
 ## Attributes
 

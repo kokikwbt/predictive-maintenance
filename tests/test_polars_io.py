@@ -37,6 +37,24 @@ class PolarsIoTest(unittest.TestCase):
         self.assertEqual(frame.columns, ["sample", "channel_1", "channel_2"])
         self.assertEqual(frame.shape, (2, 3))
 
+    def test_gfd_loader_reads_tab_delimited_source(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "h30hz0.txt"
+            source.write_text(
+                "\n1.0\t2.0\t3.0\t4.0\t\n5.0\t6.0\t7.0\t8.0\t\n",
+                encoding="utf-8",
+            )
+            with unittest.mock.patch.object(
+                loaders, "find_raw_file", return_value=source
+            ):
+                frame = loaders._gfd()
+
+        self.assertEqual(
+            frame.columns,
+            ["sensor_1", "sensor_2", "sensor_3", "sensor_4", "condition", "load"],
+        )
+        self.assertEqual(frame.shape, (2, 6))
+
     def test_oyicd_loader_adds_filename_metadata(self):
         with tempfile.TemporaryDirectory() as temporary:
             source = Path(temporary) / "01-04T184148_000_mode1.csv"
@@ -52,6 +70,49 @@ class PolarsIoTest(unittest.TestCase):
         self.assertEqual(frame["month"].to_list(), [1])
         self.assertEqual(frame["mode"].to_list(), [1])
         self.assertEqual(frame["filename"].to_list(), [source.name])
+
+    def test_metropt2_loader_is_lazy_by_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "MetroPT2.csv"
+            source.write_text("timestamp,pressure\n2023-01-01,1.5\n", encoding="utf-8")
+            with unittest.mock.patch.object(
+                loaders, "find_raw_file", return_value=source
+            ):
+                frame = loaders._metropt2()
+                shape = frame.collect().shape
+
+        self.assertIsInstance(frame, pl.LazyFrame)
+        self.assertEqual(shape, (1, 2))
+
+    def test_care_loader_reads_one_requested_recording(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "event.csv"
+            source.write_text("timestamp,power\n2023-01-01,4.0\n", encoding="utf-8")
+            with unittest.mock.patch.object(
+                loaders, "find_raw_file", return_value=source
+            ):
+                frame = loaders._care(source.name, lazy=False)
+
+        self.assertIsInstance(frame, pl.DataFrame)
+        self.assertEqual(frame.shape, (1, 2))
+
+    def test_backblaze_loader_scans_a_quarter_lazily(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            extracted = root / "backblaze" / "2025-q1" / "extracted"
+            extracted.mkdir(parents=True)
+            (extracted / "2025-01-01.csv").write_text(
+                "date,serial_number,failure\n2025-01-01,A1,0\n",
+                encoding="utf-8",
+            )
+            with unittest.mock.patch.object(
+                loaders, "DEFAULT_DATA_ROOT", root
+            ):
+                frame = loaders._backblaze()
+                shape = frame.collect().shape
+
+        self.assertIsInstance(frame, pl.LazyFrame)
+        self.assertEqual(shape, (1, 3))
 
     def test_legacy_dataset_module_api_is_not_exported(self):
         self.assertNotIn("cmapss", datasets.__all__)

@@ -34,6 +34,14 @@
     "Degradation estimation",
     "Prognostics"
   ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived",
+    "survival_analysis": "derived"
+  },
   "attributes": [
     {
       "name": "sample",

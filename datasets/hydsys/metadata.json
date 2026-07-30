@@ -24,6 +24,10 @@
   },
   "characteristics": {"kind": "Multirate multivariate time series"},
   "tasks": ["Fault classification", "Condition estimation", "Regression"],
+  "task_support": {
+    "fault_classification": "direct",
+    "condition_estimation": "direct"
+  },
   "attributes": [
     {"name": "PS1..PS6", "dtype": "Float64", "role": "sensor", "description": "Pressure sensors sampled at 100 Hz, with 6,000 points per cycle."},
     {"name": "EPS1", "dtype": "Float64", "role": "sensor", "description": "Motor-power sensor sampled at 100 Hz, with 6,000 points per cycle."},

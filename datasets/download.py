@@ -25,11 +25,31 @@ def supported_downloads() -> List[str]:
     return [item["id"] for item in load_catalog(downloadable=True)]
 
 
-def download_command(dataset_id: str, output_dir: Optional[Path] = None) -> str:
+def bulk_downloads() -> List[str]:
+    """Return automated downloads that are safe to include in bootstrap."""
+    return [
+        item["id"]
+        for item in load_catalog(downloadable=True)
+        if item["download"].get("bulk", True)
+    ]
+
+
+def download_variants(dataset_id: str) -> List[str]:
+    """Return selectable download variants for a dataset."""
+    metadata = load_metadata(dataset_id)
+    return sorted(metadata.get("download", {}).get("variants", {}))
+
+
+def download_command(
+    dataset_id: str,
+    output_dir: Optional[Path] = None,
+    *,
+    variant: Optional[str] = None,
+) -> str:
     """Return the external command used to download a dataset."""
     metadata = load_metadata(dataset_id)
-    resource = _resource(metadata)
-    directory = _dataset_directory(dataset_id, output_dir)
+    resource, selected_variant = _resource(metadata, variant)
+    directory = _dataset_directory(dataset_id, output_dir, selected_variant)
     if resource.get("method", "url") == "kaggle":
         return "kaggle datasets download --dataset={} --path={}".format(
             _shell_quote(resource["dataset"]), _shell_quote(str(directory))
@@ -46,6 +66,7 @@ def download(
     *,
     extract: bool = True,
     overwrite: bool = False,
+    variant: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Download, hash, optionally extract, and validate one dataset.
 
@@ -53,8 +74,8 @@ def download(
     archives are reused unless ``overwrite`` is true.
     """
     metadata = load_metadata(dataset_id)
-    resource = _resource(metadata)
-    directory = _dataset_directory(dataset_id, output_dir)
+    resource, selected_variant = _resource(metadata, variant)
+    directory = _dataset_directory(dataset_id, output_dir, selected_variant)
     directory.mkdir(parents=True, exist_ok=True)
     archive = directory / resource["filename"]
 
@@ -62,15 +83,25 @@ def download(
         _download_resource(resource, directory, archive, overwrite=overwrite)
 
     digest = _sha256(archive)
+    archive_type = resource.get("archive", "zip")
     extracted = directory / "extracted"
     if extract:
-        if overwrite and extracted.exists():
-            shutil.rmtree(str(extracted))
-        if not extracted.exists():
-            extracted.mkdir(parents=True)
-            _extract_zip(archive, extracted)
-        _extract_nested_zips(extracted)
-        _validate_expected_files(extracted, resource.get("expected_files", []))
+        if archive_type == "zip":
+            if overwrite and extracted.exists():
+                shutil.rmtree(str(extracted))
+            if not extracted.exists():
+                extracted.mkdir(parents=True)
+                _extract_zip(archive, extracted)
+            _extract_nested_zips(extracted)
+            validation_root = extracted
+        elif archive_type == "file":
+            validation_root = directory
+            extracted = directory
+        else:
+            raise ValueError("Unknown archive type: {!r}".format(archive_type))
+        _validate_expected_files(
+            validation_root, resource.get("expected_files", [])
+        )
 
     manifest = {
         "dataset": dataset_id,
@@ -78,7 +109,8 @@ def download(
         "method": resource.get("method", "url"),
         "archive": archive.name,
         "sha256": digest,
-        "extracted": extract,
+        "extracted": extract and archive_type == "zip",
+        "variant": selected_variant,
     }
     manifest_path = directory / "manifest.json"
     manifest_path.write_text(
@@ -88,26 +120,52 @@ def download(
     return {
         "archive": archive,
         "directory": directory,
-        "extracted": extracted if extract else None,
+        "extracted": extracted if extract and archive_type == "zip" else None,
         "manifest": manifest_path,
         "sha256": digest,
     }
 
 
-def _resource(metadata: Dict[str, Any]) -> Dict[str, Any]:
+def _resource(
+    metadata: Dict[str, Any], variant: Optional[str] = None
+) -> tuple[Dict[str, Any], Optional[str]]:
     try:
-        return metadata["download"]
+        download = metadata["download"]
     except KeyError:
         raise ValueError(
             "Automated download is not supported for {!r}. Supported datasets: {}".format(
                 metadata["id"], ", ".join(supported_downloads())
             )
         )
+    variants = download.get("variants")
+    if not variants:
+        if variant is not None:
+            raise ValueError(
+                "{!r} does not provide download variants".format(metadata["id"])
+            )
+        return download, None
+    selected = variant or download.get("default_variant")
+    if selected not in variants:
+        raise ValueError(
+            "variant must be one of: {}".format(", ".join(sorted(variants)))
+        )
+    common = {
+        key: value
+        for key, value in download.items()
+        if key not in {"variants", "default_variant", "bulk"}
+    }
+    common.update(variants[selected])
+    return common, selected
 
 
-def _dataset_directory(dataset_id: str, output_dir: Optional[Path]) -> Path:
+def _dataset_directory(
+    dataset_id: str,
+    output_dir: Optional[Path],
+    variant: Optional[str] = None,
+) -> Path:
     root = Path(output_dir) if output_dir is not None else DEFAULT_DATA_ROOT
-    return root.expanduser().resolve() / dataset_id
+    directory = root.expanduser().resolve() / dataset_id
+    return directory / variant if variant else directory
 
 
 def _download_file(url: str, target: Path) -> None:

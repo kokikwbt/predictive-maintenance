@@ -5,10 +5,11 @@ from typing import Any, Callable
 
 import polars as pl
 
+from .download import DEFAULT_DATA_ROOT
 from .io import find_raw_file, read_whitespace
 
 
-Loader = Callable[..., pl.DataFrame]
+Loader = Callable[..., pl.DataFrame | pl.LazyFrame]
 
 CMAPSS_COLUMNS = (
     ["unit_number", "cycle"]
@@ -63,8 +64,8 @@ PPD_FILES = {
 }
 
 
-def load(dataset_id: str, **options: Any) -> pl.DataFrame:
-    """Load a downloaded dataset as a Polars DataFrame."""
+def load(dataset_id: str, **options: Any) -> pl.DataFrame | pl.LazyFrame:
+    """Load a downloaded dataset with its Polars adapter."""
     try:
         adapter = _LOADERS[dataset_id]
     except KeyError:
@@ -119,9 +120,19 @@ def _gfd(condition: str = "healthy", load: int = 0) -> pl.DataFrame:
     if load not in range(0, 100, 10):
         raise ValueError("load must be between 0 and 90 in increments of 10")
     filename = "{}30hz{}.txt".format(labels[condition], load)
-    return read_whitespace(
-        find_raw_file("gfd", filename), ["sensor_1", "sensor_2", "sensor_3", "sensor_4"]
-    ).with_columns(
+    frame = pl.read_csv(
+        find_raw_file("gfd", filename),
+        separator="\t",
+        has_header=False,
+        truncate_ragged_lines=True,
+    )
+    frame = frame.select(
+        column
+        for column in frame.columns
+        if frame.get_column(column).null_count() < frame.height
+    ).drop_nulls()
+    frame.columns = ["sensor_1", "sensor_2", "sensor_3", "sensor_4"]
+    return frame.with_columns(
         pl.lit(condition).cast(pl.Categorical).alias("condition"),
         pl.lit(load).cast(pl.UInt8).alias("load"),
     )
@@ -140,6 +151,43 @@ def _mapm(table: str = "telemetry") -> pl.DataFrame:
             "table must be one of: {}".format(", ".join(sorted(MAPM_FILES)))
         ) from None
     return pl.read_csv(find_raw_file("mapm", filename), try_parse_dates=True)
+
+
+def _metropt2(lazy: bool = True) -> pl.DataFrame | pl.LazyFrame:
+    scan = pl.scan_csv(
+        find_raw_file("metropt2", "MetroPT2.csv"),
+        try_parse_dates=True,
+    )
+    return scan if lazy else scan.collect()
+
+
+def _care(recording: str, lazy: bool = True) -> pl.DataFrame | pl.LazyFrame:
+    scan = pl.scan_csv(
+        find_raw_file("care", recording),
+        try_parse_dates=True,
+    )
+    return scan if lazy else scan.collect()
+
+
+def _backblaze(
+    variant: str = "2025-q1", lazy: bool = True
+) -> pl.DataFrame | pl.LazyFrame:
+    directory = DEFAULT_DATA_ROOT / "backblaze" / variant / "extracted"
+    files = sorted(directory.rglob("*.csv")) if directory.is_dir() else []
+    if not files:
+        raise FileNotFoundError(
+            "No Backblaze CSV files found for {!r}. Run "
+            "`python scripts/download.py backblaze --variant {}` first.".format(
+                variant, variant
+            )
+        )
+    scan = pl.scan_csv(
+        files,
+        try_parse_dates=True,
+        infer_schema_length=1000,
+        missing_columns="insert",
+    )
+    return scan if lazy else scan.collect()
 
 
 def _ims(recording: str) -> pl.DataFrame:
@@ -186,6 +234,8 @@ def _ufd(meter: str = "A") -> pl.DataFrame:
 
 _LOADERS: dict[str, Loader] = {
     "alpi": _alpi,
+    "backblaze": _backblaze,
+    "care": _care,
     "cbm": _cbm,
     "cmapss": _cmapss,
     "gdd": _gdd,
@@ -193,6 +243,7 @@ _LOADERS: dict[str, Loader] = {
     "hydsys": _hydsys,
     "ims": _ims,
     "mapm": _mapm,
+    "metropt2": _metropt2,
     "oyicd": _oyicd,
     "ppd": _ppd,
     "ufd": _ufd,

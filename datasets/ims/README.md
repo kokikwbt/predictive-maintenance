@@ -13,7 +13,7 @@ Run-to-failure vibration measurements from accelerated bearing degradation exper
 | ID | `ims` |
 | Name | IMS Bearings |
 | Provider | [NASA Prognostics Center of Excellence](https://catalog.data.gov/dataset/ims-bearings) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Direct download from NASA |
 | License | [U.S. Government Works](https://www.usa.gov/government-works) |
@@ -21,6 +21,17 @@ Run-to-failure vibration measurements from accelerated bearing degradation exper
 | Redistribution | Unknown |
 | Data type | Run-to-failure vibration time series |
 | Tasks | Fault diagnosis, Degradation estimation, Prognostics |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Fault or health-state classification | Requires target derivation |
+| Condition estimation | Requires target derivation |
+| Remaining useful life prediction | Requires target derivation |
+| Time-to-event prediction | Requires target derivation |
+| Survival analysis | Requires target derivation |
 
 ## Attributes
 

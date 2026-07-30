@@ -24,6 +24,10 @@
   },
   "characteristics": {"kind": "Multivariate tabular"},
   "tasks": ["Fault classification", "Condition diagnosis"],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "direct"
+  },
   "attributes": [
     {"name": "profile/flatness factor", "dtype": "Float64", "role": "feature", "description": "Profile factor or flatness ratio describing the flow-velocity profile; naming varies by meter."},
     {"name": "symmetry", "dtype": "Float64", "role": "feature", "description": "Diagnostic value describing flow symmetry."},

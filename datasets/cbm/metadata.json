@@ -24,6 +24,9 @@
   },
   "characteristics": {"kind": "Multivariate tabular"},
   "tasks": ["Condition estimation", "Regression"],
+  "task_support": {
+    "condition_estimation": "direct"
+  },
   "attributes": [
     {"name": "lp", "dtype": "Float64", "role": "operating-condition", "description": "Lever position."},
     {"name": "v", "dtype": "Float64", "role": "operating-condition", "description": "Ship speed [knots]."},

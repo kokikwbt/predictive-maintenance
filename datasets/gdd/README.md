@@ -13,7 +13,7 @@ Time-series data from a portable pick-and-place demonstrator, including continuo
 | ID | `gdd` |
 | Name | Genesis Demonstrator Data for Machine Learning |
 | Provider | [inIT-OWL on Kaggle](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Kaggle |
 | License | Requires verification |
@@ -21,6 +21,14 @@ Time-series data from a portable pick-and-place demonstrator, including continuo
 | Redistribution | Unknown |
 | Data type | Multivariate time series |
 | Tasks | Anomaly detection, State classification |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Direct |
+| Fault or health-state classification | Direct |
+| Operating-state classification | Direct |
 
 ## Attributes
 

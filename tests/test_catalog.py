@@ -4,8 +4,20 @@ from pathlib import Path
 
 import datasets
 from datasets.catalog import format_summary, load_catalog, load_metadata
-from datasets.docs import BEGIN, END, render_catalog_table, render_metadata
-from datasets.download import download_command, supported_downloads
+from datasets.docs import (
+    BEGIN,
+    END,
+    render_catalog_table,
+    render_metadata,
+    render_task_table,
+)
+from datasets.download import (
+    bulk_downloads,
+    download_command,
+    download_variants,
+    supported_downloads,
+)
+from datasets.tasks import SUPPORT_LEVELS, TASKS
 
 
 class CatalogTest(unittest.TestCase):
@@ -14,6 +26,8 @@ class CatalogTest(unittest.TestCase):
             [item["id"] for item in load_catalog()],
             [
                 "alpi",
+                "backblaze",
+                "care",
                 "cbm",
                 "cmapss",
                 "gdd",
@@ -21,6 +35,7 @@ class CatalogTest(unittest.TestCase):
                 "hydsys",
                 "ims",
                 "mapm",
+                "metropt2",
                 "oyicd",
                 "ppd",
                 "ufd",
@@ -48,9 +63,69 @@ class CatalogTest(unittest.TestCase):
                 table,
             )
 
+    def test_task_support_uses_canonical_ids_and_levels(self):
+        task_ids = {task["id"] for task in TASKS}
+        for item in load_catalog():
+            support = item["task_support"]
+            self.assertTrue(support)
+            self.assertLessEqual(set(support), task_ids)
+            self.assertLessEqual(set(support.values()), SUPPORT_LEVELS)
+
+    def test_task_table_contains_every_dataset_and_task(self):
+        table = render_task_table(load_catalog())
+        for item in load_catalog():
+            self.assertIn(
+                "datasets/{}/{}".format(
+                    item["id"], item.get("readme", "README.md")
+                ),
+                table,
+            )
+        for task in TASKS:
+            self.assertIn(task["short_name"], table)
+
+    def test_catalog_can_filter_by_canonical_task(self):
+        survival_ids = [
+            item["id"] for item in load_catalog(task="survival_analysis")
+        ]
+        self.assertEqual(
+            survival_ids,
+            [
+                "alpi",
+                "backblaze",
+                "care",
+                "cmapss",
+                "ims",
+                "mapm",
+                "oyicd",
+                "ppd",
+            ],
+        )
+
     def test_automated_download_support_is_explicit(self):
         self.assertEqual(
             supported_downloads(),
+            [
+                "backblaze",
+                "care",
+                "cbm",
+                "cmapss",
+                "gdd",
+                "gfd",
+                "hydsys",
+                "ims",
+                "mapm",
+                "metropt2",
+                "oyicd",
+                "ppd",
+                "ufd",
+            ],
+        )
+        self.assertEqual(
+            [item["id"] for item in load_catalog(downloadable=False)],
+            ["alpi"],
+        )
+        self.assertEqual(
+            bulk_downloads(),
             [
                 "cbm",
                 "cmapss",
@@ -64,10 +139,19 @@ class CatalogTest(unittest.TestCase):
                 "ufd",
             ],
         )
+
+    def test_large_download_variants_are_explicit(self):
         self.assertEqual(
-            [item["id"] for item in load_catalog(downloadable=False)],
-            ["alpi"],
+            download_variants("backblaze"),
+            ["2025-q1", "2025-q2", "2025-q3", "2025-q4"],
         )
+        command = download_command(
+            "backblaze",
+            Path("/tmp/pmdata-test"),
+            variant="2025-q2",
+        )
+        self.assertIn("data_Q2_2025.zip", command)
+        self.assertIn("/backblaze/2025-q2/", command)
 
     def test_wget_command_uses_metadata_url(self):
         command = download_command("gfd", Path("/tmp/pmdata-test"))

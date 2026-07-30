@@ -37,7 +37,12 @@ def load_catalog(
     """Load all dataset metadata, optionally filtering common properties."""
     catalog = [load_metadata(path.parent.name) for path in metadata_paths()]
     if task is not None:
-        catalog = [item for item in catalog if task in item.get("tasks", [])]
+        catalog = [
+            item
+            for item in catalog
+            if task in item.get("task_support", {})
+            or task in item.get("tasks", [])
+        ]
     if available is not None:
         expected = "available" if available else "unavailable"
         catalog = [

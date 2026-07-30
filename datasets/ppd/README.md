@@ -13,7 +13,7 @@ Condition-monitoring data from eight run-to-failure experiments on eight importa
 | ID | `ppd` |
 | Name | Production Plant Data for Condition Monitoring |
 | Provider | [inIT-OWL on Kaggle](https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Kaggle |
 | License | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
@@ -21,6 +21,16 @@ Condition-monitoring data from eight run-to-failure experiments on eight importa
 | Redistribution | Yes |
 | Data type | Run-to-failure time series |
 | Tasks | Degradation estimation, Anomaly detection, RUL research |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Condition estimation | Requires target derivation |
+| Remaining useful life prediction | Requires target derivation |
+| Time-to-event prediction | Requires target derivation |
+| Survival analysis | Requires target derivation |
 
 ## Attributes
 

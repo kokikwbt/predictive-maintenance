@@ -11,6 +11,7 @@ from datasets.download import (
     _extract_zip,
     _validate_expected_files,
     download,
+    download_command,
 )
 
 download_module = importlib.import_module("datasets.download")
@@ -20,6 +21,10 @@ class DownloadTest(unittest.TestCase):
     def test_unsupported_dataset_has_clear_error(self):
         with self.assertRaisesRegex(ValueError, "Automated download is not supported"):
             download("alpi", output_dir=Path("/tmp/unused-pmdata-test"))
+
+    def test_unknown_download_variant_has_clear_error(self):
+        with self.assertRaisesRegex(ValueError, "variant must be one of"):
+            download_command("backblaze", variant="2024-q1")
 
     def test_missing_kaggle_cli_has_actionable_error(self):
         with tempfile.TemporaryDirectory() as temporary:

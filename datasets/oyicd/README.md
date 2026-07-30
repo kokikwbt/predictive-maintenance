@@ -13,7 +13,7 @@ High-frequency machine measurements tracking cutting-blade degradation in an ind
 | ID | `oyicd` |
 | Name | One Year Industrial Component Degradation |
 | Provider | [inIT-OWL on Kaggle](https://www.kaggle.com/datasets/inIT-OWL/one-year-industrial-component-degradation) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Kaggle |
 | License | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
@@ -21,6 +21,17 @@ High-frequency machine measurements tracking cutting-blade degradation in an ind
 | Redistribution | Yes |
 | Data type | Multivariate degradation time series |
 | Tasks | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Operating-state classification | Direct |
+| Condition estimation | Requires target derivation |
+| Remaining useful life prediction | Requires target derivation |
+| Time-to-event prediction | Requires target derivation |
+| Survival analysis | Requires target derivation |
 
 ## Attributes
 

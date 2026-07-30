@@ -8,11 +8,11 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from datasets import download, supported_downloads  # noqa: E402
+from datasets import bulk_downloads, download  # noqa: E402
 
 
 def main() -> None:
-    dataset_ids = supported_downloads()
+    dataset_ids = bulk_downloads()
     print("Datasets: {}".format(", ".join(dataset_ids)))
     for index, dataset_id in enumerate(dataset_ids, start=1):
         print("\n[{}/{}] Downloading {}".format(index, len(dataset_ids), dataset_id))

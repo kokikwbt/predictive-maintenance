@@ -20,6 +20,11 @@
   },
   "characteristics": {"kind": "Multivariate time series"},
   "tasks": ["Anomaly detection", "State classification"],
+  "task_support": {
+    "anomaly_detection": "direct",
+    "fault_classification": "direct",
+    "operating_state_classification": "direct"
+  },
   "attributes": [
     {"name": "Timestamp", "dtype": "Datetime", "role": "timestamp", "description": "Observation time recorded as a Unix timestamp."},
     {"name": "MotorData.SetCurrent / ActCurrent", "dtype": "Float64", "role": "sensor", "description": "Motor-current setpoint and measured value."},

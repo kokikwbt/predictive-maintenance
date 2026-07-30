@@ -1,0 +1,77 @@
+{
+  "id": "metropt2",
+  "short_name": "MetroPT2",
+  "name": "MetroPT2: A Benchmark Dataset for Predictive Maintenance",
+  "summary": "A 1 Hz multivariate time series from a metro-train air production unit, with analogue and digital sensor signals and documented air- and oil-leak intervals.",
+  "source": {
+    "name": "INESC TEC on Zenodo",
+    "landing_page": "https://zenodo.org/records/7766691",
+    "doi": "10.5281/zenodo.7766691",
+    "doi_url": "https://doi.org/10.5281/zenodo.7766691"
+  },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-07-25",
+    "access": "Direct download from Zenodo"
+  },
+  "download": {
+    "url": "https://zenodo.org/records/7766691/files/MetroPT2.csv?download=1",
+    "filename": "MetroPT2.csv",
+    "archive": "file",
+    "expected_files": ["MetroPT2.csv"],
+    "bulk": false
+  },
+  "characteristics": {
+    "kind": "Large multivariate equipment time series"
+  },
+  "tasks": [
+    "Online anomaly detection",
+    "Failure prediction",
+    "RUL research"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived"
+  },
+  "attributes": [
+    {
+      "name": "timestamp",
+      "dtype": "Datetime",
+      "role": "timestamp",
+      "description": "Observation time for measurements logged at 1 Hz."
+    },
+    {
+      "name": "analogue sensors",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Pressure, motor-current, oil-temperature, flowmeter, GPS, and related analogue measurements."
+    },
+    {
+      "name": "digital signals",
+      "dtype": "Boolean/Integer",
+      "role": "machine-state",
+      "description": "Control and discrete signals including air-intake-valve states."
+    },
+    {
+      "name": "failure interval",
+      "dtype": "Datetime interval",
+      "role": "derived-target",
+      "description": "Air-leak and oil-leak intervals documented by the provider outside the CSV labels."
+    }
+  ],
+  "notes": [
+    "The current version contains about 7.1 million observations and 21 attributes.",
+    "The source CSV is unlabeled; task targets must be derived from the two provider-documented failure intervals.",
+    "The 1.2 GB CSV is opt-in and is not downloaded by scripts/bootstrap.sh."
+  ],
+  "citation": "Veloso, B., Gama, J., Ribeiro, R. and Pereira, P. (2023). MetroPT2: A Benchmark dataset for predictive maintenance. Zenodo. https://doi.org/10.5281/zenodo.7766691"
+}

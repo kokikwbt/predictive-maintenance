@@ -1,0 +1,109 @@
+{
+  "id": "backblaze",
+  "short_name": "Backblaze",
+  "name": "Backblaze Drive Stats",
+  "summary": "Daily fleet-scale snapshots of hard drives and SSDs, including device identity, model, failure status, and raw and normalized S.M.A.R.T. statistics.",
+  "source": {
+    "name": "Backblaze",
+    "landing_page": "https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "Backblaze Drive Stats terms",
+    "url": "https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data",
+    "commercial_use": true,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-07-25",
+    "access": "Direct quarterly downloads"
+  },
+  "download": {
+    "default_variant": "2025-q1",
+    "bulk": false,
+    "variants": {
+      "2025-q1": {
+        "url": "https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q1_2025.zip",
+        "filename": "data_Q1_2025.zip",
+        "archive": "zip",
+        "expected_files": ["2025-01-01.csv"]
+      },
+      "2025-q2": {
+        "url": "https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q2_2025.zip",
+        "filename": "data_Q2_2025.zip",
+        "archive": "zip",
+        "expected_files": ["2025-04-01.csv"]
+      },
+      "2025-q3": {
+        "url": "https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q3_2025.zip",
+        "filename": "data_Q3_2025.zip",
+        "archive": "zip",
+        "expected_files": ["2025-07-01.csv"]
+      },
+      "2025-q4": {
+        "url": "https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q4_2025.zip",
+        "filename": "data_Q4_2025.zip",
+        "archive": "zip",
+        "expected_files": ["2025-10-01.csv"]
+      }
+    }
+  },
+  "characteristics": {
+    "kind": "Fleet-scale daily reliability panel"
+  },
+  "tasks": [
+    "Drive failure prediction",
+    "Survival analysis",
+    "Time-to-event prediction"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "direct",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "direct"
+  },
+  "attributes": [
+    {
+      "name": "date",
+      "dtype": "Date",
+      "role": "time",
+      "description": "UTC date of the daily drive snapshot."
+    },
+    {
+      "name": "serial_number",
+      "dtype": "String",
+      "role": "entity",
+      "description": "Drive serial number used to construct longitudinal device histories."
+    },
+    {
+      "name": "model / capacity_bytes",
+      "dtype": "String/UInt64",
+      "role": "asset-attribute",
+      "description": "Drive model and capacity."
+    },
+    {
+      "name": "failure",
+      "dtype": "UInt8",
+      "role": "target",
+      "description": "One on the final day a drive is observed before a reported failure, otherwise zero."
+    },
+    {
+      "name": "smart_*_raw / smart_*_normalized",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Raw and normalized S.M.A.R.T. attributes; availability varies by drive model and quarter."
+    }
+  ],
+  "notes": [
+    "Data are partitioned by quarter to avoid requiring a full-history download.",
+    "The default variant is 2025-q1; specify another quarter explicitly when required.",
+    "Schema changes occur over time and S.M.A.R.T. attributes are highly sparse across drive models.",
+    "Backblaze permits derivative works but asks users not to sell the source data itself.",
+    "Quarterly archives are opt-in and are not downloaded by scripts/bootstrap.sh."
+  ],
+  "citation": "Backblaze. Drive Stats: Hard Drive Test Data. https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data"
+}

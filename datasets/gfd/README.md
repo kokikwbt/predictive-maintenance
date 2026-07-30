@@ -13,7 +13,7 @@ Vibration signals recorded in four directions from a two-stage gearbox with heal
 | ID | `gfd` |
 | Name | Gearbox Fault Diagnosis Data |
 | Provider | [Open Energy Data Initiative](https://data.openei.org/submissions/623) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Direct download |
 | License | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
@@ -21,6 +21,13 @@ Vibration signals recorded in four directions from a two-stage gearbox with heal
 | Redistribution | Yes |
 | Data type | Vibration time series |
 | Tasks | Fault classification, Signal analysis |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Fault or health-state classification | Direct |
 
 ## Attributes
 

@@ -22,6 +22,13 @@ Classification data for four liquid ultrasonic flowmeters covering healthy opera
 | Data type | Multivariate tabular |
 | Tasks | Fault classification, Condition diagnosis |
 
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Fault or health-state classification | Direct |
+
 ## Attributes
 
 | Attribute or group | Type | Role | Description |

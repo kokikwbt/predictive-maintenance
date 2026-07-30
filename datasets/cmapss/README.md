@@ -13,7 +13,7 @@ A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engi
 | ID | `cmapss` |
 | Name | Turbofan Engine Degradation Simulation Data Set |
 | Provider | [NASA Prognostics Center of Excellence](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/) |
-| DOI | None |
+| DOI | — |
 | Availability | available (checked: 2026-07-24) |
 | Access | Direct download from NASA |
 | License | Unspecified |
@@ -21,6 +21,16 @@ A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engi
 | Redistribution | Unknown |
 | Data type | Multivariate run-to-failure time series |
 | Tasks | RUL estimation, Prognostics, Anomaly detection |
+
+## Experiment-task suitability
+
+| Task | Support |
+|---|---|
+| Anomaly detection | Requires target derivation |
+| Condition estimation | Requires target derivation |
+| Remaining useful life prediction | Direct |
+| Time-to-event prediction | Direct |
+| Survival analysis | Direct |
 
 ## Attributes
 
