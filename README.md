@@ -1,130 +1,140 @@
-# Predictive Maintenance
+# PdMData: Datasets for Predictive Maintenance
 
-This repository is intended to enable quick access to datasets for predictive maintenance (PM) tasks (under development).
-The following table summarizes the available features,
-where the mark \* on dataset names shows
-the richness of attributes you may check them up with higher priority.
-Note that RUL means remaining useful life.
+A Python toolkit to download, load, and visualize predictive maintenance datasets
+for research. Download only the datasets you need and explore them through a
+common API with dataset-specific loaders.
 
-<!-- :white_check_mark: -->
-<!-- :ballot_box_with_check: -->
+## What is predictive maintenance?
 
-<center>
+Predictive maintenance uses equipment measurements and operating history to
+assess machine condition and anticipate failures, helping inform when maintenance
+is needed. Typical data include vibration, temperature, pressure, and event logs.
 
-| | Timestamp | #Sensor | #Alarm | RUL |　License |
-| :--- | :--: | :--: | :--: | :--: | :--- |
-| ALPI*     | x |  | 140 |  | CC-BY |
-| CBM       | x | 16 | 3 |  | Other |
-| CMAPSS    | x | 26 | 2-6 | x | CC0: Public Domain |
-| GDD       | x | 5(1) | 3 |  | CC-BY-NC-SA |
-| GFD       | x | 4 | 2 |  | CC-BY-SA |
-| HydSys*   | x | 17 | 2-4 |  | Other |
-| MAPM*     | x | 4 | 5 | x | Other |
-| PPD       | x | 25 | | x | CC-BY-SA |
-| UFD       |  | 37-52 | 4 |  | Other |
+Machine learning, a branch of AI, can learn patterns in these data to detect
+anomalies, classify faults, estimate degradation, or predict remaining useful
+life (RUL). Those predictions support maintenance decisions; their usefulness
+depends on the available labels, operating conditions, and evaluation design.
+PdMData provides datasets and loading tools for developing and comparing these
+methods.
 
-</center>
+Explore the [dataset catalog and task comparison](pdmdata/README.md) to choose
+data for your experiment.
 
-<!-- | NASA-B    |  |  |  |  | Other |
-| CWRU-B    |  |  |  |  | CC-BY-SA | -->
+## Getting started
 
-## Installation
+From the repository root, with `uv` installed:
 
-- Python=3.7
-- pandas=1.1.2
-
-## Usage
-
-Please put `datasets` directory into your workspace and import it like:
-
-```python
-import datasets
-
-# Dataset-specific values will be returned
-datasets.ufd.load_data()
-
-# A visualization pdf will be generated
-datasets.ufd.gen_summary()
+```bash
+./scripts/bootstrap.sh
+uv run --locked jupyter lab
 ```
 
-Each dataset class has the following functions:
-- ```load_data(index)```:  
-    Dataset loading specified by 'index'.
-    Please see README.md in each dataset directory for more details.
-- ```gen_summary(outdir)```:  
-    PDF file generation for full dataset visualization.
+Setup creates the locked Python 3.11 environment and registers the
+`Python (pdmdata)` notebook kernel. It does not download datasets.
+Select that kernel in Jupyter and run:
 
-## Features
+```python
+import pdmdata
 
-### Run-to-Falure
+pdmdata.summary()
+pdmdata.download("cmapss")
+frame = pdmdata.load("cmapss", subset="FD001", split="train")
+frame.head()
+```
 
-Run-to-Falure data require:
-- time column
-- event/cencoring column (categorical)
-- numerical/categorical feature columns (optional)
+Loaders return Polars DataFrames or LazyFrames, depending on the dataset.
+Importing the package or loading data never triggers a download; download each
+dataset explicitly before loading it.
 
-## Notebooks
+To plot the downloaded example:
 
-There are Jupyter notebooks for all datasets,
-which may help interactive data processing and visualization.
+```python
+figure = pdmdata.visualize("cmapss", "sensor_trajectory", frame, entity=1)
+figure.show()
+```
 
+See the [notebooks](notebooks/README.md) for dataset exploration and task examples.
 
-## References
+## Options
 
-### Introduction to Predictive Maintenance
+### Data location
 
-1. Wikipedia:  
-[https://en.wikipedia.org/wiki/Predictive_maintenance](https://en.wikipedia.org/wiki/Predictive_maintenance)
-1. Azure AI guide for predictive maintenance solutions:  
-[https://docs.microsoft.com/en-us/azure/architecture/data-science-process/predictive-maintenance-playbook](https://docs.microsoft.com/en-us/azure/architecture/data-science-process/predictive-maintenance-playbook)
-1. Open source python package for Survival Analysis modeling:  
-[https://square.github.io/pysurvival/index.html](https://square.github.io/pysurvival/index.html)
-1. Types of proactive maintenance:  
-[https://solutions.borderstates.com/types-of-proactive-maintenance/](https://solutions.borderstates.com/types-of-proactive-maintenance/)
-1. Common license types for datasets:  
-[https://www.kaggle.com/general/116302](https://www.kaggle.com/general/116302)
+Edit [`pdmdata.toml`](pdmdata.toml) to set the shared download and loading root:
 
-### Dataset Sources
+```toml
+data_root = "data/raw"
+```
 
-1. ALPI: Diego Tosato, Davide Dalle Pezze, Chiara Masiero, Gian Antonio Susto, Alessandro Beghi, 2020. Alarm Logs in Packaging Industry (ALPI).  
-[https://ieee-dataport.org/open-access/alarm-logs-packaging-industry-alpi](https://ieee-dataport.org/open-access/alarm-logs-packaging-industry-alpi)
-1. CBM: Condition Based Maintenance of Naval Propulsion Plants Data Set  
-[http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants](http://archive.ics.uci.edu/ml/datasets/condition+based+maintenance+of+naval+propulsion+plants)
-1. CMAPSS: NASA Turbofan Jet Engine Data Set:  
-[https://www.kaggle.com/behrad3d/nasa-cmaps](https://www.kaggle.com/behrad3d/nasa-cmaps) 
-1. GDD: Genesis demonstrator data for machine learning:  
-[https://www.kaggle.com/inIT-OWL/genesis-demonstrator-data-for-machine-learning](https://www.kaggle.com/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
-1. GFD: Gearbox Fault Diagnosis:  
-[https://www.kaggle.com/brjapon/gearbox-fault-diagnosis](https://www.kaggle.com/brjapon/gearbox-fault-diagnosis)
-1. HydSys: Predictive Maintenance Of Hydraulics System:  
-[https://archive.ics.uci.edu/ml/datasets/Condition+monitoring+of+hydraulic+systems](https://archive.ics.uci.edu/ml/datasets/Condition+monitoring+of+hydraulic+systems)
-1. MAPM: Microsoft Azure Predictive Maintenance:  
-[https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance](https://www.kaggle.com/arnabbiswas1/microsoft-azure-predictive-maintenance)
-1. PPD: Production Plant Data for Condition Monitoring:  
-[https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring](https://www.kaggle.com/inIT-OWL/production-plant-data-for-condition-monitoring)
-1. UFD: Ultrasonic flowmeter diagnostics Data Set:  
-[https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics](https://archive.ics.uci.edu/ml/datasets/Ultrasonic+flowmeter+diagnostics)
+The default stores data inside this repository under `data/raw/<dataset-id>/`;
+`data/` is ignored by Git. Relative paths resolve from the configuration file.
+You can also use an absolute path or a path starting with `~`.
 
+For a personal configuration file, set `PDMDATA_CONFIG` to its path. Changes
+apply on the next download or load, and do not move existing data. Add any custom
+data directory inside the repository to `.gitignore`.
 
-### TODO
+### Downloads
 
-1. Birkl, Christoph. Oxford Battery Degradation Dataset 1. University of Oxford, 2017.  
-[https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
-1. Lu, Jiahuan; Xiong, Rui; Tian, Jinpeng; Wang, Chenxu; Hsu, Chia-Wei; Tsou, Nien-Ti; Sun, Fengchun; Li, Ju (2021), “Battery Degradation Dataset (Fixed Current Profiles＆Arbitrary Uses Profiles)”, Mendeley Data, V2.  
-[https://data.mendeley.com/datasets/kw34hhw7xg/2](https://data.mendeley.com/datasets/kw34hhw7xg/2)
-1. One Year Industrial Component Degradation  
-[https://www.kaggle.com/inIT-OWL/one-year-industrial-component-degradation](https://www.kaggle.com/inIT-OWL/one-year-industrial-component-degradation)
-1. Vega shrink-wrapper component degradation  
-[https://www.kaggle.com/inIT-OWL/vega-shrinkwrapper-runtofailure-data](https://www.kaggle.com/inIT-OWL/vega-shrinkwrapper-runtofailure-data)
-1. NASA Bearing Dataset:  
-[https://www.kaggle.com/vinayak123tyagi/bearing-dataset](https://www.kaggle.com/vinayak123tyagi/bearing-dataset)
-1. CWRU Bearing Dataset:  
-[https://www.kaggle.com/brjapon/cwru-bearing-datasets](https://www.kaggle.com/brjapon/cwru-bearing-datasets)
+You can also download from the command line:
 
+```bash
+uv run --locked python scripts/download.py cmapss
+```
+
+| Option | Purpose |
+|---|---|
+| `--variant NAME` | Select a dataset variant, such as a Backblaze quarter. |
+| `--output-dir PATH` | Override the data root for this download. Set the same root in your configuration before loading. |
+| `--no-extract` | Download the archive without extracting it. |
+| `--overwrite` | Download again even when the archive exists. |
+| `--print-command` | Display the external download command without running it. |
+
+### Kaggle datasets and authentication
+
+**GDD, OYICD, and PPD require the official Kaggle CLI**, included in the project
+environment. Use the same download API as for other datasets:
+
+```python
+pdmdata.download("gdd")
+frame = pdmdata.load("gdd", series="state")
+```
+
+PdMData first attempts the download with existing credentials or public access.
+If Kaggle reports that authentication is required, an interactive terminal or
+local desktop notebook starts `kaggle auth login --force`. Complete the Kaggle
+sign-in and authorization in your browser; PdMData then retries the download
+once. Login has a five-minute timeout. Importing or loading data never starts
+login. Permission errors without an authentication indication do not trigger it.
+
+You can authenticate in advance from a terminal:
+
+```bash
+uv run --locked kaggle auth login
+```
+
+On a remote machine without a browser, use
+`uv run --locked kaggle auth login --no-launch-browser` and follow the CLI prompts.
+For CI or unattended runs, configure `KAGGLE_API_TOKEN` through your environment
+or secret manager; automatic login is disabled in CI and non-interactive scripts.
+Remote/headless notebooks should authenticate from a terminal first.
+Credentials are stored by the official Kaggle CLI, never in project metadata.
+Do not commit tokens or credential files. See the
+[Kaggle authentication documentation](https://github.com/Kaggle/kaggle-cli/blob/main/docs/README.md#authentication).
+
+### Dataset selection and loading
+
+Use `pdmdata.summary(downloadable=True)` to list datasets with automated downloads.
+Loading options such as `subset`, `split`, and `wind_farm` depend on the dataset;
+see its README in the [catalog](pdmdata/README.md).
+
+Large tabular datasets may return a Polars LazyFrame. Select and filter the data
+before calling `.collect()` to limit what is materialized in memory.
+
+The [usage guide](docs/usage.md) covers manual setup, configuration overrides,
+bulk downloads, and code organization.
 
 ## License
 
-All the matrials except for datasets is available under MIT lincense.
-I preserve all raw data but atatch data loading and preprocessing tools
-to each dataset directory so that they are quickly used in Python.
-Each dataset should be used under its own lincense.
+Repository code and documentation are available under the MIT License. Each
+dataset remains subject to its own license and terms of use; consult its
+README and source before use.

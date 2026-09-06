@@ -1,0 +1,172 @@
+{
+  "id": "ppd",
+  "short_name": "PPD",
+  "name": "Production Plant Data for Condition Monitoring",
+  "summary": "Eight run-to-failure sequences with 25 process signals and 228,424 observations for production-plant condition monitoring. Sequences C7 and C13 each combine two ordered source files.",
+  "source": {
+    "name": "inIT-OWL on Kaggle",
+    "landing_page": "https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "CC BY-SA 3.0",
+    "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-09-06",
+    "access": "Kaggle"
+  },
+  "download": {
+    "method": "kaggle",
+    "dataset": "inIT-OWL/production-plant-data-for-condition-monitoring",
+    "filename": "production-plant-data-for-condition-monitoring.zip",
+    "archive": "zip",
+    "expected_files": [
+      "C7-1.csv",
+      "C7-2.csv",
+      "C8.csv",
+      "C9.csv",
+      "C11.csv",
+      "C13-1.csv",
+      "C13-2.csv",
+      "C14.csv",
+      "C15.csv",
+      "C16.csv"
+    ]
+  },
+  "characteristics": {
+    "kind": "Run-to-failure time series",
+    "feature_dimensions": {
+      "summary": "25 process signals per sample",
+      "counting": "Counts L_1–L_10, A_1–A_5, B_1–B_5, and C_1–C_5. Timestamp and loader-added sample, sequence_id, and source_file columns are excluded.",
+      "sources": [
+        {
+          "name": "inIT-OWL on Kaggle",
+          "url": "https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring"
+        }
+      ]
+    },
+    "sequence_statistics": {
+      "description": "Computed from the eight complete sequences returned by inventory(). Sample counts include missing rows. Lengths are observation counts, not physical durations.",
+      "sequences": [
+        {
+          "id": 7,
+          "samples": 51671,
+          "missing_rows": 4
+        },
+        {
+          "id": 8,
+          "samples": 15803,
+          "missing_rows": 0
+        },
+        {
+          "id": 9,
+          "samples": 34245,
+          "missing_rows": 0
+        },
+        {
+          "id": 11,
+          "samples": 18429,
+          "missing_rows": 0
+        },
+        {
+          "id": 13,
+          "samples": 23670,
+          "missing_rows": 0
+        },
+        {
+          "id": 14,
+          "samples": 32848,
+          "missing_rows": 4
+        },
+        {
+          "id": 15,
+          "samples": 30737,
+          "missing_rows": 4
+        },
+        {
+          "id": 16,
+          "samples": 21021,
+          "missing_rows": 0
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Degradation estimation",
+    "Anomaly detection",
+    "RUL research"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived",
+    "survival_analysis": "derived"
+  },
+  "attributes": [
+    {
+      "name": "Timestamp",
+      "dtype": "Integer",
+      "role": "time",
+      "description": "Original per-file observation index, preserved verbatim including resets at joined part boundaries. Use sample for a continuous sequence index."
+    },
+    {
+      "name": "L_1..L_10",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Source process-signal family. Values and names are preserved; physical units and detailed channel semantics are not established by the CSV files."
+    },
+    {
+      "name": "A_1..A_5",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Source process-signal family. Values and names are preserved; physical units and detailed channel semantics are not established by the CSV files."
+    },
+    {
+      "name": "B_1..B_5",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Source process-signal family. Values and names are preserved; physical units and detailed channel semantics are not established by the CSV files."
+    },
+    {
+      "name": "C_1..C_5",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Source process-signal family. Values and names are preserved; physical units and detailed channel semantics are not established by the CSV files."
+    },
+    {
+      "name": "sample",
+      "dtype": "UInt32",
+      "role": "index",
+      "description": "Zero-based continuous row index across all parts of the loaded sequence."
+    },
+    {
+      "name": "sequence_id",
+      "dtype": "UInt8",
+      "role": "entity",
+      "description": "Sequence number after C: 7, 8, 9, 11, 13, 14, 15, or 16. Use this ID for Leave-One-Out splits."
+    },
+    {
+      "name": "source_file",
+      "dtype": "String",
+      "role": "provenance",
+      "description": "Original CSV filename for each row; preserves source-part boundaries."
+    }
+  ],
+  "notes": [
+    "The evaluation unit is a complete sequence: eight sequences and eight Leave-One-Out folds. Ten CSVs are the underlying storage files, not ten independent sequences.",
+    "The number after C is the sequence ID. Hyphenated parts are concatenated in order: C7-1 then C7-2, and C13-1 then C13-2.",
+    "Leave-One-Out evaluation holds out one complete sequence in each of eight folds. Source parts of a sequence must remain in the same fold.",
+    "The loader preserves all measurement values and missing rows, adds a continuous sample index, and retains the original Timestamp and source_file. It does not infer interruption duration.",
+    "Sequences C7, C14, and C15 each contain four rows missing all 25 signals (12 rows and 300 missing values in total). These rows are retained in sequence lengths.",
+    "The provider describes run-to-failure experiments. For an endpoint-based RUL benchmark, derive remaining sample count from the complete sequence endpoint rather than individual file endpoints.",
+    "Explicit per-sample wear, fault, and state annotations are not distributed. Timestamp physical units are not established by the CSVs.",
+    "The provider describes selecting eight features for an analysis; the raw recording schema contains 25 process signals."
+  ],
+  "citation": "von Birgelen, A. et al. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems."
+}

@@ -1,0 +1,112 @@
+{
+  "id": "cmapss",
+  "short_name": "C-MAPSS",
+  "name": "Turbofan Engine Degradation Simulation Data Set",
+  "summary": "A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engines generated with NASA's C-MAPSS simulator.",
+  "source": {
+    "name": "NASA Prognostics Center of Excellence",
+    "landing_page": "https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "Unspecified",
+    "url": "",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-09-06",
+    "access": "Direct download from NASA"
+  },
+  "download": {
+    "url": "https://phm-datasets.s3.amazonaws.com/NASA/6.+Turbofan+Engine+Degradation+Simulation+Data+Set.zip",
+    "filename": "turbofan-engine-degradation-simulation.zip",
+    "archive": "zip",
+    "expected_files": [
+      "train_FD001.txt",
+      "test_FD001.txt",
+      "RUL_FD001.txt",
+      "train_FD002.txt",
+      "test_FD002.txt",
+      "RUL_FD002.txt",
+      "train_FD003.txt",
+      "test_FD003.txt",
+      "RUL_FD003.txt",
+      "train_FD004.txt",
+      "test_FD004.txt",
+      "RUL_FD004.txt",
+      "readme.txt",
+      "Damage Propagation Modeling.pdf"
+    ]
+  },
+  "characteristics": {
+    "kind": "Multivariate run-to-failure time series",
+    "feature_dimensions": {
+      "summary": "24 input features: 21 sensor measurements + 3 operating settings",
+      "counting": "Applies to FD001\u2013FD004 before dropping constant channels or engineering features. Unit ID and cycle index are excluded from the 26 raw columns; remaining useful life is a separate target.",
+      "sources": [
+        {
+          "name": "NASA Prognostics Center of Excellence",
+          "url": "https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "RUL estimation",
+    "Prognostics",
+    "Anomaly detection"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "direct",
+    "time_to_event": "direct",
+    "survival_analysis": "direct"
+  },
+  "attributes": [
+    {
+      "name": "unit_number",
+      "dtype": "UInt16",
+      "role": "entity",
+      "description": "Identifier of the simulated engine."
+    },
+    {
+      "name": "cycle",
+      "dtype": "UInt32",
+      "role": "time",
+      "description": "Operating-cycle number."
+    },
+    {
+      "name": "operation_1..3",
+      "dtype": "Float64",
+      "role": "operating-condition",
+      "description": "Three operating settings that affect engine performance."
+    },
+    {
+      "name": "sensor_1..21",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Twenty-one sensor channels describing engine condition."
+    },
+    {
+      "name": "RUL",
+      "dtype": "UInt32",
+      "role": "target",
+      "description": "Optional uncapped per-cycle target when with_rul=True: train max(cycle)-cycle; test max(cycle)-cycle plus the official test-end offset. rul() returns offsets keyed by unit number; split=\"rul\" retains the legacy single target column."
+    }
+  ],
+  "notes": [
+    "FD001/FD003 have one operating condition; FD002/FD004 have six. FD001/FD002 have HPC degradation; FD003/FD004 include HPC and fan degradation modes. Per-cycle mode and onset labels are not supplied.",
+    "Full local validation on 2026-09-06 confirmed 709 train and 707 test trajectories, 265,256 cycle rows with 26 finite values each, and 707 official test-end RUL offsets. All unit trajectories have consecutive cycles starting at 1.",
+    "The bundled readme reverses the FD004 train/test trajectory counts. Actual files contain 249 train and 248 test engines; this catalog uses the observed counts.",
+    "Each row is one operating-cycle observation, not a high-frequency waveform. No sampling rate in Hz or duration in seconds per cycle is supplied.",
+    "Training trajectories end at failure. Test trajectories stop earlier; official RUL files give the number of cycles remaining after each test trajectory, in ascending unit-number order.",
+    "Unit IDs are local to each subset and split. A training engine and a test engine with the same unit number are different trajectories.",
+    "Default loading preserves all 26 columns. Unit selection and RUL augmentation are explicit; no smoothing, RUL cap, normalization, or constant-channel removal is applied.",
+    "NASA does not specify a license in the dataset metadata, so this project does not classify it as CC0."
+  ],
+  "citation": "Saxena, A. and Goebel, K. (2008). Turbofan Engine Degradation Simulation Data Set. NASA Ames Prognostics Data Repository."
+}

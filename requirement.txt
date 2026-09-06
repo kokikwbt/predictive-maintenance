@@ -1,7 +1,0 @@
-numpy
-scipy
-pandas
-matplotlib
-seaborn
-scikit-learn
-pysurvival
