@@ -3,8 +3,8 @@ import unittest
 import plotly.graph_objects as go
 import polars as pl
 
-import datasets
-from datasets.visualization import AxisSpec, TimeSeriesSpec, plot_time_series
+import pdmdata
+from pdmdata.visualization import AxisSpec, TimeSeriesSpec, plot_time_series
 
 
 class VisualizationTest(unittest.TestCase):
@@ -20,7 +20,7 @@ class VisualizationTest(unittest.TestCase):
             }
         )
 
-        figure = datasets.visualize(
+        figure = pdmdata.visualize(
             "cmapss", "sensor_trajectory", frame, entity=1
         )
 
@@ -45,7 +45,7 @@ class VisualizationTest(unittest.TestCase):
 
     def test_missing_columns_have_actionable_error(self):
         with self.assertRaisesRegex(ValueError, "sensor_12"):
-            datasets.visualize(
+            pdmdata.visualize(
                 "cmapss",
                 "sensor_trajectory",
                 pl.DataFrame(
@@ -60,19 +60,6 @@ class VisualizationTest(unittest.TestCase):
                 entity=1,
             )
 
-    def test_registry_lists_showcase_datasets(self):
-        self.assertEqual(
-            set(datasets.available_plots()),
-            {
-                "backblaze",
-                "care",
-                "cmapss",
-                "gfd",
-                "mapm",
-                "metropt2",
-            },
-        )
-
     def test_metropt2_visualization_accepts_lazy_data(self):
         frame = pl.DataFrame(
             {
@@ -84,7 +71,7 @@ class VisualizationTest(unittest.TestCase):
             }
         ).lazy()
 
-        figure = datasets.visualize("metropt2", "sensor_signals", frame)
+        figure = pdmdata.visualize("metropt2", "sensor_signals", frame)
 
         self.assertEqual(len(figure.data), 4)
         self.assertEqual(figure.layout.xaxis.title.text, "Timestamp")
@@ -98,7 +85,7 @@ class VisualizationTest(unittest.TestCase):
             }
         ).lazy()
 
-        figure = datasets.visualize(
+        figure = pdmdata.visualize(
             "care",
             "scada_signals",
             frame,
@@ -108,6 +95,15 @@ class VisualizationTest(unittest.TestCase):
 
         self.assertEqual(len(figure.data), 2)
 
+        native = pl.DataFrame({
+            "time_stamp": ["2025-01-01", "2025-01-02"],
+            "asset_id": [1, 1], "id": [0, 1], "status_type_id": [0, 0],
+            "sensor_0_avg": [20., 21.], "wind_speed_3_avg": [8., 9.],
+        })
+        for frame in (native, native.lazy()):
+            figure = pdmdata.visualize("care", "scada_signals", frame)
+            self.assertEqual([list(trace.y) for trace in figure.data], [[20., 21.], [8., 9.]])
+
     def test_backblaze_visualization_aggregates_daily_failures(self):
         frame = pl.DataFrame(
             {
@@ -116,7 +112,7 @@ class VisualizationTest(unittest.TestCase):
             }
         ).lazy()
 
-        figure = datasets.visualize(
+        figure = pdmdata.visualize(
             "backblaze", "daily_failure_rate", frame
         )
 

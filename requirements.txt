@@ -1,9 +1,0 @@
-numpy
-scipy
-polars
-matplotlib
-plotly
-scikit-learn
-jupyterlab
-ipykernel
-kaggle

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download and extract every dataset with an automated retrieval method."""
+"""Download the bulk-enabled datasets; exclude explicitly opt-in large datasets."""
 
 from pathlib import Path
 import sys
@@ -8,7 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from datasets import bulk_downloads, download  # noqa: E402
+from pdmdata import bulk_downloads, download  # noqa: E402
 
 
 def main() -> None:

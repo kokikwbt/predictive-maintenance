@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from datasets import download, download_command, supported_downloads  # noqa: E402
+from pdmdata import download, download_command, supported_downloads  # noqa: E402
 
 
 def main() -> None:

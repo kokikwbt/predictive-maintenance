@@ -1,0 +1,153 @@
+{
+  "id": "mapm",
+  "short_name": "MAPM",
+  "name": "Microsoft Azure Predictive Maintenance",
+  "summary": "Synthetic data linking 2015 sensor telemetry, errors, maintenance, failures, and machine metadata for 100 simulated machines.",
+  "source": {
+    "name": "Microsoft sqlworkshops",
+    "landing_page": "https://github.com/microsoft/sqlworkshops/tree/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "Unknown",
+    "url": "",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-09-06",
+    "access": "Direct download from Microsoft GitHub"
+  },
+  "download": {
+    "method": "files",
+    "filename": "mapm-microsoft.zip",
+    "archive": "zip",
+    "expected_files": [
+      "PdM_telemetry.csv",
+      "PdM_errors.csv",
+      "PdM_maint.csv",
+      "PdM_failures.csv",
+      "PdM_machines.csv"
+    ],
+    "files": [
+      {
+        "filename": "PdM_telemetry.csv",
+        "url": "https://raw.githubusercontent.com/microsoft/sqlworkshops/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data/PdM_telemetry.csv"
+      },
+      {
+        "filename": "PdM_errors.csv",
+        "url": "https://raw.githubusercontent.com/microsoft/sqlworkshops/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data/PdM_errors.csv"
+      },
+      {
+        "filename": "PdM_maint.csv",
+        "url": "https://raw.githubusercontent.com/microsoft/sqlworkshops/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data/PdM_maint.csv"
+      },
+      {
+        "filename": "PdM_failures.csv",
+        "url": "https://raw.githubusercontent.com/microsoft/sqlworkshops/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data/PdM_failures.csv"
+      },
+      {
+        "filename": "PdM_machines.csv",
+        "url": "https://raw.githubusercontent.com/microsoft/sqlworkshops/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data/PdM_machines.csv"
+      }
+    ]
+  },
+  "characteristics": {
+    "kind": "Multi-table time series",
+    "feature_dimensions": {
+      "summary": "4 telemetry features",
+      "counting": "Counts volt, rotate, pressure, and vibration; datetime and machineID are excluded from the 6 telemetry columns. Joining machine model and age adds two input fields before categorical encoding. Error, maintenance, and failure tables require task-specific joins or aggregation, so the engineered dimension is not fixed.",
+      "sources": [
+        {
+          "name": "Microsoft sqlworkshops",
+          "url": "https://github.com/microsoft/sqlworkshops/tree/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Failure prediction",
+    "RUL estimation",
+    "Maintenance analysis"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "direct",
+    "rul_prediction": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "direct",
+    "event_forecasting": "direct",
+    "maintenance_policy": "derived"
+  },
+  "attributes": [
+    {
+      "name": "datetime",
+      "dtype": "Datetime",
+      "role": "timestamp",
+      "description": "Timestamp for telemetry, error, maintenance, and failure events."
+    },
+    {
+      "name": "machineID",
+      "dtype": "UInt16",
+      "role": "entity",
+      "description": "Machine identifier from 1 through 100."
+    },
+    {
+      "name": "volt",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Hourly mean voltage."
+    },
+    {
+      "name": "rotate",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Hourly mean rotation."
+    },
+    {
+      "name": "pressure",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Hourly mean pressure."
+    },
+    {
+      "name": "vibration",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Hourly mean vibration."
+    },
+    {
+      "name": "errorID",
+      "dtype": "Categorical",
+      "role": "event",
+      "description": "Type of non-fatal machine error."
+    },
+    {
+      "name": "comp",
+      "dtype": "Categorical",
+      "role": "maintenance-event",
+      "description": "Component replaced during maintenance or after failure."
+    },
+    {
+      "name": "model",
+      "dtype": "Categorical",
+      "role": "asset-attribute",
+      "description": "Machine model."
+    },
+    {
+      "name": "age",
+      "dtype": "UInt8",
+      "role": "asset-attribute",
+      "description": "Machine age."
+    }
+  ],
+  "notes": [
+    "The original Azure AI Notebook was retired in 2020.",
+    "The former Azure Blob host did not resolve on 2026-09-06. Downloads use the five source CSVs in Microsoft sqlworkshops on GitHub and bundle their unchanged contents locally. Kaggle is not required.",
+    "Treat this as synthetic data.",
+    "No dataset-specific license was found, so redistribution and commercial-use rights cannot be asserted."
+  ],
+  "citation": "Microsoft Azure Predictive Maintenance sample dataset."
+}

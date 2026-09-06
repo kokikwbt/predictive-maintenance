@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdmdata"
+version = "0.1.0"
+description = "Dataset catalog and Polars loaders for predictive maintenance research"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = "MIT"
+dependencies = [
+  "numpy",
+  "scipy",
+  "polars",
+  "matplotlib",
+  "plotly",
+  "scikit-learn",
+  "jupyterlab",
+  "ipykernel",
+  "kaggle",
+  "libarchive-c>=5,<6",
+]
+
+[tool.setuptools.packages.find]
+include = ["pdmdata*"]
+
+[tool.setuptools.package-data]
+pdmdata = ["README.md", "*/metadata.json", "*/README.md", "*/assets/*.png", "*/assets/*.json"]

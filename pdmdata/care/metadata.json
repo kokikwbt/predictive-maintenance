@@ -1,0 +1,193 @@
+{
+  "id": "care",
+  "short_name": "CARE",
+  "name": "Wind Turbine SCADA Data for Early Fault Detection",
+  "summary": "A real-world early-fault-detection benchmark containing 89 years of SCADA time series from 36 wind turbines across three wind farms.",
+  "source": {
+    "name": "Fraunhofer IEE on Zenodo",
+    "landing_page": "https://zenodo.org/records/15846963",
+    "doi": "10.5281/zenodo.15846963",
+    "doi_url": "https://doi.org/10.5281/zenodo.15846963"
+  },
+  "license": {
+    "name": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-09-05",
+    "access": "Direct download from Zenodo"
+  },
+  "download": {
+    "url": "https://zenodo.org/records/15846963/files/CARE_To_Compare.zip?download=1",
+    "filename": "CARE_To_Compare.zip",
+    "archive": "zip",
+    "expected_files": [
+      "CARE_To_Compare/README.md",
+      "CARE_To_Compare/README.txt",
+      "CARE_To_Compare/Wind Farm A/datasets/0.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/3.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/10.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/13.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/14.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/17.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/22.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/24.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/25.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/26.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/38.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/40.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/42.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/45.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/51.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/68.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/69.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/71.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/72.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/73.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/84.csv",
+      "CARE_To_Compare/Wind Farm A/datasets/92.csv",
+      "CARE_To_Compare/Wind Farm A/event_info.csv",
+      "CARE_To_Compare/Wind Farm A/feature_description.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/2.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/7.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/19.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/21.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/23.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/27.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/34.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/52.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/53.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/74.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/77.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/82.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/83.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/86.csv",
+      "CARE_To_Compare/Wind Farm B/datasets/87.csv",
+      "CARE_To_Compare/Wind Farm B/event_info.csv",
+      "CARE_To_Compare/Wind Farm B/feature_description.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/1.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/4.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/5.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/6.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/8.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/9.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/11.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/12.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/15.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/16.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/18.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/20.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/28.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/29.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/30.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/31.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/32.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/33.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/35.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/36.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/37.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/39.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/41.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/43.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/44.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/46.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/47.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/48.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/49.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/50.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/54.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/55.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/56.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/57.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/58.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/59.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/60.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/61.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/62.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/63.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/64.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/65.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/66.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/67.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/70.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/75.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/76.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/78.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/79.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/80.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/81.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/85.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/88.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/89.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/90.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/91.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/93.csv",
+      "CARE_To_Compare/Wind Farm C/datasets/94.csv",
+      "CARE_To_Compare/Wind Farm C/event_info.csv",
+      "CARE_To_Compare/Wind Farm C/feature_description.csv"
+    ],
+    "bulk": false,
+    "checksum": "md5:2547b58c21ac8c242d13232860cf500c"
+  },
+  "characteristics": {
+    "kind": "Large labeled wind-turbine SCADA time series",
+    "feature_dimensions": {
+      "summary": "Wind Farm A: 81; B: 252; C: 952 sensor features",
+      "counting": "Counts all sensor columns in the v6 time-series files, including available statistical summaries. Excludes time_stamp, asset_id, id, train_test, and status_type_id. Total raw column counts are 86, 257, and 957 respectively; selecting only average channels reduces the dimensions.",
+      "sources": [
+        {
+          "name": "Fraunhofer IEE on Zenodo",
+          "url": "https://zenodo.org/records/15846963"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Early fault detection",
+    "Anomaly detection",
+    "Failure prediction"
+  ],
+  "task_support": {
+    "anomaly_detection": "direct",
+    "fault_classification": "direct",
+    "condition_estimation": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "derived"
+  },
+  "attributes": [
+    {
+      "name": "time_stamp",
+      "dtype": "Datetime",
+      "role": "timestamp",
+      "description": "SCADA observation time within an anonymized turbine event series."
+    },
+    {
+      "name": "sensor statistics",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Per-timestamp average, minimum, maximum, and standard-deviation statistics; feature counts differ by wind farm."
+    },
+    {
+      "name": "status_type_id",
+      "dtype": "Categorical",
+      "role": "target",
+      "description": "Turbine-status label used for training-data quality filtering and anomaly evaluation."
+    },
+    {
+      "name": "event metadata",
+      "dtype": "Mixed",
+      "role": "event",
+      "description": "Fault descriptions, event timing, asset identifiers, and prediction intervals supplied with event series."
+    }
+  ],
+  "notes": [
+    "Version 6 corrects labels, timestamps, units, and event descriptions from earlier versions.",
+    "The collection has 95 datasets: 45 lead up to labeled turbine faults and 50 represent normal behavior.",
+    "The provider recommends Avg signals for analysis; Min, Max, and Std can be implausible, especially in Wind Farm B.",
+    "The 5.5 GB archive is opt-in and is not downloaded by scripts/bootstrap.sh."
+  ],
+  "citation": "Gück, C. and Roelofs, C. (2025). Wind Turbine SCADA Data For Early Fault Detection, Version 6. Zenodo. https://doi.org/10.5281/zenodo.15846963"
+}

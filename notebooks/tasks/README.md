@@ -9,7 +9,7 @@ Available notebooks:
 - [Fault classification](fault-classification.ipynb) with GFD;
 - [Operating-state classification](operating-state-classification.ipynb) with
   OYICD;
-- [Condition estimation](condition-estimation.ipynb) with CBM;
+- [Condition estimation](condition-estimation.ipynb) with HydSys;
 - [Remaining useful life prediction](remaining-useful-life-prediction.ipynb)
   with C-MAPSS;
 - [Time-to-event prediction](time-to-event-prediction.ipynb) with C-MAPSS;

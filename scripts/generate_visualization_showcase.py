@@ -55,15 +55,13 @@ names, labels, and defaults, while the shared API returns Plotly figures.""",
         """from pathlib import Path
 import sys
 
-ROOT = Path.cwd().resolve()
-if not (ROOT / "datasets").is_dir():
-    ROOT = ROOT.parents[1]
+ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0, str(ROOT))
 
 import polars as pl
-import datasets
+import pdmdata
 
-datasets.available_plots()""",
+pdmdata.available_plots()""",
     ),
     markdown(
         "cmapss-heading",
@@ -74,9 +72,9 @@ point limit, and uses C-MAPSS-specific sensor labels.""",
     ),
     code(
         "cmapss-plot",
-        """datasets.download("cmapss")
-cmapss = datasets.load("cmapss", subset="FD001", split="train")
-cmapss_figure = datasets.visualize(
+        """pdmdata.download("cmapss")
+cmapss = pdmdata.load("cmapss", subset="FD001", split="train")
+cmapss_figure = pdmdata.visualize(
     "cmapss",
     "sensor_trajectory",
     cmapss,
@@ -93,12 +91,12 @@ configuration describes a feature and condition column.""",
     ),
     code(
         "gfd-plot",
-        """datasets.download("gfd")
+        """pdmdata.download("gfd")
 gfd = pl.concat([
-    datasets.load("gfd", condition="healthy", load=50),
-    datasets.load("gfd", condition="broken", load=50),
+    pdmdata.load("gfd", condition="healthy", load=50),
+    pdmdata.load("gfd", condition="broken", load=50),
 ])
-gfd_figure = datasets.visualize("gfd", "condition_distribution", gfd)
+gfd_figure = pdmdata.visualize("gfd", "condition_distribution", gfd)
 gfd_figure.show()""",
     ),
     markdown(
@@ -110,9 +108,9 @@ multiple lines, while error records use an event timeline.""",
     ),
     code(
         "mapm-telemetry",
-        """datasets.download("mapm")
-telemetry = datasets.load("mapm", table="telemetry")
-telemetry_figure = datasets.visualize(
+        """pdmdata.download("mapm")
+telemetry = pdmdata.load("mapm", table="telemetry")
+telemetry_figure = pdmdata.visualize(
     "mapm",
     "telemetry",
     telemetry,
@@ -122,8 +120,8 @@ telemetry_figure.show()""",
     ),
     code(
         "mapm-events",
-        """errors = datasets.load("mapm", table="errors")
-error_figure = datasets.visualize(
+        """errors = pdmdata.load("mapm", table="errors")
+error_figure = pdmdata.visualize(
     "mapm",
     "error_timeline",
     errors,
@@ -144,12 +142,12 @@ happen before Plotly receives data.""",
         "metropt2-heading",
         """### MetroPT2 compressor signals
 
-Run `python scripts/download.py metropt2` once before this example.""",
+Run `uv run --locked python scripts/download.py metropt2` once before this example.""",
     ),
     code(
         "metropt2-plot",
-        """metropt2 = datasets.load("metropt2")
-metropt2_figure = datasets.visualize(
+        """metropt2 = pdmdata.load("metropt2")
+metropt2_figure = pdmdata.visualize(
     "metropt2",
     "sensor_signals",
     metropt2,
@@ -160,20 +158,17 @@ metropt2_figure.show()""",
         "care-heading",
         """### CARE wind-turbine SCADA signals
 
-Run `python scripts/download.py care` once, then replace the recording path
-below with one CSV path from the extracted collection. CARE schemas vary, so
-you can pass `time_column` and `columns` explicitly when automatic selection is
-not appropriate.""",
+Run `uv run --locked python scripts/download.py care` once before this example.
+Select wind farm A and event 0 through the CARE loader. Other farms and events
+can be selected with `wind_farm` and `event_id`.""",
     ),
     code(
         "care-plot",
-        """care = datasets.load("care", recording="path/to/recording.csv")
-care_figure = datasets.visualize(
+        """care = pdmdata.load("care", wind_farm="A", event_id=0)
+care_figure = pdmdata.visualize(
     "care",
     "scada_signals",
     care,
-    # time_column="timestamp",
-    # columns=["signal_1_mean", "signal_2_mean"],
 )
 care_figure.show()""",
     ),
@@ -181,13 +176,13 @@ care_figure.show()""",
         "backblaze-heading",
         """### Backblaze daily failure rate
 
-Run `python scripts/download.py backblaze --variant 2025-q1` once before this
+Run `uv run --locked python scripts/download.py backblaze --variant 2025-q1` once before this
 example. Daily aggregation is executed lazily over the quarter.""",
     ),
     code(
         "backblaze-plot",
-        """backblaze = datasets.load("backblaze", variant="2025-q1")
-backblaze_figure = datasets.visualize(
+        """backblaze = pdmdata.load("backblaze", variant="2025-q1")
+backblaze_figure = pdmdata.visualize(
     "backblaze",
     "daily_failure_rate",
     backblaze,
@@ -198,8 +193,8 @@ backblaze_figure.show()""",
         "extension",
         """## Extending the showcase
 
-Add typed specifications to `datasets/<dataset-id>/visualization.py` and
-register them in `datasets/visualization/registry.py`. Extend the shared
+Add typed specifications to `pdmdata/<dataset-id>/viz.py` and
+register them in `pdmdata/visualization/registry.py`. Extend the shared
 plotting functions only when a genuinely reusable chart type is needed.""",
     ),
 ]
@@ -210,9 +205,9 @@ def main() -> None:
         "cells": CELLS,
         "metadata": {
             "kernelspec": {
-                "display_name": "Python (pmdata)",
+                "display_name": "Python (pdmdata)",
                 "language": "python",
-                "name": "pmdata",
+                "name": "pdmdata",
             },
             "language_info": {"name": "python", "version": "3.11"},
         },

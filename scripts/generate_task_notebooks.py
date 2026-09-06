@@ -14,16 +14,14 @@ OUTPUT = ROOT / "notebooks" / "tasks"
 SETUP = """from pathlib import Path
 import sys
 
-ROOT = Path.cwd().resolve()
-if not (ROOT / "datasets").is_dir():
-    ROOT = ROOT.parents[1]
+ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0, str(ROOT))
 
 import matplotlib.pyplot as plt
 import numpy as np
 import polars as pl
 
-import datasets"""
+import pdmdata"""
 
 
 def markdown(source: str) -> Dict[str, object]:
@@ -50,9 +48,9 @@ def notebook(cells: List[Dict[str, object]]) -> Dict[str, object]:
         "cells": cells,
         "metadata": {
             "kernelspec": {
-                "display_name": "Python (pmdata)",
+                "display_name": "Python (pdmdata)",
                 "language": "python",
-                "name": "pmdata",
+                "name": "pdmdata",
             },
             "language_info": {"name": "python", "version": "3.11"},
         },
@@ -84,10 +82,10 @@ from sklearn.ensemble import IsolationForest
 from sklearn.metrics import roc_auc_score"""
             ),
             code(
-                """datasets.download("gfd")
+                """pdmdata.download("gfd")
 
 def vibration_windows(condition, load, window_size=256):
-    frame = datasets.load("gfd", condition=condition, load=load)
+    frame = pdmdata.load("gfd", condition=condition, load=load)
     sensors = [column for column in frame.columns if column.startswith("sensor_")]
     return (
         frame.with_row_index("sample")
@@ -177,10 +175,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import ConfusionMatrixDisplay, balanced_accuracy_score"""
             ),
             code(
-                """datasets.download("gfd")
+                """pdmdata.download("gfd")
 
 def window_features(condition, load, window_size=256):
-    frame = datasets.load("gfd", condition=condition, load=load)
+    frame = pdmdata.load("gfd", condition=condition, load=load)
     sensors = [column for column in frame.columns if column.startswith("sensor_")]
     return (
         frame.with_row_index("sample")
@@ -262,31 +260,27 @@ whether it has failed. OYICD encodes one of eight modes in every recording name.
             code(
                 SETUP
                 + """
-import re
+from pdmdata.oyicd import inventory, load
+from pdmdata.oyicd.loader import SENSOR_COLUMNS
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import balanced_accuracy_score"""
             ),
             code(
-                """downloaded = datasets.download("oyicd")
-files = sorted(Path(downloaded["extracted"]).rglob("*_mode*.csv"))
-print(f"Recordings: {len(files)}")
+                """pdmdata.download("oyicd")
+files = inventory().sort("filename")
+print(f"Unique recordings: {files.height}")
 
-def summarize_recording(path):
-    frame = pl.read_csv(path)
-    numeric = [
-        column for column, dtype in frame.schema.items()
-        if dtype.is_numeric()
-    ]
-    mode = int(re.search(r"mode(\\d+)", path.name).group(1))
+def summarize_recording(filename):
+    frame = load(filename)
     return frame.select(
-        *[pl.col(column).mean().alias(f"{column}_mean") for column in numeric],
-        *[pl.col(column).std().alias(f"{column}_std") for column in numeric],
+        *[pl.col(column).mean().alias(f"{column}_mean") for column in SENSOR_COLUMNS],
+        *[pl.col(column).std().alias(f"{column}_std") for column in SENSOR_COLUMNS],
     ).with_columns(
-        pl.lit(path.name).alias("recording"),
-        pl.lit(mode).alias("mode"),
+        pl.lit(filename).alias("recording"),
+        pl.lit(frame["mode"][0]).alias("mode"),
     )
 
-recordings = pl.concat([summarize_recording(path) for path in files], how="diagonal_relaxed")
+recordings = pl.concat([summarize_recording(name) for name in files["filename"]])
 recordings.group_by("mode").len().sort("mode")"""
             ),
             code(
@@ -316,9 +310,10 @@ print(
             markdown(
                 """## Interpretation and limitations
 
-Mode is an operating condition, not a fault label. Because recording time and
-degradation may be correlated, a chronological split is preferable to random
-rows. A production model should also test whether mode recognition transfers
+Mode is an operating condition, not a fault label. The dataset loader validates
+and counts duplicate source copies once. Features use only the eight sensors;
+time and mode columns are excluded. The split holds out later recordings within
+each mode; it is not a single global time cutoff across all modes. A production model should also test whether mode recognition transfers
 between machines and component ages."""
             ),
         ]
@@ -326,55 +321,60 @@ between machines and component ages."""
     "condition-estimation.ipynb": notebook(
         [
             markdown(
-                """# Condition estimation with naval propulsion data
+                """# Condition estimation with hydraulic sensor data
 
-Condition estimation predicts a continuous health quantity. CBM provides
-compressor and turbine degradation coefficients as explicit regression targets.
+Estimate cycle-average cooling efficiency from pressure measurements in HydSys.
+Each row represents one 60-second test cycle. The target is the continuous CE
+virtual sensor, rather than the discrete cooler-condition labels in profile.txt.
 
 ## Learning goals
 
-- distinguish condition estimation from discrete fault classification;
-- train a multivariate regression baseline;
-- inspect absolute error across the degradation range."""
+- summarize pressure waveforms into cycle-level features;
+- align inputs and targets by cycle, despite different sampling rates;
+- evaluate a regression baseline on later cycles."""
             ),
             code(
                 SETUP
                 + """
 from sklearn.ensemble import ExtraTreesRegressor
-from sklearn.metrics import mean_absolute_error
-from sklearn.model_selection import train_test_split"""
+from sklearn.metrics import mean_absolute_error"""
             ),
             code(
-                """datasets.download("cbm")
-data = datasets.load("cbm")
-target = "kMc"
-features = [column for column in data.columns if column not in {"kMc", "kMt"}]
-data.select(features + [target]).describe()"""
+                """pdmdata.download("hydsys")
+pressure = pdmdata.load("hydsys", sensor="PS1").to_numpy()
+efficiency = pdmdata.load("hydsys", sensor="CE").to_numpy()
+assert pressure.shape[0] == efficiency.shape[0], "Cycle counts must match"
+features = np.column_stack([
+    pressure.mean(axis=1), pressure.std(axis=1),
+    pressure.min(axis=1), pressure.max(axis=1),
+])
+target = efficiency.mean(axis=1)
+features.shape, target.shape"""
             ),
             code(
-                """indices = np.arange(data.height)
-train_index, test_index = train_test_split(indices, test_size=0.2, random_state=0)
+                """split = int(len(target) * 0.8)
 model = ExtraTreesRegressor(n_estimators=200, random_state=0, n_jobs=-1)
-model.fit(data[train_index].select(features).to_numpy(), data[train_index][target].to_numpy())
-prediction = model.predict(data[test_index].select(features).to_numpy())
-actual = data[test_index][target].to_numpy()
-print(f"Compressor-degradation MAE: {mean_absolute_error(actual, prediction):.5f}")"""
+model.fit(features[:split], target[:split])
+prediction = model.predict(features[split:])
+actual = target[split:]
+print(f"Cooling-efficiency MAE: {mean_absolute_error(actual, prediction):.3f}")"""
             ),
             code(
                 """plt.scatter(actual, prediction, s=8, alpha=0.4)
 limits = [min(actual.min(), prediction.min()), max(actual.max(), prediction.max())]
 plt.plot(limits, limits, "--", color="black")
-plt.xlabel("Actual compressor degradation coefficient")
-plt.ylabel("Predicted coefficient")
+plt.xlabel("Actual cycle-average cooling efficiency (%)")
+plt.ylabel("Predicted cooling efficiency (%)")
 plt.show()"""
             ),
             markdown(
                 """## Interpretation and limitations
 
-CBM is simulated steady-state coverage rather than a run-to-failure sequence.
-It supports condition regression, but not event timing or survival analysis.
-Random splitting measures interpolation and should not be described as
-cross-vessel or temporal generalization."""
+This baseline estimates a contemporaneous virtual sensor from pressure; it does
+not predict future failures or remaining useful life. CE is used only as a
+target. The split preserves cycle order, but repeated test-rig conditions may
+still occur in both partitions. It does not establish generalization to other
+machines or unseen fault conditions."""
             ),
         ]
     ),
@@ -400,14 +400,11 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error"""
             ),
             code(
-                """datasets.download("cmapss")
-train = datasets.load("cmapss", subset="FD001", split="train")
-test = datasets.load("cmapss", subset="FD001", split="test")
-test_rul = datasets.load("cmapss", subset="FD001", split="rul")
-
-train = train.with_columns(
-    (pl.col("cycle").max().over("unit_number") - pl.col("cycle")).alias("RUL")
-)
+                """pdmdata.download("cmapss")
+from pdmdata.cmapss import rul
+train = pdmdata.load("cmapss", subset="FD001", split="train", with_rul=True)
+test = pdmdata.load("cmapss", subset="FD001", split="test")
+test_rul = rul("FD001")
 train.select("unit_number", "cycle", "RUL").head()"""
             ),
             code(
@@ -431,16 +428,19 @@ print(
             ),
             code(
                 """model.fit(train.select(features).to_numpy(), train["RUL"].to_numpy())
-last_test_rows = test.sort("cycle").group_by("unit_number", maintain_order=True).last()
+last_test_rows = test.sort("cycle").group_by("unit_number").last().sort("unit_number")
 prediction = np.maximum(model.predict(last_test_rows.select(features).to_numpy()), 0)
-actual = test_rul["RUL"].to_numpy()
+actual = last_test_rows.select("unit_number").join(
+    test_rul, on="unit_number", validate="1:1", maintain_order="left"
+)["RUL"].to_numpy()
 print(f"Official test MAE: {mean_absolute_error(actual, prediction):.1f} cycles")
 print(f"Official test RMSE: {root_mean_squared_error(actual, prediction):.1f} cycles")"""
             ),
             markdown(
                 """## Interpretation and limitations
 
-The uncapped linear RUL target assumes degradation starts at the first cycle.
+Uncapped RUL counts the cycles remaining to failure; it does not identify fault
+onset or assume that degradation began at the first cycle.
 Common C-MAPSS studies use a piecewise cap and specialized asymmetric scores;
 those choices must be reported because they materially change the task."""
             ),
@@ -468,8 +468,8 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error"""
             ),
             code(
-                """datasets.download("cmapss")
-data = datasets.load("cmapss", subset="FD001", split="train")
+                """pdmdata.download("cmapss")
+data = pdmdata.load("cmapss", subset="FD001", split="train")
 data = data.with_columns(
     (pl.col("cycle").max().over("unit_number") - pl.col("cycle"))
     .alias("time_to_event_cycles"),
@@ -530,9 +530,9 @@ with test engines censored at their final observed cycle.
             ),
             code(SETUP),
             code(
-                """datasets.download("cmapss")
-train = datasets.load("cmapss", subset="FD001", split="train")
-test = datasets.load("cmapss", subset="FD001", split="test")
+                """pdmdata.download("cmapss")
+train = pdmdata.load("cmapss", subset="FD001", split="train")
+test = pdmdata.load("cmapss", subset="FD001", split="test")
 
 failed = (
     train.group_by("unit_number")
@@ -628,9 +628,9 @@ baseline.
 from sklearn.metrics import accuracy_score"""
             ),
             code(
-                """datasets.download("mapm")
+                """pdmdata.download("mapm")
 errors = (
-    datasets.load("mapm", table="errors")
+    pdmdata.load("mapm", table="errors")
     .sort("machineID", "datetime")
     .with_columns(
         pl.col("errorID").shift(-1).over("machineID").alias("next_error"),

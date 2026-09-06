@@ -1,0 +1,59 @@
+{
+  "source": "https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data",
+  "selection": "One SSD history and two drives with a reported failure on January 31, 2025. Illustrative selection, not a representative evaluation sample.",
+  "processing": "Original daily values; no smoothing, resampling, normalization, or zero imputation. SMART values retain provider-specific semantics.",
+  "samples": [
+    {
+      "image": "ssd-january.png",
+      "variant": "2025-q1",
+      "serial_number": "2207E60CC65A",
+      "model": "CT250MX500SSD1",
+      "start_date": "2025-01-01",
+      "end_date": "2025-01-31",
+      "observations": 31,
+      "columns": [
+        "smart_5_raw",
+        "smart_9_raw",
+        "smart_194_raw"
+      ],
+      "failure_dates": [],
+      "bytes": 62536
+    },
+    {
+      "image": "hgst-failure-january.png",
+      "variant": "2025-q1",
+      "serial_number": "8DHBLDBH",
+      "model": "HGST HUH721212ALE604",
+      "start_date": "2025-01-01",
+      "end_date": "2025-01-31",
+      "observations": 31,
+      "columns": [
+        "smart_5_raw",
+        "smart_197_raw",
+        "smart_194_raw"
+      ],
+      "failure_dates": [
+        "2025-01-31"
+      ],
+      "bytes": 62073
+    },
+    {
+      "image": "seagate-failure-january.png",
+      "variant": "2025-q1",
+      "serial_number": "ZHZ3MAAX",
+      "model": "ST14000NM0138",
+      "start_date": "2025-01-01",
+      "end_date": "2025-01-31",
+      "observations": 31,
+      "columns": [
+        "smart_5_raw",
+        "smart_197_raw",
+        "smart_194_raw"
+      ],
+      "failure_dates": [
+        "2025-01-31"
+      ],
+      "bytes": 69609
+    }
+  ]
+}

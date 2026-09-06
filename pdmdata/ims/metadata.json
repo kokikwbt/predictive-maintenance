@@ -1,0 +1,113 @@
+{
+  "id": "ims",
+  "short_name": "IMS",
+  "name": "IMS Bearings",
+  "summary": "Run-to-failure vibration measurements from accelerated bearing degradation experiments conducted by the Center for Intelligent Maintenance Systems.",
+  "source": {
+    "name": "NASA Prognostics Center of Excellence",
+    "landing_page": "https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "U.S. Government Works",
+    "url": "https://www.usa.gov/government-works",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-09-06",
+    "access": "Direct NASA-linked S3 download; nested ZIP, 7z, and RAR extraction with libarchive"
+  },
+  "download": {
+    "url": "https://phm-datasets.s3.amazonaws.com/NASA/4.+Bearings.zip",
+    "filename": "IMS.zip",
+    "archive": "zip",
+    "expected_files": [
+      "Readme Document for IMS Bearing Data.pdf",
+      "2003.10.22.12.06.24",
+      "2003.11.25.23.39.56",
+      "2004.02.12.10.32.39",
+      "2004.02.19.06.22.39",
+      "2004.03.04.09.27.46",
+      "2004.04.18.02.42.55"
+    ]
+  },
+  "characteristics": {
+    "kind": "Run-to-failure vibration time series",
+    "feature_dimensions": {
+      "summary": "Experiment 1: 8 vibration channels; experiments 2 and 3: 4 channels",
+      "counting": "Counts simultaneous accelerometer channels, excluding sample/time columns and recording identifiers. Experiment 1 has two channels per bearing; experiments 2 and 3 have one per bearing. Each snapshot nominally contains 20,480 observations per channel at the documented 20 kHz rate; time samples are not separate feature dimensions.",
+      "sources": [
+        {
+          "name": "NASA distribution and bundled IMS readme PDF",
+          "url": "https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Fault diagnosis",
+    "Degradation estimation",
+    "Prognostics"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "derived",
+    "survival_analysis": "derived"
+  },
+  "attributes": [
+    {
+      "name": "sample",
+      "dtype": "UInt32",
+      "role": "time",
+      "description": "Zero-based sample index within the selected recording."
+    },
+    {
+      "name": "time_s",
+      "dtype": "Float64",
+      "role": "time",
+      "description": "Nominal seconds within the snapshot: sample / 20000."
+    },
+    {
+      "name": "channel_1..8",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Eight channels for experiment 1; four for experiments 2 and 3. Source amplitudes are retained without unit conversion."
+    },
+    {
+      "name": "recording_time",
+      "dtype": "Datetime",
+      "role": "timestamp",
+      "description": "Timezone-naive timestamp parsed from the source filename, constant within a snapshot."
+    },
+    {
+      "name": "experiment",
+      "dtype": "UInt8",
+      "role": "entity",
+      "description": "Experiment ID: 1, 2, or 3."
+    },
+    {
+      "name": "recording",
+      "dtype": "String",
+      "role": "entity",
+      "description": "Original timestamp filename, constant within a snapshot."
+    }
+  ],
+  "notes": [
+    "The NASA-linked ZIP contains IMS.7z, which contains three RAR archives and the original readme PDF. download(\"ims\") expands every layer using libarchive; imports and loaders never download.",
+    "There are three independent experiments and 9,464 source snapshots: 2,156 in experiment 1, 984 in experiment 2, and 6,324 in experiment 3.",
+    "Full local validation on 2026-09-06 confirmed 20,480 samples in every recording, the documented channel counts, and no missing or non-finite measurements: 193,822,720 sample rows and 951,910,400 scalar measurements in total.",
+    "The bundled PDF states 4,448 files ending April 4, 2004 for experiment 3; the distributed 3rd_test.rar instead contains 6,324 files under 4th_test/txt, ending April 18, 2004. This nested directory is part of experiment 3, not a fourth experiment. The extension is not explained by the PDF.",
+    "The source describes one-second snapshots with 20,480 points sampled at 20 kHz. The loader uses the stated rate, giving 1.024 seconds per 20,480 sample periods; it does not substitute 20.48 kHz.",
+    "Filename timestamps preserve acquisition gaps. Recordings are normally ten minutes apart; the first 43 files of experiment 1 were taken about five minutes apart. Do not concatenate raw snapshots into a continuous high-rate signal.",
+    "Documented end-of-test outcomes: experiment 1 has bearing 3 inner-race and bearing 4 roller-element defects; experiment 2 has bearing 1 outer-race failure; experiment 3 has bearing 3 outer-race failure. No per-sample onset or switching-state annotations are supplied.",
+    "The archive chronology discrepancy in experiment 3 prevents treating its final file as an independently verified failure endpoint without further justification.",
+    "The catalog record points to the U.S. Government Works policy; users should review the source terms before redistribution."
+  ],
+  "citation": "J. Lee, H. Qiu, G. Yu, J. Lin, and Rexnord Technical Services (2007). IMS, University of Cincinnati. Bearing Data Set. NASA Prognostics Data Repository, NASA Ames Research Center, Moffett Field, CA."
+}

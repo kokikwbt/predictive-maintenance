@@ -1,0 +1,4 @@
+# Global settings shared by downloads and loaders.
+# Relative paths are resolved from this file's directory, not the working directory.
+# Absolute paths and ~ are also supported, e.g. "~/datasets/pdmdata".
+data_root = "data/raw"

@@ -1,0 +1,4 @@
+include .python-version pdmdata.toml uv.lock
+recursive-include scripts *.py *.sh
+recursive-include docs *.md
+recursive-include notebooks *.md *.ipynb
