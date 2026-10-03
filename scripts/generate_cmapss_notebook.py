@@ -18,7 +18,7 @@ one observation per operating cycle, with 21 sensor values and three operating
 settings. These are cycle-level trajectories, not raw high-frequency vibration.
 
 [NASA source](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
-· [Dataset guide](../../pdmdata/cmapss/README.md)
+· [Dataset guide](../../pdmdata/datasets/cmapss/README.md)
 
 Run `pdmdata.download("cmapss")` explicitly if needed. This notebook reads local
 data and saves compact Matplotlib figures for GitHub. Unit IDs start at 1 and
@@ -33,9 +33,9 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.cmapss import inventory, load, rul
-from pdmdata.cmapss.loader import SENSOR_COLUMNS
-from pdmdata.cmapss.viz import plot_waveforms, plot_operating_settings, plot_rul
+from pdmdata.datasets.cmapss import inventory, load, rul
+from pdmdata.datasets.cmapss.loader import SENSOR_COLUMNS
+from pdmdata.datasets.cmapss.viz import plot_waveforms, plot_operating_settings, plot_rul
 
 summary = inventory()
 display(summary)
@@ -62,7 +62,7 @@ UNIT = 1
 train_unit = load(SUBSET, "train", unit=UNIT, with_rul=True)
 display(train_unit.select("unit_number", "cycle", "sensor_2", "sensor_11", "RUL").head())
 waveforms = plot_waveforms(train_unit, subset=SUBSET)
-assets = ROOT / "pdmdata/cmapss/assets"
+assets = ROOT / "pdmdata/datasets/cmapss/assets"
 assets.mkdir(parents=True, exist_ok=True)
 waveforms.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

@@ -1,0 +1,211 @@
+{
+  "id": "ncmapss",
+  "short_name": "N-CMAPSS",
+  "name": "Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions",
+  "summary": "A next-generation C-MAPSS run-to-failure fleet simulated under recorded commercial flight conditions, with per-cycle RUL labels and multiple failure-mode subsets (DS01\u2013DS08).",
+  "source": {
+    "name": "NASA Prognostics Center of Excellence",
+    "landing_page": "https://data.phmsociety.org/nasa/",
+    "doi": "10.3390/data6010005",
+    "doi_url": "https://doi.org/10.3390/data6010005"
+  },
+  "license": {
+    "name": "U.S. Government Works / provider terms",
+    "url": "https://www.usa.gov/government-works",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-03",
+    "access": "Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP)"
+  },
+  "download": {
+    "bulk": false,
+    "default_variant": "ds01",
+    "variants": {
+      "ds01": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS01-005.h5",
+        "filename": "N-CMAPSS_DS01-005.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS01-005.h5"
+        ]
+      },
+      "ds02": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS02-006.h5",
+        "filename": "N-CMAPSS_DS02-006.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS02-006.h5"
+        ]
+      },
+      "ds03": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS03-012.h5",
+        "filename": "N-CMAPSS_DS03-012.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS03-012.h5"
+        ]
+      },
+      "ds04": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS04.h5",
+        "filename": "N-CMAPSS_DS04.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS04.h5"
+        ]
+      },
+      "ds05": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS05.h5",
+        "filename": "N-CMAPSS_DS05.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS05.h5"
+        ]
+      },
+      "ds06": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS06.h5",
+        "filename": "N-CMAPSS_DS06.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS06.h5"
+        ]
+      },
+      "ds07": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS07.h5",
+        "filename": "N-CMAPSS_DS07.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS07.h5"
+        ]
+      },
+      "ds08a": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS08a-009.h5",
+        "filename": "N-CMAPSS_DS08a-009.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS08a-009.h5"
+        ]
+      },
+      "ds08c": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS08c-008.h5",
+        "filename": "N-CMAPSS_DS08c-008.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS08c-008.h5"
+        ]
+      },
+      "ds08d": {
+        "method": "kaggle",
+        "dataset": "shreyaravi0/aircraft",
+        "file": "data_set/N-CMAPSS_DS08d-010.h5",
+        "filename": "N-CMAPSS_DS08d-010.h5",
+        "archive": "file",
+        "expected_files": [
+          "N-CMAPSS_DS08d-010.h5"
+        ]
+      }
+    }
+  },
+  "characteristics": {
+    "kind": "Multivariate run-to-failure time series under real flight conditions",
+    "feature_dimensions": {
+      "summary": "14 measured sensors + 4 flight-condition inputs; optional 14 virtual sensors and 10 health-modifier channels",
+      "counting": "Default loaders expose unit, cycle, flight class, health state, four W_* flight conditions, and 14 X_s sensors. Virtual sensors (X_v) and health modifiers (T) are opt-in. Per-cycle RUL is provided in Y_*.",
+      "sources": [
+        {
+          "name": "Chao et al., Data 2021",
+          "url": "https://doi.org/10.3390/data6010005"
+        },
+        {
+          "name": "NASA / PHM Society mirror",
+          "url": "https://phm-datasets.s3.amazonaws.com/NASA/17.+Turbofan+Engine+Degradation+Simulation+Data+Set+2.zip"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "RUL estimation",
+    "Prognostics",
+    "Fault diagnostics"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "direct",
+    "time_to_event": "direct",
+    "survival_analysis": "direct"
+  },
+  "attributes": [
+    {
+      "name": "unit_number",
+      "dtype": "UInt16",
+      "role": "entity",
+      "description": "Engine unit identifier within the selected subset."
+    },
+    {
+      "name": "cycle",
+      "dtype": "UInt32",
+      "role": "time",
+      "description": "Flight/cycle index along the run-to-failure trajectory."
+    },
+    {
+      "name": "Fc",
+      "dtype": "Float64",
+      "role": "operating-condition",
+      "description": "Flight-class label from the auxiliary table."
+    },
+    {
+      "name": "hs",
+      "dtype": "Float64",
+      "role": "asset-attribute",
+      "description": "Health-state indicator from the auxiliary table."
+    },
+    {
+      "name": "alt, Mach, TRA, T2",
+      "dtype": "Float64",
+      "role": "operating-condition",
+      "description": "Flight-condition / scenario descriptors (W_*)."
+    },
+    {
+      "name": "T24..Wf",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Fourteen measured sensor channels (X_s_*)."
+    },
+    {
+      "name": "RUL",
+      "dtype": "Int64",
+      "role": "target",
+      "description": "Per-cycle remaining useful life from Y_dev / Y_test."
+    }
+  ],
+  "notes": [
+    "The official NASA distribution is a ~15.7 GB nested ZIP. PdMData downloads one HDF5 subset at a time through a Kaggle mirror of the same files (default: ds01).",
+    "Each subset file contains development (dev) and test splits with aligned A/W/X_s/X_v/T/Y tables.",
+    "DS01 is the smallest practical subset for smoke tests (~2.9 GB, 6 development units and 4 test units).",
+    "Unit IDs are local to each subset file; do not join units across variants.",
+    "Cite Chao, Kulkarni, Goebel, and Fink (2021) when using this dataset."
+  ],
+  "citation": "M. Chao, C. Kulkarni, K. Goebel and O. Fink (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions. NASA Prognostics Data Repository, NASA Ames Research Center."
+}

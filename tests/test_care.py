@@ -8,7 +8,7 @@ import polars as pl
 from polars.testing import assert_frame_equal
 
 import pdmdata
-from pdmdata.care import load as load_care
+from pdmdata.datasets.care import load as load_care
 
 
 class CareLoaderTest(unittest.TestCase):
@@ -82,7 +82,7 @@ class CareLoaderTest(unittest.TestCase):
             {"wind_farm": "A", "table": "unknown"},
             {"recording": "0.csv", "wind_farm": "A", "event_id": 0},
         ]
-        with patch("pdmdata.care.loader.find_raw_file") as find:
+        with patch("pdmdata.datasets.care.loader.find_raw_file") as find:
             for option in options:
                 with self.subTest(options=option), self.assertRaises(ValueError):
                     pdmdata.load("care", **option)

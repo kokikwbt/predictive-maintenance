@@ -17,7 +17,7 @@ has no per-sample operating-state labels. Control combinations below are
 **descriptive reference codes**, not ground-truth states or fault classes.
 
 [Official source](https://zenodo.org/records/7766691)
-· [Dataset guide](../../pdmdata/metropt2/README.md)
+· [Dataset guide](../../pdmdata/datasets/metropt2/README.md)
 
 Run `pdmdata.download("metropt2")` explicitly if local data is missing. This
 notebook reads a limited prefix of the downloaded CSV, without downloading or
@@ -32,7 +32,7 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.metropt2.viz import ANALOG_SIGNALS, CONTROL_SIGNALS, plot_operation
+from pdmdata.datasets.metropt2.viz import ANALOG_SIGNALS, CONTROL_SIGNALS, plot_operation
 
 scan = pdmdata.load("metropt2")
 print("Source columns:", scan.collect_schema().names())

@@ -1,7 +1,8 @@
 # Dataset catalog
 
 Browse the datasets and task comparison below, then open a dataset README for
-feature dimensions, source formats, selectors, and terms of use.
+feature dimensions, source formats, selectors, and terms of use. Implemented
+task packages are documented under [tasks/](tasks/README.md).
 
 [Getting started](../README.md#getting-started) · [Usage guide](../docs/usage.md)
 
@@ -14,17 +15,18 @@ useful life.
 
 | Dataset | Data type | Tasks | License | Access |
 |---|---|---|---|---|
-| [Backblaze](backblaze/README.md) | Fleet-scale daily reliability panel | Drive failure prediction, Survival analysis, Time-to-event prediction | Backblaze Drive Stats terms | Direct quarterly downloads |
-| [CARE](care/README.md) | Large labeled wind-turbine SCADA time series | Early fault detection, Anomaly detection, Failure prediction | CC BY-SA 4.0 | Direct download from Zenodo |
-| [C-MAPSS](cmapss/README.md) | Multivariate run-to-failure time series | RUL estimation, Prognostics, Anomaly detection | Unspecified | Direct download from NASA |
-| [GDD](gdd/README.md) | Multivariate time series | Anomaly detection, State classification | Requires verification | Kaggle |
-| [GFD](gfd/README.md) | Vibration time series | Fault classification, Signal analysis | CC BY 4.0 | Direct download |
-| [HydSys](hydsys/README.md) | Multirate multivariate time series | Fault classification, Condition estimation, Regression | CC BY 4.0 | Direct ZIP download from UCI |
-| [IMS](ims/README.md) | Run-to-failure vibration time series | Fault diagnosis, Degradation estimation, Prognostics | U.S. Government Works | Direct NASA-linked S3 download; nested ZIP, 7z, and RAR extraction with libarchive |
-| [MAPM](mapm/README.md) | Multi-table time series | Failure prediction, RUL estimation, Maintenance analysis | Unknown | Direct download from Microsoft GitHub |
-| [MetroPT2](metropt2/README.md) | Large multivariate equipment time series | Online anomaly detection, Failure prediction, RUL research | CC BY 4.0 | Direct download from Zenodo |
-| [OYICD](oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
-| [PPD](ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
+| [Backblaze](datasets/backblaze/README.md) | Fleet-scale daily reliability panel | Drive failure prediction, Survival analysis, Time-to-event prediction | Backblaze Drive Stats terms | Direct quarterly downloads |
+| [CARE](datasets/care/README.md) | Large labeled wind-turbine SCADA time series | Early fault detection, Anomaly detection, Failure prediction | CC BY-SA 4.0 | Direct download from Zenodo |
+| [C-MAPSS](datasets/cmapss/README.md) | Multivariate run-to-failure time series | RUL estimation, Prognostics, Anomaly detection | Unspecified | Direct download from NASA |
+| [GDD](datasets/gdd/README.md) | Multivariate time series | Anomaly detection, State classification | Requires verification | Kaggle |
+| [GFD](datasets/gfd/README.md) | Vibration time series | Fault classification, Signal analysis | CC BY 4.0 | Direct download |
+| [HydSys](datasets/hydsys/README.md) | Multirate multivariate time series | Fault classification, Condition estimation, Regression | CC BY 4.0 | Direct ZIP download from UCI |
+| [IMS](datasets/ims/README.md) | Run-to-failure vibration time series | Fault diagnosis, Degradation estimation, Prognostics | U.S. Government Works | Direct NASA-linked S3 download; nested ZIP, 7z, and RAR extraction with libarchive |
+| [MAPM](datasets/mapm/README.md) | Multi-table time series | Failure prediction, RUL estimation, Maintenance analysis | Unknown | Direct download from Microsoft GitHub |
+| [MetroPT2](datasets/metropt2/README.md) | Large multivariate equipment time series | Online anomaly detection, Failure prediction, RUL research | CC BY 4.0 | Direct download from Zenodo |
+| [N-CMAPSS](datasets/ncmapss/README.md) | Multivariate run-to-failure time series under real flight conditions | RUL estimation, Prognostics, Fault diagnostics | U.S. Government Works / provider terms | Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP) |
+| [OYICD](datasets/oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
+| [PPD](datasets/ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
 
 <!-- END GENERATED DATASET TABLE -->
 
@@ -41,8 +43,8 @@ that experimental design.
 - **Fault or health-state classification:** Assign a discrete fault type, component state, or healthy/faulty label.
 - **Operating-state classification:** Identify operating modes or machine states that are not themselves faults.
 - **Condition estimation:** Estimate a continuous health indicator, degradation level, or component condition.
-- **Remaining useful life prediction:** Predict remaining cycles or time before a defined failure endpoint.
-- **Time-to-event prediction:** Predict when a failure, alarm, or maintenance-relevant event will occur.
+- **[Remaining useful life prediction](tasks/rul/README.md):** Predict remaining cycles or time before a defined failure endpoint.
+- **[Time-to-event prediction](tasks/tte/README.md):** Predict when a failure, alarm, or maintenance-relevant event will occur.
 - **Survival analysis:** Model event-time distributions while explicitly accounting for censoring.
 - **Event or sequence forecasting:** Predict the type or sequence of future alarms, errors, or machine events.
 - **Maintenance-policy evaluation:** Compare or learn maintenance decisions using intervention and outcome histories.
@@ -56,17 +58,18 @@ label, endpoint, or health-index construction.
 
 | Dataset | Anomaly | Fault class. | State class. | Condition | RUL | TTE | Survival | Event forecast | Maintenance |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| [Backblaze](backblaze/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | — |
-| [CARE](care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
-| [C-MAPSS](cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
-| [GDD](gdd/README.md) | ✓ | ✓ | ✓ | — | — | — | — | — | — |
-| [GFD](gfd/README.md) | △ | ✓ | — | — | — | — | — | — | — |
-| [HydSys](hydsys/README.md) | — | ✓ | — | ✓ | — | — | — | — | — |
-| [IMS](ims/README.md) | △ | △ | — | △ | △ | △ | △ | — | — |
-| [MAPM](mapm/README.md) | △ | ✓ | — | — | △ | ✓ | ✓ | ✓ | △ |
-| [MetroPT2](metropt2/README.md) | △ | △ | — | △ | △ | △ | — | — | — |
-| [OYICD](oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
-| [PPD](ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
+| [Backblaze](datasets/backblaze/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | — |
+| [CARE](datasets/care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
+| [C-MAPSS](datasets/cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
+| [GDD](datasets/gdd/README.md) | ✓ | ✓ | ✓ | — | — | — | — | — | — |
+| [GFD](datasets/gfd/README.md) | △ | ✓ | — | — | — | — | — | — | — |
+| [HydSys](datasets/hydsys/README.md) | — | ✓ | — | ✓ | — | — | — | — | — |
+| [IMS](datasets/ims/README.md) | △ | △ | — | △ | △ | △ | △ | — | — |
+| [MAPM](datasets/mapm/README.md) | △ | ✓ | — | — | △ | ✓ | ✓ | ✓ | △ |
+| [MetroPT2](datasets/metropt2/README.md) | △ | △ | — | △ | △ | △ | — | — | — |
+| [N-CMAPSS](datasets/ncmapss/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
+| [OYICD](datasets/oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
+| [PPD](datasets/ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
 
 <!-- END GENERATED TASK TABLE -->
 

@@ -20,10 +20,17 @@ dependencies = [
   "ipykernel",
   "kaggle",
   "libarchive-c>=5,<6",
+  "h5py>=3.10,<4",
 ]
 
 [tool.setuptools.packages.find]
 include = ["pdmdata*"]
 
 [tool.setuptools.package-data]
-pdmdata = ["README.md", "*/metadata.json", "*/README.md", "*/assets/*.png", "*/assets/*.json"]
+pdmdata = [
+  "README.md",
+  "datasets/*/metadata.json",
+  "datasets/*/README.md",
+  "datasets/*/assets/*.png",
+  "datasets/*/assets/*.json",
+]

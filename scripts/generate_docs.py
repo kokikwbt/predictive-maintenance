@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize generated documentation with pdmdata/*/metadata.json."""
+"""Synchronize generated documentation with dataset metadata.json files."""
 
 from pathlib import Path
 import sys
@@ -8,7 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from pdmdata.docs import update_all_readmes, update_catalog_readme  # noqa: E402
+from pdmdata.catalog.docs import update_all_readmes, update_catalog_readme  # noqa: E402
 
 
 def main() -> None:

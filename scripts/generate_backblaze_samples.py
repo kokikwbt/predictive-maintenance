@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT))
 def main():
     import matplotlib
     matplotlib.use("Agg")
-    from pdmdata.backblaze.viz import save_samples
+    from pdmdata.datasets.backblaze.viz import save_samples
 
     for sample in save_samples():
         print(f"{sample['image']}: {sample['observations']} observations, {sample['bytes']:,} bytes")

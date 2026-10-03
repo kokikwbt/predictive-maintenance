@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 from zipfile import ZipFile
 
-from pdmdata.download import (
+from pdmdata.io.download import (
     _download_kaggle,
     _extract_nested_archives,
     _extract_zip,
@@ -14,7 +14,7 @@ from pdmdata.download import (
     download_command,
 )
 
-download_module = importlib.import_module("pdmdata.download")
+download_module = importlib.import_module("pdmdata.io.download")
 
 
 class DownloadTest(unittest.TestCase):
@@ -92,7 +92,10 @@ class DownloadTest(unittest.TestCase):
                     download("mapm", output_dir=root, overwrite=True)
                 self.assertEqual(result["archive"].read_bytes(), before)
                 self.assertFalse(any(p.name.startswith("tmp") for p in result["directory"].iterdir()))
-            with patch("pdmdata.io.get_settings", return_value=pdmdata.Settings(data_root=root)):
+            with patch(
+                "pdmdata.io.paths.get_settings",
+                return_value=pdmdata.Settings(data_root=root),
+            ):
                 frame = pdmdata.load("mapm", table="machines")
                 self.assertEqual(frame["age"].to_list(), [18])
             command = download_command("mapm", output_dir=root)

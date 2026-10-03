@@ -41,7 +41,7 @@ class ConfigTest(unittest.TestCase):
                         pdmdata.get_settings()
 
     def test_download_and_load_share_configured_root_and_reuse_archive(self):
-        module = importlib.import_module("pdmdata.download")
+        module = importlib.import_module("pdmdata.io.download")
         with tempfile.TemporaryDirectory() as temporary:
             config = Path(temporary).resolve() / "settings.toml"
             config.write_text('data_root = "datasets"\n')

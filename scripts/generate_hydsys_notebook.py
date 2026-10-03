@@ -20,7 +20,7 @@ matrix: rows are cycles, columns are observations within a cycle. `profile.txt`
 provides four condition targets and a stability flag for the same rows.
 
 [UCI source](https://doi.org/10.24432/C5CW21) ·
-[Dataset guide](../../pdmdata/hydsys/README.md)
+[Dataset guide](../../pdmdata/datasets/hydsys/README.md)
 
 Run `pdmdata.download("hydsys")` explicitly if needed. This notebook reads local
 data and saves compact Matplotlib figures. Cycle IDs are **zero-based**.
@@ -33,9 +33,9 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.hydsys import inventory, profile, load_cycle
-from pdmdata.hydsys.loader import SENSOR_INFO, TARGET_VALUES
-from pdmdata.hydsys.viz import plot_cycle, plot_profile, plot_valve_comparison
+from pdmdata.datasets.hydsys import inventory, profile, load_cycle
+from pdmdata.datasets.hydsys.loader import SENSOR_INFO, TARGET_VALUES
+from pdmdata.datasets.hydsys.viz import plot_cycle, plot_profile, plot_valve_comparison
 
 sensors = inventory()
 labels = profile()
@@ -82,7 +82,7 @@ display(pl.DataFrame({"sensor": list(SENSOR_INFO),
     "unique_values": [groups[rate][sensor].n_unique() for sensor, (rate, _) in SENSOR_INFO.items()],
     "standard_deviation": [groups[rate][sensor].std() for sensor, (rate, _) in SENSOR_INFO.items()]}))
 overview = plot_cycle(groups, cycle=CYCLE)
-assets = ROOT / "pdmdata/hydsys/assets"
+assets = ROOT / "pdmdata/datasets/hydsys/assets"
 assets.mkdir(parents=True, exist_ok=True)
 overview.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

@@ -10,9 +10,9 @@ import polars as pl
 import libarchive
 
 from pdmdata import Settings
-from pdmdata.ims import channel_info, inventory, load, rms_history, verify
-from pdmdata.ims import loader
-from pdmdata.download import _extract_nested_archives
+from pdmdata.datasets.ims import channel_info, inventory, load, rms_history, verify
+from pdmdata.datasets.ims import loader
+from pdmdata.io.download import _extract_nested_archives
 
 
 class ImsTest(TestCase):
@@ -30,7 +30,7 @@ class ImsTest(TestCase):
                     (directory / name).write_text((row + "\n") * 2)
             with patch.object(loader, "get_settings", return_value=Settings(data_root=root)), \
                  patch.object(loader, "SAMPLES_PER_RECORDING", 2), \
-                 patch("pdmdata.ims.validation.EXPECTED_RECORDINGS", {1: 2, 2: 2, 3: 2}):
+                 patch("pdmdata.datasets.ims.validation.EXPECTED_RECORDINGS", {1: 2, 2: 2, 3: 2}):
                 self.assertEqual(inventory().height, 6)
                 self.assertEqual(inventory(2)["recording_index"].to_list(), [0, 1])
                 frame = load(0, experiment=1)
@@ -55,7 +55,7 @@ class ImsTest(TestCase):
             self.assertEqual(channel_info(2).filter(pl.col("channel") == "channel_1")["end_of_test_fault"][0], "outer race")
 
     def test_nested_7z_extraction_reuse_and_interruption(self):
-        module = importlib.import_module("pdmdata.download")
+        module = importlib.import_module("pdmdata.io.download")
         with TemporaryDirectory() as temporary:
             directory = Path(temporary)
             archive = directory / "IMS.7z"

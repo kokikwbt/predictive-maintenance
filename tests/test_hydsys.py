@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pdmdata
-from pdmdata.hydsys import loader
+from pdmdata.datasets.hydsys import loader
 
 
 class HydsysTest(unittest.TestCase):
@@ -20,7 +20,10 @@ class HydsysTest(unittest.TestCase):
                 rows = ["\t".join(str(offset + i) for i in range(width)) for offset in [0, 10000]]
                 (directory / f"{sensor}.txt").write_text("\n".join(rows) + "\n")
             (directory / "profile.txt").write_text("3\t100\t0\t130\t1\n100\t73\t2\t90\t0\n")
-            with patch("pdmdata.io.get_settings", return_value=pdmdata.Settings(data_root=root)), patch.object(loader, "CYCLE_COUNT", 2):
+            with patch(
+                "pdmdata.io.paths.get_settings",
+                return_value=pdmdata.Settings(data_root=root),
+            ), patch.object(loader, "CYCLE_COUNT", 2):
                 matrix = loader.load("PS1")
                 self.assertEqual(matrix.shape, (2, 6000))
                 groups = loader.load_cycle(1)

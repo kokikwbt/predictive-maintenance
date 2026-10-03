@@ -37,7 +37,9 @@ class NotebookStructureTest(unittest.TestCase):
                             dataset_id = node.args[0].value
                             self.assertIn(dataset_id, dataset_ids)
                             if node.func.attr == "load":
-                                loader = import_module(f"pdmdata.{dataset_id}.loader").load
+                                loader = import_module(
+                                    f"pdmdata.datasets.{dataset_id}.loader"
+                                ).load
                                 signature(loader).bind_partial(**{kw.arg: None for kw in node.keywords if kw.arg})
 
 if __name__ == "__main__":

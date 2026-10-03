@@ -260,8 +260,8 @@ whether it has failed. OYICD encodes one of eight modes in every recording name.
             code(
                 SETUP
                 + """
-from pdmdata.oyicd import inventory, load
-from pdmdata.oyicd.loader import SENSOR_COLUMNS
+from pdmdata.datasets.oyicd import inventory, load
+from pdmdata.datasets.oyicd.loader import SENSOR_COLUMNS
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import balanced_accuracy_score"""
             ),
@@ -383,66 +383,70 @@ machines or unseen fault conditions."""
             markdown(
                 """# Remaining useful life prediction with C-MAPSS
 
-RUL prediction estimates the remaining cycles at each observation. C-MAPSS
-training engines run to failure, while the test set ends before failure and
-provides the true RUL at each engine's final observation.
+RUL is a time-to-event profile: the event is end of useful life and the target
+is remaining operating cycles. `pdmdata.tasks.rul.prepare_cmapss` builds a
+Polars-tabular experiment bundle from the source-faithful C-MAPSS loader.
 
 ## Learning goals
 
-- construct row-level RUL without crossing engine boundaries;
-- split training data by engine;
-- evaluate final-observation predictions with the official test targets."""
+- prepare train / validation / test with unit-level hold-out;
+- fit a row-level regressor without leaking across engines;
+- score the official last-observation test protocol (MAE, RMSE, NASA score)."""
             ),
             code(
                 SETUP
                 + """
 from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.metrics import mean_absolute_error, root_mean_squared_error"""
+from pdmdata.tasks.rul import evaluate_test_predictions, prepare_cmapss"""
             ),
             code(
                 """pdmdata.download("cmapss")
-from pdmdata.cmapss import rul
-train = pdmdata.load("cmapss", subset="FD001", split="train", with_rul=True)
-test = pdmdata.load("cmapss", subset="FD001", split="test")
-test_rul = rul("FD001")
-train.select("unit_number", "cycle", "RUL").head()"""
+bundle = prepare_cmapss(
+    "FD001",
+    rul_cap=125,
+    validation_fraction=0.2,
+    random_state=0,
+    drop_constant_features=True,
+)
+bundle.summary()"""
             ),
             code(
-                """units = train["unit_number"].unique().sort().to_numpy()
-development_units = units[: int(len(units) * 0.8)]
-validation_units = units[int(len(units) * 0.8) :]
-features = [
-    column for column in train.columns
-    if column.startswith(("operation_", "sensor_"))
-]
-
-development = train.filter(pl.col("unit_number").is_in(development_units))
-validation = train.filter(pl.col("unit_number").is_in(validation_units))
-model = HistGradientBoostingRegressor(loss="absolute_error", random_state=0)
-model.fit(development.select(features).to_numpy(), development["RUL"].to_numpy())
-validation_prediction = model.predict(validation.select(features).to_numpy())
-print(
-    "Validation MAE:",
-    f"{mean_absolute_error(validation['RUL'].to_numpy(), validation_prediction):.1f} cycles",
-)"""
+                """bundle.train.frame.select(
+    "unit_number", "cycle", "RUL", "time_to_event", "event_observed"
+).head()"""
             ),
             code(
-                """model.fit(train.select(features).to_numpy(), train["RUL"].to_numpy())
-last_test_rows = test.sort("cycle").group_by("unit_number").last().sort("unit_number")
-prediction = np.maximum(model.predict(last_test_rows.select(features).to_numpy()), 0)
-actual = last_test_rows.select("unit_number").join(
-    test_rul, on="unit_number", validate="1:1", maintain_order="left"
-)["RUL"].to_numpy()
-print(f"Official test MAE: {mean_absolute_error(actual, prediction):.1f} cycles")
-print(f"Official test RMSE: {root_mean_squared_error(actual, prediction):.1f} cycles")"""
+                """model = HistGradientBoostingRegressor(
+    loss="absolute_error", random_state=0
+)
+X_train, y_train, _ = bundle.train.to_numpy()
+X_val, y_val, _ = bundle.validation.to_numpy()
+model.fit(X_train, y_train)
+validation_prediction = np.maximum(model.predict(X_val), 0)
+from pdmdata.tasks.rul import regression_metrics
+print(regression_metrics(y_val, validation_prediction))"""
+            ),
+            code(
+                """X_all, y_all, _ = prepare_cmapss(
+    "FD001",
+    rul_cap=125,
+    validation_fraction=0.0,
+    drop_constant_features=True,
+).train.to_numpy()
+model.fit(X_all, y_all)
+eval_split = bundle.test_eval_split()
+prediction = np.maximum(model.predict(eval_split.X().to_numpy()), 0)
+print(evaluate_test_predictions(bundle, prediction))"""
             ),
             markdown(
                 """## Interpretation and limitations
 
-Uncapped RUL counts the cycles remaining to failure; it does not identify fault
-onset or assume that degradation began at the first cycle.
-Common C-MAPSS studies use a piecewise cap and specialized asymmetric scores;
-those choices must be reported because they materially change the task."""
+`prepare_cmapss` keeps loaders source-faithful and applies RUL construction,
+optional piecewise capping, constant-feature dropping, and unit hold-out in the
+task layer. Uncapped RUL counts cycles to failure; it does not mark fault onset.
+Report `rul_cap` and the NASA score because both change the task materially.
+Test targets stay out of `bundle.test`; use `test_eval_split()` for the official
+one-row-per-engine protocol."""
             ),
         ]
     ),
@@ -451,65 +455,80 @@ those choices must be reported because they materially change the task."""
             markdown(
                 """# Time-to-event prediction with C-MAPSS
 
-Time-to-event prediction is the broad problem of estimating when a defined
-event will occur. Here the event is engine failure and elapsed time is measured
-in operating cycles.
+Time-to-event (TTE) estimates when a defined event will occur. Here the event
+is engine failure and time is measured in operating cycles.
+`pdmdata.tasks.tte.prepare_cmapss` builds a Polars-tabular bundle; RUL is the
+same remaining-time quantity under an end-of-life event profile.
 
 ## Learning goals
 
-- define the event and time origin explicitly;
-- construct cycles-to-failure with Polars;
-- evaluate a regression baseline with an engine-level split."""
+- prepare row-level ``time_to_event`` with ``event_observed``;
+- hold out engines for validation without leaking across units;
+- contrast official remaining-time scoring with entity-level censoring."""
             ),
             code(
                 SETUP
                 + """
 from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.metrics import mean_absolute_error"""
+from pdmdata.tasks.tte import evaluate_test_predictions, prepare_cmapss
+from pdmdata.tasks.metrics import regression_metrics"""
             ),
             code(
                 """pdmdata.download("cmapss")
-data = pdmdata.load("cmapss", subset="FD001", split="train")
-data = data.with_columns(
-    (pl.col("cycle").max().over("unit_number") - pl.col("cycle"))
-    .alias("time_to_event_cycles"),
-    pl.lit(True).alias("event_observed"),
+bundle = prepare_cmapss(
+    "FD001",
+    time_cap=125,
+    validation_fraction=0.2,
+    random_state=0,
+    drop_constant_features=True,
 )
-data.select("unit_number", "cycle", "time_to_event_cycles", "event_observed").head()"""
+bundle.summary()"""
             ),
             code(
-                """plt.hist(data["time_to_event_cycles"].to_numpy(), bins=60)
+                """bundle.train.frame.select(
+    "unit_number", "cycle", "time_to_event", "event_observed"
+).head()"""
+            ),
+            code(
+                """plt.hist(
+    bundle.train.frame["time_to_event"].to_numpy(), bins=60
+)
 plt.xlabel("Operating cycles until failure")
 plt.ylabel("Observations")
 plt.show()"""
             ),
             code(
-                """unit_numbers = data["unit_number"].unique().sort().to_numpy()
-split_index = int(len(unit_numbers) * 0.8)
-training_units = unit_numbers[:split_index]
-test_units = unit_numbers[split_index:]
-train = data.filter(pl.col("unit_number").is_in(training_units))
-test = data.filter(pl.col("unit_number").is_in(test_units))
-features = [
-    column for column in data.columns
-    if column.startswith(("operation_", "sensor_"))
-]
-
-model = HistGradientBoostingRegressor(loss="absolute_error", random_state=0)
-model.fit(train.select(features).to_numpy(), train["time_to_event_cycles"].to_numpy())
-prediction = np.maximum(model.predict(test.select(features).to_numpy()), 0)
-print(
-    "Engine-held-out MAE:",
-    f"{mean_absolute_error(test['time_to_event_cycles'].to_numpy(), prediction):.1f} cycles",
-)"""
+                """model = HistGradientBoostingRegressor(
+    loss="absolute_error", random_state=0
+)
+X_train, y_train, _ = bundle.train.to_numpy()
+X_val, y_val, _ = bundle.validation.to_numpy()
+model.fit(X_train, y_train)
+print(regression_metrics(y_val, np.maximum(model.predict(X_val), 0)))"""
+            ),
+            code(
+                """full = prepare_cmapss(
+    "FD001",
+    time_cap=125,
+    validation_fraction=0.0,
+    drop_constant_features=True,
+)
+model.fit(*full.train.to_numpy()[:2])
+prediction = np.maximum(
+    model.predict(bundle.test_eval_split().X().to_numpy()), 0
+)
+print(evaluate_test_predictions(bundle, prediction))
+entities = bundle.entity_table()
+entities.group_by("cohort", "event_observed").len()"""
             ),
             markdown(
-                """## Time-to-event versus survival analysis
+                """## TTE versus RUL and survival
 
-This regression uses only observed failures and predicts one point estimate.
-Survival analysis instead estimates an event-time distribution and can include
-engines whose failure is not observed before data collection ends. See the
-survival-analysis notebook for that formulation."""
+Row-level ``time_to_event`` matches RUL when the event is end of useful life;
+use `pdmdata.tasks.rul` when you want the ``RUL`` column name and NASA-oriented
+helpers. ``entity_table()`` keeps test engines right-censored at the last
+observed cycle (no official offset), which is the starting point for survival
+analysis. See the survival-analysis notebook for Kaplan-Meier on that table."""
             ),
         ]
     ),

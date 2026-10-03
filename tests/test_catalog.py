@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pdmdata
 from pdmdata.catalog import load_catalog
-from pdmdata.docs import BEGIN, END, render_metadata
-from pdmdata.download import (
+from pdmdata.catalog.docs import BEGIN, END, render_metadata
+from pdmdata.io.download import (
     bulk_downloads,
     download_command,
     download_variants,
@@ -41,16 +41,25 @@ class CatalogTest(unittest.TestCase):
                 "cmapss",
                 "ims",
                 "mapm",
+                "ncmapss",
                 "oyicd",
                 "ppd",
             ],
         )
 
     def test_large_download_variants_are_explicit(self):
-        self.assertTrue({"care", "backblaze", "metropt2"}.isdisjoint(bulk_downloads()))
+        self.assertTrue(
+            {"care", "backblaze", "metropt2", "ncmapss"}.isdisjoint(
+                bulk_downloads()
+            )
+        )
         self.assertEqual(
             download_variants("backblaze"),
             ["2025-q1", "2025-q2", "2025-q3", "2025-q4"],
+        )
+        self.assertEqual(
+            download_variants("ncmapss")[:3],
+            ["ds01", "ds02", "ds03"],
         )
         command = download_command(
             "backblaze",
@@ -59,6 +68,14 @@ class CatalogTest(unittest.TestCase):
         )
         self.assertIn("data_Q2_2025.zip", command)
         self.assertIn("/backblaze/2025-q2/", command)
+        ncmapss = download_command(
+            "ncmapss",
+            Path("/tmp/pdmdata-test"),
+            variant="ds01",
+        )
+        self.assertIn("shreyaravi0/aircraft", ncmapss)
+        self.assertIn("N-CMAPSS_DS01-005.h5", ncmapss)
+        self.assertIn("/ncmapss/ds01", ncmapss)
 
     def test_summary_is_available_from_top_level_package(self):
         output = StringIO()

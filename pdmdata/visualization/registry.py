@@ -8,12 +8,12 @@ from typing import Any, Dict, Optional
 import plotly.graph_objects as go
 import polars as pl
 
-from pdmdata.cmapss.viz import PLOTS as CMAPSS_PLOTS
-from pdmdata.gfd.viz import PLOTS as GFD_PLOTS
-from pdmdata.mapm.viz import PLOTS as MAPM_PLOTS
-from pdmdata.metropt2.viz import PLOTS as METROPT2_PLOTS
-from pdmdata.care.viz import PLOTS as CARE_PLOTS
-from pdmdata.backblaze.viz import PLOTS as BACKBLAZE_PLOTS
+from pdmdata.datasets.backblaze.viz import PLOTS as BACKBLAZE_PLOTS
+from pdmdata.datasets.care.viz import PLOTS as CARE_PLOTS
+from pdmdata.datasets.cmapss.viz import PLOTS as CMAPSS_PLOTS
+from pdmdata.datasets.gfd.viz import PLOTS as GFD_PLOTS
+from pdmdata.datasets.mapm.viz import PLOTS as MAPM_PLOTS
+from pdmdata.datasets.metropt2.viz import PLOTS as METROPT2_PLOTS
 
 from .models import DistributionSpec, EventTimelineSpec, TimeSeriesSpec
 from .plots import plot_distribution, plot_event_timeline, plot_time_series

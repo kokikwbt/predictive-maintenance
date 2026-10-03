@@ -5,8 +5,8 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
 
-from pdmdata.cmapss import load, rul, inventory
-from pdmdata.cmapss import loader
+from pdmdata.datasets.cmapss import load, rul, inventory
+from pdmdata.datasets.cmapss import loader
 
 
 class CmapssTest(TestCase):

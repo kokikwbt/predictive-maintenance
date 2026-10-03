@@ -1,7 +1,8 @@
 # Predictive-maintenance task notebooks
 
 These notebooks contain analysis examples that can apply to more than one
-dataset.
+dataset. Task package guides live under
+[`pdmdata/tasks/`](../../pdmdata/tasks/README.md).
 
 Available notebooks:
 

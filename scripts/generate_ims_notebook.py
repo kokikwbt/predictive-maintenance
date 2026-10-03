@@ -21,7 +21,7 @@ days. Experiment 1 has eight accelerometer channels (two per bearing);
 experiments 2 and 3 have four (one per bearing).
 
 [NASA source](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
-· [Dataset guide](../../pdmdata/ims/README.md)
+· [Dataset guide](../../pdmdata/datasets/ims/README.md)
 
 Run `pdmdata.download("ims")` explicitly if needed. It downloads the NASA-linked
 ZIP and extracts its nested 7z and RAR files. This notebook reads local data.
@@ -36,8 +36,8 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.ims import inventory, load, channel_info, rms_history
-from pdmdata.ims.viz import plot_waveforms, plot_rms
+from pdmdata.datasets.ims import inventory, load, channel_info, rms_history
+from pdmdata.datasets.ims.viz import plot_waveforms, plot_rms
 
 files = inventory()
 summary = files.group_by("experiment").agg(
@@ -103,7 +103,7 @@ peak = load(peak_index, experiment=EXPERIMENT)
 examples = [("First, index 0", early), (f"Maximum RMS, index {peak_index}", peak)]
 display(selected[[first_index, peak_index, last_index]].select("recording_index", "recording"))
 zoom = plot_waveforms(examples, experiment=EXPERIMENT, stop_s=0.05)
-assets = ROOT / "pdmdata/ims/assets"
+assets = ROOT / "pdmdata/datasets/ims/assets"
 assets.mkdir(parents=True, exist_ok=True)
 zoom.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

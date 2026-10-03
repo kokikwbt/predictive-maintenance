@@ -26,7 +26,7 @@ sequence endpoint for an endpoint-based benchmark; cycle-phase labels are not
 supplied in the CSVs.
 
 [Provider and attribution](https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring)
-· [Dataset guide](../../pdmdata/ppd/README.md)
+· [Dataset guide](../../pdmdata/datasets/ppd/README.md)
 
 Run `pdmdata.download("ppd")` explicitly if needed. This notebook reads local data
 and saves Matplotlib output for GitHub; loading never downloads implicitly.
@@ -39,9 +39,9 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.ppd import SEQUENCE_IDS, inventory
-from pdmdata.ppd.loader import SENSOR_COLUMNS
-from pdmdata.ppd.viz import DEFAULT_SIGNALS, plot_waveforms, plot_recordings
+from pdmdata.datasets.ppd import SEQUENCE_IDS, inventory
+from pdmdata.datasets.ppd.loader import SENSOR_COLUMNS
+from pdmdata.datasets.ppd.viz import DEFAULT_SIGNALS, plot_waveforms, plot_recordings
 
 files = inventory()
 print(f"Sequences: {files.height}; source files: {files['parts'].sum()}; observations: {files['samples'].sum():,}")
@@ -96,7 +96,7 @@ resampling, or inferred state labels are applied. START and STOP select rows.
 ''')
     code('''START, STOP = 0, 500
 zoom = plot_waveforms(frame, columns=SIGNALS, start=START, stop=STOP)
-assets = ROOT / "pdmdata/ppd/assets"
+assets = ROOT / "pdmdata/datasets/ppd/assets"
 assets.mkdir(parents=True, exist_ok=True)
 zoom.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

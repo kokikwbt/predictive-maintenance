@@ -6,7 +6,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import polars as pl
 
-from pdmdata.care.viz import plot_waveforms
+from pdmdata.datasets.care.viz import plot_waveforms
 
 
 class CareWaveformTest(unittest.TestCase):

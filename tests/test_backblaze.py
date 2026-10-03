@@ -8,8 +8,8 @@ from zipfile import ZipFile
 
 import polars as pl
 import pdmdata
-from pdmdata.backblaze import inventory, verify
-from pdmdata.backblaze.viz import plot_waveforms
+from pdmdata.datasets.backblaze import inventory, verify
+from pdmdata.datasets.backblaze.viz import plot_waveforms
 
 
 class BackblazeTest(unittest.TestCase):

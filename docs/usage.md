@@ -88,11 +88,38 @@ Large, opt-in downloads are also supported:
 - CARE to Compare (5.5 GB ZIP)
 - Backblaze Drive Stats (one selected quarter; more than 10 GB extracted)
 
-Kaggle downloads use the official CLI. On an authentication error, PdMData
-starts the official login flow in an interactive terminal or local desktop
-notebook, then retries once. CI and non-interactive scripts require credentials
-in advance. See [Kaggle authentication](../README.md#kaggle-datasets-and-authentication)
-for browser login, remote sessions, and token-based unattended execution.
+### Kaggle authentication
+
+**GDD, OYICD, and PPD require the official Kaggle CLI**, included in the
+project environment. Use the same download API as for other datasets:
+
+```python
+pdmdata.download("gdd")
+frame = pdmdata.load("gdd", series="state")
+```
+
+PdMData first attempts the download with existing credentials or public
+access. If Kaggle reports that authentication is required, an interactive
+terminal or local desktop notebook starts `kaggle auth login --force`.
+Complete the Kaggle sign-in and authorization in your browser; PdMData then
+retries the download once. Login has a five-minute timeout. Importing or
+loading data never starts login. Permission errors without an authentication
+indication do not trigger it.
+
+You can authenticate in advance from a terminal:
+
+```bash
+uv run --locked kaggle auth login
+```
+
+On a remote machine without a browser, use
+`uv run --locked kaggle auth login --no-launch-browser` and follow the CLI
+prompts. For CI or unattended runs, configure `KAGGLE_API_TOKEN` through
+your environment or secret manager; automatic login is disabled in CI and
+non-interactive scripts. Remote/headless notebooks should authenticate from
+a terminal first. Credentials are stored by the official Kaggle CLI, never
+in project metadata. Do not commit tokens or credential files. See the
+[Kaggle authentication documentation](https://github.com/Kaggle/kaggle-cli/blob/main/docs/README.md#authentication).
 
 Optionally download the bulk-enabled datasets (this may still be large):
 
@@ -121,9 +148,19 @@ uv run --locked python scripts/download.py care
 uv run --locked python scripts/download.py backblaze --variant 2025-q1
 ```
 
+| Option | Purpose |
+|---|---|
+| `--variant NAME` | Select a dataset variant, such as a Backblaze quarter. |
+| `--output-dir PATH` | Override the data root for this download. Set the same root in your configuration before loading. |
+| `--no-extract` | Download the archive without extracting it. |
+| `--overwrite` | Download again even when the archive exists. |
+| `--print-command` | Display the external download command without running it. |
+
 Backblaze variants currently include `2025-q1`, `2025-q2`, `2025-q3`, and
-`2025-q4`. These large datasets are intentionally excluded from
-`download_all.py`. `bootstrap.sh` never downloads datasets.
+`2025-q4`. N-CMAPSS downloads one HDF5 subset at a time (default `ds01`);
+the official NASA nested ZIP is about 15 GB. These large datasets are
+intentionally excluded from `download_all.py`. `bootstrap.sh` never
+downloads datasets.
 
 The downloader preserves the source archive, extracts it into a separate
 directory, validates expected files, and records the archive SHA-256 in
@@ -135,7 +172,7 @@ native `libarchive` library must also be available. macOS includes a system
 copy. If it is missing or too old, use `brew install libarchive`; on
 Debian/Ubuntu use `sudo apt-get install libarchive-tools`. Windows requires a
 compatible libarchive DLL. Set `LIBARCHIVE` to the shared-library path when it
-cannot be discovered automatically. See the [IMS guide](../pdmdata/ims/README.md)
+cannot be discovered automatically. See the [IMS guide](../pdmdata/datasets/ims/README.md)
 for recording selectors and source-format details.
 
 ## Usage
@@ -196,38 +233,46 @@ loaders and notebooks use the same setting.
 
 ## Code organization
 
-Keep dataset-specific code beside its metadata and documentation:
+Shared concerns and dataset adapters are separated:
 
 ```text
 pdmdata/
-  config.py              # Shared user settings
-  loaders.py             # Common load() entry point and dispatch registry
-  io.py                  # Reusable file discovery and basic readers
-  download.py            # Shared download/extraction/integrity machinery
-  care/
-    __init__.py          # Direct CARE API
-    loader.py            # CARE layout, selectors, parsing and normalization
-    validation.py        # CARE-specific verification
-    viz.py               # CARE-specific plots
-    metadata.json        # Sources, expected files and dataset metadata
-    README.md
-  cmapss/
-    loader.py            # C-MAPSS-specific columns and loading
-    ...
+  config.py                 # Shared user settings
+  catalog/                  # Metadata discovery and doc generation
+  datasets/
+    load.py                 # Common load() dispatch registry
+    care/
+      __init__.py           # Direct CARE API
+      loader.py             # CARE layout, selectors, parsing
+      validation.py         # CARE-specific verification
+      viz.py                # CARE-specific plots
+      metadata.json
+      README.md
+    cmapss/
+      loader.py
+      ...
+  io/                       # Download, path discovery, Polars readers
+  tasks/
+    README.md               # Task package index
+    taxonomy.py             # Canonical task ids
+    rul/                    # RUL package (prepare.py, README)
+    tte/                    # TTE package (prepare.py, README)
+  visualization/            # Shared plotting models and registry
 ```
 
-Every dataset's loading logic belongs in its own `loader.py`. Common helpers
-stay in `io.py`; the global loader registry only routes calls. Put future
-preprocessing or validation specific to one dataset in that dataset's directory,
-for example `care/preprocessing.py`. CLI scripts should call that implementation.
+Every dataset's loading logic belongs in its own
+`datasets/<id>/loader.py`. Common helpers stay in `pdmdata.io`; the global
+loader registry only routes calls. Put future preprocessing or validation
+specific to one dataset in that dataset's directory, for example
+`datasets/care/preprocessing.py`. CLI scripts should call that implementation.
 To add a dataset loader, implement `load()` in its directory and register its
-module in `pdmdata/loaders.py`.
+module in `pdmdata/datasets/load.py`.
 
 For example, these call the same CARE implementation:
 
 ```python
 import pdmdata
-from pdmdata.care import load as load_care
+from pdmdata.datasets.care import load as load_care
 
 frame = pdmdata.load("care", wind_farm="A", event_id=0)
 train = load_care(wind_farm="A", event_id=0, split="train")
@@ -235,6 +280,62 @@ train = load_care(wind_farm="A", event_id=0, split="train")
 
 Loading interprets the source layout and applies explicit selections in memory;
 it does not change the downloaded CSVs or download missing data.
+
+## RUL task view (C-MAPSS)
+
+Dataset loaders stay source-faithful. For remaining-useful-life experiments,
+build a Polars-tabular bundle in the task layer:
+
+```python
+from pdmdata.tasks.rul import (
+    evaluate_test_predictions,
+    prepare_cmapss,
+)
+
+pdmdata.download("cmapss")
+bundle = prepare_cmapss(
+    "FD001",
+    rul_cap=125,
+    validation_fraction=0.2,
+    drop_constant_features=True,
+)
+X, y, groups = bundle.train.to_numpy()
+# Fit an estimator on X, y (keep groups for unit-aware CV if needed).
+eval_split = bundle.test_eval_split()
+predictions = model.predict(eval_split.X().to_numpy())
+evaluate_test_predictions(bundle, predictions)
+```
+
+RUL is treated as a time-to-event profile (event = end of useful life). Train
+rows include `RUL`, `time_to_event`, and `event_observed`. Test feature rows
+omit targets; score the official one-row-per-engine protocol with
+`test_eval_split()` / `evaluate_test_predictions`. See the
+[RUL task guide](../pdmdata/tasks/rul/README.md) and the
+[RUL notebook](../notebooks/tasks/remaining-useful-life-prediction.ipynb).
+
+## TTE task view (C-MAPSS)
+
+Time-to-event uses the same C-MAPSS trajectories with `time_to_event` as the
+primary target and explicit `event_observed` flags:
+
+```python
+from pdmdata.tasks.tte import prepare_cmapss, evaluate_test_predictions
+
+bundle = prepare_cmapss(
+    "FD001",
+    time_cap=125,
+    validation_fraction=0.2,
+    drop_constant_features=True,
+)
+X, y, groups = bundle.train.to_numpy()
+entities = bundle.entity_table()  # failures + right-censored test engines
+evaluate_test_predictions(bundle, predictions)
+```
+
+`entity_table()` keeps NASA test engines censored at the last observed cycle
+(no official RUL offset). Official remaining-time scoring stays on
+`test_eval_split()`. See the [TTE task guide](../pdmdata/tasks/tte/README.md)
+and the [TTE notebook](../notebooks/tasks/time-to-event-prediction.ipynb).
 
 ## Analysis conventions
 

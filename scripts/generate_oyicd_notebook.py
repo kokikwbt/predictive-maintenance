@@ -20,7 +20,7 @@ months. Filename modes identify entire recordings, not annotated phases within
 an operating cycle. Each capture has 2,048 samples at approximately 4 ms spacing.
 
 [Provider and attribution](https://www.kaggle.com/datasets/inIT-OWL/one-year-industrial-component-degradation)
-· [Dataset guide](../../pdmdata/oyicd/README.md)
+· [Dataset guide](../../pdmdata/datasets/oyicd/README.md)
 
 Run `pdmdata.download("oyicd")` explicitly if needed. This notebook reads local
 data only. The source ZIP contains two byte-identical copies of each recording;
@@ -34,9 +34,9 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.oyicd import inventory
-from pdmdata.oyicd.loader import SENSOR_COLUMNS
-from pdmdata.oyicd.viz import SIGNAL_LABELS, plot_waveforms, plot_coverage, plot_modes
+from pdmdata.datasets.oyicd import inventory
+from pdmdata.datasets.oyicd.loader import SENSOR_COLUMNS
+from pdmdata.datasets.oyicd.viz import SIGNAL_LABELS, plot_waveforms, plot_coverage, plot_modes
 
 files = inventory()
 print(f"Unique recordings: {files.height}; observations: {files['samples'].sum():,}")
@@ -79,7 +79,7 @@ or concatenation is performed. Signals may cycle within a recording, but cycle
 phase boundaries are not labeled.
 ''')
     code('''overview = plot_waveforms(frame)
-assets = ROOT / "pdmdata/oyicd/assets"
+assets = ROOT / "pdmdata/datasets/oyicd/assets"
 assets.mkdir(parents=True, exist_ok=True)
 overview.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

@@ -20,7 +20,7 @@ load levels (0–90%). Each condition/load combination is a **separate recording
 Unlike GDD, there are no annotated operating-state transitions within a file.
 
 [Official source](https://data.openei.org/submissions/623) ·
-[Dataset guide](../../pdmdata/gfd/README.md)
+[Dataset guide](../../pdmdata/datasets/gfd/README.md)
 
 If needed, explicitly run `pdmdata.download("gfd")` first. This notebook only
 reads local measurements. Saved Matplotlib outputs are visible on GitHub.
@@ -34,9 +34,9 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.gfd import inventory
-from pdmdata.gfd.loader import SENSOR_COLUMNS
-from pdmdata.gfd.viz import plot_waveforms, plot_rms, plot_correlations
+from pdmdata.datasets.gfd import inventory
+from pdmdata.datasets.gfd.loader import SENSOR_COLUMNS
+from pdmdata.datasets.gfd.viz import plot_waveforms, plot_rms, plot_correlations
 
 files = inventory()
 print(f"Recordings: {files.height}; observations: {files['samples'].sum():,}")
@@ -68,7 +68,7 @@ measurements. Adjust START and STOP to inspect other windows.
     code('''START, STOP = 0, 2048
 comparison = plot_waveforms(healthy, broken, start=START, stop=STOP)
 # Save one compact, reproducible preview for the dataset README.
-assets = ROOT / "pdmdata/gfd/assets"
+assets = ROOT / "pdmdata/datasets/gfd/assets"
 assets.mkdir(parents=True, exist_ok=True)
 comparison.savefig(assets / "waveforms.png", dpi=100)
 plt.show()

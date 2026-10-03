@@ -6,11 +6,11 @@ import polars as pl
 
 import pdmdata
 from pdmdata.io import read_whitespace
-from pdmdata.gfd import loader as gfd_loader
-from pdmdata.oyicd import loader as oyicd_loader
-from pdmdata.ppd import loader as ppd_loader
-from pdmdata.metropt2 import loader as metropt2_loader
-from pdmdata.backblaze import loader as backblaze_loader
+from pdmdata.datasets.gfd import loader as gfd_loader
+from pdmdata.datasets.oyicd import loader as oyicd_loader
+from pdmdata.datasets.ppd import loader as ppd_loader
+from pdmdata.datasets.metropt2 import loader as metropt2_loader
+from pdmdata.datasets.backblaze import loader as backblaze_loader
 
 
 class PolarsIoTest(unittest.TestCase):
@@ -117,7 +117,10 @@ class PolarsIoTest(unittest.TestCase):
                 contents = header + "0," + ",".join([value] * 25) + "\n"
                 contents += "1," + ",".join([""] * 25) + "\n"
                 (directory / f"{name}.csv").write_text(contents)
-            with unittest.mock.patch("pdmdata.io.get_settings", return_value=pdmdata.Settings(data_root=root)):
+            with unittest.mock.patch(
+                "pdmdata.io.paths.get_settings",
+                return_value=pdmdata.Settings(data_root=root),
+            ):
                 for sequence_id in [7, 13]:
                     with self.subTest(sequence_id=sequence_id):
                         frame = ppd_loader.load(sequence_id)

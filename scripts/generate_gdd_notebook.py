@@ -18,7 +18,7 @@ Explore the real `Genesis_StateMachineLabel.csv` recording: state frequencies,
 contiguous segments, transitions, motor signals, and binary control flags.
 
 [Provider](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
-· [Dataset guide](../../pdmdata/gdd/README.md)
+· [Dataset guide](../../pdmdata/datasets/gdd/README.md)
 
 The observed state IDs are 0–8. A verified mapping from these numbers to named
 machine actions was not found in the downloaded files or the checked provider
@@ -37,8 +37,8 @@ import polars as pl
 import matplotlib.pyplot as plt
 from IPython.display import display
 import pdmdata
-from pdmdata.gdd.preprocessing import MOTOR_SIGNALS, state_segments
-from pdmdata.gdd.viz import plot_states
+from pdmdata.datasets.gdd.preprocessing import MOTOR_SIGNALS, state_segments
+from pdmdata.datasets.gdd.viz import plot_states
 
 state = pdmdata.load("gdd", series="state")
 anomaly = pdmdata.load("gdd", series="anomaly")
