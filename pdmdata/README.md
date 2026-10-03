@@ -27,6 +27,7 @@ useful life.
 | [N-CMAPSS](datasets/ncmapss/README.md) | Multivariate run-to-failure time series under real flight conditions | RUL estimation, Prognostics, Fault diagnostics | U.S. Government Works / provider terms | Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP) |
 | [OYICD](datasets/oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
 | [PPD](datasets/ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
+| [XJTU-SY](datasets/xjtu_sy/README.md) | Run-to-failure vibration time series | RUL estimation, Prognostics, Fault diagnostics | Public research use (citation requested) | Direct ZIP download via Hugging Face mirror of the official bundle (~5.4 GB) |
 
 <!-- END GENERATED DATASET TABLE -->
 
@@ -70,6 +71,7 @@ label, endpoint, or health-index construction.
 | [N-CMAPSS](datasets/ncmapss/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
 | [OYICD](datasets/oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
 | [PPD](datasets/ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
+| [XJTU-SY](datasets/xjtu_sy/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
 
 <!-- END GENERATED TASK TABLE -->
 

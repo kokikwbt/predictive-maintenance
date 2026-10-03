@@ -158,9 +158,9 @@ uv run --locked python scripts/download.py backblaze --variant 2025-q1
 
 Backblaze variants currently include `2025-q1`, `2025-q2`, `2025-q3`, and
 `2025-q4`. N-CMAPSS downloads one HDF5 subset at a time (default `ds01`);
-the official NASA nested ZIP is about 15 GB. These large datasets are
-intentionally excluded from `download_all.py`. `bootstrap.sh` never
-downloads datasets.
+the official NASA nested ZIP is about 15 GB. XJTU-SY is a single ~5.4 GB
+ZIP mirror. These large datasets are intentionally excluded from
+`download_all.py`. `bootstrap.sh` never downloads datasets.
 
 The downloader preserves the source archive, extracts it into a separate
 directory, validates expected files, and records the archive SHA-256 in

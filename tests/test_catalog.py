@@ -44,14 +44,19 @@ class CatalogTest(unittest.TestCase):
                 "ncmapss",
                 "oyicd",
                 "ppd",
+                "xjtu_sy",
             ],
         )
 
     def test_large_download_variants_are_explicit(self):
         self.assertTrue(
-            {"care", "backblaze", "metropt2", "ncmapss"}.isdisjoint(
-                bulk_downloads()
-            )
+            {
+                "care",
+                "backblaze",
+                "metropt2",
+                "ncmapss",
+                "xjtu_sy",
+            }.isdisjoint(bulk_downloads())
         )
         self.assertEqual(
             download_variants("backblaze"),

@@ -1,0 +1,105 @@
+{
+  "id": "xjtu_sy",
+  "short_name": "XJTU-SY",
+  "name": "XJTU-SY Bearing Datasets",
+  "summary": "Accelerated run-to-failure vibration records for 15 rolling-element bearings under three operating conditions, used widely for bearing RUL prognosis.",
+  "source": {
+    "name": "Xi'an Jiaotong University / Sumyoung Technology",
+    "landing_page": "https://biaowang.tech/xjtu-sy-bearing-datasets/",
+    "doi": "10.1109/TR.2018.2882682",
+    "doi_url": "https://doi.org/10.1109/TR.2018.2882682"
+  },
+  "license": {
+    "name": "Public research use (citation requested)",
+    "url": "https://biaowang.tech/xjtu-sy-bearing-datasets/",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-03",
+    "access": "Direct ZIP download via Hugging Face mirror of the official bundle (~5.4 GB)"
+  },
+  "download": {
+    "bulk": false,
+    "url": "https://huggingface.co/datasets/DavidNguyen/XJTU-SY_Bearing_Datasets/resolve/main/XJTU-SY_Bearing_Datasets.zip",
+    "filename": "XJTU-SY_Bearing_Datasets.zip",
+    "archive": "zip",
+    "expected_files": [
+      "XJTU-SY_Bearing_Datasets/35Hz12kN/Bearing1_1/1.csv",
+      "XJTU-SY_Bearing_Datasets/37.5Hz11kN/Bearing2_1/1.csv",
+      "XJTU-SY_Bearing_Datasets/40Hz10kN/Bearing3_1/1.csv"
+    ]
+  },
+  "characteristics": {
+    "kind": "Run-to-failure vibration time series",
+    "feature_dimensions": {
+      "summary": "2 accelerometer channels per 1.28 s snapshot (horizontal, vertical)",
+      "counting": "Each CSV snapshot has 32,768 samples at 25.6 kHz with two columns (horizontal, vertical). Snapshot-level loaders add derived RMS features and RUL in minutes; raw waveforms are opt-in.",
+      "sources": [
+        {
+          "name": "XJTU-SY Bearing Datasets (Wang et al.)",
+          "url": "https://biaowang.tech/xjtu-sy-bearing-datasets/"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "RUL estimation",
+    "Prognostics",
+    "Fault diagnostics"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "derived",
+    "condition_estimation": "derived",
+    "rul_prediction": "direct",
+    "time_to_event": "direct",
+    "survival_analysis": "direct"
+  },
+  "attributes": [
+    {
+      "name": "bearing",
+      "dtype": "Utf8",
+      "role": "entity",
+      "description": "Bearing run id (Bearing1_1 … Bearing3_5)."
+    },
+    {
+      "name": "condition",
+      "dtype": "Utf8",
+      "role": "operating-condition",
+      "description": "Operating-condition folder (35Hz12kN, 37.5Hz11kN, or 40Hz10kN)."
+    },
+    {
+      "name": "cycle",
+      "dtype": "UInt32",
+      "role": "time",
+      "description": "One-based snapshot index (one CSV per minute)."
+    },
+    {
+      "name": "RUL",
+      "dtype": "Int64",
+      "role": "target",
+      "description": "Minutes remaining until the final snapshot (0 at failure)."
+    },
+    {
+      "name": "rms_horizontal, rms_vertical",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Per-snapshot RMS of the two accelerometer channels."
+    },
+    {
+      "name": "horizontal, vertical",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Raw waveform samples when with_waveform=True."
+    }
+  ],
+  "notes": [
+    "Official distribution is a multi-part WinRAR set; PdMData downloads a Hugging Face ZIP mirror of the same files (~5.4 GB).",
+    "Fifteen bearings under three conditions; sampling at 25.6 kHz with 32,768 points every minute.",
+    "RUL is derived from complete run-to-failure trajectories (minutes until the last CSV), not a separate label file.",
+    "Cite Wang, Lei, Li, and Li (IEEE Transactions on Reliability, 2020)."
+  ],
+  "citation": "B. Wang, Y. Lei, N. Li and N. Li (2020). A Hybrid Prognostics Approach for Estimating Remaining Useful Life of Rolling Element Bearings. IEEE Transactions on Reliability, 69(1), 401-412."
+}
