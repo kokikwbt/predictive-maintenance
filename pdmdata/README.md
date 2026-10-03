@@ -87,13 +87,38 @@ label, endpoint, or health-index construction.
 - [CARE to Compare — wind-turbine fault-detection benchmark](https://zenodo.org/records/15846963)
 - [Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
-## Reference datasets
+## Reference links
 
-These resources are not currently supported by this project:
+Related datasets and benchmarks that are **not** currently supported as
+PdMData adapters. Listed for discovery only; licenses and access terms are
+those of each source.
 
-- [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1): retained for reference; automated retrieval and the source-file layout have not been verified. CLI access returned HTTP 403 in our environment on 2026-09-06.
+### Industrial sensor / degradation data
 
+- [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1)
+  — Packaging-line alarm logs for event / sequence analysis. Automated
+  retrieval and layout have not been verified (HTTP 403 on 2026-09-06).
 - [Oxford Battery Degradation Dataset 1](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
+  — Lab battery aging trajectories under controlled cycling
+  (University of Oxford).
 - [Battery Degradation Dataset](https://data.mendeley.com/datasets/kw34hhw7xg/2)
+  — Battery degradation under fixed-current and arbitrary-use profiles
+  (Mendeley Data).
 - [Vega shrink-wrapper component degradation](https://www.kaggle.com/datasets/inIT-OWL/vega-shrinkwrapper-runtofailure-data)
+  — Run-to-failure component data from an industrial shrink-wrapper
+  (inIT / OWL).
 - [CWRU Bearing Dataset mirror](https://www.kaggle.com/datasets/brjapon/cwru-bearing-datasets)
+  — Classic bearing vibration fault-classification corpus
+  (Case Western Reserve University; Kaggle mirror).
+
+### LLM / agent benchmarks (PdM-related)
+
+These target language-model or multi-agent evaluation rather than Polars
+tabular loaders, so they stay outside the supported catalog.
+
+- [IBM FailureSensorIQ](https://github.com/IBM/FailureSensorIQ)
+  — Multi-choice QA benchmark on sensor–failure-mode relationships for
+  industrial assets (Hugging Face dataset + leaderboard).
+- [IBM AssetOpsBench](https://github.com/IBM/AssetOpsBench)
+  — Agent / multi-agent benchmark for industrial asset operations and
+  maintenance (scenarios, IoT simulation, PHM-related tasks).
