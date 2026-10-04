@@ -44,6 +44,7 @@ class CatalogTest(unittest.TestCase):
                 "ncmapss",
                 "oyicd",
                 "ppd",
+                "scania_x",
                 "xjtu_sy",
             ],
         )
@@ -55,6 +56,7 @@ class CatalogTest(unittest.TestCase):
                 "backblaze",
                 "metropt2",
                 "ncmapss",
+                "scania_x",
                 "xjtu_sy",
             }.isdisjoint(bulk_downloads())
         )

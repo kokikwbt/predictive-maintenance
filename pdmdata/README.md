@@ -27,6 +27,7 @@ useful life.
 | [N-CMAPSS](datasets/ncmapss/README.md) | Multivariate run-to-failure time series under real flight conditions | RUL estimation, Prognostics, Fault diagnostics | U.S. Government Works / provider terms | Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP) |
 | [OYICD](datasets/oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
 | [PPD](datasets/ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
+| [Scania Component X](datasets/scania_x/README.md) | Fleet-scale irregular multivariate time series with repair records | Imminent-failure classification, Time-to-event prediction, Survival analysis, Cost-sensitive maintenance decisions | CC BY 4.0 | Direct per-file CSV downloads from Researchdata.se (~1.65 GB; no account required) |
 | [XJTU-SY](datasets/xjtu_sy/README.md) | Run-to-failure vibration time series | RUL estimation, Prognostics, Fault diagnostics | Public research use (citation requested) | Direct ZIP download via Hugging Face mirror of the official bundle (~5.4 GB) |
 
 <!-- END GENERATED DATASET TABLE -->
@@ -71,6 +72,7 @@ label, endpoint, or health-index construction.
 | [N-CMAPSS](datasets/ncmapss/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
 | [OYICD](datasets/oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
 | [PPD](datasets/ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
+| [Scania Component X](datasets/scania_x/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | △ |
 | [XJTU-SY](datasets/xjtu_sy/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
 
 <!-- END GENERATED TASK TABLE -->
@@ -88,6 +90,7 @@ label, endpoint, or health-index construction.
 - [PPD — Production Plant Data for Condition Monitoring](https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring)
 - [CARE to Compare — wind-turbine fault-detection benchmark](https://zenodo.org/records/15846963)
 - [Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+- [SCANIA Component X — Researchdata.se (SND)](https://researchdata.se/en/catalogue/dataset/2024-34)
 
 ## Reference links
 

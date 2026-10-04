@@ -1,0 +1,174 @@
+{
+  "id": "scania_x",
+  "short_name": "Scania Component X",
+  "name": "SCANIA Component X Dataset",
+  "summary": "Real-world operational readouts, repair records, and specifications for an anonymized engine component across more than 33,000 SCANIA heavy-duty trucks, released for the IDA 2024 Industrial Challenge.",
+  "source": {
+    "name": "Swedish National Data Service (SND) / Researchdata.se",
+    "landing_page": "https://researchdata.se/en/catalogue/dataset/2024-34",
+    "doi": "10.5878/bnh5-ka77",
+    "doi_url": "https://doi.org/10.5878/bnh5-ka77"
+  },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-04",
+    "access": "Direct per-file CSV downloads from Researchdata.se (~1.65 GB; no account required)"
+  },
+  "download": {
+    "method": "files",
+    "bulk": false,
+    "filename": "scania_component_x.zip",
+    "archive": "zip",
+    "expected_files": [
+      "train_operational_readouts.csv",
+      "train_specifications.csv",
+      "train_tte.csv",
+      "validation_operational_readouts.csv",
+      "validation_specifications.csv",
+      "validation_labels.csv",
+      "test_operational_readouts.csv",
+      "test_specifications.csv",
+      "test_labels.csv"
+    ],
+    "files": [
+      {
+        "filename": "train_operational_readouts.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/train_operational_readouts.csv",
+        "checksum": "sha256:e01cb0bd87dfab4c9dbad215d51d81282fc0d413be96d6f819ea872fb7a3c715"
+      },
+      {
+        "filename": "train_specifications.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/train_specifications.csv",
+        "checksum": "sha256:47cc9a67aee19d5e2ee8620fe8e467490b2125bacc7787ce781ce9f3c1f0c38f"
+      },
+      {
+        "filename": "train_tte.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/train_tte.csv",
+        "checksum": "sha256:d8c2379ed7c95a575dd869730b2b3b96d660317f49e57de300518ff3b08d53a5"
+      },
+      {
+        "filename": "validation_operational_readouts.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/validation_operational_readouts.csv",
+        "checksum": "sha256:1e1597eec866588c2ad95eb923555ad719c64b3697d9140f9cec6809349809af"
+      },
+      {
+        "filename": "validation_specifications.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/validation_specifications.csv",
+        "checksum": "sha256:a31e832846538dd7a1829108b69420d9377dcd05d6446d8ac1270a974fc58ae2"
+      },
+      {
+        "filename": "validation_labels.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/validation_labels.csv",
+        "checksum": "sha256:ad876c95c3696f4cfca2d76212ad6bb3cac6b2d2950a4aeaf218ee8b1548d08c"
+      },
+      {
+        "filename": "test_operational_readouts.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/test_operational_readouts.csv",
+        "checksum": "sha256:81f2709cd339e0ff561f5fd3188d7f431680e32400bd788814880d7759615ba1"
+      },
+      {
+        "filename": "test_specifications.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/test_specifications.csv",
+        "checksum": "sha256:40ac8a111f6d5b416107ec1786f639766ecf1293a1c9c0c0dbf24f14c1c5d0e7"
+      },
+      {
+        "filename": "test_labels.csv",
+        "url": "https://api.researchdata.se/dataset/2024-34/3/file/data/test_labels.csv",
+        "checksum": "sha256:60f923051d4ba1bef4c81166cf9e8ca01daf3b7a29c73016c6f48a23dcfa0223"
+      }
+    ]
+  },
+  "characteristics": {
+    "kind": "Fleet-scale irregular multivariate time series with repair records",
+    "feature_dimensions": {
+      "summary": "105 operational features from 14 anonymized variables, plus 8 categorical specifications",
+      "counting": "Readout files have 107 columns: vehicle_id, time_step, 8 numerical counters (171_0, 666_0, 427_0, 837_0, 309_0, 835_0, 370_0, 100_0), and 6 histograms with 10 (167), 10 (272), 11 (291), 10 (158), 20 (459), and 36 (397) bins. Specification files add Spec_0 to Spec_7 per vehicle.",
+      "sources": [
+        {
+          "name": "Kharazian et al., Scientific Data (2025)",
+          "url": "https://doi.org/10.1038/s41597-025-04802-6"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Imminent-failure classification",
+    "Time-to-event prediction",
+    "Survival analysis",
+    "Cost-sensitive maintenance decisions"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "fault_classification": "direct",
+    "condition_estimation": "derived",
+    "rul_prediction": "derived",
+    "time_to_event": "direct",
+    "survival_analysis": "direct",
+    "maintenance_policy": "derived"
+  },
+  "attributes": [
+    {
+      "name": "vehicle_id",
+      "dtype": "Int64",
+      "role": "entity",
+      "description": "Anonymized truck identifier; train, validation, and test vehicles are disjoint."
+    },
+    {
+      "name": "time_step",
+      "dtype": "Float64",
+      "role": "time",
+      "description": "Anonymized operating time since Component X started working; readouts are irregular per vehicle."
+    },
+    {
+      "name": "171_0, 666_0, 427_0, 837_0, 309_0, 835_0, 370_0, 100_0",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Mostly cumulative numerical counters."
+    },
+    {
+      "name": "167_*, 272_*, 291_*, 158_*, 459_*, 397_*",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Histogram bins named variableid_binindex (10, 10, 11, 10, 20, and 36 bins); outer bins are open-ended."
+    },
+    {
+      "name": "Spec_0 … Spec_7",
+      "dtype": "Utf8",
+      "role": "asset-attribute",
+      "description": "Anonymized categorical truck specifications (Cat0, Cat1, …)."
+    },
+    {
+      "name": "length_of_study_time_step",
+      "dtype": "Float64",
+      "role": "target",
+      "description": "Train only: time of the first Component X repair, or end of observation when censored."
+    },
+    {
+      "name": "in_study_repair",
+      "dtype": "UInt8",
+      "role": "event",
+      "description": "Train only: 1 if Component X was repaired at length_of_study_time_step, 0 if right-censored."
+    },
+    {
+      "name": "class_label",
+      "dtype": "UInt8",
+      "role": "target",
+      "description": "Validation/test only: time window of the last readout before repair: 0 (>48), 1 (48–24), 2 (24–12), 3 (12–6), 4 (6–0) time steps."
+    }
+  ],
+  "notes": [
+    "Train readouts cover each vehicle's full study period; validation and test readouts are truncated at a randomly selected last readout, and labels refer to that last readout.",
+    "About 9.6% of training vehicles (2,272 of 23,550) have a repair event; the rest are right-censored. Validation and test labels are strongly skewed toward class 0.",
+    "Timestamps, readout frequencies, and repair frequencies were anonymized and may not reflect actual truck usage. Variable names are anonymized IDs.",
+    "Fewer than 1% of values per readout feature are missing; loaders keep them as null.",
+    "Downloads use the nine CSVs of version 3 (DOI 10.5878/bnh5-ka77), verify each SND-published SHA-256, and bundle them locally. Data files are identical to version 2 (DOI 10.5878/jvb5-d390), which the Scientific Data paper cites.",
+    "Expect about 3.3 GB on disk after extraction (local bundle plus extracted CSVs)."
+  ],
+  "citation": "Z. Kharazian, T. Lindgren, S. Magnússon, O. Steinert and O. Andersson Reyna (2025). SCANIA Component X dataset: a real-world multivariate time series dataset for predictive maintenance. Scientific Data, 12, 493. https://doi.org/10.1038/s41597-025-04802-6"
+}

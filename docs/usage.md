@@ -87,6 +87,7 @@ Large, opt-in downloads are also supported:
 - MetroPT2 (1.2 GB CSV)
 - CARE to Compare (5.5 GB ZIP)
 - Backblaze Drive Stats (one selected quarter; more than 10 GB extracted)
+- SCANIA Component X (nine CSVs from Researchdata.se, ~1.65 GB; no account)
 
 ### Kaggle authentication
 
@@ -146,6 +147,7 @@ Download a large dataset explicitly:
 uv run --locked python scripts/download.py metropt2
 uv run --locked python scripts/download.py care
 uv run --locked python scripts/download.py backblaze --variant 2025-q1
+uv run --locked python scripts/download.py scania_x
 ```
 
 | Option | Purpose |
@@ -159,12 +161,15 @@ uv run --locked python scripts/download.py backblaze --variant 2025-q1
 Backblaze variants currently include `2025-q1`, `2025-q2`, `2025-q3`, and
 `2025-q4`. N-CMAPSS downloads one HDF5 subset at a time (default `ds01`);
 the official NASA nested ZIP is about 15 GB. XJTU-SY is a single ~5.4 GB
-ZIP mirror. These large datasets are intentionally excluded from
-`download_all.py`. `bootstrap.sh` never downloads datasets.
+ZIP mirror. SCANIA Component X needs about 3.3 GB after extraction. These
+large datasets are intentionally excluded from `download_all.py`.
+`bootstrap.sh` never downloads datasets.
 
 The downloader preserves the source archive, extracts it into a separate
 directory, validates expected files, and records the archive SHA-256 in
-`manifest.json`. The `data/` directory is excluded from Git.
+`manifest.json`. Multi-file sources are bundled locally into one ZIP; when
+the provider publishes per-file checksums, each file is verified before
+bundling. The `data/` directory is excluded from Git.
 
 IMS contains nested ZIP, 7z, and RAR layers, which `download("ims")` extracts
 automatically. The locked Python environment includes `libarchive-c`; its

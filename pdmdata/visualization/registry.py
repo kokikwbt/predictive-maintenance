@@ -14,6 +14,7 @@ from pdmdata.datasets.cmapss.viz import PLOTS as CMAPSS_PLOTS
 from pdmdata.datasets.gfd.viz import PLOTS as GFD_PLOTS
 from pdmdata.datasets.mapm.viz import PLOTS as MAPM_PLOTS
 from pdmdata.datasets.metropt2.viz import PLOTS as METROPT2_PLOTS
+from pdmdata.datasets.scania_x.viz import PLOTS as SCANIA_X_PLOTS
 
 from .models import DistributionSpec, EventTimelineSpec, TimeSeriesSpec
 from .plots import plot_distribution, plot_event_timeline, plot_time_series
@@ -26,6 +27,7 @@ PLOTS: Dict[str, Dict[str, object]] = {
     "gfd": GFD_PLOTS,
     "mapm": MAPM_PLOTS,
     "metropt2": METROPT2_PLOTS,
+    "scania_x": SCANIA_X_PLOTS,
 }
 
 

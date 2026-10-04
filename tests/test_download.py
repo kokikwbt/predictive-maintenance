@@ -124,6 +124,60 @@ class DownloadTest(unittest.TestCase):
             self.assertFalse((directory / "extracted").exists())
             self.assertFalse((directory / "manifest.json").exists())
 
+    def test_files_method_verifies_per_file_checksums(self):
+        import hashlib
+
+        content = b"vehicle_id,class_label\n1,0\n"
+        digest = hashlib.sha256(content).hexdigest()
+        resource = {
+            "method": "files",
+            "filename": "bundle.zip",
+            "files": [
+                {"filename": "a.csv", "url": "https://example.org/a.csv",
+                 "checksum": "sha256:" + digest},
+                {"filename": "b.csv", "url": "https://example.org/b.csv"},
+            ],
+        }
+
+        def retrieve(url, target):
+            target.write_bytes(content)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            archive = directory / "bundle.zip"
+            with patch.object(download_module, "_download_file", side_effect=retrieve):
+                download_module._download_resource(
+                    resource, directory, archive, overwrite=False
+                )
+                with ZipFile(archive) as zipped:
+                    self.assertEqual(sorted(zipped.namelist()), ["a.csv", "b.csv"])
+                archive.unlink()
+                resource["files"][0]["checksum"] = "sha256:" + "0" * 64
+                with self.assertRaisesRegex(ValueError, "checksum mismatch"):
+                    download_module._download_resource(
+                        resource, directory, archive, overwrite=False
+                    )
+            self.assertFalse(archive.exists())
+            self.assertEqual(list(directory.iterdir()), [])
+
+    def test_scania_component_x_files_are_pinned(self):
+        from pdmdata.catalog import load_metadata
+
+        download_spec = load_metadata("scania_x")["download"]
+        self.assertEqual(len(download_spec["files"]), 9)
+        for item in download_spec["files"]:
+            self.assertTrue(item["url"].startswith(
+                "https://api.researchdata.se/dataset/2024-34/3/file/data/"
+            ))
+            self.assertTrue(item["url"].endswith("/" + item["filename"]))
+            self.assertRegex(item["checksum"], r"^sha256:[0-9a-f]{64}$")
+        self.assertEqual(
+            sorted(download_spec["expected_files"]),
+            sorted(item["filename"] for item in download_spec["files"]),
+        )
+        command = download_command("scania_x", output_dir=Path("/tmp/pdmdata-test"))
+        self.assertEqual(command.count("wget --continue"), 9)
+
     def test_unsupported_dataset_has_clear_error(self):
         with self.assertRaisesRegex(KeyError, "Unknown dataset"):
             download("unknown", output_dir=Path("/tmp/unused-pdmdata-test"))

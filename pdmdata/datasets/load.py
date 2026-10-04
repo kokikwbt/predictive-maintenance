@@ -19,6 +19,7 @@ _LOADER_MODULES = {
     "ncmapss": "pdmdata.datasets.ncmapss.loader",
     "oyicd": "pdmdata.datasets.oyicd.loader",
     "ppd": "pdmdata.datasets.ppd.loader",
+    "scania_x": "pdmdata.datasets.scania_x.loader",
     "xjtu_sy": "pdmdata.datasets.xjtu_sy.loader",
 }
 

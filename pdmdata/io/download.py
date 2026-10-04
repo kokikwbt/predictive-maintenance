@@ -216,7 +216,10 @@ def _download_resource(
                         raise ValueError("Invalid source filename: {!r}".format(name))
                     target = staging / name
                     _download_file(item["url"], target)
+                    if item.get("checksum"):
+                        _verify_checksum(target, item["checksum"])
                     zipped.write(target, arcname=name)
+                    target.unlink()
             os.replace(bundle, archive)
         return
     if method == "url":
