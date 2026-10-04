@@ -18,6 +18,7 @@ from pdmdata.datasets.scania_x import (
     load,
     vehicles,
 )
+from pdmdata.datasets.scania_x.viz import plot_histogram_evolution
 
 
 HEADER = ["vehicle_id", "time_step", *FEATURES]
@@ -181,3 +182,9 @@ class ScaniaComponentXTest(TestCase):
                     "scania_x", "counter_trajectory", load("train"), entity=0
                 )
                 self.assertEqual(len(figure.data), 4)
+                histogram = plot_histogram_evolution(
+                    load("train", vehicle_id=0, lazy=False), variable="291"
+                )
+                self.assertEqual(len(histogram.axes), 2)
+                with self.assertRaises(ValueError):
+                    plot_histogram_evolution(load("train", lazy=False))

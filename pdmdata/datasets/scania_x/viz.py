@@ -21,6 +21,7 @@ PLOTS = {
 def plot_histogram_evolution(frame, *, variable="459"):
     """Show how one histogram variable's bins accumulate for one vehicle."""
     import matplotlib.pyplot as plt
+    import numpy as np
     import polars as pl
 
     from .loader import histogram_columns
@@ -33,19 +34,17 @@ def plot_histogram_evolution(frame, *, variable="459"):
     if set(columns) - set(frame.columns):
         raise ValueError("The frame lacks histogram {} columns".format(variable))
     frame = frame.sort("time_step")
+    if frame.height < 2:
+        raise ValueError("At least two readouts are required")
     values = frame.select(columns).to_numpy().T
+    times = frame["time_step"].to_numpy()
+    # Readouts are irregular, so cell edges sit midway between readouts.
+    edges = np.concatenate(
+        [times[:1], (times[1:] + times[:-1]) / 2, times[-1:]]
+    )
     figure, axis = plt.subplots(figsize=(12, 4), layout="constrained")
-    image = axis.imshow(
-        values,
-        aspect="auto",
-        origin="lower",
-        interpolation="nearest",
-        extent=(
-            frame["time_step"][0],
-            frame["time_step"][-1],
-            -0.5,
-            len(columns) - 0.5,
-        ),
+    image = axis.pcolormesh(
+        edges, np.arange(len(columns) + 1) - 0.5, values, shading="flat"
     )
     axis.set(
         xlabel="Anonymized operating time (time_step)",
