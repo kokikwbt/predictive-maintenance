@@ -13,7 +13,29 @@ from pdmdata.tasks.tte.prepare import (
     split_entities,
 )
 
+from pdmdata.tasks.tte.sequences import (
+    CmapssSequenceSpec,
+    build_sequence_samples,
+    common_windows,
+    complete_sequences,
+    export_cmapss_sequences,
+    export_derived_windows,
+    prepare_cmapss_sequences,
+    sequence_provenance,
+)
+
+from pdmdata.tasks.tte.higs import HigsSpec, higs_corrupt
+
 __all__ = [
+    "HigsSpec", "higs_corrupt",
+    "CmapssSequenceSpec",
+    "build_sequence_samples",
+    "common_windows",
+    "complete_sequences",
+    "export_cmapss_sequences",
+    "export_derived_windows",
+    "prepare_cmapss_sequences",
+    "sequence_provenance",
     "CmapssTteBundle",
     "ENTITY_COLUMN",
     "EVENT_OBSERVED_COLUMN",

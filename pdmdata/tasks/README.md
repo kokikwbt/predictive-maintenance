@@ -58,6 +58,9 @@ bundle = prepare_cmapss("FD001", time_cap=125)
 entities = bundle.entity_table()
 ```
 
+The TTE package also provides model-independent normalized sequence windows
+and versioned NPZ exports. See [sequence samples](tte/README.md#sequence-samples-and-npz-handoffs).
+
 ## Shared modules
 
 | Module | Role |
