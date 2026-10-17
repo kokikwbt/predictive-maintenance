@@ -1,0 +1,91 @@
+{
+  "id": "alpi",
+  "short_name": "ALPI",
+  "name": "Alarm Logs in Packaging Industry",
+  "summary": "Timestamped alarm events from 20 industrial packaging machines. The source provides alarm codes and machine identifiers, not verified physical-failure or repair labels.",
+  "source": {
+    "name": "ALPI authors on Mendeley Data",
+    "landing_page": "https://data.mendeley.com/datasets/4nhx2x67cd/1",
+    "doi": "10.17632/4nhx2x67cd.1",
+    "doi_url": "https://doi.org/10.17632/4nhx2x67cd.1"
+  },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_use": true,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-18",
+    "access": "Direct Mendeley file download; CLI transfer and provider SHA-256 verified"
+  },
+  "download": {
+    "url": "https://data.mendeley.com/public-files/datasets/4nhx2x67cd/files/1c053e9f-e483-4ab5-925b-00d6237f24ee/file_downloaded",
+    "filename": "alarms_log_data.zip",
+    "archive": "zip",
+    "checksum": "sha256:ecc199cbd5ed461b654b92d546b354954d815afc072d1c59e3dfddf9b1a3f95d",
+    "expected_files": [
+      "alarms_log_data/raw/alarms.csv"
+    ],
+    "bulk": false
+  },
+  "characteristics": {
+    "kind": "Industrial alarm event sequences",
+    "feature_dimensions": {
+      "summary": "1 categorical event type; timestamp and machine ID are identifiers, not sensor channels",
+      "counting": "The raw CSV has timestamp, alarm, and serial. The loader adds source_row for original-row provenance. There are no analogue sensor waveforms.",
+      "sources": [
+        {
+          "name": "Provider readme and raw CSV (version 1)",
+          "url": "https://data.mendeley.com/public-files/datasets/4nhx2x67cd/files/1c780d52-c22c-42f9-9880-89b97fa0b9cc/file_downloaded"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Next-alarm prediction",
+    "Future-window alarm prediction",
+    "Event-sequence forecasting",
+    "Anomaly detection research"
+  ],
+  "task_support": {
+    "event_forecasting": "direct",
+    "time_to_event": "derived",
+    "anomaly_detection": "derived"
+  },
+  "attributes": [
+    {
+      "name": "timestamp",
+      "dtype": "Datetime(us), timezone unspecified",
+      "role": "timestamp",
+      "description": "Original alarm occurrence time. No timezone is inferred. The optional time filter is start-inclusive and end-exclusive."
+    },
+    {
+      "name": "alarm",
+      "dtype": "Int64",
+      "role": "event-type",
+      "description": "Original alarm code, 0 to 153 in the verified version. Raw ID 0 is a genuine code and is not removed as padding."
+    },
+    {
+      "name": "serial",
+      "dtype": "Int64",
+      "role": "entity",
+      "description": "Original packaging-machine identifier, 0 to 19 in the verified version."
+    },
+    {
+      "name": "source_row",
+      "dtype": "UInt32",
+      "role": "provenance",
+      "description": "Zero-based row in the original CSV, excluding the header; retained across filtering. Source order and duplicate rows are preserved."
+    }
+  ],
+  "notes": [
+    "Version 1 was retrieved through curl without authentication or browser cookies, and the archive matched the provider SHA-256 on 2026-10-18.",
+    "Full raw CSV check: 444,834 records, 20 machines, 154 alarm codes; first timestamp 2019-02-21 10:16:18.130, last timestamp 2020-06-17 03:53:51.885.",
+    "The verified source contains 83 duplicate timestamp/alarm/serial rows. The loader does not deduplicate or globally sort events.",
+    "The 8,517,314-byte ZIP expands to about 163 MB of raw and processed files. Download is opt-in; processed JSON/NPZ/pickle files are not loaded or executed by this adapter.",
+    "Prediction windows, entity/time splits, future labels, and end-of-record handling belong to task construction. The loader does not manufacture failure, RUL, or censoring labels."
+  ],
+  "citation": "Dalle Pezze, D., Tosato, D., Masiero, C., Susto, G. A., and Beghi, A. (2021). ALARM LOGS IN PACKAGING INDUSTRY (ALPI), version 1. Mendeley Data. https://doi.org/10.17632/4nhx2x67cd.1"
+}

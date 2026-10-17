@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-18",
+  "status": "passed",
+  "dataset": "alpi",
+  "provider_version": 1,
+  "source_page": "https://data.mendeley.com/datasets/4nhx2x67cd/1",
+  "archive": {
+    "filename": "alarms_log_data.zip",
+    "bytes": 8517314,
+    "sha256": "ecc199cbd5ed461b654b92d546b354954d815afc072d1c59e3dfddf9b1a3f95d",
+    "provider_checksum_match": true,
+    "zip_crc_checked": true
+  },
+  "raw_csv": {
+    "bytes": 13180280,
+    "sha256": "53bd4414a6fb5b6875a9535f1be622dfb2dfba69de407d071a52d0d304160d1a"
+  },
+  "source_comparison": {
+    "reader": "Python standard-library csv and datetime",
+    "every_source_row_compared": true,
+    "rows_compared": 444834,
+    "source_order_values_ids_timestamps_preserved": true,
+    "inventory_counts_match": true,
+    "combined_selector_checked": true
+  },
+  "observations": {
+    "records": 444834,
+    "machines": 20,
+    "alarm_codes": 154,
+    "serial_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "alarm_min": 0,
+    "alarm_max": 153,
+    "duplicates": 83,
+    "adjacent_ties_per_machine": 83,
+    "out_of_order_per_machine": 0,
+    "first_timestamp": "2019-02-21T10:16:18.130000",
+    "last_timestamp": "2020-06-17T03:53:51.885000",
+    "timezone": "unspecified by provider",
+    "duplicates_removed": false
+  },
+  "records_per_serial": {
+    "0": 36129,
+    "1": 14509,
+    "2": 17399,
+    "3": 42387,
+    "4": 2118,
+    "5": 18646,
+    "6": 59357,
+    "7": 50683,
+    "8": 10972,
+    "9": 22178,
+    "10": 49670,
+    "11": 8202,
+    "12": 26068,
+    "13": 37022,
+    "14": 24399,
+    "15": 9620,
+    "16": 3569,
+    "17": 8872,
+    "18": 2813,
+    "19": 221
+  },
+  "environment": {
+    "python": "3.11.15",
+    "polars": "1.44.1",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "code": {
+    "base_git_commit": "48461d9e82644c08bfe759109c8280da0f1ce799",
+    "dirty": true,
+    "source_sha256": {
+      "pdmdata/datasets/alpi/loader.py": "99644cec14d1ec17eca820e09a170566e0954f49eb73bfd8d501eecee29e1ba8",
+      "pdmdata/datasets/alpi/validation.py": "912ec79bdcaf4f1797a28920b337a3c92489548278594a8771691ff760767de8",
+      "pdmdata/datasets/alpi/metadata.json": "d380e0c081347170608b4f1636f8fb1edeeb91950c45b99d90866da8c7f91e85",
+      "pdmdata/datasets/load.py": "4d277582d6cd94000859ca163cb9a1b0b4a62c17dd52697105627c0ae512b36d",
+      "scripts/download.py": "fd3a42d462b809d87d14d6aef02ea13675931b8c80bbe5e3eb92310b32db20f0",
+      "pdmdata/io/download.py": "4bde8a73172764d3bd311c0c1100524b6d4d0f21e08cf568faeafdeec5f09aaa"
+    }
+  },
+  "download_checks": {
+    "curl_public_urls_without_credentials": "passed",
+    "standard_cli_cached_archive_and_extraction": "passed",
+    "standard_cli_fresh_transfer": "passed",
+    "fresh_archive_sha256": "ecc199cbd5ed461b654b92d546b354954d815afc072d1c59e3dfddf9b1a3f95d",
+    "commands": [
+      "curl --fail --location --output alarms_log_data.zip https://data.mendeley.com/public-files/datasets/4nhx2x67cd/files/1c053e9f-e483-4ab5-925b-00d6237f24ee/file_downloaded",
+      ".venv/bin/python scripts/download.py alpi",
+      ".venv/bin/python scripts/download.py alpi --output-dir /private/tmp/pdmdata-alpi-cli-fresh-20261018 --no-extract"
+    ]
+  },
+  "limits": [
+    "Validation covers the raw CSV, not the prepared JSON/NPZ/pickle task artifacts.",
+    "No failure/RUL labels, observation-end dates, prediction windows, or train/test split are inferred."
+  ],
+  "tests": {
+    "command": "MPLCONFIGDIR=/private/tmp/pdmdata-mpl-20261018 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests",
+    "passed": 95,
+    "failed": 0,
+    "new_alpi_tests": 5,
+    "localhost_required_for_existing_range_download_test": true
+  },
+  "commit_snapshot_verification": {
+    "status": "passed",
+    "rows_compared": 444834,
+    "tests_passed": 92,
+    "source_sha256": {
+      "pdmdata/datasets/alpi/loader.py": "99644cec14d1ec17eca820e09a170566e0954f49eb73bfd8d501eecee29e1ba8",
+      "pdmdata/datasets/alpi/validation.py": "912ec79bdcaf4f1797a28920b337a3c92489548278594a8771691ff760767de8",
+      "pdmdata/datasets/alpi/metadata.json": "d380e0c081347170608b4f1636f8fb1edeeb91950c45b99d90866da8c7f91e85",
+      "pdmdata/datasets/load.py": "4d277582d6cd94000859ca163cb9a1b0b4a62c17dd52697105627c0ae512b36d",
+      "scripts/download.py": "fd3a42d462b809d87d14d6aef02ea13675931b8c80bbe5e3eb92310b32db20f0",
+      "pdmdata/io/download.py": "07b61528b584588bf14f0fafdf4cf1a5f8a29b545e671a696e80a7730e998fe6"
+    },
+    "excluded_preexisting_files": [
+      "docs/usage.md",
+      "pdmdata/io/download.py (working-tree transport changes only)",
+      "tests/test_download_ranges.py"
+    ]
+  }
+}

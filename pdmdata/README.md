@@ -15,6 +15,7 @@ useful life.
 
 | Dataset | Data type | Tasks | License | Access |
 |---|---|---|---|---|
+| [ALPI](datasets/alpi/README.md) | Industrial alarm event sequences | Next-alarm prediction, Future-window alarm prediction, Event-sequence forecasting, Anomaly detection research | CC BY 4.0 | Direct Mendeley file download; CLI transfer and provider SHA-256 verified |
 | [Backblaze](datasets/backblaze/README.md) | Fleet-scale daily reliability panel | Drive failure prediction, Survival analysis, Time-to-event prediction | Backblaze Drive Stats terms | Direct quarterly downloads |
 | [CARE](datasets/care/README.md) | Large labeled wind-turbine SCADA time series | Early fault detection, Anomaly detection, Failure prediction | CC BY-SA 4.0 | Direct download from Zenodo |
 | [C-MAPSS](datasets/cmapss/README.md) | Multivariate run-to-failure time series | RUL estimation, Prognostics, Anomaly detection | Unspecified | Direct download from NASA |
@@ -60,6 +61,7 @@ label, endpoint, or health-index construction.
 
 | Dataset | Anomaly | Fault class. | State class. | Condition | RUL | TTE | Survival | Event forecast | Maintenance |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [ALPI](datasets/alpi/README.md) | △ | — | — | — | — | △ | — | ✓ | — |
 | [Backblaze](datasets/backblaze/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | — |
 | [CARE](datasets/care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
 | [C-MAPSS](datasets/cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
@@ -79,6 +81,7 @@ label, endpoint, or health-index construction.
 
 ## Dataset sources
 
+- [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1)
 - [C-MAPSS — NASA Prognostics Center of Excellence data repository](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
 - [GDD — Genesis Demonstrator Data for Machine Learning](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
 - [GFD — Gearbox Fault Diagnosis](https://openei.org/datasets/dataset/gearbox-fault-diagnosis-data)
@@ -96,13 +99,12 @@ label, endpoint, or health-index construction.
 
 Related datasets and benchmarks that are **not** currently supported as
 PdMData adapters. Listed for discovery only; licenses and access terms are
-those of each source.
+those of each source. See the [candidate review](../docs/dataset-candidates.md)
+for proposed tasks, priorities, and the checks required before an adapter is
+registered.
 
 ### Industrial sensor / degradation data
 
-- [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1)
-  — Packaging-line alarm logs for event / sequence analysis. Automated
-  retrieval and layout have not been verified (HTTP 403 on 2026-09-06).
 - [Oxford Battery Degradation Dataset 1](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
   — Lab battery aging trajectories under controlled cycling
   (University of Oxford).
@@ -115,6 +117,12 @@ those of each source.
 - [CWRU Bearing Dataset mirror](https://www.kaggle.com/datasets/brjapon/cwru-bearing-datasets)
   — Classic bearing vibration fault-classification corpus
   (Case Western Reserve University; Kaggle mirror).
+
+- [REFIT electrical measurements](https://pureportal.strath.ac.uk/en/datasets/refit-electrical-load-measurements/)
+  with [annotated load anomalies](https://pureportal.strath.ac.uk/en/datasets/annotated-load-anomalies-from-the-refit-dataset/)
+  — Appliance condition-monitoring candidate with separate power measurements
+  and anomaly annotations. No adapter yet; load anomalies are not confirmed
+  failure or repair endpoints.
 
 ### LLM / agent benchmarks (PdM-related)
 
