@@ -20,7 +20,7 @@ A next-generation C-MAPSS run-to-failure fleet simulated under recorded commerci
 | Data type | Multivariate run-to-failure time series under real flight conditions |
 | Feature dimensions | 14 measured sensors + 4 flight-condition inputs; optional 14 virtual sensors and 10 health-modifier channels |
 | Feature counting | Default loaders expose unit, cycle, flight class, health state, four W_* flight conditions, and 14 X_s sensors. Virtual sensors (X_v) and health modifiers (T) are opt-in. Per-cycle RUL is provided in Y_*. |
-| Feature-count source | [Chao et al., Data 2021](https://doi.org/10.3390/data6010005), [NASA / PHM Society mirror](https://phm-datasets.s3.amazonaws.com/NASA/17.+Turbofan+Engine+Degradation+Simulation+Data+Set+2.zip) |
+| Feature-count source | [Chao et al., Data 2021 (publisher PDF)](https://mdpi-res.com/d_attachment/data/data-06-00005/article_deploy/data-06-00005-v2.pdf?version=1611240730), [NASA / PHM Society mirror](https://phm-datasets.s3.amazonaws.com/NASA/17.+Turbofan+Engine+Degradation+Simulation+Data+Set+2.zip) |
 | Tasks | RUL estimation, Prognostics, Fault diagnostics |
 
 ## Experiment-task suitability

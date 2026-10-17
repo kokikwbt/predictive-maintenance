@@ -15,6 +15,8 @@ CATALOG_BEGIN = "<!-- BEGIN GENERATED DATASET TABLE -->"
 CATALOG_END = "<!-- END GENERATED DATASET TABLE -->"
 TASKS_BEGIN = "<!-- BEGIN GENERATED TASK TABLE -->"
 TASKS_END = "<!-- END GENERATED TASK TABLE -->"
+SOURCES_BEGIN = "<!-- BEGIN GENERATED DATASET SOURCES -->"
+SOURCES_END = "<!-- END GENERATED DATASET SOURCES -->"
 
 
 def _yes_no(value: Any) -> str:
@@ -294,15 +296,27 @@ def render_task_definitions() -> str:
     return "\n".join(lines)
 
 
+def render_dataset_sources(catalog: Iterable[Dict[str, Any]]) -> str:
+    """Render source links from the same metadata used by dataset READMEs."""
+    return "\n".join(
+        "- " + _link(
+            "{} — {}".format(item["short_name"], item["name"]),
+            item["source"].get("landing_page", ""),
+        )
+        for item in catalog
+    )
+
+
 def update_catalog_readme() -> Path:
-    """Update generated catalog and task tables in the dataset catalog README."""
+    """Update generated tables and source links in the dataset catalog README."""
     readme = ROOT / "README.md"
     current = readme.read_text(encoding="utf-8")
+    catalog = load_catalog()
     catalog_generated = "\n".join(
         [
             CATALOG_BEGIN,
             "",
-            render_catalog_table(load_catalog()),
+            render_catalog_table(catalog),
             "",
             CATALOG_END,
         ]
@@ -320,21 +334,23 @@ def update_catalog_readme() -> Path:
             "- △: supported after deriving labels or targets from chronology or domain assumptions",
             "- —: not a natural use of the dataset",
             "",
-            render_task_table(load_catalog()),
+            render_task_table(catalog),
             "",
             TASKS_END,
         ]
     )
-    if CATALOG_BEGIN not in current or CATALOG_END not in current:
-        raise ValueError(
-            "{} does not contain dataset-table markers".format(readme)
-        )
-    before, remainder = current.split(CATALOG_BEGIN, 1)
-    _, after = remainder.split(CATALOG_END, 1)
-    current = before.rstrip() + "\n\n" + catalog_generated + after
-    if TASKS_BEGIN not in current or TASKS_END not in current:
-        raise ValueError("{} does not contain task-table markers".format(readme))
-    before, remainder = current.split(TASKS_BEGIN, 1)
-    _, after = remainder.split(TASKS_END, 1)
-    readme.write_text(before.rstrip() + "\n\n" + task_generated + after, encoding="utf-8")
+    sources_generated = "\n".join(
+        [SOURCES_BEGIN, "", render_dataset_sources(catalog), "", SOURCES_END]
+    )
+    for begin, end, generated, label in (
+        (CATALOG_BEGIN, CATALOG_END, catalog_generated, "dataset-table"),
+        (TASKS_BEGIN, TASKS_END, task_generated, "task-table"),
+        (SOURCES_BEGIN, SOURCES_END, sources_generated, "dataset-source"),
+    ):
+        if begin not in current or end not in current:
+            raise ValueError("{} does not contain {} markers".format(readme, label))
+        before, remainder = current.split(begin, 1)
+        _, after = remainder.split(end, 1)
+        current = before.rstrip() + "\n\n" + generated + after
+    readme.write_text(current, encoding="utf-8")
     return readme

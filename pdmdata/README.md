@@ -81,19 +81,25 @@ label, endpoint, or health-index construction.
 
 ## Dataset sources
 
+<!-- BEGIN GENERATED DATASET SOURCES -->
+
 - [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1)
-- [C-MAPSS — NASA Prognostics Center of Excellence data repository](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
+- [Backblaze — Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+- [CARE — Wind Turbine SCADA Data for Early Fault Detection](https://zenodo.org/records/15846963)
+- [C-MAPSS — Turbofan Engine Degradation Simulation Data Set](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
 - [GDD — Genesis Demonstrator Data for Machine Learning](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
-- [GFD — Gearbox Fault Diagnosis](https://openei.org/datasets/dataset/gearbox-fault-diagnosis-data)
+- [GFD — Gearbox Fault Diagnosis Data](https://data.openei.org/submissions/623)
 - [HydSys — Condition Monitoring of Hydraulic Systems](https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems)
 - [IMS — IMS Bearings](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
 - [MAPM — Microsoft Azure Predictive Maintenance](https://github.com/microsoft/sqlworkshops/tree/master/SQLServerAndAzureMachineLearning/ML%20Services%20for%20SQL%20Server/data)
-- [MetroPT2 — Metro do Porto compressor data](https://zenodo.org/records/7766691)
+- [MetroPT2 — MetroPT2: A Benchmark Dataset for Predictive Maintenance](https://zenodo.org/records/7766691)
+- [N-CMAPSS — Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions](https://data.phmsociety.org/nasa/)
 - [OYICD — One Year Industrial Component Degradation](https://www.kaggle.com/datasets/inIT-OWL/one-year-industrial-component-degradation)
 - [PPD — Production Plant Data for Condition Monitoring](https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring)
-- [CARE to Compare — wind-turbine fault-detection benchmark](https://zenodo.org/records/15846963)
-- [Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
-- [SCANIA Component X — Researchdata.se (SND)](https://researchdata.se/en/catalogue/dataset/2024-34)
+- [Scania Component X — SCANIA Component X Dataset](https://researchdata.se/en/catalogue/dataset/2024-34)
+- [XJTU-SY — XJTU-SY Bearing Datasets](https://biaowang.tech/xjtu-sy-bearing-datasets/)
+
+<!-- END GENERATED DATASET SOURCES -->
 
 ## Reference links
 

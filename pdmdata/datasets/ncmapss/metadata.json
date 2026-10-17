@@ -133,8 +133,8 @@
       "counting": "Default loaders expose unit, cycle, flight class, health state, four W_* flight conditions, and 14 X_s sensors. Virtual sensors (X_v) and health modifiers (T) are opt-in. Per-cycle RUL is provided in Y_*.",
       "sources": [
         {
-          "name": "Chao et al., Data 2021",
-          "url": "https://doi.org/10.3390/data6010005"
+          "name": "Chao et al., Data 2021 (publisher PDF)",
+          "url": "https://mdpi-res.com/d_attachment/data/data-06-00005/article_deploy/data-06-00005-v2.pdf?version=1611240730"
         },
         {
           "name": "NASA / PHM Society mirror",

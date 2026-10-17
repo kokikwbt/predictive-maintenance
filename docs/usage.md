@@ -379,5 +379,5 @@ contribution guidelines.
 
 - [Predictive maintenance overview](https://en.wikipedia.org/wiki/Predictive_maintenance)
 - [Azure architecture guide for predictive-maintenance solutions](https://learn.microsoft.com/azure/architecture/data-science-process/predictive-maintenance-playbook)
-- [Types of proactive maintenance](https://solutions.borderstates.com/types-of-proactive-maintenance/)
+- [Types of proactive maintenance](https://solutions.borderstates.com/blog/types-of-proactive-maintenance/)
 - [Kaggle community guide to common dataset licenses](https://www.kaggle.com/general/116302)

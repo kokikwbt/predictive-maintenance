@@ -1,9 +1,12 @@
 import unittest
 from io import StringIO
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 import pdmdata
 from pdmdata.catalog import load_catalog
+from pdmdata.catalog import docs
 from pdmdata.catalog.docs import BEGIN, END, render_metadata
 from pdmdata.io.download import (
     bulk_downloads,
@@ -92,6 +95,59 @@ class CatalogTest(unittest.TestCase):
         self.assertIn("Dataset", table)
         self.assertIn("cmapss", table)
         self.assertIn("Turbofan Engine Degradation Simulation Data Set", table)
+
+
+class CatalogDocumentationTest(unittest.TestCase):
+    def test_source_list_includes_every_dataset_in_catalog_order(self):
+        catalog = load_catalog()
+        lines = docs.render_dataset_sources(catalog).splitlines()
+        self.assertEqual(len(lines), len(catalog))
+        for item, line in zip(catalog, lines):
+            self.assertTrue(line.startswith("- [" + item["short_name"] + " — "))
+            self.assertIn("](" + item["source"]["landing_page"] + ")", line)
+
+    def test_regeneration_updates_sources_and_preserves_manual_content(self):
+        catalog = load_catalog()
+        catalog[0]["source"]["landing_page"] = "https://example.org/updated-source"
+        template = "\n\n".join([
+            "# Catalog\n\nManual introduction.",
+            docs.CATALOG_BEGIN + "\nOld table\n" + docs.CATALOG_END,
+            docs.TASKS_BEGIN + "\nOld tasks\n" + docs.TASKS_END,
+            "## Dataset sources",
+            docs.SOURCES_BEGIN + "\nOld source\n" + docs.SOURCES_END,
+            "## Reference links\n\n- [Manual reference](https://example.org/reference)\n",
+        ])
+        with TemporaryDirectory() as directory:
+            readme = Path(directory) / "README.md"
+            readme.write_text(template, encoding="utf-8")
+            with patch.object(docs, "ROOT", Path(directory)), patch.object(
+                docs, "load_catalog", return_value=catalog
+            ):
+                self.assertEqual(docs.update_catalog_readme(), readme)
+                updated = readme.read_text(encoding="utf-8")
+                self.assertIn("https://example.org/updated-source", updated)
+                self.assertNotIn("Old source", updated)
+                self.assertEqual(
+                    updated.split(docs.SOURCES_END, 1)[1],
+                    template.split(docs.SOURCES_END, 1)[1],
+                )
+                self.assertTrue(updated.startswith("# Catalog\n\nManual introduction."))
+                docs.update_catalog_readme()
+                self.assertEqual(readme.read_text(encoding="utf-8"), updated)
+
+    def test_missing_source_markers_does_not_overwrite_readme(self):
+        template = "\n".join([
+            "# Catalog", docs.CATALOG_BEGIN, docs.CATALOG_END,
+            docs.TASKS_BEGIN, docs.TASKS_END, "Manual sources without markers.",
+        ])
+        with TemporaryDirectory() as directory:
+            readme = Path(directory) / "README.md"
+            readme.write_text(template, encoding="utf-8")
+            with patch.object(docs, "ROOT", Path(directory)):
+                with self.assertRaisesRegex(ValueError, "dataset-source markers"):
+                    docs.update_catalog_readme()
+            self.assertEqual(readme.read_text(encoding="utf-8"), template)
+
 
 if __name__ == "__main__":
     unittest.main()
