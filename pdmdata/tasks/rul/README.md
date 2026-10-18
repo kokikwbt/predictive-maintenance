@@ -30,17 +30,38 @@ metrics = evaluate_test_predictions(
 )
 ```
 
+## Other datasets
+
+```python
+from pdmdata.tasks.rul import prepare_ncmapss, prepare_xjtu_sy
+
+ncmapss = prepare_ncmapss("ds01", rul_cap=125, drop_constant_features=True)
+xjtu = prepare_xjtu_sy(
+    condition="35Hz12kN",
+    test_fraction=0.25,
+    validation_fraction=0.25,
+    rul_cap=100,
+)
+```
+
+- **N-CMAPSS** (`prepare_ncmapss`): development units for train/validation;
+  HDF5 `test` units for feature-only rows; last-cycle `Y_test` RUL for
+  `test_eval_split()` / `evaluate_ncmapss_test_predictions`.
+- **XJTU-SY** (`prepare_xjtu_sy`): run-to-failure bearings held out as test;
+  `test_eval_split()` scores every snapshot (not only the final `RUL=0`).
+
 ## Bundle contents
 
 | Member | Role |
 |---|---|
 | `train` / `validation` | Labeled rows with `RUL`, `time_to_event`, `event_observed` |
 | `test` | Feature rows only (no target column) |
-| `test_end_rul` | Official one-value-per-engine end-of-trajectory RUL |
-| `test_eval_split()` | Last test row per unit joined with `test_end_rul` |
+| `test_end_rul` / `test_rul` | Held-out labels for evaluation |
+| `test_eval_split()` | Scoring view (last unit row for C-MAPSS/N-CMAPSS; all rows for XJTU-SY) |
 
 Optional `rul_cap` applies piecewise `min(RUL, cap)` after constructing
-uncapped remaining life. Validation engines are held out at the unit level.
+uncapped remaining life. Validation entities are held out at the unit or
+bearing level.
 
 ## Related
 
@@ -48,4 +69,6 @@ uncapped remaining life. Validation engines are held out at the unit level.
 - Shared helpers: `pdmdata.tasks.cmapss_common`, `pdmdata.tasks.metrics`
 - Usage notes: [usage guide](../../../docs/usage.md#rul-task-view-c-mapss)
 - Notebook: [remaining-useful-life-prediction](../../../notebooks/tasks/remaining-useful-life-prediction.ipynb)
-- Dataset: [C-MAPSS](../../datasets/cmapss/README.md)
+- Datasets: [C-MAPSS](../../datasets/cmapss/README.md),
+  [N-CMAPSS](../../datasets/ncmapss/README.md),
+  [XJTU-SY](../../datasets/xjtu_sy/README.md)

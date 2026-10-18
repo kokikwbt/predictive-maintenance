@@ -37,24 +37,44 @@ entities = bundle.entity_table()
 metrics = evaluate_test_predictions(bundle, predictions)
 ```
 
+## Other datasets
+
+```python
+from pdmdata.tasks.tte import prepare_ncmapss, prepare_xjtu_sy
+
+ncmapss = prepare_ncmapss("ds01", time_cap=125, drop_constant_features=True)
+xjtu = prepare_xjtu_sy(
+    condition="35Hz12kN",
+    test_fraction=0.25,
+    validation_fraction=0.25,
+    time_cap=100,
+)
+```
+
+- **N-CMAPSS**: development units are observed failures; HDF5 `test` units are
+  right-censored in `entity_table()`; last-cycle `Y_test` remaining time is
+  used only in `test_eval_split()`.
+- **XJTU-SY**: all bearings fail; held-out bearings form feature-only test
+  rows, and `test_eval_split()` restores full-trajectory `time_to_event`.
+
 ## Bundle contents
 
 | Member | Role |
 |---|---|
 | `train` / `validation` | Rows with `time_to_event` and `event_observed=True` |
 | `test` | Feature rows only (no target column) |
-| `test_end_time` | Official remaining time per test engine |
-| `test_eval_split()` | Last test row per unit with joined evaluation time |
-| `entity_table()` | One row per engine with duration and censoring |
+| `test_end_time` / `test_time` | Held-out labels for evaluation |
+| `test_eval_split()` | Scoring view (last unit row for C-MAPSS/N-CMAPSS; all rows for XJTU-SY) |
+| `entity_table()` | One row per entity with duration and censoring |
 
-`entity_table()` keeps NASA test engines right-censored at the last observed
-cycle (no official RUL offset). Official remaining-time scoring stays on
-`test_eval_split()`.
+For C-MAPSS and N-CMAPSS, `entity_table()` keeps test engines right-censored
+at the last observed cycle (no official remaining-time offset). Official
+remaining-time scoring stays on `test_eval_split()`.
 
 ## Shared helpers
 
-Callers may import `split_entities` and `filter_entities` for unit-level
-hold-outs on other datasets that already expose entity IDs.
+Callers may import `split_entities` and `filter_entities` for entity-level
+hold-outs (integer unit ids or string bearing ids).
 
 ## Sequence samples and NPZ handoffs
 

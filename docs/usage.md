@@ -336,6 +336,10 @@ omit targets; score the official one-row-per-engine protocol with
 [RUL task guide](../pdmdata/tasks/rul/README.md) and the
 [RUL notebook](../notebooks/tasks/remaining-useful-life-prediction.ipynb).
 
+The same package also exposes `prepare_ncmapss` and `prepare_xjtu_sy` for
+N-CMAPSS and XJTU-SY. XJTU-SY scores every held-out snapshot rather than only
+the final cycle.
+
 ## TTE task view (C-MAPSS)
 
 Time-to-event uses the same C-MAPSS trajectories with `time_to_event` as the
@@ -359,6 +363,9 @@ evaluate_test_predictions(bundle, predictions)
 (no official RUL offset). Official remaining-time scoring stays on
 `test_eval_split()`. See the [TTE task guide](../pdmdata/tasks/tte/README.md)
 and the [TTE notebook](../notebooks/tasks/time-to-event-prediction.ipynb).
+
+Matching TTE prepare helpers are available as `prepare_ncmapss` and
+`prepare_xjtu_sy` in `pdmdata.tasks.tte`.
 
 ## Analysis conventions
 

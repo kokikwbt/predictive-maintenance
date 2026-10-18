@@ -40,12 +40,12 @@ the catalog matrix for data suitability.
 
 ### [Remaining useful life (RUL)](rul/README.md)
 
-Predict remaining cycles or time before a defined failure endpoint. For
-C-MAPSS, `prepare_cmapss` builds labeled train/validation splits, feature-only
-test rows, and the official last-cycle scoring view.
+Predict remaining cycles or time before a defined failure endpoint.
+`prepare_cmapss`, `prepare_ncmapss`, and `prepare_xjtu_sy` build labeled
+train/validation splits, feature-only test rows, and scoring views.
 
 ```python
-from pdmdata.tasks.rul import prepare_cmapss, evaluate_test_predictions
+from pdmdata.tasks.rul import prepare_cmapss, prepare_ncmapss, prepare_xjtu_sy
 
 bundle = prepare_cmapss("FD001", rul_cap=125)
 ```
@@ -54,7 +54,8 @@ bundle = prepare_cmapss("FD001", rul_cap=125)
 
 Predict when a failure or other maintenance-relevant event will occur, with
 explicit `time_to_event` / `event_observed` columns and an entity-level
-censoring table.
+censoring table. Matching prepare helpers exist for C-MAPSS, N-CMAPSS, and
+XJTU-SY.
 
 ```python
 from pdmdata.tasks.tte import prepare_cmapss
