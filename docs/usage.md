@@ -4,8 +4,10 @@
 
 ## Installation
 
-PdMData uses Python 3.11 and a committed `uv.lock` as its reproducible
-development and test environment.
+PdMData targets **Python 3.14** and uses a committed `uv.lock` as its
+reproducible development and test environment. Install
+[uv](https://docs.astral.sh/uv/getting-started/installation/) first; `uv`
+will fetch the matching CPython build from `.python-version`.
 
 ### Automated setup
 
@@ -15,9 +17,15 @@ From the repository root, run the bootstrap script:
 ./scripts/bootstrap.sh
 ```
 
-This command synchronizes the locked Python 3.11 environment and registers
+This command synchronizes the locked Python 3.14 environment and registers
 the `Python (pdmdata)` Jupyter kernel. It does not download any datasets.
-`uv` must already be installed and available in `PATH`.
+On Windows without Bash, use the manual steps below in PowerShell.
+
+Confirm:
+
+```bash
+uv run --locked python -c "import pdmdata; pdmdata.summary()"
+```
 
 ### Manual setup
 
@@ -30,8 +38,11 @@ uv run --locked python -m ipykernel install --user --name pdmdata --display-name
 `jupyter` groups from `pyproject.toml`. For a minimal runtime-only
 environment (no Jupyter, no lint tools), use
 `uv sync --locked --no-default-groups`. Install Jupyter alone with
-`uv sync --locked --no-default-groups --group jupyter` or, for a pip-style
-extra, `pip install '.[jupyter]'`.
+`uv sync --locked --no-default-groups --group jupyter`.
+
+This repository is developed with `uv`. A pip editable install
+(`pip install -e ".[jupyter]"`) can work for exploration, but the locked
+`uv` environment is the supported path for tests and notebooks.
 
 Start JupyterLab with `uv run --locked jupyter lab`, then select `Python
 (pdmdata)` as the notebook kernel.
@@ -48,6 +59,17 @@ uv run --locked ruff check pdmdata tests scripts
 ```
 
 GitHub Actions runs the same checks on each push and pull request.
+
+### Troubleshooting
+
+| Symptom | What to check |
+|---|---|
+| `uv: command not found` | Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and reopen the terminal. |
+| Wrong Python version | Run `uv python install` from the repo root so `.python-version` (3.14) is used. |
+| Kernel `Python (pdmdata)` missing | Re-run the `ipykernel install` command above, then restart Jupyter. |
+| `FileNotFoundError` on `load` | Download first: `pdmdata.download("...")` or `scripts/download.py`. |
+| Kaggle auth prompts | See [Kaggle authentication](#kaggle-authentication) below. |
+| IMS extract fails | Install a system libarchive and set `LIBARCHIVE` if needed (see IMS notes below). |
 
 ## Global configuration
 
@@ -89,28 +111,29 @@ dataset explicitly first.
 
 ## Downloading datasets
 
-The project supports direct URLs and Kaggle datasets:
+Use `pdmdata.download("<id>")` or
+`uv run --locked python scripts/download.py <id>`. Files go under the
+configured `data_root` (default `data/raw/<id>/`).
 
-- C-MAPSS
-- GDD (Kaggle)
-- GFD
-- HydSys
-- IMS
-- MAPM (Microsoft GitHub)
-- OYICD (Kaggle)
-- PPD (Kaggle)
+**Direct URL / no account (good first choices):** ALPI, C-MAPSS, GFD, HydSys,
+IMS, MAPM, MetroPT2, CARE, Backblaze (pick a quarter), SCANIA Component X,
+XJTU-SY.
 
-Large, opt-in downloads are also supported:
+**Kaggle account required:** GDD, OYICD, PPD, and the N-CMAPSS Kaggle mirror
+(`ncmapss`, one HDF5 variant at a time).
 
-- MetroPT2 (1.2 GB CSV)
-- CARE to Compare (5.5 GB ZIP)
-- Backblaze Drive Stats (one selected quarter; more than 10 GB extracted)
-- SCANIA Component X (nine CSVs from Researchdata.se, ~1.65 GB; no account)
+**Large / opt-in (excluded from `download_all.py`):** MetroPT2 (~1.2 GB),
+CARE (~5.5 GB ZIP), Backblaze (one quarter; >10 GB extracted), SCANIA
+Component X (~1.65 GB download / ~3.3 GB extracted), N-CMAPSS subsets,
+XJTU-SY (~5.4 GB ZIP). ALPI is also excluded from bulk download.
+
+Compare sizes, licenses, and selectors in the
+[dataset catalog](../pdmdata/README.md).
 
 ### Kaggle authentication
 
-**GDD, OYICD, and PPD require the official Kaggle CLI**, included in the
-project environment. Use the same download API as for other datasets:
+**GDD, OYICD, PPD, and N-CMAPSS (Kaggle mirror) use the official Kaggle CLI**,
+included in the project environment. Example:
 
 ```python
 pdmdata.download("gdd")
