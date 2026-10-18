@@ -67,7 +67,7 @@ Dalle Pezze, D., Tosato, D., Masiero, C., Susto, G. A., and Beghi, A. (2021). AL
 
 ```python
 import pdmdata
-from pdmdata.datasets.alpi import inventory, validate
+from pdmdata.datasets.alpi import inventory, verify
 
 # Load local data lazily. Download separately with the CLI.
 events = pdmdata.load("alpi")
@@ -78,7 +78,7 @@ period = pdmdata.load(
     columns=["source_row", "timestamp", "alarm", "serial"],
 ).collect()
 print(inventory())
-print(validate())
+print(verify())
 ```
 
 `serial` and `alarm` accept a nonnegative integer or a nonempty sequence of
@@ -91,11 +91,11 @@ The source's row order is retained, including ties and duplicates. Use
 explicitly if a task requires a global chronological stream. Neither a record's
 position nor an alarm code is a health-stage label.
 
-## Validation and task scope
+## Verification and task scope
 
-The [real-file validation record](assets/validation.json) links the raw CSV and
+The [real-file verification record](assets/validation.json) links the raw CSV and
 archive hashes to a standard-library CSV comparison. All original rows are
-preserved, including alarm ID 0 and 83 duplicate rows. `validate()` reports
+preserved, including alarm ID 0 and 83 duplicate rows. `verify()` reports
 these conditions; it does not deduplicate or infer failures.
 
 The provider ZIP also includes prepared windows in JSON, NPZ, and pickle formats.

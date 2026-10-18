@@ -10,7 +10,7 @@ from unittest.mock import patch
 import polars as pl
 
 import pdmdata
-from pdmdata.datasets.alpi import inventory, validate
+from pdmdata.datasets.alpi import inventory, verify
 
 
 CSV = (
@@ -45,7 +45,7 @@ class AlpiTest(unittest.TestCase):
         self.assertEqual(frame["source_row"].to_list(), [0, 1, 2, 3])
         self.assertEqual(frame.schema["timestamp"], pl.Datetime("us"))
         self.assertEqual(frame["timestamp"][0].microsecond, 123000)
-        result = validate()
+        result = verify()
         self.assertEqual(result["duplicates"], 1)
         self.assertEqual(result["adjacent_ties_per_machine"], 1)
         self.assertEqual(result["out_of_order_per_machine"], 0)
@@ -75,13 +75,13 @@ class AlpiTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exactly timestamp"):
             pdmdata.load("alpi")
 
-    def test_validation_reports_out_of_order_without_sorting_and_rejects_nulls(self):
+    def test_verify_reports_out_of_order_without_sorting_and_rejects_nulls(self):
         self.path.write_text(CSV + "2020-01-01 01:00:00.000,12,4\n")
-        self.assertEqual(validate()["out_of_order_per_machine"], 1)
+        self.assertEqual(verify()["out_of_order_per_machine"], 1)
         self.assertEqual(pdmdata.load("alpi", lazy=False)["source_row"].to_list(), list(range(5)))
         self.path.write_text("timestamp,alarm,serial\n2020-01-01 00:00:00.000,,1\n")
         with self.assertRaisesRegex(ValueError, "non-null"):
-            validate()
+            verify()
 
     def test_download_is_pinned_and_bad_checksum_prevents_extraction(self):
         info = pdmdata.load_metadata("alpi")

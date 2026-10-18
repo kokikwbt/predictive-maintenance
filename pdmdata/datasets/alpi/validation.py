@@ -9,8 +9,8 @@ import polars as pl
 from .loader import SOURCE_COLUMNS, load
 
 
-def validate() -> dict:
-    """Validate source fields and report source-order and duplicate diagnostics."""
+def verify() -> dict:
+    """Verify source fields and report source-order and duplicate diagnostics."""
     frame = load(lazy=False)
     if frame.is_empty():
         raise ValueError("ALPI contains no recorded events")

@@ -397,7 +397,7 @@ Polars-tabular experiment bundle from the source-faithful C-MAPSS loader.
                 SETUP
                 + """
 from sklearn.ensemble import HistGradientBoostingRegressor
-from pdmdata.tasks.rul import evaluate_test_predictions, prepare_cmapss"""
+from pdmdata.tasks.rul import eval_cmapss, prepare_cmapss"""
             ),
             code(
                 """pdmdata.download("cmapss")
@@ -436,7 +436,7 @@ print(regression_metrics(y_val, validation_prediction))"""
 model.fit(X_all, y_all)
 eval_split = bundle.test_eval_split()
 prediction = np.maximum(model.predict(eval_split.X().to_numpy()), 0)
-print(evaluate_test_predictions(bundle, prediction))"""
+print(eval_cmapss(bundle, prediction))"""
             ),
             markdown(
                 """## Interpretation and limitations
@@ -470,7 +470,7 @@ same remaining-time quantity under an end-of-life event profile.
                 SETUP
                 + """
 from sklearn.ensemble import HistGradientBoostingRegressor
-from pdmdata.tasks.tte import evaluate_test_predictions, prepare_cmapss
+from pdmdata.tasks.tte import eval_cmapss, prepare_cmapss
 from pdmdata.tasks.metrics import regression_metrics"""
             ),
             code(
@@ -517,7 +517,7 @@ model.fit(*full.train.to_numpy()[:2])
 prediction = np.maximum(
     model.predict(bundle.test_eval_split().X().to_numpy()), 0
 )
-print(evaluate_test_predictions(bundle, prediction))
+print(eval_cmapss(bundle, prediction))
 entities = bundle.entity_table()
 entities.group_by("cohort", "event_observed").len()"""
             ),

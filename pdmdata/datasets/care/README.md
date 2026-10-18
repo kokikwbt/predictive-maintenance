@@ -105,6 +105,14 @@ To repeat the offline integrity and loading checks after downloading:
 uv run --locked python scripts/verify_care.py
 ```
 
+or:
+
+```python
+from pdmdata.datasets.care import verify
+
+verify()
+```
+
 This reads all 95 recordings and verifies all 103 extracted files against the
 archive's file sizes and CRCs, after checking the archive's published checksum.
 It writes `inventory.csv` (rows, columns, split counts and sizes per recording)

@@ -9,7 +9,7 @@ import polars as pl
 
 from pdmdata.datasets.xjtu_sy import loader as xjtu_loader
 from pdmdata.tasks.rul import (
-    evaluate_xjtu_sy_test_predictions,
+    eval_xjtu_sy,
     prepare_xjtu_sy,
 )
 from pdmdata.tasks.tte import EVENT_OBSERVED_COLUMN
@@ -70,11 +70,11 @@ class RulXjtuSyTest(TestCase):
                 eval_split = bundle.test_eval_split()
                 self.assertEqual(eval_split.frame.height, 3)
                 self.assertEqual(eval_split.y().to_list(), [2, 1, 0])
-                metrics = evaluate_xjtu_sy_test_predictions(
+                metrics = eval_xjtu_sy(
                     bundle, [2, 1, 0]
                 )
                 self.assertEqual(metrics["mae"], 0.0)
-                mapped = evaluate_xjtu_sy_test_predictions(
+                mapped = eval_xjtu_sy(
                     bundle, {"Bearing2_1": 1.0}
                 )
                 self.assertAlmostEqual(mapped["mae"], 2 / 3)

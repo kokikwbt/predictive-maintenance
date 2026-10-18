@@ -9,7 +9,7 @@ from pdmdata.datasets.xjtu_sy import loader as xjtu_loader
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
-    evaluate_xjtu_sy_test_predictions,
+    eval_xjtu_sy,
     prepare_xjtu_sy,
 )
 from support_xjtu_sy import write_bearing
@@ -54,7 +54,7 @@ class TteXjtuSyTest(TestCase):
                 self.assertEqual(
                     eval_split.y().to_list(), [2, 2, 2, 1, 0]
                 )
-                metrics = evaluate_xjtu_sy_test_predictions(
+                metrics = eval_xjtu_sy(
                     bundle, [2, 2, 2, 1, 0]
                 )
                 self.assertEqual(metrics["mae"], 0.0)

@@ -333,10 +333,7 @@ Dataset loaders stay source-faithful. For remaining-useful-life experiments,
 build a Polars-tabular bundle in the task layer:
 
 ```python
-from pdmdata.tasks.rul import (
-    evaluate_test_predictions,
-    prepare_cmapss,
-)
+from pdmdata.tasks.rul import eval_cmapss, prepare_cmapss
 
 pdmdata.download("cmapss")
 bundle = prepare_cmapss(
@@ -349,13 +346,13 @@ X, y, groups = bundle.train.to_numpy()
 # Fit an estimator on X, y (keep groups for unit-aware CV if needed).
 eval_split = bundle.test_eval_split()
 predictions = model.predict(eval_split.X().to_numpy())
-evaluate_test_predictions(bundle, predictions)
+eval_cmapss(bundle, predictions)
 ```
 
 RUL is treated as a time-to-event profile (event = end of useful life). Train
 rows include `RUL`, `time_to_event`, and `event_observed`. Test feature rows
 omit targets; score the official one-row-per-engine protocol with
-`test_eval_split()` / `evaluate_test_predictions`. See the
+`test_eval_split()` / `eval_cmapss`. See the
 [RUL task guide](../pdmdata/tasks/rul/README.md) and the
 [RUL notebook](../notebooks/tasks/remaining-useful-life-prediction.ipynb).
 
@@ -369,7 +366,7 @@ Time-to-event uses the same C-MAPSS trajectories with `time_to_event` as the
 primary target and explicit `event_observed` flags:
 
 ```python
-from pdmdata.tasks.tte import prepare_cmapss, evaluate_test_predictions
+from pdmdata.tasks.tte import prepare_cmapss, eval_cmapss
 
 bundle = prepare_cmapss(
     "FD001",
@@ -379,7 +376,7 @@ bundle = prepare_cmapss(
 )
 X, y, groups = bundle.train.to_numpy()
 entities = bundle.entity_table()  # failures + right-censored test engines
-evaluate_test_predictions(bundle, predictions)
+eval_cmapss(bundle, predictions)
 ```
 
 `entity_table()` keeps NASA test engines censored at the last observed cycle

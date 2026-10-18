@@ -102,7 +102,7 @@ def load(subset: str = "FD001", split: str = "train", *,
 
 
 def inventory(subset: str | None = None) -> pl.DataFrame:
-    """Validate files and summarize engines, cycles, and operating conditions."""
+    """Check files and summarize engines, cycles, and operating conditions."""
     selected = SUBSETS if subset is None else (_subset(subset),)
     rows = []
     for name in selected:

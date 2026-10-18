@@ -20,10 +20,7 @@ Canonical taxonomy id: `time_to_event`.
 
 ```python
 import pdmdata
-from pdmdata.tasks.tte import (
-    evaluate_test_predictions,
-    prepare_cmapss,
-)
+from pdmdata.tasks.tte import eval_cmapss, prepare_cmapss
 
 pdmdata.download("cmapss")
 bundle = prepare_cmapss(
@@ -34,7 +31,7 @@ bundle = prepare_cmapss(
 )
 X, y, groups = bundle.train.to_numpy()
 entities = bundle.entity_table()
-metrics = evaluate_test_predictions(bundle, predictions)
+metrics = eval_cmapss(bundle, predictions)
 ```
 
 ## Other datasets
@@ -53,9 +50,10 @@ xjtu = prepare_xjtu_sy(
 
 - **N-CMAPSS**: development units are observed failures; HDF5 `test` units are
   right-censored in `entity_table()`; last-cycle `Y_test` remaining time is
-  used only in `test_eval_split()`.
+  used in `test_eval_split()` / `eval_ncmapss`.
 - **XJTU-SY**: all bearings fail; held-out bearings form feature-only test
-  rows, and `test_eval_split()` restores full-trajectory `time_to_event`.
+  rows; `test_eval_split()` / `eval_xjtu_sy` restores
+  full-trajectory `time_to_event`.
 
 ## Bundle contents
 

@@ -12,7 +12,7 @@ from pdmdata.tasks import tte
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
-    evaluate_test_predictions,
+    eval_cmapss,
     prepare_cmapss,
 )
 
@@ -80,7 +80,7 @@ class TteCmapssTest(TestCase):
                 self.assertFalse(
                     eval_split.frame[EVENT_OBSERVED_COLUMN].any()
                 )
-                metrics = evaluate_test_predictions(bundle, [10, 20])
+                metrics = eval_cmapss(bundle, [10, 20])
                 self.assertEqual(metrics["mae"], 0.0)
 
                 entities = bundle.entity_table()

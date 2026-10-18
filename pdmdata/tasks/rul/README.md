@@ -11,10 +11,7 @@ Canonical taxonomy id: `rul_prediction`.
 
 ```python
 import pdmdata
-from pdmdata.tasks.rul import (
-    evaluate_test_predictions,
-    prepare_cmapss,
-)
+from pdmdata.tasks.rul import eval_cmapss, prepare_cmapss
 
 pdmdata.download("cmapss")
 bundle = prepare_cmapss(
@@ -25,7 +22,7 @@ bundle = prepare_cmapss(
 )
 X, y, groups = bundle.train.to_numpy()
 eval_split = bundle.test_eval_split()
-metrics = evaluate_test_predictions(
+metrics = eval_cmapss(
     bundle, model.predict(eval_split.X().to_numpy())
 )
 ```
@@ -46,9 +43,10 @@ xjtu = prepare_xjtu_sy(
 
 - **N-CMAPSS** (`prepare_ncmapss`): development units for train/validation;
   HDF5 `test` units for feature-only rows; last-cycle `Y_test` RUL for
-  `test_eval_split()` / `evaluate_ncmapss_test_predictions`.
+  `test_eval_split()` / `eval_ncmapss`.
 - **XJTU-SY** (`prepare_xjtu_sy`): run-to-failure bearings held out as test;
-  `test_eval_split()` scores every snapshot (not only the final `RUL=0`).
+  `test_eval_split()` / `eval_xjtu_sy` scores every
+  snapshot (not only the final `RUL=0`).
 
 ## Bundle contents
 

@@ -212,7 +212,7 @@ def prepare_ncmapss(
     )
 
 
-def evaluate_test_predictions(
+def eval_test(
     bundle: NcmapssTteBundle,
     predictions: Sequence[float] | Mapping[int, float],
 ) -> Dict[str, float]:
@@ -238,6 +238,6 @@ def _label_failed_rows(
 
 __all__ = [
     "NcmapssTteBundle",
-    "evaluate_test_predictions",
+    "eval_test",
     "prepare_ncmapss",
 ]

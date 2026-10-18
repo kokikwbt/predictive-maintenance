@@ -193,7 +193,7 @@ def prepare_xjtu_sy(
     )
 
 
-def evaluate_test_predictions(
+def eval_test(
     bundle: XjtuSyTteBundle,
     predictions: Sequence[float] | Mapping[str, float],
 ) -> Dict[str, float]:
@@ -231,6 +231,6 @@ def _label(frame: pl.DataFrame, *, time_cap: Optional[int]) -> pl.DataFrame:
 
 __all__ = [
     "XjtuSyTteBundle",
-    "evaluate_test_predictions",
+    "eval_test",
     "prepare_xjtu_sy",
 ]

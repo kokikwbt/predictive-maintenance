@@ -70,7 +70,7 @@ import pdmdata
 from pdmdata.datasets.gfd import inventory
 from pdmdata.datasets.gfd.viz import plot_waveforms
 
-inventory()  # Validate all 20 local recordings and report sample counts.
+inventory()  # Check all 20 local recordings and report sample counts.
 healthy = pdmdata.load("gfd", condition="healthy", load=50)
 broken = pdmdata.load("gfd", condition="broken", load=50)
 figure = plot_waveforms(healthy, broken, start=0, stop=2048)

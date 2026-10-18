@@ -12,7 +12,7 @@ EXPECTED = {
 
 
 def verify():
-    """Validate all 12 data files and compare complete row/engine counts."""
+    """Verify all 12 data files and compare complete row/engine counts."""
     report = inventory()
     for row in report.iter_rows(named=True):
         key = (row["subset"], row["split"])

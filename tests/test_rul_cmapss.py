@@ -10,7 +10,7 @@ import polars as pl
 from pdmdata.datasets.cmapss import loader as cmapss_loader
 from pdmdata.tasks import rul
 from pdmdata.tasks.rul import (
-    evaluate_test_predictions,
+    eval_cmapss,
     nasa_score,
     prepare_cmapss,
     regression_metrics,
@@ -105,11 +105,11 @@ class RulCmapssTest(TestCase):
                     eval_split.frame["cycle"].to_list(),
                     [2, 3],
                 )
-                metrics = evaluate_test_predictions(bundle, [10, 20])
+                metrics = eval_cmapss(bundle, [10, 20])
                 self.assertEqual(metrics["mae"], 0.0)
                 self.assertEqual(metrics["rmse"], 0.0)
                 self.assertEqual(metrics["nasa_score"], 0.0)
-                mapped = evaluate_test_predictions(
+                mapped = eval_cmapss(
                     bundle, {1: 11.0, 2: 18.0}
                 )
                 self.assertAlmostEqual(mapped["mae"], 1.5)

@@ -51,7 +51,7 @@ def load(condition: str = "healthy", load: int = 0) -> pl.DataFrame:
 
 
 def inventory() -> pl.DataFrame:
-    """Read and validate all 20 local recordings and report their sample counts.
+    """Read and check all 20 local recordings and report their sample counts.
 
     No data is downloaded. Missing recordings or malformed measurements raise
     an error rather than returning an apparently complete inventory.

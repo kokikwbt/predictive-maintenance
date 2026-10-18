@@ -76,7 +76,7 @@ def load(sequence_id: int | str = 7) -> pl.DataFrame:
 
 
 def inventory() -> pl.DataFrame:
-    """Validate all eight sequences, including every required source part."""
+    """Check all eight sequences, including every required source part."""
     rows = []
     for sequence_id, parts in SEQUENCE_FILES.items():
         frame = load(sequence_id)

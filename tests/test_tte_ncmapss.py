@@ -9,7 +9,7 @@ from pdmdata.datasets.ncmapss import loader as ncmapss_loader
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
-    evaluate_ncmapss_test_predictions,
+    eval_ncmapss,
     prepare_ncmapss,
 )
 from support_ncmapss import write_rich_fixture
@@ -48,7 +48,7 @@ class TteNcmapssTest(TestCase):
                 self.assertFalse(
                     eval_split.frame[EVENT_OBSERVED_COLUMN].any()
                 )
-                metrics = evaluate_ncmapss_test_predictions(
+                metrics = eval_ncmapss(
                     bundle, {10: 7, 11: 4}
                 )
                 self.assertEqual(metrics["mae"], 0.0)

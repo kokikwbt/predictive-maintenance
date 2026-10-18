@@ -67,7 +67,7 @@ def load(recording: str = "01-04T184148_000_mode1.csv") -> pl.DataFrame:
 
 
 def inventory(*, month: int | None = None, mode: int | None = None) -> pl.DataFrame:
-    """Validate local recordings and list each unique filename once.
+    """Check local recordings and list each unique filename once.
 
     Optional month/mode selectors filter the inventory. Duplicate copies must
     agree byte for byte; no source files are changed or downloaded.

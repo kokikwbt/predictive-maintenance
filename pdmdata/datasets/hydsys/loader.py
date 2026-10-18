@@ -109,7 +109,7 @@ def profile() -> pl.DataFrame:
 
 
 def inventory() -> pl.DataFrame:
-    """Validate every sensor matrix against the profile and report native shapes."""
+    """Check every sensor matrix against the profile and report native shapes."""
     labels = profile()
     rows = []
     for sensor, (rate, unit) in SENSOR_INFO.items():

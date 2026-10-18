@@ -1,4 +1,4 @@
-"""Validate every local IMS snapshot without retaining the full dataset."""
+"""Verify every local IMS snapshot without retaining the full dataset."""
 
 from pathlib import Path
 import polars as pl

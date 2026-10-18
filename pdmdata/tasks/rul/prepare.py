@@ -202,7 +202,7 @@ def apply_rul_cap(
     return apply_time_cap(frame, rul_cap, column)
 
 
-def evaluate_test_predictions(
+def eval_test(
     bundle: CmapssRulBundle,
     predictions: Sequence[float] | Mapping[int, float],
 ) -> Dict[str, float]:
@@ -237,7 +237,7 @@ __all__ = [
     "TARGET_COLUMN",
     "TIME_COLUMN",
     "apply_rul_cap",
-    "evaluate_test_predictions",
+    "eval_test",
     "nasa_score",
     "prepare_cmapss",
     "regression_metrics",

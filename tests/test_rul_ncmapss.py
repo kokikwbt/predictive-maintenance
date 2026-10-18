@@ -9,7 +9,7 @@ import polars as pl
 
 from pdmdata.datasets.ncmapss import loader as ncmapss_loader
 from pdmdata.tasks.rul import (
-    evaluate_ncmapss_test_predictions,
+    eval_ncmapss,
     prepare_ncmapss,
 )
 from pdmdata.tasks.tte import EVENT_OBSERVED_COLUMN, TIME_TO_EVENT_COLUMN
@@ -59,7 +59,7 @@ class RulNcmapssTest(TestCase):
                 )
                 eval_split = bundle.test_eval_split()
                 self.assertEqual(eval_split.y().to_list(), [7, 4])
-                metrics = evaluate_ncmapss_test_predictions(
+                metrics = eval_ncmapss(
                     bundle, [7, 4]
                 )
                 self.assertEqual(metrics["mae"], 0.0)

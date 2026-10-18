@@ -6,21 +6,24 @@ from pdmdata.tasks.rul.prepare import (
     TIME_COLUMN,
     CmapssRulBundle,
     apply_rul_cap,
-    evaluate_test_predictions,
+    eval_test as eval_cmapss,
     nasa_score,
     prepare_cmapss,
     regression_metrics,
 )
 from pdmdata.tasks.rul.ncmapss import (
     NcmapssRulBundle,
-    evaluate_test_predictions as evaluate_ncmapss_test_predictions,
+    eval_test as eval_ncmapss,
     prepare_ncmapss,
 )
 from pdmdata.tasks.rul.xjtu_sy import (
     XjtuSyRulBundle,
-    evaluate_test_predictions as evaluate_xjtu_sy_test_predictions,
+    eval_test as eval_xjtu_sy,
     prepare_xjtu_sy,
 )
+
+# Backward-compatible alias: C-MAPSS is the historical default.
+eval_test = eval_cmapss
 
 __all__ = [
     "CmapssRulBundle",
@@ -30,9 +33,10 @@ __all__ = [
     "TARGET_COLUMN",
     "TIME_COLUMN",
     "apply_rul_cap",
-    "evaluate_test_predictions",
-    "evaluate_ncmapss_test_predictions",
-    "evaluate_xjtu_sy_test_predictions",
+    "eval_cmapss",
+    "eval_ncmapss",
+    "eval_test",
+    "eval_xjtu_sy",
     "nasa_score",
     "prepare_cmapss",
     "prepare_ncmapss",

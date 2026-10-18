@@ -207,7 +207,7 @@ def prepare_ncmapss(
     )
 
 
-def evaluate_test_predictions(
+def eval_test(
     bundle: NcmapssRulBundle,
     predictions: Sequence[float] | Mapping[int, float],
 ) -> Dict[str, float]:
@@ -269,6 +269,6 @@ __all__ = [
     "TARGET_COLUMN",
     "TIME_COLUMN",
     "NcmapssRulBundle",
-    "evaluate_test_predictions",
+    "eval_test",
     "prepare_ncmapss",
 ]

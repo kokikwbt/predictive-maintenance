@@ -27,7 +27,7 @@ project root. Loading below reads local files only. Source: [Mendeley Data,
 version 1](https://data.mendeley.com/datasets/4nhx2x67cd/1), CC BY 4.0.
 """),
         cell("code", """import pdmdata
-from pdmdata.datasets.alpi import inventory, validate
+from pdmdata.datasets.alpi import inventory, verify
 
 inventory()
 """),
@@ -40,13 +40,13 @@ timestamps do not specify a timezone. The last alarm is not a failure endpoint.
         cell("code", """events = pdmdata.load("alpi", serial=4)
 events.head(10).collect()
 """),
-        cell("markdown", """## Source validation
+        cell("markdown", """## Source verification
 
 Report field validity, duplicates, and per-machine ordering without deleting or
 reordering observations. The 2026-10-18 full-file check covered 444,834 events
 and matched the provider archive checksum and an independent CSV reader.
 """),
-        cell("code", "validate()\n"),
+        cell("code", "verify()\n"),
     ]
     document = {
         "cells": cells,

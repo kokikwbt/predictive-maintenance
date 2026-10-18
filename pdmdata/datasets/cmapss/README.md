@@ -103,7 +103,7 @@ ignored by Git.
 For modeling, use the task view rather than hand-rolling targets and splits:
 
 ```python
-from pdmdata.tasks.rul import prepare_cmapss, evaluate_test_predictions
+from pdmdata.tasks.rul import prepare_cmapss, eval_cmapss
 
 bundle = prepare_cmapss(
     "FD001",
@@ -112,7 +112,7 @@ bundle = prepare_cmapss(
     drop_constant_features=True,
 )
 X, y, groups = bundle.train.to_numpy()
-metrics = evaluate_test_predictions(
+metrics = eval_cmapss(
     bundle, model.predict(bundle.test_eval_split().X().to_numpy())
 )
 ```

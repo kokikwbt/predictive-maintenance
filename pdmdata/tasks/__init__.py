@@ -6,7 +6,9 @@ from pdmdata.tasks.rul import (
     CmapssRulBundle,
     NcmapssRulBundle,
     XjtuSyRulBundle,
-    evaluate_test_predictions as evaluate_rul_test_predictions,
+    eval_cmapss as eval_cmapss_rul,
+    eval_ncmapss as eval_ncmapss_rul,
+    eval_xjtu_sy as eval_xjtu_sy_rul,
     prepare_cmapss as prepare_cmapss_rul,
     prepare_ncmapss as prepare_ncmapss_rul,
     prepare_xjtu_sy as prepare_xjtu_sy_rul,
@@ -16,16 +18,18 @@ from pdmdata.tasks.tte import (
     CmapssTteBundle,
     NcmapssTteBundle,
     XjtuSyTteBundle,
-    evaluate_test_predictions as evaluate_tte_test_predictions,
+    eval_cmapss as eval_cmapss_tte,
+    eval_ncmapss as eval_ncmapss_tte,
+    eval_xjtu_sy as eval_xjtu_sy_tte,
     prepare_cmapss as prepare_cmapss_tte,
     prepare_ncmapss as prepare_ncmapss_tte,
     prepare_xjtu_sy as prepare_xjtu_sy_tte,
 )
 from pdmdata.tasks.types import TabularSplit
 
-# Backward-compatible alias used by the RUL notebook and earlier imports.
+# Backward-compatible aliases used by the RUL notebook and earlier imports.
 prepare_cmapss = prepare_cmapss_rul
-evaluate_test_predictions = evaluate_rul_test_predictions
+eval_test = eval_cmapss_rul
 
 __all__ = [
     "SUPPORT_LEVELS",
@@ -38,9 +42,13 @@ __all__ = [
     "NcmapssTteBundle",
     "XjtuSyRulBundle",
     "XjtuSyTteBundle",
-    "evaluate_rul_test_predictions",
-    "evaluate_test_predictions",
-    "evaluate_tte_test_predictions",
+    "eval_cmapss_rul",
+    "eval_cmapss_tte",
+    "eval_ncmapss_rul",
+    "eval_ncmapss_tte",
+    "eval_test",
+    "eval_xjtu_sy_rul",
+    "eval_xjtu_sy_tte",
     "nasa_score",
     "prepare_cmapss",
     "prepare_cmapss_rul",
