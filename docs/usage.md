@@ -113,7 +113,10 @@ dataset explicitly first.
 
 Use `pdmdata.download("<id>")` or
 `uv run --locked python scripts/download.py <id>`. Files go under the
-configured `data_root` (default `data/raw/<id>/`).
+configured `data_root` (default `data/raw/<id>/`). This project does not ship
+or redistribute dataset files; downloads come from the original providers (or
+their documented mirrors). Review each dataset’s license and terms before use
+and proceed at your own responsibility (see the root README).
 
 **Direct URL / no account (good first choices):** ALPI, C-MAPSS, GFD, HydSys,
 IMS, MAPM, MetroPT2, CARE, Backblaze (pick a quarter), SCANIA Component X,

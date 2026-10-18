@@ -81,8 +81,23 @@ Open a dataset README from the catalog for selectors, schema details, and
 terms of use. Open a task README for experiment bundles and scoring
 protocols.
 
-## License
+## Acknowledgments
 
-Repository code and documentation are available under the MIT License. Each
-dataset remains subject to its own license and terms of use; consult its
-README and source before use.
+Thanks to the researchers, institutions, and data providers who create and
+share the predictive-maintenance datasets that this project downloads and
+loads. PdMData exists to make those sources easier to use; credit and
+citation belong with the original authors. Provider names, licenses, and
+suggested citations are listed in each dataset README and in the
+[dataset catalog](pdmdata/README.md).
+
+## License and data use
+
+Repository code and documentation are available under the MIT License.
+
+This repository does **not** redistribute dataset files. Downloads fetch
+data from the original providers (or their documented mirrors) into your
+local data directory. Each dataset remains under its own license and terms
+of use. Before downloading or using any dataset, review the provider’s
+rights, citation requirements, and restrictions, and proceed at your own
+responsibility. See the [dataset catalog](pdmdata/README.md) and the
+per-dataset READMEs for source links and terms.
