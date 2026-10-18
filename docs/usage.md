@@ -387,8 +387,12 @@ eval_cmapss(bundle, predictions)
 `test_eval_split()`. See the [TTE task guide](../pdmdata/tasks/tte/README.md)
 and the [TTE notebook](../notebooks/tasks/time-to-event-prediction.ipynb).
 
-Matching TTE prepare helpers are available as `prepare_ncmapss` and
-`prepare_xjtu_sy` in `pdmdata.tasks.tte`.
+Matching TTE prepare helpers are `prepare_ncmapss`, `prepare_xjtu_sy`,
+`prepare_backblaze`, `prepare_care`, `prepare_mapm`, and `prepare_scania_x`.
+Backblaze, MAPM, and Scania hold out entities for `test`. CARE uses the
+provider prediction window as `test` and censors normal events. Scania
+remaining time comes from the training repair table; official validation
+and test files keep their time-window classes.
 
 ## Analysis conventions
 

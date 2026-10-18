@@ -150,8 +150,9 @@
   ],
   "task_support": {
     "anomaly_detection": "derived",
-    "fault_classification": "derived",
-    "condition_estimation": "derived",
+    "fault_classification": "direct",
+    "operating_state_classification": "direct",
+    "condition_estimation": "direct",
     "rul_prediction": "direct",
     "time_to_event": "direct",
     "survival_analysis": "direct"
@@ -178,8 +179,8 @@
     {
       "name": "hs",
       "dtype": "Float64",
-      "role": "asset-attribute",
-      "description": "Health-state indicator from the auxiliary table."
+      "role": "target",
+      "description": "Per-cycle healthy/unhealthy label from the auxiliary table: 1 healthy, 0 unhealthy."
     },
     {
       "name": "alt, Mach, TRA, T2",
@@ -198,6 +199,12 @@
       "dtype": "Int64",
       "role": "target",
       "description": "Per-cycle remaining useful life from Y_dev / Y_test."
+    },
+    {
+      "name": "health modifiers (T)",
+      "dtype": "Float64",
+      "role": "target",
+      "description": "Ten simulator health parameters (efficiency and flow modifiers). They are per-cycle degradation levels, loaded with include_health_modifiers=True."
     }
   ],
   "notes": [

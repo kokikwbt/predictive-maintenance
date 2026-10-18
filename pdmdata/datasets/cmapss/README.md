@@ -41,7 +41,7 @@ A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engi
 | `cycle` | UInt32 | time | Operating-cycle number. |
 | `operation_1..3` | Float64 | operating-condition | Three operating settings that affect engine performance. |
 | `sensor_1..21` | Float64 | sensor | Twenty-one sensor channels describing engine condition. |
-| `RUL` | UInt32 | target | Optional uncapped per-cycle target when with_rul=True: train max(cycle)-cycle; test max(cycle)-cycle plus the official test-end offset. rul() returns official test-end offsets keyed by unit number. |
+| `RUL` | UInt32 | target | Optional uncapped per-cycle target when with_rul=True: train max(cycle)-cycle; test max(cycle)-cycle plus the official test-end offset. rul() returns offsets keyed by unit number; split="rul" retains the legacy single target column. |
 
 ## Usage notes
 

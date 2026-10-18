@@ -34,7 +34,6 @@
   "tasks": ["Anomaly detection", "State classification"],
   "task_support": {
     "anomaly_detection": "direct",
-    "fault_classification": "direct",
     "operating_state_classification": "direct"
   },
   "attributes": [

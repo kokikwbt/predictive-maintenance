@@ -55,7 +55,7 @@
     "condition_estimation": "derived",
     "rul_prediction": "direct",
     "time_to_event": "direct",
-    "survival_analysis": "direct"
+    "survival_analysis": "derived"
   },
   "attributes": [
     {

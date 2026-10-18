@@ -28,7 +28,6 @@ Time-series data from a portable pick-and-place demonstrator, including continuo
 | Task | Support |
 |---|---|
 | Anomaly detection | Direct |
-| Fault or health-state classification | Direct |
 | Operating-state classification | Direct |
 
 ## Attributes

@@ -21,19 +21,17 @@ Real-world operational readouts, repair records, and specifications for an anony
 | Feature dimensions | 105 operational features from 14 anonymized variables, plus 8 categorical specifications |
 | Feature counting | Readout files have 107 columns: vehicle_id, time_step, 8 numerical counters (171_0, 666_0, 427_0, 837_0, 309_0, 835_0, 370_0, 100_0), and 6 histograms with 10 (167), 10 (272), 11 (291), 10 (158), 20 (459), and 36 (397) bins. Specification files add Spec_0 to Spec_7 per vehicle. |
 | Feature-count source | [Kharazian et al., Scientific Data (2025)](https://doi.org/10.1038/s41597-025-04802-6) |
-| Tasks | Imminent-failure classification, Time-to-event prediction, Survival analysis, Cost-sensitive maintenance decisions |
+| Tasks | Imminent-failure classification, Time-to-event prediction, Survival analysis |
 
 ## Experiment-task suitability
 
 | Task | Support |
 |---|---|
 | Anomaly detection | Requires target derivation |
-| Fault or health-state classification | Direct |
 | Condition estimation | Requires target derivation |
 | Remaining useful life prediction | Requires target derivation |
 | Time-to-event prediction | Direct |
 | Survival analysis | Direct |
-| Maintenance-policy evaluation | Requires target derivation |
 
 ## Attributes
 

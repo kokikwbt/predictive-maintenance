@@ -37,7 +37,14 @@ metrics = eval_cmapss(bundle, predictions)
 ## Other datasets
 
 ```python
-from pdmdata.tasks.tte import prepare_ncmapss, prepare_xjtu_sy
+from pdmdata.tasks.tte import (
+    prepare_backblaze,
+    prepare_care,
+    prepare_mapm,
+    prepare_ncmapss,
+    prepare_scania_x,
+    prepare_xjtu_sy,
+)
 
 ncmapss = prepare_ncmapss("ds01", time_cap=125, drop_constant_features=True)
 xjtu = prepare_xjtu_sy(
@@ -46,6 +53,10 @@ xjtu = prepare_xjtu_sy(
     validation_fraction=0.25,
     time_cap=100,
 )
+scania = prepare_scania_x(test_fraction=0.2, time_cap=48)
+drives = prepare_backblaze("2025-q1", test_fraction=0.2)
+machines = prepare_mapm(test_fraction=0.2)
+turbines = prepare_care("A", validation_fraction=0.2)
 ```
 
 - **N-CMAPSS**: development units are observed failures; HDF5 `test` units are
@@ -54,16 +65,31 @@ xjtu = prepare_xjtu_sy(
 - **XJTU-SY**: all bearings fail; held-out bearings form feature-only test
   rows; `test_eval_split()` / `eval_xjtu_sy` restores
   full-trajectory `time_to_event`.
+- **Scania Component X**: training vehicles carry `time_to_event` and
+  `event_observed` from the repair table. Censored rows stop at the end of
+  observation. Official validation and test files only have time-window
+  classes, so the bundle holds out training vehicles instead.
+- **Backblaze**: `failure == 1` is the event day. Drives with no failure in
+  the loaded quarter are right-censored at their last snapshot. Duration is
+  whole days.
+- **MAPM**: the event is the next component failure. Hours after the last
+  failure, or the whole series when a machine never fails, are censored at
+  the last telemetry time. Maintenance does not reset the clock.
+  `entity_table()` has one row per inter-failure spell.
+- **CARE**: one wind farm at a time. Anomaly onset is `event_start`; rows
+  after onset are omitted. Normal events are censored at the last timestamp.
+  The feature-only test set is the provider `prediction` window. Remaining
+  time is in hours.
 
 ## Bundle contents
 
 | Member | Role |
 |---|---|
-| `train` / `validation` | Rows with `time_to_event` and `event_observed=True` |
+| `train` / `validation` | Rows with `time_to_event` and `event_observed` |
 | `test` | Feature rows only (no target column) |
 | `test_end_time` / `test_time` | Held-out labels for evaluation |
-| `test_eval_split()` | Scoring view (last unit row for C-MAPSS/N-CMAPSS; all rows for XJTU-SY) |
-| `entity_table()` | One row per entity with duration and censoring |
+| `test_eval_split()` | Last row for C-MAPSS and N-CMAPSS; every held-out row otherwise |
+| `entity_table()` | Duration and censoring. MAPM has one row per failure spell |
 
 For C-MAPSS and N-CMAPSS, `entity_table()` keeps test engines right-censored
 at the last observed cycle (no official remaining-time offset). Official

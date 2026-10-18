@@ -36,6 +36,26 @@ from pdmdata.tasks.tte.xjtu_sy import (
     eval_xjtu_sy,
     prepare_xjtu_sy,
 )
+from pdmdata.tasks.tte.backblaze import (
+    BackblazeTteBundle,
+    eval_backblaze,
+    prepare_backblaze,
+)
+from pdmdata.tasks.tte.care import (
+    CareTteBundle,
+    eval_care,
+    prepare_care,
+)
+from pdmdata.tasks.tte.mapm import (
+    MapmTteBundle,
+    eval_mapm,
+    prepare_mapm,
+)
+from pdmdata.tasks.tte.scania_x import (
+    ScaniaXTteBundle,
+    eval_scania_x,
+    prepare_scania_x,
+)
 
 __all__ = [
     "HigsSpec", "higs_corrupt",
@@ -49,6 +69,10 @@ __all__ = [
     "sequence_provenance",
     "CmapssTteBundle",
     "NcmapssTteBundle",
+    "BackblazeTteBundle",
+    "CareTteBundle",
+    "MapmTteBundle",
+    "ScaniaXTteBundle",
     "XjtuSyTteBundle",
     "ENTITY_COLUMN",
     "EVENT_OBSERVED_COLUMN",
@@ -57,10 +81,18 @@ __all__ = [
     "TIME_TO_EVENT_COLUMN",
     "eval_cmapss",
     "eval_ncmapss",
+    "eval_backblaze",
+    "eval_care",
+    "eval_mapm",
+    "eval_scania_x",
     "eval_xjtu_sy",
     "filter_entities",
+    "prepare_backblaze",
+    "prepare_care",
     "prepare_cmapss",
+    "prepare_mapm",
     "prepare_ncmapss",
+    "prepare_scania_x",
     "prepare_xjtu_sy",
     "split_entities",
 ]

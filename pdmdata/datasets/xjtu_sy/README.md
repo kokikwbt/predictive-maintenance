@@ -32,7 +32,7 @@ Accelerated run-to-failure vibration records for 15 rolling-element bearings und
 | Condition estimation | Requires target derivation |
 | Remaining useful life prediction | Direct |
 | Time-to-event prediction | Direct |
-| Survival analysis | Direct |
+| Survival analysis | Requires target derivation |
 
 ## Attributes
 

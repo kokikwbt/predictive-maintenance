@@ -100,17 +100,14 @@
   "tasks": [
     "Imminent-failure classification",
     "Time-to-event prediction",
-    "Survival analysis",
-    "Cost-sensitive maintenance decisions"
+    "Survival analysis"
   ],
   "task_support": {
     "anomaly_detection": "derived",
-    "fault_classification": "direct",
     "condition_estimation": "derived",
     "rul_prediction": "derived",
     "time_to_event": "direct",
-    "survival_analysis": "direct",
-    "maintenance_policy": "derived"
+    "survival_analysis": "direct"
   },
   "attributes": [
     {

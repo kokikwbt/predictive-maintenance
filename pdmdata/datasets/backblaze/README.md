@@ -28,7 +28,6 @@ Daily fleet-scale snapshots of hard drives and SSDs, including device identity, 
 | Task | Support |
 |---|---|
 | Anomaly detection | Requires target derivation |
-| Fault or health-state classification | Direct |
 | Condition estimation | Requires target derivation |
 | Remaining useful life prediction | Requires target derivation |
 | Time-to-event prediction | Direct |

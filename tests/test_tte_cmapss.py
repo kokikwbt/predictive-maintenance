@@ -14,6 +14,7 @@ from pdmdata.tasks.tte import (
     TIME_TO_EVENT_COLUMN,
     eval_cmapss,
     prepare_cmapss,
+    split_entities,
 )
 
 
@@ -121,3 +122,8 @@ class TteCmapssTest(TestCase):
 
     def test_module_export(self):
         self.assertIs(tte.prepare_cmapss, prepare_cmapss)
+
+    def test_single_entity_holdout_stays_in_train(self):
+        train, validation = split_entities([7], validation_fraction=0.2)
+        self.assertEqual(train, (7,))
+        self.assertEqual(validation, ())

@@ -100,6 +100,10 @@ def split_entities(
     holdout_count = max(1, int(round(len(order) * validation_fraction)))
     if holdout_count >= len(order):
         holdout_count = len(order) - 1
+    # A single entity cannot be held out. ``order[-0:]`` would otherwise
+    # select every id because ``-0`` is ``0``.
+    if holdout_count == 0:
+        return unique, ()
     holdout = tuple(sorted(order[-holdout_count:]))
     train = tuple(sorted(order[:-holdout_count]))
     return train, holdout

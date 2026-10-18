@@ -54,8 +54,8 @@ bundle = prepare_cmapss("FD001", rul_cap=125)
 
 Predict when a failure or other maintenance-relevant event will occur, with
 explicit `time_to_event` / `event_observed` columns and an entity-level
-censoring table. Matching prepare helpers exist for C-MAPSS, N-CMAPSS, and
-XJTU-SY.
+censoring table. Prepare helpers cover C-MAPSS, N-CMAPSS, XJTU-SY,
+Backblaze, CARE, MAPM, and Scania Component X.
 
 ```python
 from pdmdata.tasks.tte import prepare_cmapss

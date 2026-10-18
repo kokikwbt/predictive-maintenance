@@ -28,8 +28,9 @@ A next-generation C-MAPSS run-to-failure fleet simulated under recorded commerci
 | Task | Support |
 |---|---|
 | Anomaly detection | Requires target derivation |
-| Fault or health-state classification | Requires target derivation |
-| Condition estimation | Requires target derivation |
+| Fault or health-state classification | Direct |
+| Operating-state classification | Direct |
+| Condition estimation | Direct |
 | Remaining useful life prediction | Direct |
 | Time-to-event prediction | Direct |
 | Survival analysis | Direct |
@@ -41,10 +42,11 @@ A next-generation C-MAPSS run-to-failure fleet simulated under recorded commerci
 | `unit_number` | UInt16 | entity | Engine unit identifier within the selected subset. |
 | `cycle` | UInt32 | time | Flight/cycle index along the run-to-failure trajectory. |
 | `Fc` | Float64 | operating-condition | Flight-class label from the auxiliary table. |
-| `hs` | Float64 | asset-attribute | Health-state indicator from the auxiliary table. |
+| `hs` | Float64 | target | Per-cycle healthy/unhealthy label from the auxiliary table: 1 healthy, 0 unhealthy. |
 | `alt, Mach, TRA, T2` | Float64 | operating-condition | Flight-condition / scenario descriptors (W_*). |
 | `T24..Wf` | Float64 | sensor | Fourteen measured sensor channels (X_s_*). |
 | `RUL` | Int64 | target | Per-cycle remaining useful life from Y_dev / Y_test. |
+| `health modifiers (T)` | Float64 | target | Ten simulator health parameters (efficiency and flow modifiers). They are per-cycle degradation levels, loaded with include_health_modifiers=True. |
 
 ## Usage notes
 

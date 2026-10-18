@@ -28,7 +28,7 @@ useful life.
 | [N-CMAPSS](datasets/ncmapss/README.md) | Multivariate run-to-failure time series under real flight conditions | RUL estimation, Prognostics, Fault diagnostics | U.S. Government Works / provider terms | Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP) |
 | [OYICD](datasets/oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
 | [PPD](datasets/ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
-| [Scania Component X](datasets/scania_x/README.md) | Fleet-scale irregular multivariate time series with repair records | Imminent-failure classification, Time-to-event prediction, Survival analysis, Cost-sensitive maintenance decisions | CC BY 4.0 | Direct per-file CSV downloads from Researchdata.se (~1.65 GB; no account required) |
+| [Scania Component X](datasets/scania_x/README.md) | Fleet-scale irregular multivariate time series with repair records | Imminent-failure classification, Time-to-event prediction, Survival analysis | CC BY 4.0 | Direct per-file CSV downloads from Researchdata.se (~1.65 GB; no account required) |
 | [XJTU-SY](datasets/xjtu_sy/README.md) | Run-to-failure vibration time series | RUL estimation, Prognostics, Fault diagnostics | Public research use (citation requested) | Direct ZIP download via Hugging Face mirror of the official bundle (~5.4 GB) |
 
 <!-- END GENERATED DATASET TABLE -->
@@ -55,8 +55,9 @@ that experimental design.
 The matrix distinguishes immediately usable targets from tasks that require
 label, endpoint, or health-index construction. Marks describe **dataset
 suitability**, not whether an experiment package under `tasks/` already
-implements `prepare_*` for that dataset. RUL and TTE ship prepare helpers
-for C-MAPSS, N-CMAPSS, and XJTU-SY; see
+implements `prepare_*` for that dataset. RUL prepares C-MAPSS,
+N-CMAPSS, and XJTU-SY. TTE prepares those fleets and Backblaze,
+CARE, MAPM, and Scania Component X. See
 [tasks/README.md](tasks/README.md).
 
 - ✓: directly supported by labels, targets, or event/censoring records
@@ -66,20 +67,20 @@ for C-MAPSS, N-CMAPSS, and XJTU-SY; see
 | Dataset | Anomaly | Fault class. | State class. | Condition | RUL | TTE | Survival | Event forecast | Maintenance |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | [ALPI](datasets/alpi/README.md) | △ | — | — | — | — | △ | — | ✓ | — |
-| [Backblaze](datasets/backblaze/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | — |
+| [Backblaze](datasets/backblaze/README.md) | △ | — | — | △ | △ | ✓ | ✓ | — | — |
 | [CARE](datasets/care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
 | [C-MAPSS](datasets/cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
-| [GDD](datasets/gdd/README.md) | ✓ | ✓ | ✓ | — | — | — | — | — | — |
+| [GDD](datasets/gdd/README.md) | ✓ | — | ✓ | — | — | — | — | — | — |
 | [GFD](datasets/gfd/README.md) | △ | ✓ | — | — | — | — | — | — | — |
 | [HydSys](datasets/hydsys/README.md) | — | ✓ | — | ✓ | — | — | — | — | — |
 | [IMS](datasets/ims/README.md) | △ | △ | — | △ | △ | △ | △ | — | — |
 | [MAPM](datasets/mapm/README.md) | △ | ✓ | — | — | △ | ✓ | ✓ | ✓ | △ |
 | [MetroPT2](datasets/metropt2/README.md) | △ | △ | — | △ | △ | △ | — | — | — |
-| [N-CMAPSS](datasets/ncmapss/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
+| [N-CMAPSS](datasets/ncmapss/README.md) | △ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | — |
 | [OYICD](datasets/oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
 | [PPD](datasets/ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
-| [Scania Component X](datasets/scania_x/README.md) | △ | ✓ | — | △ | △ | ✓ | ✓ | — | △ |
-| [XJTU-SY](datasets/xjtu_sy/README.md) | △ | △ | — | △ | ✓ | ✓ | ✓ | — | — |
+| [Scania Component X](datasets/scania_x/README.md) | △ | — | — | △ | △ | ✓ | ✓ | — | — |
+| [XJTU-SY](datasets/xjtu_sy/README.md) | △ | △ | — | △ | ✓ | ✓ | △ | — | — |
 
 <!-- END GENERATED TASK TABLE -->
 
@@ -115,6 +116,12 @@ registered.
 
 ### Industrial sensor / degradation data
 
+- [FEMTO / PRONOSTIA (IEEE PHM 2012)](https://github.com/Lucky-Loek/ieee-phm-2012-data-challenge-dataset)
+  — Accelerated bearing run-to-failure challenge corpus (FEMTO-ST /
+  PRONOSTIA; original challenge page offline; community mirror).
+- [CWRU Bearing Dataset mirror](https://www.kaggle.com/datasets/brjapon/cwru-bearing-datasets)
+  — Classic bearing vibration fault-classification corpus
+  (Case Western Reserve University; Kaggle mirror).
 - [Oxford Battery Degradation Dataset 1](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
   — Lab battery aging trajectories under controlled cycling
   (University of Oxford).
@@ -124,9 +131,6 @@ registered.
 - [Vega shrink-wrapper component degradation](https://www.kaggle.com/datasets/inIT-OWL/vega-shrinkwrapper-runtofailure-data)
   — Run-to-failure component data from an industrial shrink-wrapper
   (inIT / OWL).
-- [CWRU Bearing Dataset mirror](https://www.kaggle.com/datasets/brjapon/cwru-bearing-datasets)
-  — Classic bearing vibration fault-classification corpus
-  (Case Western Reserve University; Kaggle mirror).
 
 - [REFIT electrical measurements](https://pureportal.strath.ac.uk/en/datasets/refit-electrical-load-measurements/)
   with [annotated load anomalies](https://pureportal.strath.ac.uk/en/datasets/annotated-load-anomalies-from-the-refit-dataset/)
