@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
-from pdmdata.catalog import DATASETS_ROOT, ROOT, load_catalog
+from pdmdata.catalog import DATASETS_ROOT, PACKAGE_ROOT, load_catalog
 from pdmdata.tasks import TASKS, TASK_BY_ID
 
 
@@ -309,7 +309,7 @@ def render_dataset_sources(catalog: Iterable[Dict[str, Any]]) -> str:
 
 def update_catalog_readme() -> Path:
     """Update generated tables and source links in the dataset catalog README."""
-    readme = ROOT / "README.md"
+    readme = PACKAGE_ROOT / "README.md"
     current = readme.read_text(encoding="utf-8")
     catalog = load_catalog()
     catalog_generated = "\n".join(

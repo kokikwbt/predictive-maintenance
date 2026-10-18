@@ -1,29 +1,25 @@
 """Remaining useful life (RUL) task package."""
 
+from pdmdata.tasks.metrics import nasa_score, regression_metrics
 from pdmdata.tasks.rul.prepare import (
     ENTITY_COLUMN,
     TARGET_COLUMN,
     TIME_COLUMN,
     CmapssRulBundle,
     apply_rul_cap,
-    eval_test as eval_cmapss,
-    nasa_score,
+    eval_cmapss,
     prepare_cmapss,
-    regression_metrics,
 )
 from pdmdata.tasks.rul.ncmapss import (
     NcmapssRulBundle,
-    eval_test as eval_ncmapss,
+    eval_ncmapss,
     prepare_ncmapss,
 )
 from pdmdata.tasks.rul.xjtu_sy import (
     XjtuSyRulBundle,
-    eval_test as eval_xjtu_sy,
+    eval_xjtu_sy,
     prepare_xjtu_sy,
 )
-
-# Backward-compatible alias: C-MAPSS is the historical default.
-eval_test = eval_cmapss
 
 __all__ = [
     "CmapssRulBundle",
@@ -35,7 +31,6 @@ __all__ = [
     "apply_rul_cap",
     "eval_cmapss",
     "eval_ncmapss",
-    "eval_test",
     "eval_xjtu_sy",
     "nasa_score",
     "prepare_cmapss",

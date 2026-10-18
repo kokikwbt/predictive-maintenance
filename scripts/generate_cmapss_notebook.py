@@ -109,8 +109,7 @@ plt.show()
 - Test: `max_observed_cycle - cycle + official_test_end_RUL`, ending at the
   supplied offset rather than 0.
 
-`rul(subset)` returns the official offsets with explicit unit IDs. The legacy
-`load(subset, split="rul")` API keeps its single RUL column in source row order.
+`rul(subset)` returns the official offsets with explicit unit IDs.
 Test targets are evaluation information: do not use them to fit the encoder,
 select features, normalize inputs, or set segmentation thresholds.
 ''')

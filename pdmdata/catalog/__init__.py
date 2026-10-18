@@ -10,8 +10,6 @@ from typing import Any, Dict, Iterator, List, Optional, TextIO
 
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
 DATASETS_ROOT = PACKAGE_ROOT / "datasets"
-# Catalog README lives next to the package root modules.
-ROOT = PACKAGE_ROOT
 
 
 def metadata_paths() -> Iterator[Path]:

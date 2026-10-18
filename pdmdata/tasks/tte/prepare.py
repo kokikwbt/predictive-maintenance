@@ -308,7 +308,7 @@ def prepare_cmapss(
     )
 
 
-def eval_test(
+def eval_cmapss(
     bundle: CmapssTteBundle,
     predictions: Sequence[float] | Mapping[int, float],
 ) -> Dict[str, float]:

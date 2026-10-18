@@ -74,31 +74,29 @@ def load(subset: str = "FD001", split: str = "train", *,
     Default train/test output retains the 26 source columns. Train RUL is
     max(cycle) - cycle; test RUL additionally includes the official test-end
     offset. Test targets are opt-in evaluation data and must not enter features.
-    The legacy ``split='rul'`` output retains its single RUL column.
+    Use ``rul(subset)`` for the official test-end RUL table.
     """
     subset = _subset(subset)
-    if split not in {"train", "test", "rul"}:
-        raise ValueError("split must be train, test, or rul")
+    if split not in {"train", "test"}:
+        raise ValueError("split must be train or test")
     if unit is not None and (isinstance(unit, bool) or not isinstance(unit, int) or unit < 1):
         raise ValueError("unit must be a positive integer")
-    if split == "rul":
-        if with_rul:
-            raise ValueError("with_rul is only used with train or test")
-        frame = rul(subset)
-    else:
-        frame = _series(subset, split)
-        if with_rul:
-            target = pl.col("cycle").max().over("unit_number").cast(pl.Int64) - pl.col("cycle")
-            if split == "test":
-                offsets = _rul(subset, frame["unit_number"].n_unique())
-                frame = frame.join(offsets, on="unit_number", how="left", validate="m:1", maintain_order="left")
-                target = target + pl.col("RUL").cast(pl.Int64)
-            frame = frame.with_columns(target.cast(pl.UInt32).alias("RUL"))
+    frame = _series(subset, split)
+    if with_rul:
+        target = pl.col("cycle").max().over("unit_number").cast(pl.Int64) - pl.col("cycle")
+        if split == "test":
+            offsets = _rul(subset, frame["unit_number"].n_unique())
+            frame = frame.join(
+                offsets, on="unit_number", how="left",
+                validate="m:1", maintain_order="left",
+            )
+            target = target + pl.col("RUL").cast(pl.Int64)
+        frame = frame.with_columns(target.cast(pl.UInt32).alias("RUL"))
     if unit is not None:
         frame = frame.filter(pl.col("unit_number") == unit)
         if frame.is_empty():
             raise ValueError(f"No unit {unit} in {subset} {split}")
-    return frame.select("RUL") if split == "rul" else frame
+    return frame
 
 
 def inventory(subset: str | None = None) -> pl.DataFrame:

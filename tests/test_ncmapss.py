@@ -23,7 +23,7 @@ class NcmapssTest(TestCase):
                 self.assertEqual(frame.height, 3)
                 self.assertIn("RUL", frame.columns)
                 self.assertEqual(frame["RUL"].to_list(), [2, 1, 0])
-                unit = load("ds01", "train", unit=1)
+                unit = load("ds01", "dev", unit=1)
                 self.assertEqual(unit.height, 2)
                 self.assertEqual(
                     unit["unit_number"].unique().to_list(),

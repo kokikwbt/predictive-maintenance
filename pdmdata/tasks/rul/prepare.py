@@ -24,7 +24,7 @@ from pdmdata.tasks.cmapss_common import (
     last_rows_per_entity,
     summary_row,
 )
-from pdmdata.tasks.metrics import nasa_score, regression_metrics
+from pdmdata.tasks.metrics import regression_metrics
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -202,7 +202,7 @@ def apply_rul_cap(
     return apply_time_cap(frame, rul_cap, column)
 
 
-def eval_test(
+def eval_cmapss(
     bundle: CmapssRulBundle,
     predictions: Sequence[float] | Mapping[int, float],
 ) -> Dict[str, float]:
@@ -230,15 +230,12 @@ def _label_train(frame: pl.DataFrame, *,
     )
 
 
-# Re-export metrics for callers that import them from ``pdmdata.tasks.rul``.
 __all__ = [
     "CmapssRulBundle",
     "ENTITY_COLUMN",
     "TARGET_COLUMN",
     "TIME_COLUMN",
     "apply_rul_cap",
-    "eval_test",
-    "nasa_score",
+    "eval_cmapss",
     "prepare_cmapss",
-    "regression_metrics",
 ]

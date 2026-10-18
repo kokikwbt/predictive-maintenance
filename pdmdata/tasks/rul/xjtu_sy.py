@@ -186,7 +186,7 @@ def prepare_xjtu_sy(
     )
 
 
-def eval_test(
+def eval_xjtu_sy(
     bundle: XjtuSyRulBundle,
     predictions: Sequence[float] | Mapping[str, float],
 ) -> Dict[str, float]:
@@ -328,6 +328,6 @@ __all__ = [
     "TARGET_COLUMN",
     "TIME_COLUMN",
     "XjtuSyRulBundle",
-    "eval_test",
+    "eval_xjtu_sy",
     "prepare_xjtu_sy",
 ]

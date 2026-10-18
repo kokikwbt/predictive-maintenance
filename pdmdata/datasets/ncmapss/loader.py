@@ -37,10 +37,8 @@ def _variant(value: str) -> str:
 
 
 def _split(value: str) -> str:
-    if value == "train":
-        return "dev"
     if value not in SPLITS:
-        raise ValueError("split must be dev, test, or train (alias of dev)")
+        raise ValueError("split must be dev or test")
     return value
 
 
@@ -84,11 +82,10 @@ def load(
 ) -> pl.DataFrame:
     """Load one N-CMAPSS variant/split as a Polars DataFrame.
 
-    The HDF5 ``dev`` split is the development/training fleet; ``train`` is
-    accepted as an alias. Per-cycle RUL is stored in ``Y_*`` and exposed as
-    ``RUL`` when ``with_rul=True``. Virtual sensors (``X_v``) and health
-    modifiers (``T``) are omitted unless requested because they are not always
-    used as model inputs.
+    The HDF5 ``dev`` split is the development/training fleet. Per-cycle RUL is
+    stored in ``Y_*`` and exposed as ``RUL`` when ``with_rul=True``. Virtual
+    sensors (``X_v``) and health modifiers (``T``) are omitted unless requested
+    because they are not always used as model inputs.
     """
     variant = _variant(variant)
     split = _split(split)

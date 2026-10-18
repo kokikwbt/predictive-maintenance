@@ -120,7 +120,7 @@ class CatalogDocumentationTest(unittest.TestCase):
         with TemporaryDirectory() as directory:
             readme = Path(directory) / "README.md"
             readme.write_text(template, encoding="utf-8")
-            with patch.object(docs, "ROOT", Path(directory)), patch.object(
+            with patch.object(docs, "PACKAGE_ROOT", Path(directory)), patch.object(
                 docs, "load_catalog", return_value=catalog
             ):
                 self.assertEqual(docs.update_catalog_readme(), readme)
@@ -143,7 +143,7 @@ class CatalogDocumentationTest(unittest.TestCase):
         with TemporaryDirectory() as directory:
             readme = Path(directory) / "README.md"
             readme.write_text(template, encoding="utf-8")
-            with patch.object(docs, "ROOT", Path(directory)):
+            with patch.object(docs, "PACKAGE_ROOT", Path(directory)):
                 with self.assertRaisesRegex(ValueError, "dataset-source markers"):
                     docs.update_catalog_readme()
             self.assertEqual(readme.read_text(encoding="utf-8"), template)

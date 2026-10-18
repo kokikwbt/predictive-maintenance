@@ -41,7 +41,7 @@ A run-to-failure and remaining-useful-life benchmark for fleets of aircraft engi
 | `cycle` | UInt32 | time | Operating-cycle number. |
 | `operation_1..3` | Float64 | operating-condition | Three operating settings that affect engine performance. |
 | `sensor_1..21` | Float64 | sensor | Twenty-one sensor channels describing engine condition. |
-| `RUL` | UInt32 | target | Optional uncapped per-cycle target when with_rul=True: train max(cycle)-cycle; test max(cycle)-cycle plus the official test-end offset. rul() returns offsets keyed by unit number; split="rul" retains the legacy single target column. |
+| `RUL` | UInt32 | target | Optional uncapped per-cycle target when with_rul=True: train max(cycle)-cycle; test max(cycle)-cycle plus the official test-end offset. rul() returns official test-end offsets keyed by unit number. |
 
 ## Usage notes
 
@@ -89,9 +89,8 @@ are local to `(subset, split)`; never join train unit 1 to test unit 1 as a
 single trajectory. Unknown units and invalid selectors raise an error.
 
 Train/test frames retain the 26 source columns by default. `with_rul=True`
-adds a target column; it does not change the sensor values. The legacy
-`load(split="rul")` returns a single RUL column in source order, while `rul()`
-provides the corresponding unit IDs for explicit joins.
+adds a target column; it does not change the sensor values. `rul()` returns
+the official test-end offsets with explicit unit IDs for joins.
 
 Files are stored under `data/raw/cmapss/` by default, controlled by the
 [global configuration](../../../docs/usage.md#global-configuration). Imports and

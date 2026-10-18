@@ -85,8 +85,7 @@ dev = load("ds01", "dev", unit=1, with_rul=True)
 test = load("ds01", "test", with_rul=True)
 ```
 
-`split="train"` is accepted as an alias of `dev`. Virtual sensors and health
-modifiers are opt-in:
+Virtual sensors and health modifiers are opt-in:
 
 ```python
 frame = load(

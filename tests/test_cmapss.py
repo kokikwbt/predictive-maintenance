@@ -27,9 +27,10 @@ class CmapssTest(TestCase):
                 self.assertEqual(load().width, 26)
                 self.assertEqual(load(unit=2, with_rul=True)["RUL"].to_list(), [3, 2, 1, 0])
                 self.assertEqual(load(split="test", unit=2, with_rul=True)["RUL"].to_list(), [22, 21, 20])
-                self.assertEqual(rul()["unit_number"].to_list(), [1, 2])
-                self.assertEqual(load(split="rul").columns, ["RUL"])
-                self.assertEqual(load(split="rul", unit=2)["RUL"].to_list(), [20])
+                offsets = rul()
+                self.assertEqual(offsets.columns, ["unit_number", "RUL"])
+                self.assertEqual(offsets["unit_number"].to_list(), [1, 2])
+                self.assertEqual(offsets["RUL"].to_list(), [10, 20])
                 self.assertEqual(inventory("FD001")["rows"].to_list(), [7, 5])
                 for options in ({"unit": 3}, {"unit": 1.5}, {"subset": "FD005"}, {"split": "invalid"}):
                     with self.subTest(options=options), self.assertRaises(ValueError):
