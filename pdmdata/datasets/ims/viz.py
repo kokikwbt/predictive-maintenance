@@ -1,7 +1,25 @@
 """Compact IMS waveform comparisons and recording-level RMS histories."""
 
 import matplotlib.pyplot as plt
+
+from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
+
 from .loader import channel_info
+
+
+PLOTS = {
+    "waveform": TimeSeriesSpec(
+        title="IMS vibration snapshot",
+        x=AxisSpec("time_s", "Nominal elapsed time", "s"),
+        y=(
+            AxisSpec("channel_1", "Channel 1"),
+            AxisSpec("channel_2", "Channel 2"),
+            AxisSpec("channel_3", "Channel 3"),
+            AxisSpec("channel_4", "Channel 4"),
+        ),
+        max_points=5_000,
+    ),
+}
 
 
 def plot_waveforms(examples, *, experiment=2, stop_s=0.05):

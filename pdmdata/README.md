@@ -53,7 +53,11 @@ that experimental design.
 - **Maintenance-policy evaluation:** Compare or learn maintenance decisions using intervention and outcome histories.
 
 The matrix distinguishes immediately usable targets from tasks that require
-label, endpoint, or health-index construction.
+label, endpoint, or health-index construction. Marks describe **dataset
+suitability**, not whether an experiment package under `tasks/` already
+implements `prepare_*` for that dataset. Today only the RUL and TTE packages
+ship prepare helpers (primarily for C-MAPSS); see
+[tasks/README.md](tasks/README.md).
 
 - ✓: directly supported by labels, targets, or event/censoring records
 - △: supported after deriving labels or targets from chronology or domain assumptions

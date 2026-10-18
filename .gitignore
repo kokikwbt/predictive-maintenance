@@ -141,16 +141,4 @@ out
 
 *.pdf
 *.png
-!pdmdata/backblaze/assets/*.png
-
-!pdmdata/gfd/assets/*.png
-
-!pdmdata/oyicd/assets/*.png
-
-!pdmdata/ppd/assets/*.png
-
-!pdmdata/hydsys/assets/*.png
-
-!pdmdata/ims/assets/*.png
-
-!pdmdata/cmapss/assets/*.png
+!pdmdata/datasets/*/assets/*.png

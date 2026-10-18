@@ -1,10 +1,28 @@
 """HYDSYS views with native-rate time axes and separate cycle-level targets."""
 
 import matplotlib.pyplot as plt
+
+from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
+
 from .loader import SENSOR_INFO, TARGET_VALUES
 
 DEFAULT_SENSORS = ["PS1", "PS2", "EPS1", "FS1", "TS1", "VS1", "CE", "SE"]
-TARGET_LABELS = ["Cooler (%)", "Valve (%)", "Pump leakage code", "Accumulator (bar)", "Stability flag"]
+TARGET_LABELS = [
+    "Cooler (%)",
+    "Valve (%)",
+    "Pump leakage code",
+    "Accumulator (bar)",
+    "Stability flag",
+]
+
+PLOTS = {
+    "ps1_cycle": TimeSeriesSpec(
+        title="HYDSYS PS1 within one cycle",
+        x=AxisSpec("time_s", "Nominal elapsed time", "s"),
+        y=(AxisSpec("PS1", "Pressure PS1", "bar"),),
+        max_points=10_000,
+    ),
+}
 
 
 def plot_cycle(groups, *, cycle, sensors=None, start_s=0, stop_s=60):

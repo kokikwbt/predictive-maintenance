@@ -16,12 +16,36 @@ dependencies = [
   "matplotlib",
   "plotly",
   "scikit-learn",
-  "jupyterlab",
-  "ipykernel",
   "kaggle",
   "libarchive-c>=5,<6",
   "h5py>=3.10,<4",
 ]
+
+[project.optional-dependencies]
+jupyter = [
+  "jupyterlab",
+  "ipykernel",
+]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.8",
+]
+jupyter = [
+  "jupyterlab",
+  "ipykernel",
+]
+
+[tool.uv]
+default-groups = ["dev", "jupyter"]
+
+[tool.ruff]
+line-length = 80
+target-version = "py311"
+
+[tool.ruff.lint]
+# Start with syntax/undefined-name checks; expand gradually.
+select = ["E9", "F63", "F7", "F82"]
 
 [tool.setuptools.packages.find]
 include = ["pdmdata*"]

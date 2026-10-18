@@ -30,8 +30,10 @@ from pdmdata.tasks.metrics import regression_metrics
 from pdmdata.tasks.types import TabularSplit
 
 
-# Generic TTE vocabulary (dataset adapters may keep native names for
-# entity/time and still expose these target / censoring columns).
+# Generic TTE vocabulary defaults. C-MAPSS frames use
+# CMAPSS_ENTITY_COLUMN / CMAPSS_TIME_COLUMN instead; adapters may keep
+# native entity/time names while still exposing the target / censoring
+# columns below.
 ENTITY_COLUMN = "entity"
 TIME_COLUMN = "time"
 TIME_TO_EVENT_COLUMN = "time_to_event"

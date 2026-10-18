@@ -26,10 +26,28 @@ uv sync --locked
 uv run --locked python -m ipykernel install --user --name pdmdata --display-name "Python (pdmdata)"
 ```
 
+`uv sync` installs the package dependencies plus the default `dev` and
+`jupyter` groups from `pyproject.toml`. For a minimal runtime-only
+environment (no Jupyter, no lint tools), use
+`uv sync --locked --no-default-groups`. Install Jupyter alone with
+`uv sync --locked --no-default-groups --group jupyter` or, for a pip-style
+extra, `pip install '.[jupyter]'`.
+
 Start JupyterLab with `uv run --locked jupyter lab`, then select `Python
 (pdmdata)` as the notebook kernel.
 
 Dataset loaders and preprocessing examples use Polars.
+
+### Tests and lint
+
+From the repository root, after `uv sync --locked`:
+
+```bash
+uv run --locked python -m unittest discover -s tests -p 'test_*.py' -q
+uv run --locked ruff check pdmdata tests scripts
+```
+
+GitHub Actions runs the same checks on each push and pull request.
 
 ## Global configuration
 
@@ -381,3 +399,14 @@ contribution guidelines.
 - [Azure architecture guide for predictive-maintenance solutions](https://learn.microsoft.com/azure/architecture/data-science-process/predictive-maintenance-playbook)
 - [Types of proactive maintenance](https://solutions.borderstates.com/blog/types-of-proactive-maintenance/)
 - [Kaggle community guide to common dataset licenses](https://www.kaggle.com/general/116302)
+
+
+### Optional bounded parallel HTTP downloads
+
+For large public files on servers advertising byte-range support, set
+`PDMDATA_DOWNLOAD_WORKERS=8` (allowed range: 1 to 8, default: 1).
+The downloader validates each response range and retries an interrupted chunk
+up to three times, resuming its received bytes. It publishes the temporary file
+only after all chunks finish; source checksums remain mandatory when provided.
+Servers without range support and small files retain the ordinary download path.
+This option changes transport only, not dataset parsing or file contents.

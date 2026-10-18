@@ -4,7 +4,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import BoundaryNorm, ListedColormap
 
+from pdmdata.visualization.models import AxisSpec, DistributionSpec
+
 from .preprocessing import MOTOR_SIGNALS, state_segments
+
+
+PLOTS = {
+    "current_by_state": DistributionSpec(
+        title="GDD motor current by state label",
+        feature=AxisSpec("MotorData.ActCurrent", "Motor current"),
+        group_column="Label",
+        group_label="State ID",
+    ),
+}
 
 
 def plot_states(frame, *, start=0, stop=800):

@@ -2,7 +2,31 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
+
 from .loader import SENSOR_COLUMNS
+
+
+PLOTS = {
+    "process_signals": TimeSeriesSpec(
+        title="OYICD process signals",
+        x=AxisSpec("timestamp", "Timestamp within recording", "s"),
+        y=(
+            AxisSpec("pCut::Motor_Torque", "Cut motor torque"),
+            AxisSpec(
+                "pCut::CTRL_Position_controller::Actual_speed",
+                "Cut actual speed",
+            ),
+            AxisSpec(
+                "pSvolFilm::CTRL_Position_controller::Actual_speed",
+                "Film actual speed",
+            ),
+            AxisSpec("pSpintor::VAX_speed", "Spintor VAX speed"),
+        ),
+        max_points=5_000,
+    ),
+}
 
 SIGNAL_LABELS = [
     "Cut motor torque", "Cut position lag error", "Cut actual position",

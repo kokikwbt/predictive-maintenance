@@ -2,9 +2,21 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+
+from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
+
 from .loader import SENSOR_COLUMNS
 
 DEFAULT_SIGNALS = ["L_1", "L_2", "A_1", "B_1", "C_1", "A_5"]
+
+PLOTS = {
+    "process_signals": TimeSeriesSpec(
+        title="PPD process signals",
+        x=AxisSpec("sample", "Sequence sample index"),
+        y=tuple(AxisSpec(name, name) for name in DEFAULT_SIGNALS),
+        max_points=5_000,
+    ),
+}
 
 
 def plot_waveforms(frame, *, columns=None, start=0, stop=None):

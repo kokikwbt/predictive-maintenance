@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import hashlib
+from concurrent.futures import ThreadPoolExecutor
+import threading
+import time
 import json
 import os
 from pathlib import Path
@@ -19,6 +22,8 @@ from pdmdata.config import get_settings
 
 
 CHUNK_SIZE = 1024 * 1024
+RANGE_CHUNK_SIZE = 8 * CHUNK_SIZE
+MIN_RANGE_SIZE = 16 * CHUNK_SIZE
 
 
 def supported_downloads() -> List[str]:
@@ -184,6 +189,11 @@ def _dataset_directory(
 
 
 def _download_file(url: str, target: Path) -> None:
+    workers = int(os.environ.get("PDMDATA_DOWNLOAD_WORKERS", "1"))
+    if not 1 <= workers <= 8:
+        raise ValueError("PDMDATA_DOWNLOAD_WORKERS must be between 1 and 8")
+    if workers > 1 and _download_in_ranges(url, target, workers):
+        return
     request = Request(url, headers={"User-Agent": "pdmdata/0 (+dataset downloader)"})
     temporary = target.with_suffix(target.suffix + ".part")
     try:
@@ -191,6 +201,77 @@ def _download_file(url: str, target: Path) -> None:
             shutil.copyfileobj(response, stream, length=CHUNK_SIZE)
         os.replace(str(temporary), str(target))
     except Exception:
+        if temporary.exists():
+            temporary.unlink()
+        raise
+
+
+def _download_in_ranges(url: str, target: Path, workers: int) -> bool:
+    """Opt-in bounded parallel ranges, retrying truncated chunks before publish.
+
+    Returns False for servers without explicit byte-range support. Source-file
+    checksums are still verified by the normal public download workflow.
+    """
+    headers = {"User-Agent": "pdmdata/0 (+dataset downloader)"}
+    try:
+        with urlopen(Request(url, headers=headers, method="HEAD"), timeout=60) as response:
+            length = response.headers.get("Content-Length")
+            if response.headers.get("Accept-Ranges", "").lower() != "bytes" or not length:
+                return False
+            total = int(length)
+            if total < MIN_RANGE_SIZE or response.headers.get("Content-Encoding"):
+                return False
+            direct_url = response.geturl()
+            validator = response.headers.get("ETag") or response.headers.get("Last-Modified")
+    except OSError:
+        return False
+    temporary = target.with_suffix(target.suffix + ".part")
+    stopped = threading.Event()
+    try:
+        with temporary.open("wb") as stream:
+            stream.truncate(total)
+
+        def fetch(bounds):
+            start, end = bounds
+            position = start
+            try:
+                for attempt in range(3):
+                    if stopped.is_set():
+                        return
+                    request_headers = dict(headers, Range="bytes={}-{}".format(position, end))
+                    if validator:
+                        request_headers["If-Range"] = validator
+                    try:
+                        request = Request(direct_url, headers=request_headers)
+                        with urlopen(request, timeout=60) as response, temporary.open("r+b") as stream:
+                            expected = "bytes {}-{}/{}".format(position, end, total)
+                            if response.status != 206 or response.headers.get("Content-Range") != expected:
+                                raise OSError("Server did not honor the requested byte range")
+                            stream.seek(position)
+                            while position <= end:
+                                if stopped.is_set():
+                                    return
+                                chunk = response.read(min(CHUNK_SIZE, end - position + 1))
+                                if not chunk:
+                                    raise OSError("Truncated byte-range response")
+                                stream.write(chunk)
+                                position += len(chunk)
+                        return
+                    except OSError:
+                        if attempt == 2:
+                            raise
+                        time.sleep(min(2 ** attempt, 4))
+            except BaseException:
+                stopped.set()
+                raise
+
+        ranges = [(start, min(start + RANGE_CHUNK_SIZE, total) - 1)
+                  for start in range(0, total, RANGE_CHUNK_SIZE)]
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            list(pool.map(fetch, ranges))
+        os.replace(str(temporary), str(target))
+        return True
+    except BaseException:
         if temporary.exists():
             temporary.unlink()
         raise

@@ -8,37 +8,65 @@ from typing import Any, Dict, Optional
 import plotly.graph_objects as go
 import polars as pl
 
-from pdmdata.datasets.backblaze.viz import PLOTS as BACKBLAZE_PLOTS
-from pdmdata.datasets.care.viz import PLOTS as CARE_PLOTS
-from pdmdata.datasets.cmapss.viz import PLOTS as CMAPSS_PLOTS
-from pdmdata.datasets.gfd.viz import PLOTS as GFD_PLOTS
-from pdmdata.datasets.mapm.viz import PLOTS as MAPM_PLOTS
-from pdmdata.datasets.metropt2.viz import PLOTS as METROPT2_PLOTS
-from pdmdata.datasets.scania_x.viz import PLOTS as SCANIA_X_PLOTS
-
 from .models import DistributionSpec, EventTimelineSpec, TimeSeriesSpec
 from .plots import plot_distribution, plot_event_timeline, plot_time_series
 
 
-PLOTS: Dict[str, Dict[str, object]] = {
-    "cmapss": CMAPSS_PLOTS,
-    "backblaze": BACKBLAZE_PLOTS,
-    "care": CARE_PLOTS,
-    "gfd": GFD_PLOTS,
-    "mapm": MAPM_PLOTS,
-    "metropt2": METROPT2_PLOTS,
-    "scania_x": SCANIA_X_PLOTS,
-}
+_PLOTS: Dict[str, Dict[str, object]] | None = None
+
+
+def _plots() -> Dict[str, Dict[str, object]]:
+    """Load dataset plot specs on first use (avoid import-time side effects)."""
+    global _PLOTS
+    if _PLOTS is not None:
+        return _PLOTS
+    from pdmdata.datasets.alpi.viz import PLOTS as ALPI_PLOTS
+    from pdmdata.datasets.backblaze.viz import PLOTS as BACKBLAZE_PLOTS
+    from pdmdata.datasets.care.viz import PLOTS as CARE_PLOTS
+    from pdmdata.datasets.cmapss.viz import PLOTS as CMAPSS_PLOTS
+    from pdmdata.datasets.gdd.viz import PLOTS as GDD_PLOTS
+    from pdmdata.datasets.gfd.viz import PLOTS as GFD_PLOTS
+    from pdmdata.datasets.hydsys.viz import PLOTS as HYDSYS_PLOTS
+    from pdmdata.datasets.ims.viz import PLOTS as IMS_PLOTS
+    from pdmdata.datasets.mapm.viz import PLOTS as MAPM_PLOTS
+    from pdmdata.datasets.metropt2.viz import PLOTS as METROPT2_PLOTS
+    from pdmdata.datasets.ncmapss.viz import PLOTS as NCMAPSS_PLOTS
+    from pdmdata.datasets.oyicd.viz import PLOTS as OYICD_PLOTS
+    from pdmdata.datasets.ppd.viz import PLOTS as PPD_PLOTS
+    from pdmdata.datasets.scania_x.viz import PLOTS as SCANIA_X_PLOTS
+    from pdmdata.datasets.xjtu_sy.viz import PLOTS as XJTU_SY_PLOTS
+
+    _PLOTS = {
+        "alpi": ALPI_PLOTS,
+        "backblaze": BACKBLAZE_PLOTS,
+        "care": CARE_PLOTS,
+        "cmapss": CMAPSS_PLOTS,
+        "gdd": GDD_PLOTS,
+        "gfd": GFD_PLOTS,
+        "hydsys": HYDSYS_PLOTS,
+        "ims": IMS_PLOTS,
+        "mapm": MAPM_PLOTS,
+        "metropt2": METROPT2_PLOTS,
+        "ncmapss": NCMAPSS_PLOTS,
+        "oyicd": OYICD_PLOTS,
+        "ppd": PPD_PLOTS,
+        "scania_x": SCANIA_X_PLOTS,
+        "xjtu_sy": XJTU_SY_PLOTS,
+    }
+    return _PLOTS
 
 
 def available_plots(dataset_id: Optional[str] = None) -> Dict[str, object]:
     """Return registered plot specifications."""
+    plots = _plots()
     if dataset_id is None:
-        return {key: sorted(value) for key, value in PLOTS.items()}
+        return {key: sorted(value) for key, value in plots.items()}
     try:
-        return dict(PLOTS[dataset_id])
+        return dict(plots[dataset_id])
     except KeyError:
-        raise KeyError("No visualizations registered for {!r}".format(dataset_id)) from None
+        raise KeyError(
+            "No visualizations registered for {!r}".format(dataset_id)
+        ) from None
 
 
 def visualize(
@@ -48,10 +76,11 @@ def visualize(
     **options: Any,
 ) -> go.Figure:
     """Build a registered dataset visualization."""
+    plots = _plots()
     try:
-        spec = PLOTS[dataset_id][plot_id]
+        spec = plots[dataset_id][plot_id]
     except KeyError:
-        choices = ", ".join(sorted(PLOTS.get(dataset_id, {}))) or "none"
+        choices = ", ".join(sorted(plots.get(dataset_id, {}))) or "none"
         raise KeyError(
             "Unknown visualization {!r} for {!r}; available: {}".format(
                 plot_id, dataset_id, choices
@@ -71,4 +100,6 @@ def visualize(
         return plot_distribution(frame, spec)
     if isinstance(spec, EventTimelineSpec):
         return plot_event_timeline(frame, spec, **options)
-    raise TypeError("Unsupported visualization specification: {!r}".format(type(spec)))
+    raise TypeError(
+        "Unsupported visualization specification: {!r}".format(type(spec))
+    )

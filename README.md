@@ -13,8 +13,10 @@ From the repository root, with `uv` installed:
 uv run --locked jupyter lab
 ```
 
-Setup creates the locked Python 3.11 environment and registers the
-`Python (pdmdata)` notebook kernel. It does not download datasets.
+Setup creates the locked Python 3.11 environment (runtime, Jupyter, and
+dev tooling) and registers the `Python (pdmdata)` notebook kernel. It does
+not download datasets. Run tests with
+`uv run --locked python -m unittest discover -s tests -q`.
 Select that kernel in Jupyter and run:
 
 ```python

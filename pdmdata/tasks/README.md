@@ -31,6 +31,11 @@ useful life.
 - **Taxonomy only:** listed in `taxonomy.py` and the catalog matrix; no
   experiment package yet.
 
+The catalog matrix `✓` / `△` marks (in [../README.md](../README.md)) mean the
+**source data** can support that task. They do not imply a `prepare_*` helper
+exists for every marked dataset. Use this table for package availability, and
+the catalog matrix for data suitability.
+
 ## Implemented packages
 
 ### [Remaining useful life (RUL)](rul/README.md)

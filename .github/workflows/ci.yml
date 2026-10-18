@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system libraries
+        run: sudo apt-get update && sudo apt-get install -y libarchive-dev
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Sync locked environment
+        run: uv sync --locked --no-default-groups --group dev
+
+      - name: Run unit tests
+        run: uv run --no-sync python -m unittest discover -s tests -p 'test_*.py' -q
+
+      - name: Lint
+        run: uv run --no-sync ruff check pdmdata tests scripts

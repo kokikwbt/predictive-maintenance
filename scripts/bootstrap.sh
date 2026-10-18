@@ -13,6 +13,7 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 echo "Synchronizing the locked Python 3.11 environment"
+# default-groups include dev tooling and Jupyter (see pyproject.toml).
 uv sync --locked
 
 echo "Registering the Jupyter kernel"
@@ -23,5 +24,6 @@ uv run --locked python -m ipykernel install \
 
 echo
 echo "Setup complete."
+echo "Run tests: uv run --locked python -m unittest discover -s tests -q"
 echo "Download a dataset when needed: uv run --locked python scripts/download.py hydsys"
 echo "Start JupyterLab with: uv run --locked jupyter lab"
