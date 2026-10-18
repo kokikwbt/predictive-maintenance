@@ -140,7 +140,7 @@ period, filter the lazy scan by timestamp before collecting a limited window.
 ''')
     root=Path(__file__).resolve().parents[1]
     p=root/'notebooks/datasets/metropt2.ipynb'
-    p.write_text(json.dumps(dict(cells=cells,metadata={'kernelspec':{'name':'pdmdata','display_name':'Python (pdmdata)','language':'python'},'language_info':{'name':'python','version':'3.11'}},nbformat=4,nbformat_minor=5),indent=1)+'\n')
+    p.write_text(json.dumps(dict(cells=cells,metadata={'kernelspec':{'name':'pdmdata','display_name':'Python (pdmdata)','language':'python'},'language_info':{'name':'python','version':'3.14'}},nbformat=4,nbformat_minor=5),indent=1)+'\n')
 
 
 if __name__ == '__main__':

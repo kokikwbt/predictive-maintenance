@@ -52,7 +52,7 @@ def notebook(cells: List[Dict[str, object]]) -> Dict[str, object]:
                 "language": "python",
                 "name": "pdmdata",
             },
-            "language_info": {"name": "python", "version": "3.11"},
+            "language_info": {"name": "python", "version": "3.14"},
         },
         "nbformat": 4,
         "nbformat_minor": 5,

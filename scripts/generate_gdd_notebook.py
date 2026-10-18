@@ -167,7 +167,7 @@ scheme. Do not treat state ID 0 as normal and all other state IDs as faults.
 - This notebook explores one recording, not independent experimental replicates.
 ''')
     path=ROOT/'notebooks/datasets/gdd.ipynb'
-    path.write_text(json.dumps(dict(cells=cells,metadata={'kernelspec':{'display_name':'Python (pdmdata)','language':'python','name':'pdmdata'},'language_info':{'name':'python','version':'3.11'}},nbformat=4,nbformat_minor=5),indent=1)+'\n')
+    path.write_text(json.dumps(dict(cells=cells,metadata={'kernelspec':{'display_name':'Python (pdmdata)','language':'python','name':'pdmdata'},'language_info':{'name':'python','version':'3.14'}},nbformat=4,nbformat_minor=5),indent=1)+'\n')
 
 if __name__ == '__main__':
     main()

@@ -12,7 +12,7 @@ if ! command -v uv >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "Synchronizing the locked Python 3.11 environment"
+echo "Synchronizing the locked Python 3.14 environment"
 # default-groups include dev tooling and Jupyter (see pyproject.toml).
 uv sync --locked
 
@@ -24,6 +24,7 @@ uv run --locked python -m ipykernel install \
 
 echo
 echo "Setup complete."
+echo "Verify: uv run --locked python -c \"import pdmdata; pdmdata.summary()\""
 echo "Run tests: uv run --locked python -m unittest discover -s tests -q"
-echo "Download a dataset when needed: uv run --locked python scripts/download.py hydsys"
+echo "Download a dataset when needed: uv run --locked python scripts/download.py cmapss"
 echo "Start JupyterLab with: uv run --locked jupyter lab"

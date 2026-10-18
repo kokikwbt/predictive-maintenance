@@ -52,7 +52,7 @@ and matched the provider archive checksum and an independent CSV reader.
         "cells": cells,
         "metadata": {
             "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
-            "language_info": {"name": "python", "version": "3.11"},
+            "language_info": {"name": "python", "version": "3.14"},
         },
         "nbformat": 4,
         "nbformat_minor": 4,
