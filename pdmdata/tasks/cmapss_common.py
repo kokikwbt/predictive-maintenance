@@ -90,10 +90,10 @@ def last_rows_per_entity(
 
 
 def align_predictions(
-    units: Sequence[int],
+    units: Sequence[int | str],
     predictions: Sequence[float] | dict,
 ) -> np.ndarray:
-    """Align sequence or unit-keyed predictions to ``units`` order."""
+    """Align sequence or entity-keyed predictions to ``units`` order."""
     if isinstance(predictions, dict):
         try:
             return np.asarray(
@@ -101,12 +101,12 @@ def align_predictions(
             )
         except KeyError as error:
             raise KeyError(
-                "Missing prediction for test unit {}".format(error.args[0])
+                "Missing prediction for test entity {}".format(error.args[0])
             ) from error
     pred = np.asarray(predictions, dtype=float)
     if pred.shape != (len(units),):
         raise ValueError(
-            "Expected {} predictions for test units, got {}".format(
+            "Expected {} predictions for test entities, got {}".format(
                 len(units), pred.size
             )
         )

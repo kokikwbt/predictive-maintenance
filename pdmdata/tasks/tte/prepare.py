@@ -42,25 +42,42 @@ EVENT_OBSERVED_COLUMN = "event_observed"
 TARGET_COLUMN = TIME_TO_EVENT_COLUMN
 
 
+def _as_entity(value: object) -> int | str:
+    """Normalize an entity id to ``int`` or ``str``."""
+    if isinstance(value, bool) or value is None:
+        raise ValueError("entity ids must be int or str")
+    if isinstance(value, str):
+        if not value:
+            raise ValueError("entity ids must be non-empty strings")
+        return value
+    if isinstance(value, (int, np.integer)):
+        return int(value)
+    raise ValueError("entity ids must be int or str")
+
+
 def split_entities(
-    entities: Sequence[int],
+    entities: Sequence[int | str],
     *,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_entities: Optional[Sequence[int]] = None,
-) -> Tuple[Tuple[int, ...], Tuple[int, ...]]:
+    validation_entities: Optional[Sequence[int | str]] = None,
+) -> Tuple[Tuple[int | str, ...], Tuple[int | str, ...]]:
     """Split entity IDs into train and validation groups.
 
-    When ``validation_entities`` is given it is used as the hold-out set and
-    must be a subset of ``entities``. Otherwise entities are shuffled with
-    ``random_state`` and the last fraction is held out. A zero fraction keeps
-    every entity in train and returns an empty validation tuple.
+    Entity ids may be integers (C-MAPSS / N-CMAPSS units) or strings
+    (XJTU-SY bearings). When ``validation_entities`` is given it is used as
+    the hold-out set and must be a subset of ``entities``. Otherwise entities
+    are shuffled with ``random_state`` and the last fraction is held out. A
+    zero fraction keeps every entity in train and returns an empty validation
+    tuple.
     """
-    unique = tuple(sorted({int(value) for value in entities}))
+    unique = tuple(sorted({_as_entity(value) for value in entities}))
     if not unique:
         raise ValueError("entities must be non-empty")
     if validation_entities is not None:
-        holdout = tuple(sorted({int(value) for value in validation_entities}))
+        holdout = tuple(
+            sorted({_as_entity(value) for value in validation_entities})
+        )
         unknown = set(holdout) - set(unique)
         if unknown:
             raise ValueError(
@@ -90,13 +107,15 @@ def split_entities(
 
 def filter_entities(
     frame: pl.DataFrame,
-    entities: Sequence[int],
+    entities: Sequence[int | str],
     entity_column: str,
 ) -> pl.DataFrame:
     """Return rows whose entity ID is in ``entities``, preserving order."""
     if not entities:
         return frame.clear()
-    return frame.filter(pl.col(entity_column).is_in(list(entities)))
+    return frame.filter(
+        pl.col(entity_column).is_in([_as_entity(value) for value in entities])
+    )
 
 
 @dataclass(frozen=True)
