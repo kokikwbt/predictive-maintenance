@@ -31,6 +31,11 @@ from pdmdata.tasks.tte.ncmapss import (
     evaluate_test_predictions as evaluate_ncmapss_test_predictions,
     prepare_ncmapss,
 )
+from pdmdata.tasks.tte.xjtu_sy import (
+    XjtuSyTteBundle,
+    evaluate_test_predictions as evaluate_xjtu_sy_test_predictions,
+    prepare_xjtu_sy,
+)
 
 __all__ = [
     "HigsSpec", "higs_corrupt",
@@ -44,6 +49,7 @@ __all__ = [
     "sequence_provenance",
     "CmapssTteBundle",
     "NcmapssTteBundle",
+    "XjtuSyTteBundle",
     "ENTITY_COLUMN",
     "EVENT_OBSERVED_COLUMN",
     "TARGET_COLUMN",
@@ -51,8 +57,10 @@ __all__ = [
     "TIME_TO_EVENT_COLUMN",
     "evaluate_test_predictions",
     "evaluate_ncmapss_test_predictions",
+    "evaluate_xjtu_sy_test_predictions",
     "filter_entities",
     "prepare_cmapss",
     "prepare_ncmapss",
+    "prepare_xjtu_sy",
     "split_entities",
 ]

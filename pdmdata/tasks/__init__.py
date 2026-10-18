@@ -5,17 +5,21 @@ from pdmdata.tasks.metrics import nasa_score, regression_metrics
 from pdmdata.tasks.rul import (
     CmapssRulBundle,
     NcmapssRulBundle,
+    XjtuSyRulBundle,
     evaluate_test_predictions as evaluate_rul_test_predictions,
     prepare_cmapss as prepare_cmapss_rul,
     prepare_ncmapss as prepare_ncmapss_rul,
+    prepare_xjtu_sy as prepare_xjtu_sy_rul,
 )
 from pdmdata.tasks.taxonomy import SUPPORT_LEVELS, TASK_BY_ID, TASKS
 from pdmdata.tasks.tte import (
     CmapssTteBundle,
     NcmapssTteBundle,
+    XjtuSyTteBundle,
     evaluate_test_predictions as evaluate_tte_test_predictions,
     prepare_cmapss as prepare_cmapss_tte,
     prepare_ncmapss as prepare_ncmapss_tte,
+    prepare_xjtu_sy as prepare_xjtu_sy_tte,
 )
 from pdmdata.tasks.types import TabularSplit
 
@@ -32,6 +36,8 @@ __all__ = [
     "CmapssTteBundle",
     "NcmapssRulBundle",
     "NcmapssTteBundle",
+    "XjtuSyRulBundle",
+    "XjtuSyTteBundle",
     "evaluate_rul_test_predictions",
     "evaluate_test_predictions",
     "evaluate_tte_test_predictions",
@@ -41,6 +47,8 @@ __all__ = [
     "prepare_cmapss_tte",
     "prepare_ncmapss_rul",
     "prepare_ncmapss_tte",
+    "prepare_xjtu_sy_rul",
+    "prepare_xjtu_sy_tte",
     "regression_metrics",
     "rul",
     "tte",
