@@ -40,6 +40,13 @@ class OyicdTest(unittest.TestCase):
                 listed = loader.inventory(mode=1)
                 self.assertEqual(listed.height, 1)
                 self.assertEqual(listed["copies"].to_list(), [2])
+                self.assertEqual(loader.inventory(mode=2).height, 0)
+                broken = root / "oyicd" / "extracted" / "01-05T000000_001_mode2.csv"
+                broken.write_text("not,an,oyicd,file\n")
+                self.assertEqual(loader.inventory(mode=1).height, 1)
+                with self.assertRaises(ValueError):
+                    loader.inventory()
+                broken.unlink()
                 with self.assertRaisesRegex(ValueError, "OYICD filename"):
                     pdmdata.load("oyicd", recording="bad.csv")
                 with self.assertRaisesRegex(ValueError, "month"):

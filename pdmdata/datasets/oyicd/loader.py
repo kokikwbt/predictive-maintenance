@@ -20,6 +20,13 @@ SENSOR_COLUMNS = [
 ]
 _PATTERN = re.compile(r"(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T([0-2][0-9][0-5][0-9][0-5][0-9])_(\d+)_mode([1-8])\.csv")
 
+_INVENTORY_SCHEMA = {
+    "filename": pl.String, "month": pl.Int64, "mode": pl.Int64,
+    "samples": pl.Int64, "copies": pl.Int64, "span_s": pl.Float64,
+    "median_step_s": pl.Float64, "min_step_s": pl.Float64,
+    "max_step_s": pl.Float64, "bytes": pl.Int64, "path": pl.String,
+}
+
 
 def _metadata(recording):
     match = _PATTERN.fullmatch(recording)
@@ -87,6 +94,10 @@ def inventory(*, month: int | None = None, mode: int | None = None) -> pl.DataFr
     rows = []
     for filename, paths in sorted(groups.items()):
         metadata = _metadata(filename)
+        if month is not None and metadata["month"] != month:
+            continue
+        if mode is not None and metadata["mode"] != mode:
+            continue
         path = _resolve(paths)
         frame = _read(path)
         delta = frame["timestamp"].diff().drop_nulls()
@@ -95,9 +106,4 @@ def inventory(*, month: int | None = None, mode: int | None = None) -> pl.DataFr
                      "median_step_s": delta.median(), "min_step_s": delta.min(),
                      "max_step_s": delta.max(), "bytes": path.stat().st_size,
                      "path": str(path)})
-    result = pl.DataFrame(rows)
-    if month is not None:
-        result = result.filter(pl.col("month") == month)
-    if mode is not None:
-        result = result.filter(pl.col("mode") == mode)
-    return result
+    return pl.DataFrame(rows, schema=_INVENTORY_SCHEMA)
