@@ -15,7 +15,7 @@ from pdmdata.tasks.cmapss_common import (
     summary_row,
 )
 from pdmdata.tasks.metrics import regression_metrics
-from pdmdata.tasks.tte import (
+from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
     filter_entities,
