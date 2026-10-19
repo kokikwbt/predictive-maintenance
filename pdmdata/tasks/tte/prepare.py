@@ -21,6 +21,7 @@ from pdmdata.datasets.cmapss.loader import SUBSETS
 from pdmdata.tasks.cmapss_common import (
     CMAPSS_ENTITY_COLUMN,
     CMAPSS_TIME_COLUMN,
+    failure_and_censoring_durations,
     feature_columns,
     label_failed_rows,
     last_rows_per_entity,
@@ -92,27 +93,9 @@ class CmapssTteBundle:
         (``event_observed=False``). Official remaining-life offsets are not
         added to test durations; use ``test_eval_split()`` for that protocol.
         """
-        train_raw = load_cmapss(self.subset, "train", with_rul=False)
-        test_raw = load_cmapss(self.subset, "test", with_rul=False)
-        failed = (
-            train_raw.group_by(CMAPSS_ENTITY_COLUMN)
-            .agg(pl.col(CMAPSS_TIME_COLUMN).max().alias("duration"))
-            .with_columns(
-                pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-                pl.lit("train").alias("cohort"),
-            )
-            .sort(CMAPSS_ENTITY_COLUMN)
+        return failure_and_censoring_durations(
+            [self.train, self.validation], self.test, failed_cohort="train"
         )
-        censored = (
-            test_raw.group_by(CMAPSS_ENTITY_COLUMN)
-            .agg(pl.col(CMAPSS_TIME_COLUMN).max().alias("duration"))
-            .with_columns(
-                pl.lit(False).alias(EVENT_OBSERVED_COLUMN),
-                pl.lit("test").alias("cohort"),
-            )
-            .sort(CMAPSS_ENTITY_COLUMN)
-        )
-        return pl.concat([failed, censored], how="vertical_relaxed")
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared row-level splits."""

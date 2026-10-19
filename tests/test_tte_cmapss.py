@@ -84,7 +84,10 @@ class TteCmapssTest(TestCase):
                 metrics = eval_cmapss(bundle, [10, 20])
                 self.assertEqual(metrics["mae"], 0.0)
 
-                entities = bundle.entity_table()
+                with patch.object(
+                    cmapss_loader, "find_raw_file", side_effect=AssertionError
+                ):
+                    entities = bundle.entity_table()
                 self.assertEqual(entities.height, 6)
                 train_rows = entities.filter(pl.col("cohort") == "train")
                 test_rows = entities.filter(pl.col("cohort") == "test")

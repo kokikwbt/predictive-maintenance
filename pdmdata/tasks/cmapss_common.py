@@ -113,6 +113,47 @@ def label_failed_rows(
     return apply_time_cap(labeled, time_cap, TIME_TO_EVENT_COLUMN)
 
 
+def failure_and_censoring_durations(
+    failed: Sequence[TabularSplit | None],
+    censored: TabularSplit,
+    *,
+    failed_cohort: str,
+) -> pl.DataFrame:
+    """One row per entity with its last time index as ``duration``.
+
+    ``failed`` splits hold complete run-to-failure entities (observed
+    events); ``censored`` holds right-censored test entities. Splits must
+    keep every row of their entities.
+    """
+
+    def durations(
+        splits: list[TabularSplit], observed: bool, cohort: str
+    ) -> pl.DataFrame:
+        entity, time = splits[0].entity_column, splits[0].time_column
+        return (
+            pl.concat([split.frame.select(entity, time) for split in splits])
+            .group_by(entity)
+            .agg(pl.col(time).max().alias("duration"))
+            .with_columns(
+                pl.lit(observed).alias(EVENT_OBSERVED_COLUMN),
+                pl.lit(cohort).alias("cohort"),
+            )
+            .sort(entity)
+        )
+
+    return pl.concat(
+        [
+            durations(
+                [split for split in failed if split is not None],
+                True,
+                failed_cohort,
+            ),
+            durations([censored], False, "test"),
+        ],
+        how="vertical_relaxed",
+    )
+
+
 def last_rows_per_entity(
     frame: pl.DataFrame,
     *,

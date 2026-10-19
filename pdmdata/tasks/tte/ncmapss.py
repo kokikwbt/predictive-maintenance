@@ -10,6 +10,7 @@ import polars as pl
 from pdmdata.datasets.ncmapss import load as load_ncmapss
 from pdmdata.datasets.ncmapss.loader import VARIANTS
 from pdmdata.tasks.cmapss_common import (
+    failure_and_censoring_durations,
     label_failed_rows,
     last_rows_per_entity,
     summary_frame,
@@ -73,27 +74,9 @@ class NcmapssTteBundle:
 
     def entity_table(self) -> pl.DataFrame:
         """One row per unit with duration and censoring indicator."""
-        train_raw = load_ncmapss(self.variant, "dev", with_rul=False)
-        test_raw = load_ncmapss(self.variant, "test", with_rul=False)
-        failed = (
-            train_raw.group_by(ENTITY_COLUMN)
-            .agg(pl.col(TIME_COLUMN).max().alias("duration"))
-            .with_columns(
-                pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-                pl.lit("dev").alias("cohort"),
-            )
-            .sort(ENTITY_COLUMN)
+        return failure_and_censoring_durations(
+            [self.train, self.validation], self.test, failed_cohort="dev"
         )
-        censored = (
-            test_raw.group_by(ENTITY_COLUMN)
-            .agg(pl.col(TIME_COLUMN).max().alias("duration"))
-            .with_columns(
-                pl.lit(False).alias(EVENT_OBSERVED_COLUMN),
-                pl.lit("test").alias("cohort"),
-            )
-            .sort(ENTITY_COLUMN)
-        )
-        return pl.concat([failed, censored], how="vertical_relaxed")
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared row-level splits."""

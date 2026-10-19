@@ -35,7 +35,16 @@ class TteNcmapssTest(TestCase):
                 self.assertTrue(
                     bundle.train.frame[EVENT_OBSERVED_COLUMN].all()
                 )
-                entities = bundle.entity_table()
+                with patch.object(
+                    ncmapss_loader, "_path", side_effect=AssertionError
+                ):
+                    entities = bundle.entity_table()
+                self.assertEqual(
+                    entities["unit_number"].to_list(), [1, 2, 3, 4, 10, 11]
+                )
+                self.assertEqual(
+                    entities["duration"].to_list(), [4, 3, 5, 2, 3, 2]
+                )
                 self.assertEqual(
                     set(entities["cohort"].to_list()), {"dev", "test"}
                 )
