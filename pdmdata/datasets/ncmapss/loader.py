@@ -124,7 +124,7 @@ def load(
         aux = read("A")
         flight = read("W")
         sensors = read("X_s")
-        rul = read("Y").reshape(-1)
+        rul = read("Y").reshape(-1) if with_rul else None
         flight_names = _decode_names(handle["W_var"][()])
         sensor_names = _decode_names(handle["X_s_var"][()])
         virtual = None
@@ -177,10 +177,11 @@ def inventory(variant: str | None = None) -> pl.DataFrame:
         except FileNotFoundError:
             continue
         with h5py.File(path, "r") as handle:
+            column = _decode_names(handle["A_var"][()]).index("unit")
             for split in SPLITS:
-                aux = np.asarray(handle[f"A_{split}"])
+                aux = handle[f"A_{split}"]
                 rul = np.asarray(handle[f"Y_{split}"]).reshape(-1)
-                units = np.unique(aux[:, 0])
+                units = np.unique(aux[:, column])
                 rows.append(
                     {
                         "variant": name,

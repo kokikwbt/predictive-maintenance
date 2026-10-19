@@ -81,3 +81,34 @@ class NcmapssTest(TestCase):
                 rows = ncmapss_loader._unit_rows(handle["A"], 0, 1)
                 self.assertEqual(rows.tolist(), [0, 1, 3])
                 self.assertIsNone(ncmapss_loader._unit_rows(handle["A"], 0, 9))
+
+    def test_inventory_uses_named_unit_column(self):
+        with TemporaryDirectory() as temporary:
+            path = Path(temporary) / "N-CMAPSS_DS01-005.h5"
+            write_tiny_fixture(path)
+            with h5py.File(path, "r+") as handle:
+                for split in ("dev", "test"):
+                    aux = handle[f"A_{split}"][()]
+                    aux[:, 1] = np.arange(1, len(aux) + 1)
+                    del handle[f"A_{split}"]
+                    handle[f"A_{split}"] = aux[:, [1, 0, 2, 3]]
+                del handle["A_var"]
+                handle["A_var"] = np.array([b"cycle", b"unit", b"Fc", b"hs"])
+            with patch.object(ncmapss_loader, "_path", return_value=path):
+                summary = inventory("ds01")
+                self.assertEqual(
+                    summary.filter(pl.col("split") == "dev")["units"][0],
+                    len(units("ds01", "dev")),
+                )
+                self.assertEqual(load("ds01", "dev", unit=1).height, 2)
+
+    def test_load_without_rul_does_not_need_targets(self):
+        with TemporaryDirectory() as temporary:
+            path = Path(temporary) / "N-CMAPSS_DS01-005.h5"
+            write_tiny_fixture(path)
+            with h5py.File(path, "r+") as handle:
+                del handle["Y_dev"]
+            with patch.object(ncmapss_loader, "_path", return_value=path):
+                frame = load("ds01", "dev", with_rul=False)
+            self.assertEqual(frame.height, 3)
+            self.assertNotIn("RUL", frame.columns)
