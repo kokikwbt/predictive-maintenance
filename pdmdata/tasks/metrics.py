@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Sequence
+from collections.abc import Sequence
 
 import numpy as np
 
@@ -27,7 +27,7 @@ def nasa_score(y_true: Sequence[float], y_pred: Sequence[float]) -> float:
 def regression_metrics(
     y_true: Sequence[float],
     y_pred: Sequence[float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Return MAE, RMSE, and the NASA PHM score."""
     true = np.asarray(y_true, dtype=float)
     pred = np.asarray(y_pred, dtype=float)

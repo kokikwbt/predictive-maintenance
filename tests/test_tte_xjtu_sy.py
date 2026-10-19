@@ -5,6 +5,8 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
 
+from support_xjtu_sy import write_bearing
+
 from pdmdata.datasets.xjtu_sy import loader as xjtu_loader
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
@@ -12,7 +14,6 @@ from pdmdata.tasks.tte import (
     eval_xjtu_sy,
     prepare_xjtu_sy,
 )
-from support_xjtu_sy import write_bearing
 
 
 class TteXjtuSyTest(TestCase):

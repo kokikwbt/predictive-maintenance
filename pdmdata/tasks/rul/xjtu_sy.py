@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import polars as pl
 
@@ -22,7 +22,6 @@ from pdmdata.tasks.splits import (
     split_entities,
 )
 from pdmdata.tasks.types import TabularSplit
-
 
 ENTITY_COLUMN = "bearing"
 TIME_COLUMN = "cycle"
@@ -44,11 +43,11 @@ class XjtuSyRulBundle:
     every snapshot so scoring is not limited to the trivial final ``RUL=0``.
     """
 
-    condition: Optional[str]
-    feature_columns: Tuple[str, ...]
-    rul_cap: Optional[int]
+    condition: str | None
+    feature_columns: tuple[str, ...]
+    rul_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_rul: pl.DataFrame
 
@@ -86,15 +85,15 @@ class XjtuSyRulBundle:
 def prepare_xjtu_sy(
     *,
     condition: str | None = None,
-    bearings: Optional[Sequence[str]] = None,
-    test_bearings: Optional[Sequence[str]] = None,
+    bearings: Sequence[str] | None = None,
+    test_bearings: Sequence[str] | None = None,
     test_fraction: float = 0.2,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_bearings: Optional[Sequence[str]] = None,
-    rul_cap: Optional[int] = None,
+    validation_bearings: Sequence[str] | None = None,
+    rul_cap: int | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
 ) -> XjtuSyRulBundle:
     """Build an XJTU-SY RUL experiment bundle.
 
@@ -144,7 +143,7 @@ def prepare_xjtu_sy(
     )
 
     train_frame = filter_entities(labeled, train_ids, ENTITY_COLUMN)
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_ids:
         validation_split = TabularSplit(
             frame=filter_entities(labeled, validation_ids, ENTITY_COLUMN),
@@ -189,7 +188,7 @@ def prepare_xjtu_sy(
 def eval_xjtu_sy(
     bundle: XjtuSyRulBundle,
     predictions: Sequence[float] | Mapping[str, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on the held-out XJTU-SY trajectories.
 
     A sequence must align with ``test_eval_split()`` row order. A mapping
@@ -207,34 +206,32 @@ def eval_xjtu_sy(
             )
         except KeyError as error:
             raise KeyError(
-                "Missing prediction for test bearing {}".format(error.args[0])
+                f"Missing prediction for test bearing {error.args[0]}"
             ) from error
     else:
         pred = np.asarray(predictions, dtype=float)
         if pred.shape != (len(entities),):
             raise ValueError(
-                "Expected {} predictions for test rows, got {}".format(
-                    len(entities), pred.size
-                )
+                f"Expected {len(entities)} predictions for test rows, got {pred.size}"
             )
     return regression_metrics(actual, pred)
 
 
 def _select_bearings(
     *,
-    bearings: Optional[Sequence[str]],
-    condition: Optional[str],
-) -> Tuple[str, ...]:
+    bearings: Sequence[str] | None,
+    condition: str | None,
+) -> tuple[str, ...]:
     available = available_bearings()
     if bearings is not None:
         selected = tuple(bearings)
         unknown = [name for name in selected if name not in BEARING_INFO]
         if unknown:
-            raise ValueError("Unknown bearings: {}".format(unknown))
+            raise ValueError(f"Unknown bearings: {unknown}")
         missing = [name for name in selected if name not in available]
         if missing:
             raise FileNotFoundError(
-                "Bearings not available locally: {}".format(missing)
+                f"Bearings not available locally: {missing}"
             )
     else:
         selected = tuple(
@@ -255,7 +252,7 @@ def _select_bearings(
         ]
         if bad:
             raise ValueError(
-                "Bearings outside condition {!r}: {}".format(condition, bad)
+                f"Bearings outside condition {condition!r}: {bad}"
             )
     return selected
 
@@ -263,16 +260,16 @@ def _select_bearings(
 def _split_test(
     bearings: Sequence[str],
     *,
-    test_bearings: Optional[Sequence[str]],
+    test_bearings: Sequence[str] | None,
     test_fraction: float,
     random_state: int,
-) -> Tuple[Tuple[str, ...], Tuple[str, ...]]:
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
     if test_bearings is not None:
         test_ids = tuple(sorted({str(name) for name in test_bearings}))
         unknown = set(test_ids) - set(bearings)
         if unknown:
             raise ValueError(
-                "test_bearings not in selected set: {}".format(sorted(unknown))
+                f"test_bearings not in selected set: {sorted(unknown)}"
             )
         if set(test_ids) == set(bearings):
             raise ValueError(
@@ -291,7 +288,7 @@ def _split_test(
     return train_pool, test_ids
 
 
-def _label(frame: pl.DataFrame, *, rul_cap: Optional[int]) -> pl.DataFrame:
+def _label(frame: pl.DataFrame, *, rul_cap: int | None) -> pl.DataFrame:
     labeled = frame.with_columns(
         pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN),
         pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
@@ -305,16 +302,16 @@ def _label(frame: pl.DataFrame, *, rul_cap: Optional[int]) -> pl.DataFrame:
 def _features(
     train: pl.DataFrame,
     *,
-    feature_columns: Optional[Sequence[str]],
+    feature_columns: Sequence[str] | None,
     drop_constant_features: bool,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     columns = (
         tuple(feature_columns) if feature_columns is not None
         else DEFAULT_FEATURES
     )
     missing = [name for name in columns if name not in train.columns]
     if missing:
-        raise ValueError("Missing feature columns: {}".format(missing))
+        raise ValueError(f"Missing feature columns: {missing}")
     if drop_constant_features:
         columns = drop_constant_columns(train, columns)
         if not columns:

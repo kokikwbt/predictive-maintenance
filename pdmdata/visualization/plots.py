@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import math
-from typing import Any, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 import polars as pl
@@ -11,7 +11,7 @@ import polars as pl
 from .models import DistributionSpec, EventTimelineSpec, TimeSeriesSpec
 
 
-def _require_columns(frame: pl.DataFrame, *columns: Optional[str]) -> None:
+def _require_columns(frame: pl.DataFrame, *columns: str | None) -> None:
     missing = [column for column in columns if column and column not in frame.columns]
     if missing:
         raise ValueError("Missing visualization columns: {}".format(", ".join(missing)))
@@ -30,7 +30,7 @@ def plot_time_series(
     frame: pl.DataFrame,
     spec: TimeSeriesSpec,
     *,
-    entity: Optional[Any] = None,
+    entity: Any | None = None,
 ) -> go.Figure:
     """Build an interactive line figure from a time-series specification."""
     _require_columns(
@@ -54,12 +54,12 @@ def plot_time_series(
                 y=selected[axis.column].to_list(),
                 mode="lines",
                 name=axis.title,
-                hovertemplate="%{{x}}<br>%{{y}}<extra>{}</extra>".format(axis.title),
+                hovertemplate=f"%{{x}}<br>%{{y}}<extra>{axis.title}</extra>",
             )
         )
     title = spec.title
     if spec.entity_column is not None and entity is not None:
-        title = "{} — {} {}".format(title, spec.entity_column, entity)
+        title = f"{title} — {spec.entity_column} {entity}"
     figure.update_layout(
         title=title,
         xaxis_title=spec.x.title,
@@ -75,7 +75,7 @@ def plot_large_time_series(
     frame: pl.DataFrame | pl.LazyFrame,
     spec: TimeSeriesSpec,
     *,
-    entity: Optional[Any] = None,
+    entity: Any | None = None,
 ) -> go.Figure:
     """Plot a bounded projection without collecting an entire large dataset."""
     if isinstance(frame, pl.DataFrame):
@@ -130,7 +130,7 @@ def plot_event_timeline(
     frame: pl.DataFrame,
     spec: EventTimelineSpec,
     *,
-    entity: Optional[Any] = None,
+    entity: Any | None = None,
 ) -> go.Figure:
     """Build an interactive categorical event timeline."""
     _require_columns(

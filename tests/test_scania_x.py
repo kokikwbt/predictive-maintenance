@@ -20,7 +20,6 @@ from pdmdata.datasets.scania_x import (
 )
 from pdmdata.datasets.scania_x.viz import plot_histogram_evolution
 
-
 HEADER = ["vehicle_id", "time_step", *FEATURES]
 
 

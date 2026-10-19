@@ -1,9 +1,10 @@
 """PPD source layout and dataset-specific loading."""
 
 from __future__ import annotations
-import polars as pl
-from pdmdata.io import find_raw_file
 
+import polars as pl
+
+from pdmdata.io import find_raw_file
 
 SEQUENCE_FILES = {
     7: ("C7-1", "C7-2"),

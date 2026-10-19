@@ -2,7 +2,6 @@
 
 from pdmdata.visualization.models import AxisSpec, DistributionSpec
 
-
 PLOTS = {
     "condition_distribution": DistributionSpec(
         title="Gearbox vibration by condition",
@@ -21,6 +20,7 @@ def plot_waveforms(healthy, broken, *, start=0, stop=2048):
     """
     import matplotlib.pyplot as plt
     import numpy as np
+
     from .loader import SENSOR_COLUMNS
 
     if not 0 <= start < stop <= min(healthy.height, broken.height):
@@ -56,6 +56,7 @@ def plot_rms(stats):
     """Plot per-recording RMS summaries against load, without implying continuity."""
     import matplotlib.pyplot as plt
     import polars as pl
+
     from .loader import SENSOR_COLUMNS
 
     figure, axes = plt.subplots(2, 2, figsize=(10, 6), layout="constrained")
@@ -77,6 +78,7 @@ def plot_correlations(healthy, broken):
     """Compare marginal sensor correlations; these are not precision matrices."""
     import matplotlib.pyplot as plt
     import numpy as np
+
     from .loader import SENSOR_COLUMNS
 
     figure, axes = plt.subplots(1, 2, figsize=(10, 4), layout="constrained")

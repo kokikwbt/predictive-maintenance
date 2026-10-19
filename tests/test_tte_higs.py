@@ -1,5 +1,7 @@
 import unittest
+
 import numpy as np
+
 from pdmdata.tasks.tte import HigsSpec, higs_corrupt
 
 

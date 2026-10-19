@@ -9,8 +9,12 @@ import polars as pl
 
 from pdmdata.datasets.cmapss import loader as cmapss_loader
 from pdmdata.tasks.tte import (
-    CmapssSequenceSpec, build_sequence_samples, common_windows,
-    complete_sequences, export_cmapss_sequences, export_derived_windows,
+    CmapssSequenceSpec,
+    build_sequence_samples,
+    common_windows,
+    complete_sequences,
+    export_cmapss_sequences,
+    export_derived_windows,
     prepare_cmapss_sequences,
 )
 
@@ -32,7 +36,8 @@ def write_fixture(root):
 class SequenceTest(TestCase):
     def test_train_scaling_split_final_endpoint_and_short_test(self):
         with TemporaryDirectory() as directory:
-            root = Path(directory); write_fixture(root)
+            root = Path(directory)
+            write_fixture(root)
             with patch.object(cmapss_loader, "find_raw_file", side_effect=lambda _, name: root / name):
                 spec = CmapssSequenceSpec(subset="FD001", feature_columns=["sensor_2", "sensor_3"],
                     seq_len=3, rul_cap=4, validation_units=[3], train_stride=3, validation_stride=3)
@@ -62,7 +67,10 @@ class SequenceTest(TestCase):
 
     def test_derivation_hashes_same_endpoint_and_no_test_access(self):
         with TemporaryDirectory() as directory:
-            root = Path(directory); raw = root / "cmapss"; raw.mkdir(); write_fixture(raw)
+            root = Path(directory)
+            raw = root / "cmapss"
+            raw.mkdir()
+            write_fixture(raw)
             spec = CmapssSequenceSpec(subset="FD001", feature_columns=["sensor_2"],
                 seq_len=3, rul_cap=4, validation_units=[3], train_stride=2, validation_stride=2)
             with patch.object(cmapss_loader, "find_raw_file", side_effect=lambda _, name: raw / name), \
@@ -90,7 +98,8 @@ class SequenceTest(TestCase):
 
     def test_unclipped_labels_and_no_validation(self):
         with TemporaryDirectory() as directory:
-            root = Path(directory); write_fixture(root)
+            root = Path(directory)
+            write_fixture(root)
             with patch.object(cmapss_loader, "find_raw_file", side_effect=lambda _, name: root / name):
                 arrays, _ = prepare_cmapss_sequences(CmapssSequenceSpec(subset="FD001",
                     feature_columns=["sensor_2"], rul_cap=None, seq_len=3, validation_fraction=0))
@@ -115,7 +124,8 @@ class SequenceTest(TestCase):
 
     def test_target_and_entity_columns_cannot_be_requested_as_features(self):
         with TemporaryDirectory() as directory:
-            root = Path(directory); write_fixture(root)
+            root = Path(directory)
+            write_fixture(root)
             with patch.object(cmapss_loader, "find_raw_file", side_effect=lambda _, name: root / name):
                 for name in ("time_to_event", "unit_number", "cycle"):
                     with self.assertRaisesRegex(ValueError, "candidate sensors/settings"):
@@ -123,7 +133,8 @@ class SequenceTest(TestCase):
 
     def test_outer_split_and_official_test_is_never_read(self):
         with TemporaryDirectory() as directory:
-            root = Path(directory); write_fixture(root)
+            root = Path(directory)
+            write_fixture(root)
             def training_only(_, name):
                 if name != "train_FD001.txt":
                     raise AssertionError("official test must not be read")

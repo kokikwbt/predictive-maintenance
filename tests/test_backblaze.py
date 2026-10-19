@@ -1,12 +1,13 @@
 import os
-from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
 from datetime import date, timedelta
+from pathlib import Path
+from unittest.mock import patch
 from zipfile import ZipFile
 
 import polars as pl
+
 import pdmdata
 from pdmdata.datasets.backblaze import inventory, verify
 from pdmdata.datasets.backblaze.viz import plot_waveforms
@@ -70,13 +71,17 @@ class BackblazeTest(unittest.TestCase):
             (self.directory / f'{day}.csv').write_text(self.header + f'{day},A,M,100,0,1\n')
         archive = self.directory.parent / 'data_Q1_2025.zip'
         with ZipFile(archive,'w') as zipped:
-            for p in self.directory.iterdir():zipped.write(p, p.name)
+            for p in self.directory.iterdir():
+                zipped.write(p, p.name)
         self.assertEqual(verify(check_archive=True)['rows'],90)
         p = self.directory / '2025-01-01.csv'
         original = p.read_bytes()
         p.write_bytes(original.replace(b',0,1',b',0,2'))
-        with self.assertRaisesRegex(ValueError,'integrity'):verify(check_archive=True)
+        with self.assertRaisesRegex(ValueError,'integrity'):
+            verify(check_archive=True)
         p.write_bytes(original.replace(b',0,1',b',2,1'))
-        with self.assertRaisesRegex(ValueError,'failure'):verify()
+        with self.assertRaisesRegex(ValueError,'failure'):
+            verify()
         p.unlink()
-        with self.assertRaisesRegex(ValueError,'coverage'):verify()
+        with self.assertRaisesRegex(ValueError,'coverage'):
+            verify()

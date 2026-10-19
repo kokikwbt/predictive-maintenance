@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Mapping, Optional, Sequence
 
 import polars as pl
 
@@ -25,7 +25,6 @@ from pdmdata.tasks.tte.prepare import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-
 ENTITY_COLUMN = "machineID"
 TIME_COLUMN = "datetime"
 _SENSOR_COLUMNS = ("volt", "rotate", "pressure", "vibration")
@@ -43,9 +42,9 @@ class MapmTteBundle:
     """
 
     feature_columns: tuple[str, ...]
-    time_cap: Optional[float]
+    time_cap: float | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_time: pl.DataFrame
     entity_records: pl.DataFrame
@@ -69,15 +68,15 @@ class MapmTteBundle:
 
 def prepare_mapm(
     *,
-    machines: Optional[Sequence[int]] = None,
-    test_machines: Optional[Sequence[int]] = None,
+    machines: Sequence[int] | None = None,
+    test_machines: Sequence[int] | None = None,
     test_fraction: float = 0.2,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_machines: Optional[Sequence[int]] = None,
-    time_cap: Optional[float] = None,
+    validation_machines: Sequence[int] | None = None,
+    time_cap: float | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
     include_age: bool = True,
 ) -> MapmTteBundle:
     """Build a MAPM time-to-event bundle from telemetry and failure tables.
@@ -150,7 +149,7 @@ def _default_features(frame: pl.DataFrame, include_age: bool) -> list[str]:
 
 def _label_telemetry(
     *,
-    machines: Optional[Sequence[int]],
+    machines: Sequence[int] | None,
     include_age: bool,
 ) -> pl.DataFrame:
     telemetry = load("telemetry")

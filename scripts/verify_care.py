@@ -2,14 +2,13 @@
 """Verify local CARE files and write an experiment inventory (no network)."""
 
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from pdmdata.datasets.care import verify
-
+from pdmdata.datasets.care import verify  # noqa: E402
 
 if __name__ == "__main__":
     print(json.dumps(verify(), indent=2))

@@ -1,6 +1,7 @@
 """Generate the OYICD exploration notebook without downloading data."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

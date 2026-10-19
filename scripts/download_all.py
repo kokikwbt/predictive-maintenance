@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Download the bulk-enabled datasets; exclude explicitly opt-in large datasets."""
 
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -15,7 +14,7 @@ def main() -> None:
     dataset_ids = bulk_downloads()
     print("Datasets: {}".format(", ".join(dataset_ids)))
     for index, dataset_id in enumerate(dataset_ids, start=1):
-        print("\n[{}/{}] Downloading {}".format(index, len(dataset_ids), dataset_id))
+        print(f"\n[{index}/{len(dataset_ids)}] Downloading {dataset_id}")
         result = download(dataset_id)
         print("Archive: {}".format(result["archive"]))
         print("SHA-256: {}".format(result["sha256"]))

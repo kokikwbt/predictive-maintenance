@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any
 
 from pdmdata.catalog import DATASETS_ROOT, PACKAGE_ROOT, load_catalog
-from pdmdata.tasks import TASKS, TASK_BY_ID
-
+from pdmdata.tasks import TASK_BY_ID, TASKS
 
 BEGIN = "<!-- BEGIN GENERATED METADATA -->"
 END = "<!-- END GENERATED METADATA -->"
@@ -26,10 +26,10 @@ def _yes_no(value: Any) -> str:
 
 
 def _link(label: str, url: str) -> str:
-    return "[{}]({})".format(label, url) if url else label
+    return f"[{label}]({url})" if url else label
 
 
-def render_metadata(metadata: Dict[str, Any]) -> str:
+def render_metadata(metadata: dict[str, Any]) -> str:
     """Render the generated section of a dataset README."""
     source = metadata["source"]
     license_info = metadata["license"]
@@ -134,7 +134,7 @@ def render_metadata(metadata: Dict[str, Any]) -> str:
     notes = metadata.get("notes", [])
     if notes:
         lines.extend(["", "## Usage notes", ""])
-        lines.extend("- {}".format(note) for note in notes)
+        lines.extend(f"- {note}" for note in notes)
 
     download = metadata.get("download")
     if download:
@@ -144,7 +144,7 @@ def render_metadata(metadata: Dict[str, Any]) -> str:
             metadata["id"]
         )
         if default_variant:
-            command += " --variant {}".format(default_variant)
+            command += f" --variant {default_variant}"
         lines.extend(
             [
                 "",
@@ -160,7 +160,7 @@ def render_metadata(metadata: Dict[str, Any]) -> str:
             lines.extend(
                 [
                     "Available variants: {}.".format(
-                        ", ".join("`{}`".format(item) for item in sorted(variants))
+                        ", ".join(f"`{item}`" for item in sorted(variants))
                     ),
                     "",
                     "Source page: {}".format(
@@ -211,7 +211,7 @@ def _replace_generated_section(text: str, generated: str) -> str:
     return generated + "\n\n" + text.lstrip()
 
 
-def update_dataset_readme(metadata: Dict[str, Any]) -> Path:
+def update_dataset_readme(metadata: dict[str, Any]) -> Path:
     """Insert or update the generated metadata section in one README."""
     directory = DATASETS_ROOT / metadata["id"]
     candidates = [directory / "README.md", directory / "readme.md"]
@@ -224,12 +224,12 @@ def update_dataset_readme(metadata: Dict[str, Any]) -> Path:
     return readme
 
 
-def update_all_readmes() -> List[Path]:
+def update_all_readmes() -> list[Path]:
     """Synchronize every dataset README from the catalog."""
     return [update_dataset_readme(metadata) for metadata in load_catalog()]
 
 
-def render_catalog_table(catalog: Iterable[Dict[str, Any]]) -> str:
+def render_catalog_table(catalog: Iterable[dict[str, Any]]) -> str:
     """Render the compact table used by the dataset catalog README."""
     lines = [
         "| Dataset | Data type | Tasks | License | Access |",
@@ -253,7 +253,7 @@ def render_catalog_table(catalog: Iterable[Dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def render_task_table(catalog: Iterable[Dict[str, Any]]) -> str:
+def render_task_table(catalog: Iterable[dict[str, Any]]) -> str:
     """Render dataset suitability for canonical predictive-maintenance tasks."""
     lines = [
         "| Dataset | {} |".format(
@@ -296,7 +296,7 @@ def render_task_definitions() -> str:
     return "\n".join(lines)
 
 
-def render_dataset_sources(catalog: Iterable[Dict[str, Any]]) -> str:
+def render_dataset_sources(catalog: Iterable[dict[str, Any]]) -> str:
     """Render source links from the same metadata used by dataset READMEs."""
     return "\n".join(
         "- " + _link(
@@ -353,7 +353,7 @@ def update_catalog_readme() -> Path:
         (SOURCES_BEGIN, SOURCES_END, sources_generated, "dataset-source"),
     ):
         if begin not in current or end not in current:
-            raise ValueError("{} does not contain {} markers".format(readme, label))
+            raise ValueError(f"{readme} does not contain {label} markers")
         before, remainder = current.split(begin, 1)
         _, after = remainder.split(end, 1)
         current = before.rstrip() + "\n\n" + generated + after

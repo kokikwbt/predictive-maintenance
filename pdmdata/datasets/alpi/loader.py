@@ -9,7 +9,6 @@ import polars as pl
 
 from pdmdata.io import find_raw_file
 
-
 SOURCE_COLUMNS = ("timestamp", "alarm", "serial")
 COLUMNS = ("source_row", *SOURCE_COLUMNS)
 

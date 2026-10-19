@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 import sys
-from typing import Any, Dict, Iterator, List, Optional, TextIO
-
+from collections.abc import Iterator
+from pathlib import Path
+from typing import Any, TextIO
 
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
 DATASETS_ROOT = PACKAGE_ROOT / "datasets"
@@ -20,24 +20,24 @@ def metadata_paths() -> Iterator[Path]:
     )
 
 
-def load_metadata(dataset_id: str) -> Dict[str, Any]:
+def load_metadata(dataset_id: str) -> dict[str, Any]:
     """Load metadata for one dataset."""
     path = DATASETS_ROOT / dataset_id / "metadata.json"
     if not path.is_file():
-        raise KeyError("Unknown dataset: {!r}".format(dataset_id))
+        raise KeyError(f"Unknown dataset: {dataset_id!r}")
     with path.open(encoding="utf-8") as stream:
         metadata = json.load(stream)
     if metadata.get("id") != dataset_id:
-        raise ValueError("{}: id must be {!r}".format(path, dataset_id))
+        raise ValueError(f"{path}: id must be {dataset_id!r}")
     return metadata
 
 
 def load_catalog(
     *,
-    task: Optional[str] = None,
-    available: Optional[bool] = None,
-    downloadable: Optional[bool] = None,
-) -> List[Dict[str, Any]]:
+    task: str | None = None,
+    available: bool | None = None,
+    downloadable: bool | None = None,
+) -> list[dict[str, Any]]:
     """Load all dataset metadata, optionally filtering common properties."""
     catalog = [load_metadata(path.parent.name) for path in metadata_paths()]
     if task is not None:
@@ -61,7 +61,7 @@ def load_catalog(
     return catalog
 
 
-def format_summary(*, downloadable: Optional[bool] = None) -> str:
+def format_summary(*, downloadable: bool | None = None) -> str:
     """Return a plain-text table summarizing the dataset catalog."""
     rows = []
     for item in load_catalog(downloadable=downloadable):
@@ -91,7 +91,7 @@ def format_summary(*, downloadable: Optional[bool] = None) -> str:
         for index in range(len(headers))
     ]
 
-    def render(row: List[str]) -> str:
+    def render(row: list[str]) -> str:
         return "  ".join(
             value.ljust(widths[index]) for index, value in enumerate(row)
         ).rstrip()
@@ -102,8 +102,8 @@ def format_summary(*, downloadable: Optional[bool] = None) -> str:
 
 def summary(
     *,
-    downloadable: Optional[bool] = None,
-    file: Optional[TextIO] = None,
+    downloadable: bool | None = None,
+    file: TextIO | None = None,
 ) -> None:
     """Print the available dataset catalog.
 

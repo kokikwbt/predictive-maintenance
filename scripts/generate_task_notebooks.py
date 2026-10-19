@@ -5,8 +5,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List
-
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "notebooks" / "tasks"
@@ -24,12 +22,12 @@ import polars as pl
 import pdmdata"""
 
 
-def markdown(source: str) -> Dict[str, object]:
+def markdown(source: str) -> dict[str, object]:
     """Create a Markdown notebook cell."""
     return {"cell_type": "markdown", "metadata": {}, "source": source.splitlines(True)}
 
 
-def code(source: str) -> Dict[str, object]:
+def code(source: str) -> dict[str, object]:
     """Create an empty-output code notebook cell."""
     return {
         "cell_type": "code",
@@ -40,10 +38,10 @@ def code(source: str) -> Dict[str, object]:
     }
 
 
-def notebook(cells: List[Dict[str, object]]) -> Dict[str, object]:
+def notebook(cells: list[dict[str, object]]) -> dict[str, object]:
     """Create a notebook document using the project kernel."""
     for index, cell in enumerate(cells):
-        cell["id"] = "cell-{:02d}".format(index)
+        cell["id"] = f"cell-{index:02d}"
     return {
         "cells": cells,
         "metadata": {

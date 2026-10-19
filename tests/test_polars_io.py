@@ -5,12 +5,12 @@ from pathlib import Path
 import polars as pl
 
 import pdmdata
-from pdmdata.io import read_whitespace
+from pdmdata.datasets.backblaze import loader as backblaze_loader
 from pdmdata.datasets.gfd import loader as gfd_loader
+from pdmdata.datasets.metropt2 import loader as metropt2_loader
 from pdmdata.datasets.oyicd import loader as oyicd_loader
 from pdmdata.datasets.ppd import loader as ppd_loader
-from pdmdata.datasets.metropt2 import loader as metropt2_loader
-from pdmdata.datasets.backblaze import loader as backblaze_loader
+from pdmdata.io import read_whitespace
 
 
 class PolarsIoTest(unittest.TestCase):

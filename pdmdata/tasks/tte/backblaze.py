@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Mapping, Optional, Sequence
 
 import polars as pl
 
@@ -25,7 +25,6 @@ from pdmdata.tasks.tte.prepare import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-
 ENTITY_COLUMN = "serial_number"
 TIME_COLUMN = "date"
 _EXCLUDED = {"date", "serial_number", "model", "failure"}
@@ -43,9 +42,9 @@ class BackblazeTteBundle:
 
     variant: str
     feature_columns: tuple[str, ...]
-    time_cap: Optional[float]
+    time_cap: float | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_time: pl.DataFrame
     entity_records: pl.DataFrame
@@ -70,15 +69,15 @@ class BackblazeTteBundle:
 def prepare_backblaze(
     variant: str | None = None,
     *,
-    serial_numbers: Optional[Sequence[str]] = None,
-    test_serials: Optional[Sequence[str]] = None,
+    serial_numbers: Sequence[str] | None = None,
+    test_serials: Sequence[str] | None = None,
     test_fraction: float = 0.2,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_serials: Optional[Sequence[str]] = None,
-    time_cap: Optional[float] = None,
+    validation_serials: Sequence[str] | None = None,
+    time_cap: float | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
     start_date: str | None = None,
     end_date: str | None = None,
 ) -> BackblazeTteBundle:

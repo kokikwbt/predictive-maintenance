@@ -1,10 +1,10 @@
 import importlib
 import os
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
 import tempfile
 import threading
 import unittest
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from unittest.mock import patch
 
 module = importlib.import_module("pdmdata.io.download")
@@ -36,7 +36,7 @@ class RangeDownloadTest(unittest.TestCase):
                     if short:
                         truncated[0] = True
                 self.send_response(206)
-                self.send_header("Content-Range", "bytes {}-{}/{}".format(start, end, len(content)))
+                self.send_header("Content-Range", f"bytes {start}-{end}/{len(content)}")
                 self.send_header("Content-Length", str(end - start + 1))
                 self.end_headers()
                 body = content[start:end + 1]
@@ -52,7 +52,7 @@ class RangeDownloadTest(unittest.TestCase):
                  patch.object(module, "RANGE_CHUNK_SIZE", 2048), \
                  patch.dict(os.environ, {"PDMDATA_DOWNLOAD_WORKERS": "4"}):
                 target = Path(temporary) / "download.csv"
-                module._download_file("http://127.0.0.1:{}/file".format(server.server_port), target)
+                module._download_file(f"http://127.0.0.1:{server.server_port}/file", target)
                 self.assertEqual(target.read_bytes(), content)
                 self.assertIn((1024, 2047), requested)
                 self.assertFalse(target.with_suffix(".csv.part").exists())

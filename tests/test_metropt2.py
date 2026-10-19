@@ -9,7 +9,6 @@ import polars as pl
 
 import pdmdata
 
-
 CSV = (
     "timestamp,TP2,TP3,H1,DV_pressure,Reservoirs,Oil_temperature,"
     "Motor_current,COMP,DV_eletric,Towers,MPG,LPS,Pressure_switch,"

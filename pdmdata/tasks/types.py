@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 import numpy as np
 import polars as pl
@@ -19,8 +18,8 @@ class TabularSplit:
     """
 
     frame: pl.DataFrame
-    feature_columns: Tuple[str, ...]
-    target_column: Optional[str]
+    feature_columns: tuple[str, ...]
+    target_column: str | None
     entity_column: str
     time_column: str
 
@@ -38,7 +37,7 @@ class TabularSplit:
         """Return entity identifiers aligned with rows."""
         return self.frame.get_column(self.entity_column)
 
-    def to_numpy(self) -> Tuple[np.ndarray, Optional[np.ndarray], np.ndarray]:
+    def to_numpy(self) -> tuple[np.ndarray, np.ndarray | None, np.ndarray]:
         """Return ``(X, y, groups)`` NumPy arrays for estimators.
 
         ``y`` is ``None`` when the split has no target column.

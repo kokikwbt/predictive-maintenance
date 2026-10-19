@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import polars as pl
+
 from pdmdata.io import find_raw_file
 
 CYCLE_COUNT = 2205

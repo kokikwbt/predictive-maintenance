@@ -1,13 +1,12 @@
 """Matplotlib views of GDD motor signals and categorical state intervals."""
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import BoundaryNorm, ListedColormap
 
 from pdmdata.visualization.models import AxisSpec, DistributionSpec
 
 from .preprocessing import MOTOR_SIGNALS, state_segments
-
 
 PLOTS = {
     "current_by_state": DistributionSpec(
@@ -45,7 +44,8 @@ def plot_states(frame, *, start=0, stop=800):
         axis.plot(np.arange(start,stop), window[column].to_numpy(), color="#172b4d", linewidth=.8)
         for row in segments.iter_rows(named=True):
             a,b=max(start,row['start_sample']),min(stop,row['end_sample'])
-            if a<b:axis.axvspan(a,b,color=colors[codes[row['Label']]],alpha=.14,linewidth=0)
+            if a<b:
+                axis.axvspan(a,b,color=colors[codes[row['Label']]],alpha=.14,linewidth=0)
         axis.set_ylabel(column.removeprefix('MotorData.'),fontsize=9)
         axis.grid(alpha=.2)
     axes[-1].set_xlabel("Sample index (original file order)")

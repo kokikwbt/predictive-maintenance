@@ -1,12 +1,11 @@
 """Matplotlib views of OYICD recordings and operating-mode coverage."""
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 
 from .loader import SENSOR_COLUMNS
-
 
 PLOTS = {
     "process_signals": TimeSeriesSpec(

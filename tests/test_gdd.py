@@ -10,7 +10,6 @@ import polars as pl
 import pdmdata
 from pdmdata.datasets.gdd.preprocessing import state_segments
 
-
 HEADER = (
     "Timestamp,Label,MotorData.ActCurrent,MotorData.ActPosition,"
     "MotorData.ActSpeed,MotorData.IsAcceleration,MotorData.IsForce\n"

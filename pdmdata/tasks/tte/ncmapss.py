@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import polars as pl
 
@@ -21,7 +21,7 @@ from pdmdata.tasks.rul.ncmapss import (
     TIME_COLUMN,
     _feature_columns,
 )
-from pdmdata.tasks.tte import (
+from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
     TARGET_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -41,10 +41,10 @@ class NcmapssTteBundle:
     """
 
     variant: str
-    feature_columns: Tuple[str, ...]
-    time_cap: Optional[int]
+    feature_columns: tuple[str, ...]
+    time_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_end_time: pl.DataFrame
 
@@ -110,10 +110,10 @@ class NcmapssTteBundle:
 def prepare_ncmapss(
     variant: str = "ds01",
     *,
-    time_cap: Optional[int] = None,
+    time_cap: int | None = None,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_units: Optional[Sequence[int]] = None,
+    validation_units: Sequence[int] | None = None,
     drop_constant_features: bool = False,
     include_flight_conditions: bool = True,
     include_aux: bool = False,
@@ -174,7 +174,7 @@ def prepare_ncmapss(
     train_frame = filter_entities(
         train_labeled, train_units, ENTITY_COLUMN
     )
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_unit_ids:
         validation_split = TabularSplit(
             frame=filter_entities(
@@ -215,7 +215,7 @@ def prepare_ncmapss(
 def eval_ncmapss(
     bundle: NcmapssTteBundle,
     predictions: Sequence[float] | Mapping[int, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on the last-row remaining-time protocol."""
     eval_split = bundle.test_eval_split()
     units = eval_split.groups().to_list()
@@ -227,7 +227,7 @@ def eval_ncmapss(
 def _label_failed_rows(
     frame: pl.DataFrame,
     *,
-    time_cap: Optional[int],
+    time_cap: int | None,
 ) -> pl.DataFrame:
     labeled = frame.with_columns(
         pl.col("RUL").alias(TIME_TO_EVENT_COLUMN),

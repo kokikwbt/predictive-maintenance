@@ -1,17 +1,23 @@
 """IMS selectors, chronology, channel assignments, and extraction regressions."""
 
+import importlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
-import importlib
 
-import polars as pl
 import libarchive
+import polars as pl
 
 from pdmdata import Settings
-from pdmdata.datasets.ims import channel_info, inventory, load, rms_history, verify
-from pdmdata.datasets.ims import loader
+from pdmdata.datasets.ims import (
+    channel_info,
+    inventory,
+    load,
+    loader,
+    rms_history,
+    verify,
+)
 from pdmdata.io.download import _extract_nested_archives
 
 

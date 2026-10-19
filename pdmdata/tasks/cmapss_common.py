@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Sequence, Tuple
+from collections.abc import Sequence
 
 import numpy as np
 import polars as pl
 
 from pdmdata.datasets.cmapss.loader import OPERATION_COLUMNS, SENSOR_COLUMNS
 from pdmdata.tasks.types import TabularSplit
-
 
 CMAPSS_ENTITY_COLUMN = "unit_number"
 CMAPSS_TIME_COLUMN = "cycle"
@@ -18,7 +17,7 @@ CMAPSS_TIME_COLUMN = "cycle"
 def drop_constant_columns(
     frame: pl.DataFrame,
     columns: Sequence[str],
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Keep columns that vary on ``frame``; preserve input order."""
     kept = []
     for column in columns:
@@ -33,14 +32,14 @@ def feature_columns(
     *,
     include_operating_settings: bool,
     drop_constant_features: bool,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Select C-MAPSS feature columns from a labeled training frame."""
     columns = list(SENSOR_COLUMNS)
     if include_operating_settings:
         columns = list(OPERATION_COLUMNS) + columns
     missing = [column for column in columns if column not in train.columns]
     if missing:
-        raise ValueError("Missing feature columns: {}".format(missing))
+        raise ValueError(f"Missing feature columns: {missing}")
     if drop_constant_features:
         columns = list(drop_constant_columns(train, columns))
         if not columns:
@@ -101,13 +100,11 @@ def align_predictions(
             )
         except KeyError as error:
             raise KeyError(
-                "Missing prediction for test entity {}".format(error.args[0])
+                f"Missing prediction for test entity {error.args[0]}"
             ) from error
     pred = np.asarray(predictions, dtype=float)
     if pred.shape != (len(units),):
         raise ValueError(
-            "Expected {} predictions for test entities, got {}".format(
-                len(units), pred.size
-            )
+            f"Expected {len(units)} predictions for test entities, got {pred.size}"
         )
     return pred

@@ -1,7 +1,9 @@
 """GFD source layout and dataset-specific loading."""
 
 from __future__ import annotations
+
 import polars as pl
+
 from pdmdata.io import find_raw_file
 
 SENSOR_COLUMNS = [f"sensor_{i}" for i in range(1, 5)]
@@ -13,7 +15,7 @@ def load(condition: str = "healthy", load: int = 0) -> pl.DataFrame:
         raise ValueError("condition must be healthy or broken")
     if load not in range(0, 100, 10):
         raise ValueError("load must be between 0 and 90 in increments of 10")
-    filename = "{}30hz{}.txt".format(labels[condition], load)
+    filename = f"{labels[condition]}30hz{load}.txt"
     path = find_raw_file("gfd", filename)
     # Source files start with blank formatting lines, before any measurements.
     leading_blanks = 0

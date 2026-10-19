@@ -3,35 +3,34 @@
 from __future__ import annotations
 
 import hashlib
-from concurrent.futures import ThreadPoolExecutor
-import threading
-import time
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
-from typing import Any, Dict, List, Optional
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+from typing import Any
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
 from pdmdata.catalog import load_catalog, load_metadata
 from pdmdata.config import get_settings
 
-
 CHUNK_SIZE = 1024 * 1024
 RANGE_CHUNK_SIZE = 8 * CHUNK_SIZE
 MIN_RANGE_SIZE = 16 * CHUNK_SIZE
 
 
-def supported_downloads() -> List[str]:
+def supported_downloads() -> list[str]:
     """Return dataset IDs supported by an automated download method."""
     return [item["id"] for item in load_catalog(downloadable=True)]
 
 
-def bulk_downloads() -> List[str]:
+def bulk_downloads() -> list[str]:
     """Return datasets included in an explicitly requested bulk download."""
     return [
         item["id"]
@@ -40,7 +39,7 @@ def bulk_downloads() -> List[str]:
     ]
 
 
-def download_variants(dataset_id: str) -> List[str]:
+def download_variants(dataset_id: str) -> list[str]:
     """Return selectable download variants for a dataset."""
     metadata = load_metadata(dataset_id)
     return sorted(metadata.get("download", {}).get("variants", {}))
@@ -48,9 +47,9 @@ def download_variants(dataset_id: str) -> List[str]:
 
 def download_command(
     dataset_id: str,
-    output_dir: Optional[Path] = None,
+    output_dir: Path | None = None,
     *,
-    variant: Optional[str] = None,
+    variant: str | None = None,
 ) -> str:
     """Return the external command used to download a dataset."""
     metadata = load_metadata(dataset_id)
@@ -79,12 +78,12 @@ def download_command(
 
 def download(
     dataset_id: str,
-    output_dir: Optional[Path] = None,
+    output_dir: Path | None = None,
     *,
     extract: bool = True,
     overwrite: bool = False,
-    variant: Optional[str] = None,
-) -> Dict[str, Any]:
+    variant: str | None = None,
+) -> dict[str, Any]:
     """Download, hash, optionally extract, and validate one dataset.
 
     Files are stored under the configured ``data_root/<dataset-id>``. Existing
@@ -117,7 +116,7 @@ def download(
             validation_root = directory
             extracted = directory
         else:
-            raise ValueError("Unknown archive type: {!r}".format(archive_type))
+            raise ValueError(f"Unknown archive type: {archive_type!r}")
         _validate_expected_files(
             validation_root, resource.get("expected_files", [])
         )
@@ -147,16 +146,17 @@ def download(
 
 
 def _resource(
-    metadata: Dict[str, Any], variant: Optional[str] = None
-) -> tuple[Dict[str, Any], Optional[str]]:
+    metadata: dict[str, Any], variant: str | None = None
+) -> tuple[dict[str, Any], str | None]:
     try:
         download = metadata["download"]
     except KeyError:
         raise ValueError(
-            "Automated download is not supported for {!r}. Supported datasets: {}".format(
+            "Automated download is not supported for {!r}. "
+            "Supported datasets: {}".format(
                 metadata["id"], ", ".join(supported_downloads())
             )
-        )
+        ) from None
     variants = download.get("variants")
     if not variants:
         if variant is not None:
@@ -180,8 +180,8 @@ def _resource(
 
 def _dataset_directory(
     dataset_id: str,
-    output_dir: Optional[Path],
-    variant: Optional[str] = None,
+    output_dir: Path | None,
+    variant: str | None = None,
 ) -> Path:
     root = Path(output_dir) if output_dir is not None else get_settings().data_root
     directory = root.expanduser().resolve() / dataset_id
@@ -238,13 +238,13 @@ def _download_in_ranges(url: str, target: Path, workers: int) -> bool:
                 for attempt in range(3):
                     if stopped.is_set():
                         return
-                    request_headers = dict(headers, Range="bytes={}-{}".format(position, end))
+                    request_headers = dict(headers, Range=f"bytes={position}-{end}")
                     if validator:
                         request_headers["If-Range"] = validator
                     try:
                         request = Request(direct_url, headers=request_headers)
                         with urlopen(request, timeout=60) as response, temporary.open("r+b") as stream:
-                            expected = "bytes {}-{}/{}".format(position, end, total)
+                            expected = f"bytes {position}-{end}/{total}"
                             if response.status != 206 or response.headers.get("Content-Range") != expected:
                                 raise OSError("Server did not honor the requested byte range")
                             stream.seek(position)
@@ -278,7 +278,7 @@ def _download_in_ranges(url: str, target: Path, workers: int) -> bool:
 
 
 def _download_resource(
-    resource: Dict[str, Any],
+    resource: dict[str, Any],
     directory: Path,
     archive: Path,
     *,
@@ -294,7 +294,7 @@ def _download_resource(
                 for item in resource["files"]:
                     name = item["filename"]
                     if Path(name).name != name or name in {".", "..", "bundle.zip"}:
-                        raise ValueError("Invalid source filename: {!r}".format(name))
+                        raise ValueError(f"Invalid source filename: {name!r}")
                     target = staging / name
                     _download_file(item["url"], target)
                     if item.get("checksum"):
@@ -315,7 +315,7 @@ def _download_resource(
             file=resource.get("file"),
         )
         return
-    raise ValueError("Unknown download method: {!r}".format(method))
+    raise ValueError(f"Unknown download method: {method!r}")
 
 
 def _download_kaggle(
@@ -324,7 +324,7 @@ def _download_kaggle(
     archive: Path,
     *,
     overwrite: bool,
-    file: Optional[str] = None,
+    file: str | None = None,
 ) -> None:
     executable = shutil.which("kaggle")
     if executable is None:
@@ -393,7 +393,7 @@ def _download_kaggle(
     if not archive.is_file():
         raise RuntimeError(
             "Kaggle CLI completed but the expected archive was not created: "
-            "{}".format(archive)
+            f"{archive}"
         )
 
 
@@ -401,7 +401,7 @@ def _normalize_kaggle_download(
     directory: Path,
     archive: Path,
     *,
-    file: Optional[str],
+    file: str | None,
 ) -> None:
     """Move a single-file Kaggle download onto the expected archive path."""
     if archive.is_file():
@@ -456,7 +456,7 @@ def _extract_zip(archive: Path, destination: Path) -> None:
             target = (destination / member.filename).resolve()
             if destination != target and destination not in target.parents:
                 raise ValueError(
-                    "Unsafe archive member in {}: {}".format(archive, member.filename)
+                    f"Unsafe archive member in {archive}: {member.filename}"
                 )
         zipped.extractall(str(destination))
 
@@ -519,7 +519,7 @@ def _extract_nested_archives(directory: Path) -> None:
                 _extract_archive(archive, destination)
 
 
-def _validate_expected_files(directory: Path, expected: List[str]) -> None:
+def _validate_expected_files(directory: Path, expected: list[str]) -> None:
     files = [path for path in directory.rglob("*") if path.is_file()]
     names = {path.name for path in files}
     relative_paths = {path.relative_to(directory).as_posix() for path in files}

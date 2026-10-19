@@ -6,6 +6,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 import polars as pl
+from support_ncmapss import write_rich_fixture, write_tiny_fixture
 
 from pdmdata.datasets.ncmapss import loader as ncmapss_loader
 from pdmdata.tasks.rul import (
@@ -13,7 +14,6 @@ from pdmdata.tasks.rul import (
     prepare_ncmapss,
 )
 from pdmdata.tasks.tte import EVENT_OBSERVED_COLUMN, TIME_TO_EVENT_COLUMN
-from support_ncmapss import write_rich_fixture, write_tiny_fixture
 
 
 class RulNcmapssTest(TestCase):

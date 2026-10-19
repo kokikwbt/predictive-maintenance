@@ -13,15 +13,11 @@ def find_raw_file(dataset_id: str, filename: str) -> Path:
     matches = [path for path in directory.rglob(filename) if path.is_file()]
     if not matches:
         raise FileNotFoundError(
-            "{} was not found under {}. Run pdmdata.download({!r}) "
-            "or place the dataset there first.".format(
-                filename, directory, dataset_id
-            )
+            f"{filename} was not found under {directory}. Run pdmdata.download({dataset_id!r}) "
+            "or place the dataset there first."
         )
     if len(matches) > 1:
         raise ValueError(
-            "Multiple files named {} were found under {}".format(
-                filename, directory
-            )
+            f"Multiple files named {filename} were found under {directory}"
         )
     return matches[0]

@@ -10,7 +10,8 @@ def main():
     cells=[]
     def add(kind, source):
         cell=dict(cell_type=kind,id=f'cell-{len(cells):02d}',metadata={},source=source.splitlines(True))
-        if kind=='code':cell.update(execution_count=None,outputs=[])
+        if kind=='code':
+            cell.update(execution_count=None,outputs=[])
         cells.append(cell)
     add('markdown', '''# GDD: understanding machine states
 

@@ -2,7 +2,6 @@
 
 import polars as pl
 
-
 MOTOR_SIGNALS = [
     "MotorData.ActCurrent", "MotorData.ActPosition", "MotorData.ActSpeed",
     "MotorData.IsAcceleration", "MotorData.IsForce",

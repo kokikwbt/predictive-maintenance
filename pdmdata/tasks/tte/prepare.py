@@ -8,20 +8,21 @@ helpers from ``pdmdata.tasks.splits``.
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import polars as pl
 
-from pdmdata.datasets.cmapss import load as load_cmapss
-from pdmdata.datasets.cmapss import rul as cmapss_test_end_rul
+from pdmdata.datasets.cmapss import (
+    load as load_cmapss,
+    rul as cmapss_test_end_rul,
+)
 from pdmdata.datasets.cmapss.loader import SUBSETS
 from pdmdata.tasks.cmapss_common import (
     CMAPSS_ENTITY_COLUMN,
     CMAPSS_TIME_COLUMN,
     align_predictions,
     apply_time_cap,
-    drop_constant_columns,
     feature_columns,
     last_rows_per_entity,
     summary_row,
@@ -51,10 +52,10 @@ class CmapssTteBundle:
     """
 
     subset: str
-    feature_columns: Tuple[str, ...]
-    time_cap: Optional[int]
+    feature_columns: tuple[str, ...]
+    time_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_end_time: pl.DataFrame
 
@@ -128,10 +129,10 @@ class CmapssTteBundle:
 def prepare_cmapss(
     subset: str = "FD001",
     *,
-    time_cap: Optional[int] = None,
+    time_cap: int | None = None,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_units: Optional[Sequence[int]] = None,
+    validation_units: Sequence[int] | None = None,
     drop_constant_features: bool = False,
     include_operating_settings: bool = True,
 ) -> CmapssTteBundle:
@@ -188,7 +189,7 @@ def prepare_cmapss(
     train_frame = filter_entities(
         train_labeled, train_units, CMAPSS_ENTITY_COLUMN
     )
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_unit_ids:
         validation_frame = filter_entities(
             train_labeled, validation_unit_ids, CMAPSS_ENTITY_COLUMN
@@ -232,7 +233,7 @@ def prepare_cmapss(
 def eval_cmapss(
     bundle: CmapssTteBundle,
     predictions: Sequence[float] | Mapping[int, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on the official last-row remaining-time protocol."""
     eval_split = bundle.test_eval_split()
     units = eval_split.groups().to_list()
@@ -244,7 +245,7 @@ def eval_cmapss(
 def _label_failed_rows(
     frame: pl.DataFrame,
     *,
-    time_cap: Optional[int],
+    time_cap: int | None,
 ) -> pl.DataFrame:
     """Attach TTE columns for run-to-failure training engines."""
     labeled = frame.with_columns(

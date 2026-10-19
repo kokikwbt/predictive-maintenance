@@ -2,10 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
-
-
-TASKS: List[Dict[str, str]] = [
+TASKS: list[dict[str, str]] = [
     {
         "id": "anomaly_detection",
         "short_name": "Anomaly",

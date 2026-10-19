@@ -12,7 +12,6 @@ import polars as pl
 import pdmdata
 from pdmdata.datasets.alpi import inventory, verify
 
-
 CSV = (
     "timestamp,alarm,serial\n"
     "2020-01-02 10:00:00.123,0,4\n"

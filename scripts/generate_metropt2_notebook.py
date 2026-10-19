@@ -8,7 +8,8 @@ def main():
     cells=[]
     def add(kind,source):
         c=dict(cell_type=kind,id=f'cell-{len(cells):02d}',metadata={},source=source.splitlines(True))
-        if kind=='code':c.update(execution_count=None,outputs=[])
+        if kind=='code':
+            c.update(execution_count=None,outputs=[])
         cells.append(c)
     add('markdown','''# MetroPT2: operating cycles and sensor relationships
 

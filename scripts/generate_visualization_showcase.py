@@ -5,14 +5,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List
-
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "notebooks" / "datasets" / "visualization-showcase.ipynb"
 
 
-def markdown(identifier: str, source: str) -> Dict[str, object]:
+def markdown(identifier: str, source: str) -> dict[str, object]:
     return {
         "cell_type": "markdown",
         "id": identifier,
@@ -21,7 +19,7 @@ def markdown(identifier: str, source: str) -> Dict[str, object]:
     }
 
 
-def code(identifier: str, source: str) -> Dict[str, object]:
+def code(identifier: str, source: str) -> dict[str, object]:
     return {
         "cell_type": "code",
         "execution_count": None,
@@ -32,7 +30,7 @@ def code(identifier: str, source: str) -> Dict[str, object]:
     }
 
 
-CELLS: List[Dict[str, object]] = [
+CELLS: list[dict[str, object]] = [
     markdown(
         "introduction",
         """# Interactive visualization showcase

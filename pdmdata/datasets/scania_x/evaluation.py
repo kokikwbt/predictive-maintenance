@@ -6,7 +6,6 @@ from collections.abc import Sequence
 
 import polars as pl
 
-
 CLASSES = (0, 1, 2, 3, 4)
 # COST_MATRIX[actual][predicted]; values from 2024_IDA_challenge_v2.pdf.
 COST_MATRIX = (
@@ -21,7 +20,7 @@ COST_MATRIX = (
 def _classes(values: Sequence[int] | pl.Series, name: str) -> list[int]:
     items = values.to_list() if isinstance(values, pl.Series) else list(values)
     if any(item not in CLASSES or isinstance(item, bool) for item in items):
-        raise ValueError("{} must contain classes 0-4 only".format(name))
+        raise ValueError(f"{name} must contain classes 0-4 only")
     return items
 
 

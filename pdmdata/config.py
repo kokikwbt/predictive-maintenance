@@ -1,10 +1,9 @@
 """Shared configuration, read on demand without creating files or directories."""
 
-from dataclasses import dataclass
 import os
-from pathlib import Path
 import tomllib
-
+from dataclasses import dataclass
+from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 

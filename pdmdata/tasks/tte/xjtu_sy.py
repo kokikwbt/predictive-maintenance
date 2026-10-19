@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 import polars as pl
@@ -18,7 +18,7 @@ from pdmdata.tasks.rul.xjtu_sy import (
     _select_bearings,
     _split_test,
 )
-from pdmdata.tasks.tte import (
+from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
     TARGET_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -37,11 +37,11 @@ class XjtuSyTteBundle:
     ``time_to_event`` for full-trajectory scoring.
     """
 
-    condition: Optional[str]
-    feature_columns: Tuple[str, ...]
-    time_cap: Optional[int]
+    condition: str | None
+    feature_columns: tuple[str, ...]
+    time_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_time: pl.DataFrame
 
@@ -108,15 +108,15 @@ class XjtuSyTteBundle:
 def prepare_xjtu_sy(
     *,
     condition: str | None = None,
-    bearings: Optional[Sequence[str]] = None,
-    test_bearings: Optional[Sequence[str]] = None,
+    bearings: Sequence[str] | None = None,
+    test_bearings: Sequence[str] | None = None,
     test_fraction: float = 0.2,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_bearings: Optional[Sequence[str]] = None,
-    time_cap: Optional[int] = None,
+    validation_bearings: Sequence[str] | None = None,
+    time_cap: int | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
 ) -> XjtuSyTteBundle:
     """Build an XJTU-SY time-to-event experiment bundle."""
     if time_cap is not None and (
@@ -151,7 +151,7 @@ def prepare_xjtu_sy(
     )
 
     train_frame = filter_entities(labeled, train_ids, ENTITY_COLUMN)
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_ids:
         validation_split = TabularSplit(
             frame=filter_entities(labeled, validation_ids, ENTITY_COLUMN),
@@ -196,7 +196,7 @@ def prepare_xjtu_sy(
 def eval_xjtu_sy(
     bundle: XjtuSyTteBundle,
     predictions: Sequence[float] | Mapping[str, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on held-out XJTU-SY trajectories."""
     eval_split = bundle.test_eval_split()
     entities = eval_split.groups().to_list()
@@ -208,20 +208,18 @@ def eval_xjtu_sy(
             )
         except KeyError as error:
             raise KeyError(
-                "Missing prediction for test bearing {}".format(error.args[0])
+                f"Missing prediction for test bearing {error.args[0]}"
             ) from error
     else:
         pred = np.asarray(predictions, dtype=float)
         if pred.shape != (len(entities),):
             raise ValueError(
-                "Expected {} predictions for test rows, got {}".format(
-                    len(entities), pred.size
-                )
+                f"Expected {len(entities)} predictions for test rows, got {pred.size}"
             )
     return regression_metrics(actual, pred)
 
 
-def _label(frame: pl.DataFrame, *, time_cap: Optional[int]) -> pl.DataFrame:
+def _label(frame: pl.DataFrame, *, time_cap: int | None) -> pl.DataFrame:
     labeled = frame.with_columns(
         pl.col("RUL").alias(TIME_TO_EVENT_COLUMN),
         pl.lit(True).alias(EVENT_OBSERVED_COLUMN),

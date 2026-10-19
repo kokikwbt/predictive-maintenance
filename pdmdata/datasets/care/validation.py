@@ -1,17 +1,18 @@
 """Verify all local CARE v6 files and write an experiment inventory (no network)."""
 
-from collections import Counter
-from datetime import datetime, timezone
 import json
-from zipfile import ZipFile
 import zlib
+from collections import Counter
+from datetime import UTC, datetime
+from zipfile import ZipFile
 
 import polars as pl
 
-from pdmdata.config import get_settings
 from pdmdata.catalog import load_metadata
-from .loader import load
+from pdmdata.config import get_settings
 from pdmdata.io.download import _validate_expected_files, _verify_checksum
+
+from .loader import load
 
 
 def verify() -> dict:
@@ -77,7 +78,7 @@ def verify() -> dict:
 
     pl.DataFrame(inventory).write_csv(directory / "inventory.csv")
     report = {
-        "verified_at": datetime.now(timezone.utc).isoformat(),
+        "verified_at": datetime.now(UTC).isoformat(),
         "source": metadata["source"]["doi_url"],
         "source_checksum": metadata["download"]["checksum"],
         "archive_bytes": archive.stat().st_size,

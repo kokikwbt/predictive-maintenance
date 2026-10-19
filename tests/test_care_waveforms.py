@@ -1,7 +1,8 @@
-from datetime import datetime, timedelta
 import unittest
+from datetime import datetime, timedelta
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import polars as pl

@@ -34,7 +34,7 @@ def _write_quarter(root: Path) -> None:
         ],
     }
     for day, lines in rows.items():
-        path = directory / "{}.csv".format(day.isoformat())
+        path = directory / f"{day.isoformat()}.csv"
         path.write_text(header + "\n" + "\n".join(lines) + "\n")
 
 

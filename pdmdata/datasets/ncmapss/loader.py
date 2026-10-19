@@ -3,14 +3,12 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable, Optional
 
 import h5py
 import numpy as np
 import polars as pl
 
 from pdmdata.config import get_settings
-
 
 VARIANT_FILES = {
     "ds01": "N-CMAPSS_DS01-005.h5",
@@ -54,10 +52,8 @@ def _path(variant: str) -> Path:
         if path.is_file():
             return path
     raise FileNotFoundError(
-        "{} was not found under {}. Run "
-        "pdmdata.download('ncmapss', variant={!r}) first.".format(
-            filename, root, variant
-        )
+        f"{filename} was not found under {root}. Run "
+        f"pdmdata.download('ncmapss', variant={variant!r}) first."
     )
 
 

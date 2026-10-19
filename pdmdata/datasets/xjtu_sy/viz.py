@@ -2,7 +2,6 @@
 
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 
-
 PLOTS = {
     "rms_trajectory": TimeSeriesSpec(
         title="XJTU-SY bearing RMS trajectory",

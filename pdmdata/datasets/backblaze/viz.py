@@ -101,10 +101,12 @@ def save_samples(output_dir=None):
     These deliberately selected examples illustrate histories, not fleet-level
     performance. No downloads, raw-data exports, or synthetic values are used.
     """
-    from pathlib import Path
     import json
+    from pathlib import Path
+
     import matplotlib.dates as mdates
     import matplotlib.pyplot as plt
+
     from .loader import load
 
     output = Path(output_dir) if output_dir is not None else Path(__file__).parent / "assets"

@@ -2,7 +2,6 @@
 
 from pdmdata.visualization.models import AxisSpec, EventTimelineSpec
 
-
 PLOTS = {
     "alarm_timeline": EventTimelineSpec(
         title="ALPI alarm timeline",

@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Mapping, Optional, Sequence
 
 import polars as pl
 
@@ -23,7 +23,6 @@ from pdmdata.tasks.tte.prepare import (
     split_entities,
 )
 from pdmdata.tasks.types import TabularSplit
-
 
 ENTITY_COLUMN = "event_id"
 TIME_COLUMN = "time_stamp"
@@ -53,9 +52,9 @@ class CareTteBundle:
 
     wind_farm: str
     feature_columns: tuple[str, ...]
-    time_cap: Optional[float]
+    time_cap: float | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_time: pl.DataFrame
     entity_records: pl.DataFrame
@@ -81,13 +80,13 @@ class CareTteBundle:
 def prepare_care(
     wind_farm: str = "A",
     *,
-    event_ids: Optional[Sequence[int]] = None,
+    event_ids: Sequence[int] | None = None,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_events: Optional[Sequence[int]] = None,
-    time_cap: Optional[float] = None,
+    validation_events: Sequence[int] | None = None,
+    time_cap: float | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
     average_channels_only: bool = True,
 ) -> CareTteBundle:
     """Build a CARE time-to-event bundle for one wind farm.
@@ -185,7 +184,7 @@ def _default_features(
 def _label_events(
     wind_farm: str,
     *,
-    event_ids: Optional[Sequence[int]],
+    event_ids: Sequence[int] | None,
 ) -> pl.DataFrame:
     events = load(wind_farm=wind_farm, table="events", lazy=False)
     required = {"event_id", "event_label", "event_start"}
@@ -309,7 +308,7 @@ def _windows(
     features: Sequence[str],
     train_ids: Sequence[int],
     validation_ids: Sequence[int],
-) -> tuple[TabularSplit, Optional[TabularSplit], TabularSplit, pl.DataFrame]:
+) -> tuple[TabularSplit, TabularSplit | None, TabularSplit, pl.DataFrame]:
     feature_columns = tuple(features)
     keep = [
         ENTITY_COLUMN,
@@ -330,7 +329,7 @@ def _windows(
     train_frame = take(train_ids, "train")
     if train_frame.is_empty():
         raise ValueError("CARE training window has no rows before event onset")
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_ids:
         validation_frame = take(validation_ids, "train")
         validation_split = TabularSplit(

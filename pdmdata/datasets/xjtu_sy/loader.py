@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import re
-from typing import Dict, Iterable, List, Optional, Tuple
+from collections.abc import Iterable
+from pathlib import Path
 
 import numpy as np
 import polars as pl
 
 from pdmdata.config import get_settings
-
 
 SAMPLING_HZ = 25_600
 SAMPLES_PER_SNAPSHOT = 32_768
@@ -19,7 +18,7 @@ _SNAPSHOT_NAME = re.compile(r"(\d+)\.csv\Z", re.IGNORECASE)
 
 # Operating conditions and end-of-test fault elements from the dataset
 # documentation (Wang et al., IEEE Trans. Reliability 2020).
-BEARING_INFO: Dict[str, Dict[str, object]] = {
+BEARING_INFO: dict[str, dict[str, object]] = {
     "Bearing1_1": {
         "condition": "35Hz12kN",
         "rpm": 2100,
@@ -147,7 +146,7 @@ def _bearing(value: str) -> str:
     return value
 
 
-def _condition(value: Optional[str]) -> Optional[str]:
+def _condition(value: str | None) -> str | None:
     if value is None:
         return None
     if value not in CONDITION_DIRS:
@@ -169,12 +168,12 @@ def _bearing_dir(bearing: str) -> Path:
         if path.is_dir():
             return path
     raise FileNotFoundError(
-        "Bearing directory for {!r} was not found under {}. Run "
-        "pdmdata.download('xjtu_sy') first.".format(bearing, root)
+        f"Bearing directory for {bearing!r} was not found under {root}. Run "
+        "pdmdata.download('xjtu_sy') first."
     )
 
 
-def _snapshot_paths(bearing: str) -> List[Path]:
+def _snapshot_paths(bearing: str) -> list[Path]:
     directory = _bearing_dir(bearing)
     paths = []
     for path in directory.iterdir():
@@ -183,22 +182,18 @@ def _snapshot_paths(bearing: str) -> List[Path]:
             paths.append((int(match.group(1)), path))
     if not paths:
         raise FileNotFoundError(
-            "No CSV snapshots found for {!r} under {}".format(
-                bearing, directory
-            )
+            f"No CSV snapshots found for {bearing!r} under {directory}"
         )
     paths.sort(key=lambda item: item[0])
     indices = [index for index, _ in paths]
     if indices != list(range(1, len(indices) + 1)):
         raise ValueError(
-            "Snapshot files for {!r} must be consecutive 1.csv..N.csv".format(
-                bearing
-            )
+            f"Snapshot files for {bearing!r} must be consecutive 1.csv..N.csv"
         )
     return [path for _, path in paths]
 
 
-def _read_waveform(path: Path) -> Tuple[np.ndarray, np.ndarray]:
+def _read_waveform(path: Path) -> tuple[np.ndarray, np.ndarray]:
     # Official CSVs include a one-line header; synthetic fixtures may omit it.
     with path.open("r", encoding="utf-8", errors="replace") as handle:
         first = handle.readline()
@@ -212,18 +207,16 @@ def _read_waveform(path: Path) -> Tuple[np.ndarray, np.ndarray]:
     )
     if values.ndim == 1:
         raise ValueError(
-            "{} must contain two columns (horizontal, vertical)".format(path)
+            f"{path} must contain two columns (horizontal, vertical)"
         )
     if values.shape[1] != 2:
         raise ValueError(
-            "{} must have exactly two columns; found {}".format(
-                path, values.shape[1]
-            )
+            f"{path} must have exactly two columns; found {values.shape[1]}"
         )
     return values[:, 0], values[:, 1]
 
 
-def available_bearings() -> Tuple[str, ...]:
+def available_bearings() -> tuple[str, ...]:
     """Return bearing ids present under the local extract tree."""
     root = _extracted_root()
     found = []
@@ -234,7 +227,7 @@ def available_bearings() -> Tuple[str, ...]:
     return tuple(found)
 
 
-def inventory(condition: Optional[str] = None) -> pl.DataFrame:
+def inventory(condition: str | None = None) -> pl.DataFrame:
     """List local bearings with snapshot counts and derived lifetimes."""
     condition = _condition(condition)
     rows = []
@@ -259,8 +252,8 @@ def inventory(condition: Optional[str] = None) -> pl.DataFrame:
         )
     if not rows:
         raise FileNotFoundError(
-            "No XJTU-SY bearings found under {}. Run "
-            "pdmdata.download('xjtu_sy') first.".format(_extracted_root())
+            f"No XJTU-SY bearings found under {_extracted_root()}. Run "
+            "pdmdata.download('xjtu_sy') first."
         )
     return pl.DataFrame(rows)
 
@@ -268,7 +261,7 @@ def inventory(condition: Optional[str] = None) -> pl.DataFrame:
 def load(
     bearing: str = "Bearing1_1",
     *,
-    cycle: Optional[int] = None,
+    cycle: int | None = None,
     with_waveform: bool = False,
     with_rul: bool = True,
 ) -> pl.DataFrame:
@@ -294,7 +287,7 @@ def load(
             or cycle > n_snapshots
         ):
             raise ValueError(
-                "cycle must be an integer in 1..{}".format(n_snapshots)
+                f"cycle must be an integer in 1..{n_snapshots}"
             )
         horizontal, vertical = _read_waveform(paths[cycle - 1])
         frame = pl.DataFrame(
@@ -323,7 +316,7 @@ def load(
             or cycle > n_snapshots
         ):
             raise ValueError(
-                "cycle must be an integer in 1..{}".format(n_snapshots)
+                f"cycle must be an integer in 1..{n_snapshots}"
             )
         selected = [(cycle, paths[cycle - 1])]
     else:
@@ -351,9 +344,9 @@ def load(
 
 
 def load_many(
-    bearings: Optional[Iterable[str]] = None,
+    bearings: Iterable[str] | None = None,
     *,
-    condition: Optional[str] = None,
+    condition: str | None = None,
     with_rul: bool = True,
 ) -> pl.DataFrame:
     """Concatenate snapshot-level tables for several bearings."""

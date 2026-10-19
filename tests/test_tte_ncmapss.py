@@ -5,6 +5,8 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
 
+from support_ncmapss import write_rich_fixture
+
 from pdmdata.datasets.ncmapss import loader as ncmapss_loader
 from pdmdata.tasks.tte import (
     EVENT_OBSERVED_COLUMN,
@@ -12,7 +14,6 @@ from pdmdata.tasks.tte import (
     eval_ncmapss,
     prepare_ncmapss,
 )
-from support_ncmapss import write_rich_fixture
 
 
 class TteNcmapssTest(TestCase):

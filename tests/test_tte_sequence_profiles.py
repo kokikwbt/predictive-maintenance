@@ -1,6 +1,8 @@
 import unittest
+
 import numpy as np
 import polars as pl
+
 from pdmdata.tasks.tte import CmapssSequenceSpec, build_sequence_samples
 
 

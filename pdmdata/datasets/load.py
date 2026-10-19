@@ -5,7 +5,6 @@ from typing import Any
 
 import polars as pl
 
-
 _LOADER_MODULES = {
     "alpi": "pdmdata.datasets.alpi.loader",
     "backblaze": "pdmdata.datasets.backblaze.loader",
@@ -30,9 +29,9 @@ def load(dataset_id: str, **options: Any) -> pl.DataFrame | pl.LazyFrame:
     try:
         module_name = _LOADER_MODULES[dataset_id]
     except KeyError:
-        raise KeyError("Unknown dataset: {!r}".format(dataset_id)) from None
+        raise KeyError(f"Unknown dataset: {dataset_id!r}") from None
     adapter = import_module(module_name).load
     try:
         return adapter(**options)
     except TypeError as error:
-        raise TypeError("Invalid options for {!r}: {}".format(dataset_id, error)) from error
+        raise TypeError(f"Invalid options for {dataset_id!r}: {error}") from error

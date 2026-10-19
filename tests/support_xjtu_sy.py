@@ -23,7 +23,7 @@ def write_bearing(
     for cycle in range(1, n_snapshots + 1):
         horizontal = (0.1 * cycle) * np.sin(2 * np.pi * t)
         vertical = (0.05 * cycle) * np.cos(2 * np.pi * t)
-        path = directory / "{}.csv".format(cycle)
+        path = directory / f"{cycle}.csv"
         np.savetxt(
             path,
             np.column_stack([horizontal, vertical]),

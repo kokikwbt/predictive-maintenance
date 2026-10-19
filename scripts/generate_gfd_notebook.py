@@ -1,6 +1,7 @@
 """Generate the GFD recording comparison notebook without downloading data."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

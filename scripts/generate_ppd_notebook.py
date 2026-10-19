@@ -1,6 +1,7 @@
 """Generate the PPD recording and data-quality exploration notebook."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

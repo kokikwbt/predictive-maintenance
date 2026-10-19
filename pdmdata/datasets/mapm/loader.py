@@ -1,9 +1,10 @@
 """MAPM source layout and dataset-specific loading."""
 
 from __future__ import annotations
-import polars as pl
-from pdmdata.io import find_raw_file
 
+import polars as pl
+
+from pdmdata.io import find_raw_file
 
 MAPM_FILES = {
     "telemetry": "PdM_telemetry.csv",

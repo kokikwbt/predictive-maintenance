@@ -1,8 +1,10 @@
 """Verify every local IMS snapshot without retaining the full dataset."""
 
 from pathlib import Path
+
 import polars as pl
-from .loader import inventory, _read_recording
+
+from .loader import _read_recording, inventory
 
 EXPECTED_RECORDINGS = {1: 2156, 2: 984, 3: 6324}
 

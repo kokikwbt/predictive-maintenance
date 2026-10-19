@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 
 @dataclass(frozen=True)
@@ -12,13 +11,13 @@ class AxisSpec:
 
     column: str
     label: str
-    unit: Optional[str] = None
+    unit: str | None = None
 
     @property
     def title(self) -> str:
         """Return an axis title including its unit when available."""
         if self.unit:
-            return "{} [{}]".format(self.label, self.unit)
+            return f"{self.label} [{self.unit}]"
         return self.label
 
 
@@ -28,8 +27,8 @@ class TimeSeriesSpec:
 
     title: str
     x: AxisSpec
-    y: Tuple[AxisSpec, ...]
-    entity_column: Optional[str] = None
+    y: tuple[AxisSpec, ...]
+    entity_column: str | None = None
     max_points: int = 10_000
 
 

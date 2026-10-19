@@ -1,6 +1,11 @@
 """Remaining useful life (RUL) task package."""
 
 from pdmdata.tasks.metrics import nasa_score, regression_metrics
+from pdmdata.tasks.rul.ncmapss import (
+    NcmapssRulBundle,
+    eval_ncmapss,
+    prepare_ncmapss,
+)
 from pdmdata.tasks.rul.prepare import (
     ENTITY_COLUMN,
     TARGET_COLUMN,
@@ -9,11 +14,6 @@ from pdmdata.tasks.rul.prepare import (
     apply_rul_cap,
     eval_cmapss,
     prepare_cmapss,
-)
-from pdmdata.tasks.rul.ncmapss import (
-    NcmapssRulBundle,
-    eval_ncmapss,
-    prepare_ncmapss,
 )
 from pdmdata.tasks.rul.xjtu_sy import (
     XjtuSyRulBundle,

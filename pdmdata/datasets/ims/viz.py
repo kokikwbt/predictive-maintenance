@@ -6,7 +6,6 @@ from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 
 from .loader import channel_info
 
-
 PLOTS = {
     "waveform": TimeSeriesSpec(
         title="IMS vibration snapshot",

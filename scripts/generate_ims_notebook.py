@@ -1,6 +1,7 @@
 """Generate the IMS snapshot and bearing degradation exploration notebook."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

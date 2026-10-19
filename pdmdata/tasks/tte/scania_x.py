@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Mapping, Optional, Sequence
 
 import polars as pl
 
@@ -25,7 +25,6 @@ from pdmdata.tasks.tte.prepare import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-
 ENTITY_COLUMN = "vehicle_id"
 TIME_COLUMN = "time_step"
 
@@ -43,9 +42,9 @@ class ScaniaXTteBundle:
     """
 
     feature_columns: tuple[str, ...]
-    time_cap: Optional[float]
+    time_cap: float | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_time: pl.DataFrame
     entity_records: pl.DataFrame
@@ -73,15 +72,15 @@ class ScaniaXTteBundle:
 
 def prepare_scania_x(
     *,
-    vehicles: Optional[Sequence[int]] = None,
-    test_vehicles: Optional[Sequence[int]] = None,
+    vehicles: Sequence[int] | None = None,
+    test_vehicles: Sequence[int] | None = None,
     test_fraction: float = 0.2,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_vehicles: Optional[Sequence[int]] = None,
-    time_cap: Optional[float] = None,
+    validation_vehicles: Sequence[int] | None = None,
+    time_cap: float | None = None,
     drop_constant_features: bool = False,
-    feature_columns: Optional[Sequence[str]] = None,
+    feature_columns: Sequence[str] | None = None,
 ) -> ScaniaXTteBundle:
     """Build a SCANIA Component X time-to-event bundle from train readouts.
 

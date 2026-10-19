@@ -44,8 +44,12 @@ line-length = 80
 target-version = "py314"
 
 [tool.ruff.lint]
-# Start with syntax/undefined-name checks; expand gradually.
-select = ["E9", "F63", "F7", "F82"]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+# Plot helpers zip palettes and axes of intentionally different lengths.
+ignore = ["B905"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["pdmdata.tasks.tte.higs.HigsSpec"]
 
 [tool.setuptools.packages.find]
 include = ["pdmdata*"]
@@ -58,3 +62,6 @@ pdmdata = [
   "datasets/*/assets/*.png",
   "datasets/*/assets/*.json",
 ]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true

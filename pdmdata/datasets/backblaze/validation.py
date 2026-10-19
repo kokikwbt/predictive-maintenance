@@ -1,11 +1,12 @@
 """Offline completeness, daily schema, and optional archive integrity checks."""
 
+import zlib
 from datetime import date, timedelta
 from zipfile import ZipFile
-import zlib
 
 from pdmdata.catalog import load_metadata
 from pdmdata.config import get_settings
+
 from .loader import _files, _scan, _variant
 
 

@@ -5,8 +5,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 import pdmdata
-from pdmdata.catalog import load_catalog
-from pdmdata.catalog import docs
+from pdmdata.catalog import docs, load_catalog
 from pdmdata.catalog.docs import BEGIN, END, render_metadata
 from pdmdata.io.download import (
     bulk_downloads,

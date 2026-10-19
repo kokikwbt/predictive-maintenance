@@ -6,10 +6,9 @@ from unittest import TestCase
 from unittest.mock import patch
 
 import polars as pl
-
-from pdmdata.datasets.ncmapss import inventory, load
-from pdmdata.datasets.ncmapss import loader as ncmapss_loader
 from support_ncmapss import write_tiny_fixture
+
+from pdmdata.datasets.ncmapss import inventory, load, loader as ncmapss_loader
 
 
 class NcmapssTest(TestCase):

@@ -1,7 +1,10 @@
 """MAPM visualization configuration."""
 
-from pdmdata.visualization.models import AxisSpec, EventTimelineSpec, TimeSeriesSpec
-
+from pdmdata.visualization.models import (
+    AxisSpec,
+    EventTimelineSpec,
+    TimeSeriesSpec,
+)
 
 PLOTS = {
     "telemetry": TimeSeriesSpec(

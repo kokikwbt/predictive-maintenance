@@ -2,7 +2,6 @@
 
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 
-
 PLOTS = {
     "counter_trajectory": TimeSeriesSpec(
         title="SCANIA Component X numerical counters",
@@ -32,7 +31,7 @@ def plot_histogram_evolution(frame, *, variable="459"):
         raise ValueError("Select exactly one SCANIA Component X vehicle")
     columns = histogram_columns(variable)
     if set(columns) - set(frame.columns):
-        raise ValueError("The frame lacks histogram {} columns".format(variable))
+        raise ValueError(f"The frame lacks histogram {variable} columns")
     frame = frame.sort("time_step")
     if frame.height < 2:
         raise ValueError("At least two readouts are required")

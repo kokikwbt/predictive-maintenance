@@ -1,6 +1,7 @@
 """Generate the HYDSYS native-rate cycle exploration notebook."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

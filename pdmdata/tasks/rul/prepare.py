@@ -7,13 +7,15 @@ this module builds an explicit Polars-tabular experiment bundle for modeling.
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import polars as pl
 
-from pdmdata.datasets.cmapss import load as load_cmapss
-from pdmdata.datasets.cmapss import rul as cmapss_test_end_rul
+from pdmdata.datasets.cmapss import (
+    load as load_cmapss,
+    rul as cmapss_test_end_rul,
+)
 from pdmdata.datasets.cmapss.loader import SUBSETS
 from pdmdata.tasks.cmapss_common import (
     CMAPSS_ENTITY_COLUMN,
@@ -33,7 +35,6 @@ from pdmdata.tasks.splits import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-
 ENTITY_COLUMN = CMAPSS_ENTITY_COLUMN
 TIME_COLUMN = CMAPSS_TIME_COLUMN
 TARGET_COLUMN = "RUL"
@@ -50,10 +51,10 @@ class CmapssRulBundle:
     """
 
     subset: str
-    feature_columns: Tuple[str, ...]
-    rul_cap: Optional[int]
+    feature_columns: tuple[str, ...]
+    rul_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_end_rul: pl.DataFrame
 
@@ -96,10 +97,10 @@ class CmapssRulBundle:
 def prepare_cmapss(
     subset: str = "FD001",
     *,
-    rul_cap: Optional[int] = None,
+    rul_cap: int | None = None,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_units: Optional[Sequence[int]] = None,
+    validation_units: Sequence[int] | None = None,
     drop_constant_features: bool = False,
     include_operating_settings: bool = True,
 ) -> CmapssRulBundle:
@@ -152,7 +153,7 @@ def prepare_cmapss(
     train_frame = filter_entities(
         train_labeled, train_units, ENTITY_COLUMN
     )
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_unit_ids:
         validation_frame = filter_entities(
             train_labeled, validation_unit_ids, ENTITY_COLUMN
@@ -195,7 +196,7 @@ def prepare_cmapss(
 
 def apply_rul_cap(
     frame: pl.DataFrame,
-    rul_cap: Optional[int],
+    rul_cap: int | None,
     column: str = TARGET_COLUMN,
 ) -> pl.DataFrame:
     """Return a copy with an optional piecewise RUL cap."""
@@ -205,7 +206,7 @@ def apply_rul_cap(
 def eval_cmapss(
     bundle: CmapssRulBundle,
     predictions: Sequence[float] | Mapping[int, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on the official last-row test protocol.
 
     ``predictions`` may be a sequence aligned with ``test_eval_split()`` row
@@ -219,7 +220,7 @@ def eval_cmapss(
 
 
 def _label_train(frame: pl.DataFrame, *,
-                 rul_cap: Optional[int]) -> pl.DataFrame:
+                 rul_cap: int | None) -> pl.DataFrame:
     labeled = frame.with_columns(
         pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN),
         pl.lit(True).alias(EVENT_OBSERVED_COLUMN),

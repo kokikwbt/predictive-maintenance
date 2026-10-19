@@ -1,12 +1,11 @@
-import json
 import ast
+import json
+import unittest
 from importlib import import_module
 from inspect import signature
-import unittest
 from pathlib import Path
 
 from pdmdata.catalog import load_catalog
-
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOKS = ROOT / "notebooks"
@@ -25,7 +24,7 @@ class NotebookStructureTest(unittest.TestCase):
                         source = "".join(cell.get("source", []))
                         compile(
                             source,
-                            "{}:cell-{}".format(path, index),
+                            f"{path}:cell-{index}",
                             "exec",
                         )
                         for node in ast.walk(ast.parse(source)):

@@ -5,8 +5,9 @@ follows the public burst and timestamp rules, with RUL always in cycle units.
 Positive ``noise_rul_factor`` uses labels only for benchmark simulation; it is
 not an unlabeled deployment transform. No target is returned as a model feature.
 """
-from dataclasses import asdict, dataclass
 import math
+from dataclasses import asdict, dataclass
+
 import numpy as np
 
 

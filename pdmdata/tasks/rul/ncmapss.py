@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 import polars as pl
 
@@ -25,7 +25,6 @@ from pdmdata.tasks.splits import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-
 ENTITY_COLUMN = "unit_number"
 TIME_COLUMN = "cycle"
 TARGET_COLUMN = "RUL"
@@ -43,10 +42,10 @@ class NcmapssRulBundle:
     """
 
     variant: str
-    feature_columns: Tuple[str, ...]
-    rul_cap: Optional[int]
+    feature_columns: tuple[str, ...]
+    rul_cap: int | None
     train: TabularSplit
-    validation: Optional[TabularSplit]
+    validation: TabularSplit | None
     test: TabularSplit
     test_end_rul: pl.DataFrame
 
@@ -89,10 +88,10 @@ class NcmapssRulBundle:
 def prepare_ncmapss(
     variant: str = "ds01",
     *,
-    rul_cap: Optional[int] = None,
+    rul_cap: int | None = None,
     validation_fraction: float = 0.2,
     random_state: int = 0,
-    validation_units: Optional[Sequence[int]] = None,
+    validation_units: Sequence[int] | None = None,
     drop_constant_features: bool = False,
     include_flight_conditions: bool = True,
     include_aux: bool = False,
@@ -168,7 +167,7 @@ def prepare_ncmapss(
     train_frame = filter_entities(
         train_labeled, train_units, ENTITY_COLUMN
     )
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_unit_ids:
         validation_frame = filter_entities(
             train_labeled, validation_unit_ids, ENTITY_COLUMN
@@ -210,7 +209,7 @@ def prepare_ncmapss(
 def eval_ncmapss(
     bundle: NcmapssRulBundle,
     predictions: Sequence[float] | Mapping[int, float],
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Score predictions on the last-row N-CMAPSS test protocol."""
     eval_split = bundle.test_eval_split()
     units = eval_split.groups().to_list()
@@ -220,7 +219,7 @@ def eval_ncmapss(
 
 
 def _label_train(
-    frame: pl.DataFrame, *, rul_cap: Optional[int]
+    frame: pl.DataFrame, *, rul_cap: int | None
 ) -> pl.DataFrame:
     labeled = frame.with_columns(
         pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN),
@@ -238,7 +237,7 @@ def _feature_columns(
     include_flight_conditions: bool,
     include_aux: bool,
     drop_constant_features: bool,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     exclude = {
         ENTITY_COLUMN,
         TIME_COLUMN,

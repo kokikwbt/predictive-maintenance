@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional, Sequence
+from collections.abc import Sequence
 
 import polars as pl
 
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 from pdmdata.visualization.plots import plot_large_time_series
-
 
 TIME_CANDIDATES = ("time_stamp", "timestamp", "time", "datetime", "DateTime")
 
@@ -16,8 +15,8 @@ TIME_CANDIDATES = ("time_stamp", "timestamp", "time", "datetime", "DateTime")
 def scada_signals(
     frame: pl.DataFrame | pl.LazyFrame,
     *,
-    columns: Optional[Sequence[str]] = None,
-    time_column: Optional[str] = None,
+    columns: Sequence[str] | None = None,
+    time_column: str | None = None,
 ):
     """Plot selected numeric signals from one CARE recording."""
     names = frame.collect_schema().names() if isinstance(frame, pl.LazyFrame) else frame.columns
@@ -55,9 +54,9 @@ PLOTS = {"scada_signals": scada_signals}
 def plot_waveforms(
     frame: pl.DataFrame | pl.LazyFrame,
     *,
-    columns: Optional[Sequence[str]] = None,
+    columns: Sequence[str] | None = None,
     title: str = "CARE SCADA waveforms",
-    event: Optional[dict] = None,
+    event: dict | None = None,
 ):
     """Plot full-resolution CARE signals on separate Matplotlib axes.
 

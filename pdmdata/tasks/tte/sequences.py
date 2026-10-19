@@ -5,14 +5,14 @@ No torch, research-model imports, or automatic downloads are required.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 import hashlib
-from importlib.metadata import version
 import json
-from pathlib import Path
 import subprocess
 import sys
-from typing import Mapping, Sequence
+from collections.abc import Mapping, Sequence
+from dataclasses import asdict, dataclass
+from importlib.metadata import version
+from pathlib import Path
 
 import numpy as np
 
@@ -196,9 +196,16 @@ def prepare_cmapss_sequences(spec: CmapssSequenceSpec | Mapping, *, include_test
     before the inner validation split. ``include_test=False`` never reads the
     official test series or its labels. Evaluation labels remain scoring-only.
     """
-    from pdmdata.datasets.cmapss import load as load_cmapss, rul as cmapss_test_end_rul
+    from pdmdata.datasets.cmapss import (
+        load as load_cmapss,
+        rul as cmapss_test_end_rul,
+    )
     from pdmdata.tasks.cmapss_common import feature_columns
-    from pdmdata.tasks.tte.prepare import _label_failed_rows, split_entities, filter_entities
+    from pdmdata.tasks.tte.prepare import (
+        _label_failed_rows,
+        filter_entities,
+        split_entities,
+    )
     if not isinstance(spec, CmapssSequenceSpec):
         spec = CmapssSequenceSpec(**spec)
     raw = load_cmapss(spec.subset, "train", with_rul=True)
@@ -289,7 +296,8 @@ def complete_sequences(arrays, cap):
         if not np.array_equal(labels, expected):
             raise ValueError("complete sequence labels or point order do not match")
         for i in np.flatnonzero(arrays["entity"] == unit):
-            end = int(arrays["endpoint"][i]); length = arrays["x"].shape[1]
+            end = int(arrays["endpoint"][i])
+            length = arrays["x"].shape[1]
             if end != arrays["endpoint"][i] or end < length or end > len(x):
                 raise ValueError("handoff does not contain complete unpadded windows")
             if not np.array_equal(arrays["times"][i], np.arange(end-length+1, end+1)):

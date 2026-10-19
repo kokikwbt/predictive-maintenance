@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Any, Dict, Optional
+from typing import Any
 
 import plotly.graph_objects as go
 import polars as pl
@@ -11,11 +11,10 @@ import polars as pl
 from .models import DistributionSpec, EventTimelineSpec, TimeSeriesSpec
 from .plots import plot_distribution, plot_event_timeline, plot_time_series
 
+_PLOTS: dict[str, dict[str, object]] | None = None
 
-_PLOTS: Dict[str, Dict[str, object]] | None = None
 
-
-def _plots() -> Dict[str, Dict[str, object]]:
+def _plots() -> dict[str, dict[str, object]]:
     """Load dataset plot specs on first use (avoid import-time side effects)."""
     global _PLOTS
     if _PLOTS is not None:
@@ -56,7 +55,7 @@ def _plots() -> Dict[str, Dict[str, object]]:
     return _PLOTS
 
 
-def available_plots(dataset_id: Optional[str] = None) -> Dict[str, object]:
+def available_plots(dataset_id: str | None = None) -> dict[str, object]:
     """Return registered plot specifications."""
     plots = _plots()
     if dataset_id is None:
@@ -65,7 +64,7 @@ def available_plots(dataset_id: Optional[str] = None) -> Dict[str, object]:
         return dict(plots[dataset_id])
     except KeyError:
         raise KeyError(
-            "No visualizations registered for {!r}".format(dataset_id)
+            f"No visualizations registered for {dataset_id!r}"
         ) from None
 
 
@@ -82,9 +81,7 @@ def visualize(
     except KeyError:
         choices = ", ".join(sorted(plots.get(dataset_id, {}))) or "none"
         raise KeyError(
-            "Unknown visualization {!r} for {!r}; available: {}".format(
-                plot_id, dataset_id, choices
-            )
+            f"Unknown visualization {plot_id!r} for {dataset_id!r}; available: {choices}"
         ) from None
     if isinstance(spec, TimeSeriesSpec):
         if isinstance(frame, pl.LazyFrame):
@@ -101,5 +98,5 @@ def visualize(
     if isinstance(spec, EventTimelineSpec):
         return plot_event_timeline(frame, spec, **options)
     raise TypeError(
-        "Unsupported visualization specification: {!r}".format(type(spec))
+        f"Unsupported visualization specification: {type(spec)!r}"
     )

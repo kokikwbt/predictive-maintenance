@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Mapping, Optional, Sequence, Tuple
+from collections.abc import Mapping, Sequence
 
 import polars as pl
 
@@ -50,7 +50,7 @@ def select_features(
     candidates: Sequence[str],
     *,
     drop_constant_features: bool,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Keep numeric candidate columns, optionally dropping train constants."""
     missing = [column for column in candidates if column not in frame.columns]
     if missing:
@@ -79,12 +79,12 @@ def select_features(
 def partition_entities(
     entities: Sequence[int | str],
     *,
-    test_entities: Optional[Sequence[int | str]],
+    test_entities: Sequence[int | str] | None,
     test_fraction: float,
-    validation_entities: Optional[Sequence[int | str]],
+    validation_entities: Sequence[int | str] | None,
     validation_fraction: float,
     random_state: int,
-) -> Tuple[Tuple[int | str, ...], Tuple[int | str, ...], Tuple[int | str, ...]]:
+) -> tuple[tuple[int | str, ...], tuple[int | str, ...], tuple[int | str, ...]]:
     """Split entities into train, validation, and test groups.
 
     Explicit test or validation ids override the corresponding fraction.
@@ -141,7 +141,7 @@ def materialize_splits(
     train_ids: Sequence[int | str],
     validation_ids: Sequence[int | str],
     test_ids: Sequence[int | str],
-) -> Tuple[TabularSplit, Optional[TabularSplit], TabularSplit, pl.DataFrame]:
+) -> tuple[TabularSplit, TabularSplit | None, TabularSplit, pl.DataFrame]:
     """Build labeled train/validation splits and feature-only test rows."""
     feature_columns = tuple(features)
     keep = [
@@ -160,7 +160,7 @@ def materialize_splits(
         )
 
     train_frame = take(train_ids)
-    validation_split: Optional[TabularSplit]
+    validation_split: TabularSplit | None
     if validation_ids:
         validation_split = TabularSplit(
             frame=take(validation_ids),
@@ -221,7 +221,7 @@ def restore_test_labels(
 
 def summary_frame(
     train: TabularSplit,
-    validation: Optional[TabularSplit],
+    validation: TabularSplit | None,
     test: TabularSplit,
 ) -> pl.DataFrame:
     """Inventory row counts for the prepared splits."""

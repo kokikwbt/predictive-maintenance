@@ -9,7 +9,6 @@ import polars as pl
 
 from pdmdata.io import find_raw_file
 
-
 DATASET_ID = "scania_x"
 SPLITS = ("train", "validation", "test")
 TABLES = ("readouts", "specifications", "tte", "labels")
@@ -17,7 +16,7 @@ COUNTERS = (
     "171_0", "666_0", "427_0", "837_0", "309_0", "835_0", "370_0", "100_0",
 )
 HISTOGRAMS = {"167": 10, "272": 10, "291": 11, "158": 10, "459": 20, "397": 36}
-SPECIFICATIONS = tuple("Spec_{}".format(index) for index in range(8))
+SPECIFICATIONS = tuple(f"Spec_{index}" for index in range(8))
 # Upper bounds of the provider's time windows before repair, for classes 4..1.
 # The provider does not state boundary inclusion; windows are half-open here.
 WINDOW_BOUNDS = ((4, 6.0), (3, 12.0), (2, 24.0), (1, 48.0))
@@ -31,7 +30,7 @@ def histogram_columns(variable: str) -> list[str]:
         raise ValueError(
             "variable must be one of: {}".format(", ".join(HISTOGRAMS))
         ) from None
-    return ["{}_{}".format(variable, index) for index in range(bins)]
+    return [f"{variable}_{index}" for index in range(bins)]
 
 
 FEATURES = tuple(COUNTERS) + tuple(
@@ -52,7 +51,7 @@ def _filename(split: str, table: str) -> str:
             "use table='tte' for train"
         )
     stem = "operational_readouts" if table == "readouts" else table
-    return "{}_{}.csv".format(split, stem)
+    return f"{split}_{stem}.csv"
 
 
 def _path(split: str, table: str) -> Path:
@@ -65,7 +64,7 @@ def _scan_readouts(path: Path) -> pl.LazyFrame:
     names = scan.collect_schema().names()
     expected = ["vehicle_id", "time_step", *FEATURES]
     if sorted(names) != sorted(expected):
-        raise ValueError("Unexpected readout columns in {}".format(path))
+        raise ValueError(f"Unexpected readout columns in {path}")
     return scan.select(
         pl.col(name).cast(pl.Int64 if name == "vehicle_id" else pl.Float64)
         for name in names
@@ -84,7 +83,7 @@ def _read_table(path: Path, table: str) -> pl.DataFrame:
         schema.update(class_label=pl.UInt8)
     frame = pl.read_csv(path, schema_overrides=schema)
     if set(frame.columns) != set(schema):
-        raise ValueError("Unexpected {} columns in {}".format(table, path))
+        raise ValueError(f"Unexpected {table} columns in {path}")
     return frame.select(list(schema))
 
 

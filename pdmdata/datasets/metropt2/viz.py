@@ -3,7 +3,6 @@
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 from pdmdata.visualization.plots import plot_large_time_series
 
-
 SENSOR_SPEC = TimeSeriesSpec(
     title="MetroPT2 air-production-unit signals",
     x=AxisSpec("timestamp", "Timestamp"),

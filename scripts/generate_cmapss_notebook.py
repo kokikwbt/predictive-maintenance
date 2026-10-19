@@ -1,6 +1,7 @@
 """Generate C-MAPSS trajectory, operating-setting, and RUL examples."""
 
 from pathlib import Path
+
 import nbformat as nbf
 
 

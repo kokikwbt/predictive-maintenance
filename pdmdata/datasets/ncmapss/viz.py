@@ -2,7 +2,6 @@
 
 from pdmdata.visualization.models import AxisSpec, TimeSeriesSpec
 
-
 PLOTS = {
     "sensor_trajectory": TimeSeriesSpec(
         title="N-CMAPSS sensor trajectory",

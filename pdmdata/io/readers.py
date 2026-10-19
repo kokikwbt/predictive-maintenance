@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable, Optional
 
 import polars as pl
 
 
 def read_whitespace(
     path: Path | str,
-    columns: Optional[Iterable[str]] = None,
+    columns: Iterable[str] | None = None,
 ) -> pl.DataFrame:
     """Read a whitespace-delimited text matrix as a Polars DataFrame."""
     frame = pl.read_csv(
@@ -28,9 +28,7 @@ def read_whitespace(
         names = list(columns)
         if frame.width != len(names):
             raise ValueError(
-                "Expected {} columns in {}, found {}".format(
-                    len(names), path, frame.width
-                )
+                f"Expected {len(names)} columns in {path}, found {frame.width}"
             )
         frame.columns = names
     return frame
