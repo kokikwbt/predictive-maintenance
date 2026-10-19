@@ -3,10 +3,8 @@
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
+from notebook_cells import ROOT, code, markdown, notebook, write_document
 
-ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "notebooks" / "tasks"
 
 SETUP = """from pathlib import Path
@@ -21,40 +19,6 @@ import polars as pl
 
 import pdmdata"""
 
-
-def markdown(source: str) -> dict[str, object]:
-    """Create a Markdown notebook cell."""
-    return {"cell_type": "markdown", "metadata": {}, "source": source.splitlines(True)}
-
-
-def code(source: str) -> dict[str, object]:
-    """Create an empty-output code notebook cell."""
-    return {
-        "cell_type": "code",
-        "execution_count": None,
-        "metadata": {},
-        "outputs": [],
-        "source": source.splitlines(True),
-    }
-
-
-def notebook(cells: list[dict[str, object]]) -> dict[str, object]:
-    """Create a notebook document using the project kernel."""
-    for index, cell in enumerate(cells):
-        cell["id"] = f"cell-{index:02d}"
-    return {
-        "cells": cells,
-        "metadata": {
-            "kernelspec": {
-                "display_name": "Python (pdmdata)",
-                "language": "python",
-                "name": "pdmdata",
-            },
-            "language_info": {"name": "python", "version": "3.14"},
-        },
-        "nbformat": 4,
-        "nbformat_minor": 5,
-    }
 
 
 NOTEBOOKS = {
@@ -706,9 +670,7 @@ def main() -> None:
         if existing.name not in expected:
             existing.unlink()
     for filename, document in sorted(NOTEBOOKS.items()):
-        path = OUTPUT / filename
-        path.write_text(json.dumps(document, indent=1) + "\n", encoding="utf-8")
-        print(path.relative_to(ROOT))
+        write_document(OUTPUT / filename, document)
 
 
 if __name__ == "__main__":

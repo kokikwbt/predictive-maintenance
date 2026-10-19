@@ -1,20 +1,12 @@
 """Generate the PPD recording and data-quality exploration notebook."""
 
-from pathlib import Path
-
-import nbformat as nbf
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells = []
+    nb = NotebookBuilder()
 
-    def markdown(source):
-        cells.append(nbf.v4.new_markdown_cell(source))
-
-    def code(source):
-        cells.append(nbf.v4.new_code_cell(source))
-
-    markdown('''# PPD: eight sequences and Leave-One-Out evaluation
+    nb.markdown('''# PPD: eight sequences and Leave-One-Out evaluation
 
 PPD has eight sequence IDs: 7, 8, 9, 11, 13, 14, 15, and 16. The number after C
 identifies the sequence; hyphenated suffixes identify ordered source parts.
@@ -32,7 +24,7 @@ supplied in the CSVs.
 Run `pdmdata.download("ppd")` explicitly if needed. This notebook reads local data
 and saves Matplotlib output for GitHub; loading never downloads implicitly.
 ''')
-    code('''from pathlib import Path
+    nb.code('''from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0, str(ROOT))
@@ -50,7 +42,7 @@ print("Raw schema: Timestamp plus 25 process signals; no target columns")
 display(files.select("sequence_id", "source_files", "samples", "first_sample", "last_sample",
                      "missing_values", "rows_with_missing", "constant_signals"))
 ''')
-    markdown('''## Time axis and missing measurements
+    nb.markdown('''## Time axis and missing measurements
 
 `Timestamp` runs from zero to the row count minus one in each distributed file.
 No physical sampling interval is provided in these CSVs, so plots use the source
@@ -63,7 +55,7 @@ C7-2, C14, and C15 each contain four consecutive rows missing all 25 signals.
 Those rows remain in the data, creating visible gaps instead of shifting the
 remaining samples. C13-2 also has constant L_3 and L_6 signals.
 ''')
-    code('''missing = []
+    nb.code('''missing = []
 for sequence_id in SEQUENCE_IDS:
     data = pdmdata.load("ppd", sequence_id=sequence_id)
     gaps = data.filter(pl.any_horizontal(pl.col(SENSOR_COLUMNS).is_null()))
@@ -72,7 +64,7 @@ for sequence_id in SEQUENCE_IDS:
                         "source_indices": gaps["Timestamp"].to_list()})
 display(pl.DataFrame(missing))
 ''')
-    markdown('''## A complete recording with a compact signal selection
+    nb.markdown('''## A complete recording with a compact signal selection
 
 The default loads the complete C7 sequence (both source parts). Six channels are selected
 for readability across the column families, not as a validated model feature
@@ -80,7 +72,7 @@ set. Change SEQUENCE_ID and SIGNALS to inspect any of the 25 source signals.
 Values retain the source scale; physical units and detailed channel meanings
 are not assigned from anonymized column names.
 ''')
-    code('''SEQUENCE_ID = 7
+    nb.code('''SEQUENCE_ID = 7
 SIGNALS = DEFAULT_SIGNALS
 frame = pdmdata.load("ppd", sequence_id=SEQUENCE_ID)
 display(pl.DataFrame({"signal": SENSOR_COLUMNS,
@@ -90,47 +82,47 @@ display(pl.DataFrame({"signal": SENSOR_COLUMNS,
 overview = plot_waveforms(frame, columns=SIGNALS)
 plt.show()
 ''')
-    markdown('''## Zoom into the first 500 observations
+    nb.markdown('''## Zoom into the first 500 observations
 
 This sample prefix makes shorter changes easier to inspect. No smoothing,
 resampling, or inferred state labels are applied. START and STOP select rows.
 ''')
-    code('''START, STOP = 0, 500
+    nb.code('''START, STOP = 0, 500
 zoom = plot_waveforms(frame, columns=SIGNALS, start=START, stop=STOP)
 assets = ROOT / "pdmdata/datasets/ppd/assets"
 assets.mkdir(parents=True, exist_ok=True)
 zoom.savefig(assets / "waveforms.png", dpi=100)
 plt.show()
 ''')
-    markdown('''## A real missing-data interval
+    nb.markdown('''## A real missing-data interval
 
 The gap below comes from missing measurements in C7-2. It is not a labeled
 failure or an estimated change point. The original timestamp indices are retained.
 ''')
-    code('''gap_frame = pdmdata.load("ppd", sequence_id=7)
+    nb.code('''gap_frame = pdmdata.load("ppd", sequence_id=7)
 first_missing = gap_frame.filter(pl.any_horizontal(pl.col(SENSOR_COLUMNS).is_null()))["sample"][0]
 gap_figure = plot_waveforms(gap_frame, columns=["L_1", "A_1"],
                             start=first_missing - 24, stop=first_missing + 26)
 plt.show()
 ''')
-    markdown('''## Compare one prefix per trial
+    nb.markdown('''## Compare one prefix per trial
 
 These panels compare the first 1,500 observations of separate experiments with a
 shared amplitude scale. Every frame contains a complete sequence; this plot
 selects only the prefix for readability.
 No continuity, alignment by physical age, or class label is implied.
 ''')
-    code('''examples = [pdmdata.load("ppd", sequence_id=i) for i in SEQUENCE_IDS]
+    nb.code('''examples = [pdmdata.load("ppd", sequence_id=i) for i in SEQUENCE_IDS]
 comparison = plot_recordings(examples, column="L_1", stop=1500)
 plt.show()
 ''')
-    markdown('''## Leave-One-Out by sequence
+    nb.markdown('''## Leave-One-Out by sequence
 
 Eight folds hold out one complete sequence each. Both source parts of C7 or C13
 always stay in the same fold. Fit scaling and model selection using training
 sequences only. This cell demonstrates partitioning; it does not train a model.
 ''')
-    code('''sequences = dict(zip(SEQUENCE_IDS, examples))
+    nb.code('''sequences = dict(zip(SEQUENCE_IDS, examples))
 folds = []
 for held_out in SEQUENCE_IDS:
     train_ids = [i for i in SEQUENCE_IDS if i != held_out]
@@ -141,7 +133,7 @@ for held_out in SEQUENCE_IDS:
                   "train_samples": train.height, "test_samples": test.height})
 display(pl.DataFrame(folds))
 ''')
-    markdown('''## Implications for dependency-based segmentation
+    nb.markdown('''## Implications for dependency-based segmentation
 
 - PPD supplies 25 signals, yielding 300 possible undirected sensor pairs. A small
   subset can aid interpretation, but choose it using training data and a stated
@@ -165,10 +157,7 @@ with von Birgelen et al. (2018), *Self-Organizing Maps for Anomaly Localization
 and Predictive Maintenance in Cyber-Physical Production Systems*.
 Source data and the derived preview: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 ''')
-    notebook = nbf.v4.new_notebook(cells=cells, metadata={
-        "kernelspec": {"name": "pdmdata", "display_name": "Python (pdmdata)", "language": "python"}
-    })
-    nbf.write(notebook, Path(__file__).resolve().parents[1] / "notebooks/datasets/ppd.ipynb")
+    nb.write(ROOT / "notebooks/datasets/ppd.ipynb")
 
 
 if __name__ == "__main__":

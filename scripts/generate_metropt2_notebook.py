@@ -1,17 +1,11 @@
 """Create the MetroPT2 operating-cycle exploration notebook."""
 
-import json
-from pathlib import Path
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells=[]
-    def add(kind,source):
-        c=dict(cell_type=kind,id=f'cell-{len(cells):02d}',metadata={},source=source.splitlines(True))
-        if kind=='code':
-            c.update(execution_count=None,outputs=[])
-        cells.append(c)
-    add('markdown','''# MetroPT2: operating cycles and sensor relationships
+    nb = NotebookBuilder()
+    nb.markdown('''# MetroPT2: operating cycles and sensor relationships
 
 Explore real compressor signals alongside binary controls. Unlike GDD, MetroPT2
 has no per-sample operating-state labels. Control combinations below are
@@ -24,7 +18,7 @@ Run `pdmdata.download("metropt2")` explicitly if local data is missing. This
 notebook reads a limited prefix of the downloaded CSV, without downloading or
 saving another copy of the raw measurements.
 ''')
-    add('code','''from pathlib import Path
+    nb.code('''from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0,str(ROOT))
@@ -42,13 +36,13 @@ sample = scan.select(["timestamp", *ANALOG_SIGNALS, *CONTROL_SIGNALS]).head(N_SA
 print(f"Loaded {sample.height:,} observations; {sample['timestamp'][0]} to {sample['timestamp'][-1]}")
 display(sample.head())
 ''')
-    add('markdown','''## Sampling and signal checks
+    nb.markdown('''## Sampling and signal checks
 
 The provider describes nominal 1 Hz logging; actual timestamps can be irregular.
 We retain observed timestamps and do not resample. The plotted prefix is an
 illustration, not a representative sample of all operating and fault conditions.
 ''')
-    add('code','''dt = sample["timestamp"].diff().dt.total_milliseconds()/1000
+    nb.code('''dt = sample["timestamp"].diff().dt.total_milliseconds()/1000
 print(f"Median interval: {dt.median():.3f} s; minimum: {dt.min():.3f}; maximum: {dt.max():.3f}")
 print(f"Backward steps: {(dt < 0).sum()}; duplicate steps: {(dt == 0).sum()}; gaps > 5 s: {(dt > 5).sum()}")
 display(sample.null_count())
@@ -63,34 +57,34 @@ for c in CONTROL_SIGNALS:
     print(c, "observed values:", sample[c].unique().sort().to_list())
 assert sample["timestamp"].is_sorted(), "Inspect timestamp reversals before plotting"
 ''')
-    add('markdown','''## Overview: repeated control changes and sensor response
+    nb.markdown('''## Overview: repeated control changes and sensor response
 
 The upper panel shows each binary control separately, vertically offset for
 readability. Analogue signals retain their source values. Gaps longer than five
 seconds are broken in the traces; no smoothing or interpolation is applied.
 ''')
-    add('code','''overview = plot_operation(sample)
+    nb.code('''overview = plot_operation(sample)
 plt.show()
 ''')
-    add('markdown','''## Zoom into a 20-minute interval
+    nb.markdown('''## Zoom into a 20-minute interval
 
 Adjust START_MINUTES and WINDOW_MINUTES to inspect another part of the prefix.
 The default starts at the beginning, without selecting for a particular fault.
 ''')
-    add('code','''START_MINUTES, WINDOW_MINUTES = 0, 20
+    nb.code('''START_MINUTES, WINDOW_MINUTES = 0, 20
 elapsed = (pl.col("timestamp") - sample["timestamp"][0]).dt.total_milliseconds()/60000
 window = sample.filter((elapsed >= START_MINUTES) & (elapsed < START_MINUTES + WINDOW_MINUTES))
 zoom = plot_operation(window)
 plt.show()
 ''')
-    add('markdown','''## Observed control combinations and their persistence
+    nb.markdown('''## Observed control combinations and their persistence
 
 Encode `COMP + 2 * DV_eletric + 4 * Towers` only to identify combinations.
 The numeric order does not mean severity, and the eight possible codes need not
 all occur. Control signals can lag or lead the analogue response. Keep them out
 of sensor-only model inputs if using them as evaluation references.
 ''')
-    add('code','''for c in CONTROL_SIGNALS:
+    nb.code('''for c in CONTROL_SIGNALS:
     assert sample[c].null_count() == 0 and set(sample[c].unique().to_list()) <= {0,1}
 annotated = sample.with_row_index("sample_index").with_columns(
     (pl.col("COMP") + 2*pl.col("DV_eletric") + 4*pl.col("Towers")).cast(pl.UInt8).alias("control_code")
@@ -109,14 +103,14 @@ display(segments.group_by("control_code").agg(pl.len().alias("segments"),
     pl.col("observed_span_s").median().alias("median_observed_span_s")).sort("control_code"))
 display(segments.head(12))
 ''')
-    add('markdown','''## Analogue profiles for each observed control combination
+    nb.markdown('''## Analogue profiles for each observed control combination
 
 These descriptive medians help identify how pressure, current, temperature,
 and flow vary with control signals. They are not learned dependency graphs.
 ''')
-    add('code','''display(annotated.group_by("control_code").agg(pl.col(ANALOG_SIGNALS).median()).sort("control_code"))
+    nb.code('''display(annotated.group_by("control_code").agg(pl.col(ANALOG_SIGNALS).median()).sort("control_code"))
 ''')
-    add('markdown','''## Fault reports are a separate source of information
+    nb.markdown('''## Fault reports are a separate source of information
 
 The source CSV is unlabeled. The provider lists these intervals:
 
@@ -139,9 +133,7 @@ period, filter the lazy scan by timestamp before collecting a limited window.
 - Evaluate multiple separated periods; this short prefix alone cannot establish
   multi-scale behavior or generalization across the whole recording.
 ''')
-    root=Path(__file__).resolve().parents[1]
-    p=root/'notebooks/datasets/metropt2.ipynb'
-    p.write_text(json.dumps(dict(cells=cells,metadata={'kernelspec':{'name':'pdmdata','display_name':'Python (pdmdata)','language':'python'},'language_info':{'name':'python','version':'3.14'}},nbformat=4,nbformat_minor=5),indent=1)+'\n')
+    nb.write(ROOT / "notebooks/datasets/metropt2.ipynb")
 
 
 if __name__ == '__main__':

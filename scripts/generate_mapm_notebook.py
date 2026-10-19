@@ -1,27 +1,12 @@
 """Generate an unexecuted MAPM telemetry exploration notebook."""
 
-import json
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells = []
+    nb = NotebookBuilder()
 
-    def add(kind, source):
-        cell = dict(
-            cell_type=kind,
-            id=f"cell-{len(cells):02d}",
-            metadata={},
-            source=source.splitlines(True),
-        )
-        if kind == "code":
-            cell.update(execution_count=None, outputs=[])
-        cells.append(cell)
-
-    add(
-        "markdown",
+    nb.markdown(
         """# MAPM: Azure predictive-maintenance tables
 
 Load the five Microsoft sample tables, inspect telemetry for one machine,
@@ -34,8 +19,7 @@ Download explicitly first with `pdmdata.download("mapm")` if local files are
 missing. Treat the data as synthetic.
 """,
     )
-    add(
-        "code",
+    nb.code(
         """from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
@@ -56,16 +40,14 @@ display(machines.head())
 display(telemetry.head())
 """,
     )
-    add(
-        "markdown",
+    nb.markdown(
         """## One machine trajectory
 
 Filter telemetry and errors for a single `machineID`, then reuse the shared
 Plotly registry.
 """,
     )
-    add(
-        "code",
+    nb.code(
         """MACHINE = 1
 unit = telemetry.filter(telemetry["machineID"] == MACHINE)
 unit_errors = errors.filter(errors["machineID"] == MACHINE)
@@ -79,28 +61,7 @@ if unit_errors.height:
 """,
     )
 
-    path = ROOT / "notebooks" / "datasets" / "mapm.ipynb"
-    path.write_text(
-        json.dumps(
-            {
-                "cells": cells,
-                "metadata": {
-                    "kernelspec": {
-                        "display_name": "Python (pdmdata)",
-                        "language": "python",
-                        "name": "pdmdata",
-                    },
-                    "language_info": {"name": "python", "pygments_lexer": "ipython3"},
-                },
-                "nbformat": 4,
-                "nbformat_minor": 5,
-            },
-            indent=1,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    print(path)
+    nb.write(ROOT / "notebooks/datasets/mapm.ipynb")
 
 
 if __name__ == "__main__":

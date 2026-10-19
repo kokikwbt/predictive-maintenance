@@ -1,18 +1,12 @@
 """Generate C-MAPSS trajectory, operating-setting, and RUL examples."""
 
-from pathlib import Path
-
-import nbformat as nbf
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells = []
-    def markdown(source):
-        cells.append(nbf.v4.new_markdown_cell(source))
-    def code(source):
-        cells.append(nbf.v4.new_code_cell(source))
+    nb = NotebookBuilder()
 
-    markdown('''# C-MAPSS: engine degradation and operating-condition changes
+    nb.markdown('''# C-MAPSS: engine degradation and operating-condition changes
 
 Explore all four subsets of NASA's simulated engine benchmark. Each row is
 one observation per operating cycle, with 21 sensor values and three operating
@@ -26,7 +20,7 @@ data and saves compact Matplotlib figures for GitHub. Unit IDs start at 1 and
 are local to each subset and split; train unit 1 and test unit 1 are different
 engines.
 ''')
-    code('''from pathlib import Path
+    nb.code('''from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0, str(ROOT))
@@ -42,7 +36,7 @@ summary = inventory()
 display(summary)
 print(f"Train/test trajectories: {summary['units'].sum():,}; cycle rows: {summary['rows'].sum():,}")
 ''')
-    markdown('''## Subsets and source inventory
+    nb.markdown('''## Subsets and source inventory
 
 FD001/FD003 use one operating condition; FD002/FD004 use six. FD001/FD002
 simulate HPC degradation; FD003/FD004 include HPC and fan degradation modes.
@@ -52,13 +46,13 @@ The bundled readme reverses the FD004 train/test counts: actual files contain
 249 train and 248 test engines, with 248 test-end RUL targets. Inventory and
 loading use the actual files. There are 709 train and 707 test trajectories.
 ''')
-    markdown('''## FD001: six sensor trajectories from one engine
+    nb.markdown('''## FD001: six sensor trajectories from one engine
 
 Use `unit=1` to select one engine. Its observed training trajectory ends at
 failure. The selected sensors retain their original values; no smoothing,
 normalization, clipping, or healthy/faulty threshold is applied.
 ''')
-    code('''SUBSET = "FD001"
+    nb.code('''SUBSET = "FD001"
 UNIT = 1
 train_unit = load(SUBSET, "train", unit=UNIT, with_rul=True)
 display(train_unit.select("unit_number", "cycle", "sensor_2", "sensor_11", "RUL").head())
@@ -68,7 +62,7 @@ assets.mkdir(parents=True, exist_ok=True)
 waveforms.savefig(assets / "waveforms.png", dpi=100)
 plt.show()
 ''')
-    markdown('''## Feature variability in the training split
+    nb.markdown('''## Feature variability in the training split
 
 Use the 21 sensors as candidate graph variables and keep operating settings as
 separate context when that fits the model. Some sensors are constant or nearly
@@ -76,7 +70,7 @@ constant in a subset. Inspect variability using **training data only** before
 choosing columns and fitting a scaler. Dropping exact constants alone does not
 identify every numerically uninformative channel.
 ''')
-    code('''training = load(SUBSET, "train")
+    nb.code('''training = load(SUBSET, "train")
 variability = pl.DataFrame({
     "sensor": SENSOR_COLUMNS,
     "unique_values": [training[c].n_unique() for c in SENSOR_COLUMNS],
@@ -88,21 +82,21 @@ X = train_unit.select(nonconstant)
 print("Exact nonconstant sensor columns from FD001 training:", len(nonconstant))
 print("Selected unit sensor-only shape:", X.shape)
 ''')
-    markdown('''## FD002: multiple operating conditions change sensor values
+    nb.markdown('''## FD002: multiple operating conditions change sensor values
 
 The same six sensors can show much larger between-cycle jumps under changing
 operating settings. The next figures use the first training engine of FD002,
 first over its complete trajectory and then over its first 80 cycles. Do not
 interpret every jump as a degradation event.
 ''')
-    code('''multiple_conditions = load("FD002", "train", unit=1)
+    nb.code('''multiple_conditions = load("FD002", "train", unit=1)
 condition_waveforms = plot_waveforms(multiple_conditions, subset="FD002")
 plt.show()
 settings = plot_operating_settings(multiple_conditions, subset="FD002", stop_cycle=80)
 settings.savefig(assets / "operating_settings.png", dpi=100)
 plt.show()
 ''')
-    markdown('''## Explicit RUL: train failure endpoints and official test offsets
+    nb.markdown('''## Explicit RUL: train failure endpoints and official test offsets
 
 `with_rul=True` adds uncapped RUL, measured in remaining operating cycles:
 
@@ -114,14 +108,14 @@ plt.show()
 Test targets are evaluation information: do not use them to fit the encoder,
 select features, normalize inputs, or set segmentation thresholds.
 ''')
-    code('''test_unit = load(SUBSET, "test", unit=UNIT, with_rul=True)
+    nb.code('''test_unit = load(SUBSET, "test", unit=UNIT, with_rul=True)
 display(rul(SUBSET).head())
 print("Train final RUL:", train_unit["RUL"][-1])
 print("Test final RUL:", test_unit["RUL"][-1])
 rul_figure = plot_rul(train_unit, test_unit, subset=SUBSET)
 plt.show()
 ''')
-    markdown('''## Research implications
+    nb.markdown('''## Research implications
 
 - Cycle is a discrete observation index; the files do not define an elapsed
   duration in seconds or a within-cycle waveform. Do not assign an Hz rate.
@@ -149,10 +143,7 @@ bundled readme and *Damage Propagation Modeling for Aircraft Engine
 Run-to-Failure Simulation* (Saxena et al., 2008). Figures select source trajectories
 and add axes; values are unchanged.
 ''')
-    notebook = nbf.v4.new_notebook(cells=cells, metadata={
-        "kernelspec": {"name": "pdmdata", "display_name": "Python (pdmdata)", "language": "python"}
-    })
-    nbf.write(notebook, Path(__file__).resolve().parents[1] / "notebooks/datasets/cmapss.ipynb")
+    nb.write(ROOT / "notebooks/datasets/cmapss.ipynb")
 
 
 if __name__ == "__main__":

@@ -1,20 +1,12 @@
 """Generate the IMS snapshot and bearing degradation exploration notebook."""
 
-from pathlib import Path
-
-import nbformat as nbf
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells = []
+    nb = NotebookBuilder()
 
-    def markdown(source):
-        cells.append(nbf.v4.new_markdown_cell(source))
-
-    def code(source):
-        cells.append(nbf.v4.new_code_cell(source))
-
-    markdown('''# IMS: vibration snapshots and bearing degradation
+    nb.markdown('''# IMS: vibration snapshots and bearing degradation
 
 Explore three bearing experiments at two distinct time scales: high-frequency
 vibration **within a recording**, and the evolution of those recordings over
@@ -29,7 +21,7 @@ ZIP and extracts its nested 7z and RAR files. This notebook reads local data.
 Recording indices are zero-based within each experiment. All figures are saved
 Matplotlib outputs that GitHub can display without running Python.
 ''')
-    code('''from pathlib import Path
+    nb.code('''from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
 sys.path.insert(0, str(ROOT))
@@ -50,7 +42,7 @@ summary = files.group_by("experiment").agg(
 display(summary)
 print(f"Local snapshots: {files.height:,}")
 ''')
-    markdown('''## Channel assignments and end-of-test outcomes
+    nb.markdown('''## Channel assignments and end-of-test outcomes
 
 The source describes inner-race damage in bearing 3 and roller-element damage
 in bearing 4 of experiment 1; outer-race failure in bearing 1 of experiment 2;
@@ -58,14 +50,14 @@ and outer-race failure in bearing 3 of experiment 3. These descriptions are
 experiment outcomes, not ground-truth onset times. "Not reported" does not
 assert that every sample of another bearing is healthy.
 ''')
-    code('''for experiment in (1, 2, 3):
+    nb.code('''for experiment in (1, 2, 3):
     print(f"Experiment {experiment}")
     display(channel_info(experiment))
 # Eight-dimensional sensor-only input from experiment 1.
 eight_channels = load(0, experiment=1).select(channel_info(1)["channel"].to_list())
 print("Experiment 1 sensor matrix:", eight_channels.shape)
 ''')
-    markdown('''## Select snapshots from experiment 2
+    nb.markdown('''## Select snapshots from experiment 2
 
 Select its first and last recording by index. An exact timestamp filename also
 works, for example `load("2004.02.12.10.32.39", experiment=2)`.
@@ -77,7 +69,7 @@ that stated sampling rate rather than silently changing it to 20.48 kHz.
 Source amplitudes are retained without conversion; the bundled description
 does not specify their numerical unit.
 ''')
-    code('''EXPERIMENT = 2
+    nb.code('''EXPERIMENT = 2
 selected = inventory(EXPERIMENT)
 first_index, last_index = 0, selected.height - 1
 early = load(first_index, experiment=EXPERIMENT)
@@ -87,7 +79,7 @@ examples = [(f"First, index {first_index}", early), (f"Last, index {last_index}"
 full = plot_waveforms(examples, experiment=EXPERIMENT, stop_s=1.024)
 plt.show()
 ''')
-    markdown('''## Zoom: first recording versus maximum channel 1 RMS
+    nb.markdown('''## Zoom: first recording versus maximum channel 1 RMS
 
 The final two recordings have near-zero amplitudes across all four channels.
 This observation does not establish a healthy state or an annotated failure
@@ -98,7 +90,7 @@ The same amplitude limits are used for a channel across both columns. This
 explicit extreme-value selection is an illustration, not a representative
 sample or a labeled segmentation benchmark.
 ''')
-    code('''history = rms_history(EXPERIMENT)
+    nb.code('''history = rms_history(EXPERIMENT)
 peak_index = int(history.sort("channel_1", descending=True)["recording_index"][0])
 peak = load(peak_index, experiment=EXPERIMENT)
 examples = [("First, index 0", early), (f"Maximum RMS, index {peak_index}", peak)]
@@ -111,7 +103,7 @@ plt.show()
 X = early.select(channel_info(EXPERIMENT)["channel"].to_list())
 print("Sensor-only matrix for one snapshot:", X.shape)
 ''')
-    markdown('''## Slow evolution: RMS for each recording
+    nb.markdown('''## Slow evolution: RMS for each recording
 
 `rms_history` reads one snapshot at a time and computes sqrt(mean(x²)) per
 channel without removing the mean. Points below cover **every recording** of
@@ -122,7 +114,7 @@ Recordings are normally about ten minutes apart; the first 43 recordings of
 experiment 1 were taken about five minutes apart. Do not join snapshots into
 a continuous 20 kHz waveform across the unobserved intervals.
 ''')
-    code('''display(history.tail(6))
+    nb.code('''display(history.tail(6))
 trend = plot_rms(history, experiment=EXPERIMENT)
 plt.show()
 intervals = selected.select(pl.col("recording_time").diff().dt.total_seconds().alias("gap_s")).drop_nulls()
@@ -130,7 +122,7 @@ display(intervals.select(pl.min("gap_s").alias("minimum_gap_s"),
                          pl.median("gap_s").alias("median_gap_s"),
                          pl.max("gap_s").alias("maximum_gap_s")))
 ''')
-    markdown('''## Experiment 3: archive contents differ from the bundled description
+    nb.markdown('''## Experiment 3: archive contents differ from the bundled description
 
 The supplied PDF describes 4,448 recordings ending on April 4, 2004. The
 NASA-linked archive instead contains 6,324 recordings under
@@ -141,14 +133,14 @@ explained in the PDF, so its last timestamp should not automatically become
 a verified failure endpoint for RUL experiments. The final archive snapshot
 also has near-zero amplitudes; the original values are preserved below.
 ''')
-    code('''third = inventory(3)
+    nb.code('''third = inventory(3)
 third_examples = [("First recording", load(0, experiment=3)),
                   ("Last archive recording", load(third.height - 1, experiment=3))]
 display(third[[0, third.height - 1]].select("recording_index", "recording", "channels"))
 third_plot = plot_waveforms(third_examples, experiment=3, stop_s=0.05)
 plt.show()
 ''')
-    markdown('''## Use in multiscale dependency research
+    nb.markdown('''## Use in multiscale dependency research
 
 - Choose 4 or 8 channels as the graph variables; do not flatten all 20,480 time
   samples into the feature dimension. Exclude identifiers and time columns.
@@ -169,10 +161,7 @@ IMS, University of Cincinnati. *Bearing Data Set*, NASA Prognostics Data
 Repository, NASA Ames Research Center. Technical details above are from the
 bundled *Readme Document for IMS Bearing Data.pdf* and local archive inspection.
 ''')
-    notebook = nbf.v4.new_notebook(cells=cells, metadata={
-        "kernelspec": {"name": "pdmdata", "display_name": "Python (pdmdata)", "language": "python"}
-    })
-    nbf.write(notebook, Path(__file__).resolve().parents[1] / "notebooks/datasets/ims.ipynb")
+    nb.write(ROOT / "notebooks/datasets/ims.ipynb")
 
 
 if __name__ == "__main__":

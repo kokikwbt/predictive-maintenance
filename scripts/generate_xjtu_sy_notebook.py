@@ -1,27 +1,12 @@
 """Generate an unexecuted XJTU-SY bearing exploration notebook."""
 
-import json
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
+from notebook_cells import ROOT, NotebookBuilder
 
 
 def main():
-    cells = []
+    nb = NotebookBuilder()
 
-    def add(kind, source):
-        cell = dict(
-            cell_type=kind,
-            id=f"cell-{len(cells):02d}",
-            metadata={},
-            source=source.splitlines(True),
-        )
-        if kind == "code":
-            cell.update(execution_count=None, outputs=[])
-        cells.append(cell)
-
-    add(
-        "markdown",
+    nb.markdown(
         """# XJTU-SY: bearing run-to-failure snapshots
 
 List local bearings, load minute-level RMS features with derived RUL, and plot
@@ -33,8 +18,7 @@ Download explicitly first with `pdmdata.download("xjtu_sy")`. The archive is
 large and excluded from bulk download.
 """,
     )
-    add(
-        "code",
+    nb.code(
         """from pathlib import Path
 import sys
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "pdmdata").is_dir())
@@ -55,31 +39,7 @@ figure.show()
 """,
     )
 
-    path = ROOT / "notebooks" / "datasets" / "xjtu_sy.ipynb"
-    path.write_text(
-        json.dumps(
-            {
-                "cells": cells,
-                "metadata": {
-                    "kernelspec": {
-                        "display_name": "Python (pdmdata)",
-                        "language": "python",
-                        "name": "pdmdata",
-                    },
-                    "language_info": {
-                        "name": "python",
-                        "pygments_lexer": "ipython3",
-                    },
-                },
-                "nbformat": 4,
-                "nbformat_minor": 5,
-            },
-            indent=1,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    print(path)
+    nb.write(ROOT / "notebooks/datasets/xjtu_sy.ipynb")
 
 
 if __name__ == "__main__":
