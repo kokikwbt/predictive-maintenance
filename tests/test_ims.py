@@ -60,6 +60,27 @@ class ImsTest(TestCase):
             self.assertEqual(channel_info(1)["bearing"].to_list(), [1, 1, 2, 2, 3, 3, 4, 4])
             self.assertEqual(channel_info(2).filter(pl.col("channel") == "channel_1")["end_of_test_fault"][0], "outer race")
 
+    def test_inventory_lists_partial_extractions(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            directory = root / "ims/extracted" / loader.EXPERIMENT_DIRS[2]
+            directory.mkdir(parents=True)
+            row = "\t".join(["1"] * loader.CHANNEL_COUNTS[2])
+            (directory / "2004.02.12.10.32.39").write_text((row + "\n") * 2)
+            with patch.object(
+                loader, "get_settings", return_value=Settings(data_root=root)
+            ), patch.object(loader, "SAMPLES_PER_RECORDING", 2):
+                self.assertEqual(inventory()["experiment"].to_list(), [2])
+                self.assertEqual(load("2004.02.12.10.32.39").height, 2)
+                with self.assertRaisesRegex(FileNotFoundError, "experiment 1"):
+                    inventory(1)
+            with patch.object(
+                loader,
+                "get_settings",
+                return_value=Settings(data_root=root / "empty"),
+            ), self.assertRaises(FileNotFoundError):
+                inventory()
+
     def test_nested_7z_extraction_reuse_and_interruption(self):
         module = importlib.import_module("pdmdata.io.download")
         with TemporaryDirectory() as temporary:

@@ -42,13 +42,19 @@ def inventory(experiment: int | None = None) -> pl.DataFrame:
             if EXPERIMENT_DIRS[number] in path.relative_to(directory).parts[:-1]:
                 files[number].append(path)
                 break
+    if experiment is not None:
+        missing = [number for number, paths in files.items() if not paths]
+    else:
+        missing = [] if any(files.values()) else ["1-3"]
+    if missing:
+        raise FileNotFoundError(
+            f"No IMS experiment {missing[0]} recordings under {directory}. "
+            "Run pdmdata.download('ims') explicitly first."
+        )
     rows = []
     for number, paths in files.items():
         if not paths:
-            raise FileNotFoundError(
-                f"No IMS experiment {number} recordings under {directory}. "
-                "Run pdmdata.download('ims') explicitly first."
-            )
+            continue
         names = [p.name for p in paths]
         if len(names) != len(set(names)):
             raise ValueError(f"Duplicate IMS recording names in experiment {number}")
