@@ -152,5 +152,7 @@ def save_samples(output_dir=None):
         "processing": "Original daily values; no smoothing, resampling, normalization, or zero imputation. SMART values retain provider-specific semantics.",
         "samples": records,
     }
-    (output / "samples.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output / "samples.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
     return records

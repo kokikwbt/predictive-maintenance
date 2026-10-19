@@ -276,7 +276,9 @@ def export_cmapss_sequences(output, spec: CmapssSequenceSpec | Mapping, *, inclu
     manifest.update(sequence_provenance())
     manifest.update({"files": {f"{name}.npz": _digest(output / f"{name}.npz") for name in splits},
                      "source_data_sha256": {p.name: _digest(p) for p in files}, "command": sys.argv})
-    (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output / "manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
     return manifest
 
 
@@ -328,7 +330,7 @@ def export_derived_windows(source, output, *, length, minimum_endpoint):
     separately so the original raw-data processing provenance is retained.
     """
     source, output = Path(source), Path(output)
-    manifest = json.loads((source / "manifest.json").read_text())
+    manifest = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
     if manifest["schema_version"] != 1 or manifest["time_unit"] != "cycles":
         raise ValueError("expected schema 1 with cycle-unit times")
     if set(manifest["split_entities"]["train"]) & set(manifest["split_entities"]["validation"]):
@@ -360,5 +362,7 @@ def export_derived_windows(source, output, *, length, minimum_endpoint):
         "derived_from_manifest_sha256": _digest(source / "manifest.json"),
         "derivation": "verified complete point handoff; past-only windows; same endpoints; no test split generated",
         "sample_generator": sequence_provenance()}
-    (output / "manifest.json").write_text(json.dumps(derived, indent=2) + "\n")
+    (output / "manifest.json").write_text(
+        json.dumps(derived, indent=2) + "\n", encoding="utf-8"
+    )
     return derived
