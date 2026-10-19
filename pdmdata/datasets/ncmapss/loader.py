@@ -67,6 +67,23 @@ def _decode_names(values: np.ndarray) -> list[str]:
     return names
 
 
+def _unit_rows(
+    aux: h5py.Dataset, unit_column: int, unit: int
+) -> slice | np.ndarray | None:
+    """Locate one unit's rows so only they are read from the HDF5 file.
+
+    Units are stored as contiguous blocks in the published files, which
+    gives a slice; scattered rows fall back to an index array.
+    """
+    indices = np.flatnonzero(aux[:, unit_column] == unit)
+    if indices.size == 0:
+        return None
+    start, stop = int(indices[0]), int(indices[-1]) + 1
+    if stop - start == indices.size:
+        return slice(start, stop)
+    return indices
+
+
 def load(
     variant: str = "ds01",
     split: str = "dev",
@@ -92,11 +109,22 @@ def load(
 
     path = _path(variant)
     with h5py.File(path, "r") as handle:
-        aux = np.asarray(handle[f"A_{split}"])
-        flight = np.asarray(handle[f"W_{split}"])
-        sensors = np.asarray(handle[f"X_s_{split}"])
-        rul = np.asarray(handle[f"Y_{split}"]).reshape(-1)
         aux_names = _decode_names(handle["A_var"][()])
+        rows: slice | np.ndarray = slice(None)
+        if unit is not None:
+            rows = _unit_rows(
+                handle[f"A_{split}"], aux_names.index("unit"), unit
+            )
+            if rows is None:
+                raise ValueError(f"No unit {unit} in {variant} {split}")
+
+        def read(name: str) -> np.ndarray:
+            return np.asarray(handle[f"{name}_{split}"][rows])
+
+        aux = read("A")
+        flight = read("W")
+        sensors = read("X_s")
+        rul = read("Y").reshape(-1)
         flight_names = _decode_names(handle["W_var"][()])
         sensor_names = _decode_names(handle["X_s_var"][()])
         virtual = None
@@ -104,27 +132,11 @@ def load(
         modifiers = None
         modifier_names: list[str] = []
         if include_virtual:
-            virtual = np.asarray(handle[f"X_v_{split}"])
+            virtual = read("X_v")
             virtual_names = _decode_names(handle["X_v_var"][()])
         if include_health_modifiers:
-            modifiers = np.asarray(handle[f"T_{split}"])
+            modifiers = read("T")
             modifier_names = _decode_names(handle["T_var"][()])
-
-    if unit is not None:
-        unit_column = aux_names.index("unit")
-        mask = aux[:, unit_column] == unit
-        if not np.any(mask):
-            raise ValueError(
-                f"No unit {unit} in {variant} {split}"
-            )
-        aux = aux[mask]
-        flight = flight[mask]
-        sensors = sensors[mask]
-        rul = rul[mask]
-        if virtual is not None:
-            virtual = virtual[mask]
-        if modifiers is not None:
-            modifiers = modifiers[mask]
 
     data: dict[str, np.ndarray] = {}
     for index, name in enumerate(aux_names):

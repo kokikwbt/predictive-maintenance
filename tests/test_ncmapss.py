@@ -5,6 +5,8 @@ from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
 
+import h5py
+import numpy as np
 import polars as pl
 from support_ncmapss import write_tiny_fixture
 
@@ -36,3 +38,39 @@ class NcmapssTest(TestCase):
                 )
                 with self.assertRaises(ValueError):
                     load("ds01", "dev", unit=99)
+
+    def test_unit_filter_reads_only_selected_rows(self):
+        with TemporaryDirectory() as temporary:
+            path = Path(temporary) / "N-CMAPSS_DS01-005.h5"
+            write_tiny_fixture(path)
+            with patch.object(ncmapss_loader, "_path", return_value=path):
+                full = load(
+                    "ds01",
+                    "dev",
+                    include_virtual=True,
+                    include_health_modifiers=True,
+                )
+                unit = load(
+                    "ds01",
+                    "dev",
+                    unit=2,
+                    include_virtual=True,
+                    include_health_modifiers=True,
+                )
+            self.assertTrue(
+                unit.equals(full.filter(pl.col("unit_number") == 2))
+            )
+
+    def test_unit_rows_slice_contiguous_and_index_scattered_blocks(self):
+        with TemporaryDirectory() as temporary:
+            path = Path(temporary) / "units.h5"
+            with h5py.File(path, "w") as handle:
+                handle.create_dataset(
+                    "A", data=np.array([[1], [1], [2], [1]], dtype=float)
+                )
+            with h5py.File(path, "r") as handle:
+                rows = ncmapss_loader._unit_rows(handle["A"], 0, 2)
+                self.assertEqual(rows, slice(2, 3))
+                rows = ncmapss_loader._unit_rows(handle["A"], 0, 1)
+                self.assertEqual(rows.tolist(), [0, 1, 3])
+                self.assertIsNone(ncmapss_loader._unit_rows(handle["A"], 0, 9))
