@@ -124,6 +124,68 @@ class DownloadTest(unittest.TestCase):
             self.assertFalse((directory / "extracted").exists())
             self.assertFalse((directory / "manifest.json").exists())
 
+    def test_download_hashes_archive_once_for_manifest_and_checksum(self):
+        import hashlib
+
+        content = b"payload\n"
+        metadata = {
+            "id": "sample",
+            "download": {
+                "method": "url",
+                "url": "https://example.invalid/sample.bin",
+                "filename": "sample.bin",
+                "archive": "file",
+                "checksum": "md5:" + hashlib.md5(content).hexdigest(),
+            },
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "sample").mkdir()
+            (root / "sample" / "sample.bin").write_bytes(content)
+            with patch.object(
+                download_module, "load_metadata", return_value=metadata
+            ), patch.object(
+                download_module,
+                "_digests",
+                wraps=download_module._digests,
+            ) as digests:
+                result = download("sample", output_dir=root)
+            digests.assert_called_once()
+            self.assertEqual(digests.call_args.args[1], {"sha256", "md5"})
+            self.assertEqual(
+                result["sha256"], hashlib.sha256(content).hexdigest()
+            )
+            metadata["download"]["checksum"] = "md5:" + "0" * 32
+            with patch.object(
+                download_module, "load_metadata", return_value=metadata
+            ), self.assertRaisesRegex(ValueError, "checksum mismatch"):
+                download("sample", output_dir=root)
+
+    def test_single_stream_download_sets_request_timeout(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
+            def read(self, *_):
+                return b""
+
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / "file.bin"
+            with patch.dict(
+                download_module.os.environ, {"PDMDATA_DOWNLOAD_WORKERS": "1"}
+            ), patch.object(
+                download_module, "urlopen", return_value=Response()
+            ) as urlopen:
+                download_module._download_file("https://example.invalid", target)
+            self.assertEqual(
+                urlopen.call_args.kwargs["timeout"],
+                download_module.REQUEST_TIMEOUT,
+            )
+            self.assertTrue(target.is_file())
+
     def test_files_method_verifies_per_file_checksums(self):
         import hashlib
 

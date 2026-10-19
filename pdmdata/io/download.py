@@ -21,6 +21,8 @@ from pdmdata.catalog import load_catalog, load_metadata
 from pdmdata.config import get_settings
 
 CHUNK_SIZE = 1024 * 1024
+# Seconds without received bytes before a request is abandoned.
+REQUEST_TIMEOUT = 60
 RANGE_CHUNK_SIZE = 8 * CHUNK_SIZE
 MIN_RANGE_SIZE = 16 * CHUNK_SIZE
 
@@ -98,10 +100,14 @@ def download(
     if overwrite or not archive.exists():
         _download_resource(resource, directory, archive, overwrite=overwrite)
 
-    digest = _sha256(archive)
     checksum = resource.get("checksum")
+    algorithms = {"sha256"}
     if checksum:
-        _verify_checksum(archive, checksum)
+        algorithms.add(_checksum_algorithm(checksum))
+    digests = _digests(archive, algorithms)
+    digest = digests["sha256"]
+    if checksum:
+        _verify_checksum(archive, checksum, digests)
     archive_type = resource.get("archive", "zip")
     extracted = directory / "extracted"
     if extract:
@@ -197,7 +203,10 @@ def _download_file(url: str, target: Path) -> None:
     request = Request(url, headers={"User-Agent": "pdmdata/0 (+dataset downloader)"})
     temporary = target.with_suffix(target.suffix + ".part")
     try:
-        with urlopen(request) as response, temporary.open("wb") as stream:
+        with (
+            urlopen(request, timeout=REQUEST_TIMEOUT) as response,
+            temporary.open("wb") as stream,
+        ):
             shutil.copyfileobj(response, stream, length=CHUNK_SIZE)
         os.replace(str(temporary), str(target))
     except Exception:
@@ -214,7 +223,7 @@ def _download_in_ranges(url: str, target: Path, workers: int) -> bool:
     """
     headers = {"User-Agent": "pdmdata/0 (+dataset downloader)"}
     try:
-        with urlopen(Request(url, headers=headers, method="HEAD"), timeout=60) as response:
+        with urlopen(Request(url, headers=headers, method="HEAD"), timeout=REQUEST_TIMEOUT) as response:
             length = response.headers.get("Content-Length")
             if response.headers.get("Accept-Ranges", "").lower() != "bytes" or not length:
                 return False
@@ -243,7 +252,7 @@ def _download_in_ranges(url: str, target: Path, workers: int) -> bool:
                         request_headers["If-Range"] = validator
                     try:
                         request = Request(direct_url, headers=request_headers)
-                        with urlopen(request, timeout=60) as response, temporary.open("r+b") as stream:
+                        with urlopen(request, timeout=REQUEST_TIMEOUT) as response, temporary.open("r+b") as stream:
                             expected = f"bytes {position}-{end}/{total}"
                             if response.status != 206 or response.headers.get("Content-Range") != expected:
                                 raise OSError("Server did not honor the requested byte range")
@@ -427,22 +436,31 @@ def _interactive_kaggle_login() -> bool:
     return terminal or desktop_notebook
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
+def _digests(path: Path, algorithms: set[str]) -> dict[str, str]:
+    """Hash ``path`` once with every requested algorithm."""
+    hashes = {name: hashlib.new(name) for name in algorithms}
     with path.open("rb") as stream:
         for chunk in iter(lambda: stream.read(CHUNK_SIZE), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+            for digest in hashes.values():
+                digest.update(chunk)
+    return {name: digest.hexdigest() for name, digest in hashes.items()}
 
 
-def _verify_checksum(path: Path, expected: str) -> None:
-    """Compare the archive against the checksum published by its provider."""
+def _checksum_algorithm(expected: str) -> str:
+    return expected.split(":", 1)[0]
+
+
+def _verify_checksum(
+    path: Path, expected: str, digests: dict[str, str] | None = None
+) -> None:
+    """Compare a file against the checksum published by its provider.
+
+    Pass ``digests`` from :func:`_digests` to avoid hashing the file again.
+    """
     algorithm, value = expected.split(":", 1)
-    digest = hashlib.new(algorithm)
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(CHUNK_SIZE), b""):
-            digest.update(chunk)
-    if digest.hexdigest() != value.lower():
+    if digests is None or algorithm not in digests:
+        digests = _digests(path, {algorithm})
+    if digests[algorithm] != value.lower():
         raise ValueError(
             f"Source checksum mismatch for {path}. "
             "Remove the corrupt archive or retry with overwrite=True."
