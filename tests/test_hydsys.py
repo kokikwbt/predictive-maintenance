@@ -44,6 +44,9 @@ class HydsysTest(unittest.TestCase):
                     loader.load_cycle(2)
                 with self.assertRaisesRegex(ValueError, "once"):
                     loader.load_cycle(0, sensors=["PS1", "PS1.txt"])
+                self.assertEqual(list(loader.load_cycle(0, sensors="FS1")), [10])
+                with self.assertRaisesRegex(ValueError, "sensor must be"):
+                    loader.load_cycle(0, sensors=[1])
                 path = directory / "TS1.txt"
                 path.write_text(path.read_text().replace("10000", "NaN", 1))
                 with self.assertRaisesRegex(ValueError, "non-finite"):

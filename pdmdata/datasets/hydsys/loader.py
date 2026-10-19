@@ -26,7 +26,8 @@ TARGET_VALUES = {
 
 
 def _sensor(sensor):
-    sensor = sensor.removesuffix(".txt")
+    if isinstance(sensor, str):
+        sensor = sensor.removesuffix(".txt")
     if sensor not in SENSOR_INFO:
         raise ValueError(f"sensor must be one of {tuple(SENSOR_INFO)}")
     return sensor
@@ -76,11 +77,17 @@ def load(sensor: str = "PS1", *, cycle: int | None = None) -> pl.DataFrame:
 def load_cycle(cycle: int = 0, *, sensors=None) -> dict[int, pl.DataFrame]:
     """Return one frame per native sampling rate, with no resampling.
 
-    The default includes all 17 signals. Labels are accessed separately through
+    The default includes all 17 signals; ``sensors`` accepts one name or a
+    sequence of names. Labels are accessed separately through
     profile(), indexed by the same zero-based cycle ID.
     """
     _cycle(cycle)
-    sensors = list(SENSOR_INFO) if sensors is None else list(sensors)
+    if sensors is None:
+        sensors = list(SENSOR_INFO)
+    elif isinstance(sensors, str):
+        sensors = [sensors]
+    else:
+        sensors = list(sensors)
     if not sensors:
         raise ValueError("Select at least one sensor")
     sensors = [_sensor(sensor) for sensor in sensors]
