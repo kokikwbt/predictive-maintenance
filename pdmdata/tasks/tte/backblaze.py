@@ -8,6 +8,8 @@ from dataclasses import dataclass
 import polars as pl
 
 from pdmdata.datasets.backblaze import load
+from pdmdata.tasks.cmapss_common import summary_frame
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.tte.common import (
     cap_remaining,
     cohort_frame,
@@ -15,9 +17,7 @@ from pdmdata.tasks.tte.common import (
     partition_entities,
     require_time_cap,
     restore_test_labels,
-    score_remaining,
     select_features,
-    summary_frame,
 )
 from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
@@ -150,7 +150,7 @@ def eval_backblaze(
     predictions: Sequence[float] | Mapping[str, float],
 ) -> dict:
     """Score days remaining on held-out Backblaze drives."""
-    return score_remaining(bundle.test_eval_split(), predictions)
+    return score_split(bundle.test_eval_split(), predictions)
 
 
 def _resolved_variant(variant: str | None) -> str:

@@ -200,16 +200,15 @@ def prepare_cmapss_sequences(spec: CmapssSequenceSpec | Mapping, *, include_test
         load as load_cmapss,
         rul as cmapss_test_end_rul,
     )
-    from pdmdata.tasks.cmapss_common import feature_columns
-    from pdmdata.tasks.tte.prepare import (
-        _label_failed_rows,
-        filter_entities,
-        split_entities,
+    from pdmdata.tasks.cmapss_common import (
+        feature_columns,
+        label_failed_rows,
     )
+    from pdmdata.tasks.splits import filter_entities, split_entities
     if not isinstance(spec, CmapssSequenceSpec):
         spec = CmapssSequenceSpec(**spec)
     raw = load_cmapss(spec.subset, "train", with_rul=True)
-    labeled = _label_failed_rows(raw, time_cap=spec.rul_cap)
+    labeled = label_failed_rows(raw, time_cap=spec.rul_cap)
     candidates = feature_columns(labeled, include_operating_settings=True, drop_constant_features=False)
     unknown = set(spec.feature_columns) - set(candidates)
     if unknown:

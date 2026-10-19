@@ -1,13 +1,13 @@
-"""Shared C-MAPSS helpers for RUL and TTE task views."""
+"""Shared RUL and TTE task-view helpers, with C-MAPSS column defaults."""
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 
-import numpy as np
 import polars as pl
 
 from pdmdata.datasets.cmapss.loader import OPERATION_COLUMNS, SENSOR_COLUMNS
+from pdmdata.tasks.splits import EVENT_OBSERVED_COLUMN, TIME_TO_EVENT_COLUMN
 from pdmdata.tasks.types import TabularSplit
 
 CMAPSS_ENTITY_COLUMN = "unit_number"
@@ -73,6 +73,46 @@ def summary_row(name: str, split: TabularSplit) -> dict:
     }
 
 
+def summary_frame(
+    train: TabularSplit,
+    validation: TabularSplit | None,
+    test: TabularSplit,
+) -> pl.DataFrame:
+    """Inventory row counts for the prepared splits."""
+    rows = [summary_row("train", train), summary_row("test", test)]
+    if validation is not None:
+        rows.insert(1, summary_row("validation", validation))
+    return pl.DataFrame(rows)
+
+
+def label_rul_rows(
+    frame: pl.DataFrame,
+    *,
+    rul_cap: int | None,
+    rul_column: str = "RUL",
+) -> pl.DataFrame:
+    """Cap run-to-failure ``RUL`` and mirror it into observed TTE columns."""
+    labeled = apply_time_cap(frame, rul_cap, rul_column)
+    return labeled.with_columns(
+        pl.col(rul_column).alias(TIME_TO_EVENT_COLUMN),
+        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
+    )
+
+
+def label_failed_rows(
+    frame: pl.DataFrame,
+    *,
+    time_cap: int | None,
+    rul_column: str = "RUL",
+) -> pl.DataFrame:
+    """Replace run-to-failure ``RUL`` with observed, capped TTE columns."""
+    labeled = frame.with_columns(
+        pl.col(rul_column).alias(TIME_TO_EVENT_COLUMN),
+        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
+    ).drop(rul_column)
+    return apply_time_cap(labeled, time_cap, TIME_TO_EVENT_COLUMN)
+
+
 def last_rows_per_entity(
     frame: pl.DataFrame,
     *,
@@ -86,25 +126,3 @@ def last_rows_per_entity(
         .last()
         .sort(entity_column)
     )
-
-
-def align_predictions(
-    units: Sequence[int | str],
-    predictions: Sequence[float] | dict,
-) -> np.ndarray:
-    """Align sequence or entity-keyed predictions to ``units`` order."""
-    if isinstance(predictions, dict):
-        try:
-            return np.asarray(
-                [predictions[unit] for unit in units], dtype=float
-            )
-        except KeyError as error:
-            raise KeyError(
-                f"Missing prediction for test entity {error.args[0]}"
-            ) from error
-    pred = np.asarray(predictions, dtype=float)
-    if pred.shape != (len(units),):
-        raise ValueError(
-            f"Expected {len(units)} predictions for test entities, got {pred.size}"
-        )
-    return pred

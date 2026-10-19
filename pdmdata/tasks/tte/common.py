@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 
 import polars as pl
 
 from pdmdata.tasks.cmapss_common import (
-    align_predictions,
     drop_constant_columns,
-    summary_row,
 )
-from pdmdata.tasks.metrics import regression_metrics
 from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -217,30 +214,3 @@ def restore_test_labels(
         entity_column=test.entity_column,
         time_column=test.time_column,
     )
-
-
-def summary_frame(
-    train: TabularSplit,
-    validation: TabularSplit | None,
-    test: TabularSplit,
-) -> pl.DataFrame:
-    """Inventory row counts for the prepared splits."""
-    rows = [summary_row("train", train), summary_row("test", test)]
-    if validation is not None:
-        rows.insert(1, summary_row("validation", validation))
-    return pl.DataFrame(rows)
-
-
-def score_remaining(
-    split: TabularSplit,
-    predictions: Sequence[float] | Mapping[int | str, float],
-) -> dict:
-    """Score row-aligned remaining-time predictions.
-
-    A mapping keyed by entity id reuses one value for every row of that
-    entity. A sequence must follow ``split`` row order.
-    """
-    entities = split.groups().to_list()
-    actual = split.y().to_numpy()
-    predicted = align_predictions(entities, predictions)
-    return regression_metrics(actual, predicted)

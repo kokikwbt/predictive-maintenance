@@ -5,12 +5,11 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
-import numpy as np
 import polars as pl
 
 from pdmdata.datasets.xjtu_sy import load_many
-from pdmdata.tasks.cmapss_common import apply_time_cap, summary_row
-from pdmdata.tasks.metrics import regression_metrics
+from pdmdata.tasks.cmapss_common import label_failed_rows, summary_frame
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.rul.xjtu_sy import (
     ENTITY_COLUMN,
     TIME_COLUMN,
@@ -18,6 +17,7 @@ from pdmdata.tasks.rul.xjtu_sy import (
     _select_bearings,
     _split_test,
 )
+from pdmdata.tasks.tte.common import cohort_frame
 from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
     TARGET_COLUMN,
@@ -82,27 +82,14 @@ class XjtuSyTteBundle:
             .with_columns(pl.lit(True).alias(EVENT_OBSERVED_COLUMN))
             .sort(ENTITY_COLUMN)
         )
-        cohort_rows = (
-            [(name, "train") for name in train_ids]
-            + [(name, "validation") for name in validation_ids]
-            + [(name, "test") for name in test_ids]
-        )
-        cohort = pl.DataFrame(
-            cohort_rows,
-            schema=[ENTITY_COLUMN, "cohort"],
-            orient="row",
+        cohort = cohort_frame(
+            ENTITY_COLUMN, train_ids, validation_ids, test_ids
         )
         return table.join(cohort, on=ENTITY_COLUMN, how="left")
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared row-level splits."""
-        rows = [
-            summary_row("train", self.train),
-            summary_row("test", self.test),
-        ]
-        if self.validation is not None:
-            rows.insert(1, summary_row("validation", self.validation))
-        return pl.DataFrame(rows)
+        return summary_frame(self.train, self.validation, self.test)
 
 
 def prepare_xjtu_sy(
@@ -130,7 +117,7 @@ def prepare_xjtu_sy(
 
     selected = _select_bearings(bearings=bearings, condition=condition)
     frame = load_many(selected, with_rul=True)
-    labeled = _label(frame, time_cap=time_cap)
+    labeled = label_failed_rows(frame, time_cap=time_cap)
     features = _features(
         labeled,
         feature_columns=feature_columns,
@@ -198,33 +185,8 @@ def eval_xjtu_sy(
     predictions: Sequence[float] | Mapping[str, float],
 ) -> dict[str, float]:
     """Score predictions on held-out XJTU-SY trajectories."""
-    eval_split = bundle.test_eval_split()
-    entities = eval_split.groups().to_list()
-    actual = eval_split.y().to_numpy()
-    if isinstance(predictions, Mapping):
-        try:
-            pred = np.asarray(
-                [predictions[entity] for entity in entities], dtype=float
-            )
-        except KeyError as error:
-            raise KeyError(
-                f"Missing prediction for test bearing {error.args[0]}"
-            ) from error
-    else:
-        pred = np.asarray(predictions, dtype=float)
-        if pred.shape != (len(entities),):
-            raise ValueError(
-                f"Expected {len(entities)} predictions for test rows, got {pred.size}"
-            )
-    return regression_metrics(actual, pred)
+    return score_split(bundle.test_eval_split(), predictions)
 
-
-def _label(frame: pl.DataFrame, *, time_cap: int | None) -> pl.DataFrame:
-    labeled = frame.with_columns(
-        pl.col("RUL").alias(TIME_TO_EVENT_COLUMN),
-        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-    ).drop("RUL")
-    return apply_time_cap(labeled, time_cap, TIME_TO_EVENT_COLUMN)
 
 
 __all__ = [

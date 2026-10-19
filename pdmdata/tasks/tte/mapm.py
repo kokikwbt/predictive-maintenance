@@ -8,6 +8,8 @@ from dataclasses import dataclass
 import polars as pl
 
 from pdmdata.datasets.mapm import load
+from pdmdata.tasks.cmapss_common import summary_frame
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.tte.common import (
     cap_remaining,
     cohort_frame,
@@ -15,9 +17,7 @@ from pdmdata.tasks.tte.common import (
     partition_entities,
     require_time_cap,
     restore_test_labels,
-    score_remaining,
     select_features,
-    summary_frame,
 )
 from pdmdata.tasks.tte.prepare import (
     EVENT_OBSERVED_COLUMN,
@@ -135,7 +135,7 @@ def eval_mapm(
     predictions: Sequence[float] | Mapping[int, float],
 ) -> dict:
     """Score hours remaining on held-out MAPM machines."""
-    return score_remaining(bundle.test_eval_split(), predictions)
+    return score_split(bundle.test_eval_split(), predictions)
 
 
 def _default_features(frame: pl.DataFrame, include_age: bool) -> list[str]:

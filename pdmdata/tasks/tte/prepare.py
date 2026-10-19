@@ -21,13 +21,12 @@ from pdmdata.datasets.cmapss.loader import SUBSETS
 from pdmdata.tasks.cmapss_common import (
     CMAPSS_ENTITY_COLUMN,
     CMAPSS_TIME_COLUMN,
-    align_predictions,
-    apply_time_cap,
     feature_columns,
+    label_failed_rows,
     last_rows_per_entity,
-    summary_row,
+    summary_frame,
 )
-from pdmdata.tasks.metrics import regression_metrics
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.splits import (
     ENTITY_COLUMN as ENTITY_COLUMN,
     EVENT_OBSERVED_COLUMN as EVENT_OBSERVED_COLUMN,
@@ -117,13 +116,7 @@ class CmapssTteBundle:
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared row-level splits."""
-        rows = [
-            summary_row("train", self.train),
-            summary_row("test", self.test),
-        ]
-        if self.validation is not None:
-            rows.insert(1, summary_row("validation", self.validation))
-        return pl.DataFrame(rows)
+        return summary_frame(self.train, self.validation, self.test)
 
 
 def prepare_cmapss(
@@ -172,7 +165,7 @@ def prepare_cmapss(
         {"RUL": TIME_TO_EVENT_COLUMN}
     )
 
-    train_labeled = _label_failed_rows(train_raw, time_cap=time_cap)
+    train_labeled = label_failed_rows(train_raw, time_cap=time_cap)
     features = feature_columns(
         train_labeled,
         include_operating_settings=include_operating_settings,
@@ -235,22 +228,4 @@ def eval_cmapss(
     predictions: Sequence[float] | Mapping[int, float],
 ) -> dict[str, float]:
     """Score predictions on the official last-row remaining-time protocol."""
-    eval_split = bundle.test_eval_split()
-    units = eval_split.groups().to_list()
-    actual = eval_split.y().to_numpy()
-    pred = align_predictions(units, predictions)
-    return regression_metrics(actual, pred)
-
-
-def _label_failed_rows(
-    frame: pl.DataFrame,
-    *,
-    time_cap: int | None,
-) -> pl.DataFrame:
-    """Attach TTE columns for run-to-failure training engines."""
-    labeled = frame.with_columns(
-        pl.col("RUL").alias(TIME_TO_EVENT_COLUMN),
-        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-    ).drop("RUL")
-    labeled = apply_time_cap(labeled, time_cap, TIME_TO_EVENT_COLUMN)
-    return labeled
+    return score_split(bundle.test_eval_split(), predictions)

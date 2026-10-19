@@ -10,11 +10,11 @@ import polars as pl
 from pdmdata.datasets.xjtu_sy import load_many
 from pdmdata.datasets.xjtu_sy.loader import BEARING_INFO, available_bearings
 from pdmdata.tasks.cmapss_common import (
-    apply_time_cap,
     drop_constant_columns,
-    summary_row,
+    label_rul_rows,
+    summary_frame,
 )
-from pdmdata.tasks.metrics import regression_metrics
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -73,13 +73,7 @@ class XjtuSyRulBundle:
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared splits."""
-        rows = [
-            summary_row("train", self.train),
-            summary_row("test", self.test),
-        ]
-        if self.validation is not None:
-            rows.insert(1, summary_row("validation", self.validation))
-        return pl.DataFrame(rows)
+        return summary_frame(self.train, self.validation, self.test)
 
 
 def prepare_xjtu_sy(
@@ -121,7 +115,7 @@ def prepare_xjtu_sy(
 
     selected = _select_bearings(bearings=bearings, condition=condition)
     frame = load_many(selected, with_rul=True)
-    labeled = _label(frame, rul_cap=rul_cap)
+    labeled = label_rul_rows(frame, rul_cap=rul_cap)
 
     features = _features(
         labeled,
@@ -194,27 +188,7 @@ def eval_xjtu_sy(
     A sequence must align with ``test_eval_split()`` row order. A mapping
     keyed by bearing id reuses one value for every snapshot of that bearing.
     """
-    import numpy as np
-
-    eval_split = bundle.test_eval_split()
-    entities = eval_split.groups().to_list()
-    actual = eval_split.y().to_numpy()
-    if isinstance(predictions, Mapping):
-        try:
-            pred = np.asarray(
-                [predictions[entity] for entity in entities], dtype=float
-            )
-        except KeyError as error:
-            raise KeyError(
-                f"Missing prediction for test bearing {error.args[0]}"
-            ) from error
-    else:
-        pred = np.asarray(predictions, dtype=float)
-        if pred.shape != (len(entities),):
-            raise ValueError(
-                f"Expected {len(entities)} predictions for test rows, got {pred.size}"
-            )
-    return regression_metrics(actual, pred)
+    return score_split(bundle.test_eval_split(), predictions)
 
 
 def _select_bearings(
@@ -287,16 +261,6 @@ def _split_test(
     # split_entities names the hold-out "validation"; here it is the test set.
     return train_pool, test_ids
 
-
-def _label(frame: pl.DataFrame, *, rul_cap: int | None) -> pl.DataFrame:
-    labeled = frame.with_columns(
-        pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN),
-        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-    )
-    labeled = apply_time_cap(labeled, rul_cap, TARGET_COLUMN)
-    return labeled.with_columns(
-        pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN)
-    )
 
 
 def _features(

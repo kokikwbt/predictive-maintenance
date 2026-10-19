@@ -20,13 +20,13 @@ from pdmdata.datasets.cmapss.loader import SUBSETS
 from pdmdata.tasks.cmapss_common import (
     CMAPSS_ENTITY_COLUMN,
     CMAPSS_TIME_COLUMN,
-    align_predictions,
     apply_time_cap,
     feature_columns,
+    label_rul_rows,
     last_rows_per_entity,
-    summary_row,
+    summary_frame,
 )
-from pdmdata.tasks.metrics import regression_metrics
+from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -85,13 +85,7 @@ class CmapssRulBundle:
 
     def summary(self) -> pl.DataFrame:
         """Return a compact inventory of the prepared splits."""
-        rows = [
-            summary_row("train", self.train),
-            summary_row("test", self.test),
-        ]
-        if self.validation is not None:
-            rows.insert(1, summary_row("validation", self.validation))
-        return pl.DataFrame(rows)
+        return summary_frame(self.train, self.validation, self.test)
 
 
 def prepare_cmapss(
@@ -136,7 +130,7 @@ def prepare_cmapss(
     test_raw = load_cmapss(subset, "test", with_rul=False)
     test_end = cmapss_test_end_rul(subset)
 
-    train_labeled = _label_train(train_raw, rul_cap=rul_cap)
+    train_labeled = label_rul_rows(train_raw, rul_cap=rul_cap)
     features = feature_columns(
         train_labeled,
         include_operating_settings=include_operating_settings,
@@ -212,23 +206,8 @@ def eval_cmapss(
     ``predictions`` may be a sequence aligned with ``test_eval_split()`` row
     order (sorted ``unit_number``) or a mapping ``unit_number -> prediction``.
     """
-    eval_split = bundle.test_eval_split()
-    units = eval_split.groups().to_list()
-    actual = eval_split.y().to_numpy()
-    pred = align_predictions(units, predictions)
-    return regression_metrics(actual, pred)
+    return score_split(bundle.test_eval_split(), predictions)
 
-
-def _label_train(frame: pl.DataFrame, *,
-                 rul_cap: int | None) -> pl.DataFrame:
-    labeled = frame.with_columns(
-        pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN),
-        pl.lit(True).alias(EVENT_OBSERVED_COLUMN),
-    )
-    labeled = apply_rul_cap(labeled, rul_cap, TARGET_COLUMN)
-    return labeled.with_columns(
-        pl.col(TARGET_COLUMN).alias(TIME_TO_EVENT_COLUMN)
-    )
 
 
 __all__ = [
