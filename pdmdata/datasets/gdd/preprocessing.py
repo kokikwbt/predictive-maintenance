@@ -10,7 +10,10 @@ MOTOR_SIGNALS = [
 
 def state_segments(frame: pl.DataFrame) -> pl.DataFrame:
     """Return half-open sample intervals; IDs are source labels, not named actions."""
-    if frame.is_empty() or frame["Label"].null_count():
+    labels = frame["Label"]
+    if labels.dtype.is_float():
+        labels = labels.fill_nan(None)
+    if labels.is_empty() or labels.null_count():
         raise ValueError("State segments require non-empty, non-null labels")
     return (
         frame.select("Label").with_row_index("sample")

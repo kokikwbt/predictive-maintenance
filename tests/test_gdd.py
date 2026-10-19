@@ -60,6 +60,8 @@ class GddTest(unittest.TestCase):
         self.assertEqual(segments["samples"].to_list(), [2, 3, 1])
         with self.assertRaisesRegex(ValueError, "non-empty"):
             state_segments(pl.DataFrame({"Label": []}))
+        with self.assertRaisesRegex(ValueError, "non-null"):
+            state_segments(pl.DataFrame({"Label": [0.0, float("nan")]}))
 
 
 if __name__ == "__main__":
