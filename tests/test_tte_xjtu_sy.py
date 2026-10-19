@@ -45,8 +45,12 @@ class TteXjtuSyTest(TestCase):
                 self.assertTrue(
                     bundle.train.frame[EVENT_OBSERVED_COLUMN].all()
                 )
-                entities = bundle.entity_table()
+                with patch.object(
+                    xjtu_loader, "_read_waveform", side_effect=AssertionError
+                ):
+                    entities = bundle.entity_table()
                 self.assertEqual(entities.height, 3)
+                self.assertEqual(entities["duration"].to_list(), [4, 3, 5])
                 self.assertTrue(entities[EVENT_OBSERVED_COLUMN].all())
                 self.assertEqual(
                     set(entities["cohort"].to_list()), {"train", "test"}

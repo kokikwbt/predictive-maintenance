@@ -65,7 +65,11 @@ class XjtuSyTteBundle:
         )
 
     def entity_table(self) -> pl.DataFrame:
-        """One row per bearing with observed failure duration."""
+        """One row per bearing with observed failure duration.
+
+        Splits keep every snapshot of their bearings, so the last ``cycle``
+        is the full run length and no source files are reread.
+        """
         train_ids = self.train.groups().unique().to_list()
         validation_ids = (
             self.validation.groups().unique().to_list()
@@ -73,8 +77,13 @@ class XjtuSyTteBundle:
             else []
         )
         test_ids = self.test.groups().unique().to_list()
-        frame = load_many(
-            [*train_ids, *validation_ids, *test_ids], with_rul=False
+        splits = [
+            split
+            for split in (self.train, self.validation, self.test)
+            if split is not None
+        ]
+        frame = pl.concat(
+            [split.frame.select(ENTITY_COLUMN, TIME_COLUMN) for split in splits]
         )
         table = (
             frame.group_by(ENTITY_COLUMN)
