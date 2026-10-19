@@ -77,21 +77,26 @@ def plot_large_time_series(
     *,
     entity: Any | None = None,
 ) -> go.Figure:
-    """Plot a bounded projection without collecting an entire large dataset."""
+    """Plot a bounded projection without collecting an entire large dataset.
+
+    Lazy input is thinned with a uniform stride in source order, so the
+    whole recording is represented while at most ``max_points`` rows are
+    collected.
+    """
     if isinstance(frame, pl.DataFrame):
         return plot_time_series(frame, spec, entity=entity)
+    if spec.max_points <= 0:
+        raise ValueError("max_points must be positive")
     columns = [spec.x.column, *(axis.column for axis in spec.y)]
     if spec.entity_column:
         columns.append(spec.entity_column)
     selected = frame
     if spec.entity_column is not None and entity is not None:
         selected = selected.filter(pl.col(spec.entity_column) == entity)
-    bounded = (
-        selected.select(columns)
-        .drop_nulls(subset=[spec.x.column])
-        .head(spec.max_points)
-        .collect()
-    )
+    projected = selected.select(columns).drop_nulls(subset=[spec.x.column])
+    total = projected.select(pl.len()).collect().item()
+    step = max(1, math.ceil(total / spec.max_points))
+    bounded = projected.gather_every(step).collect()
     return plot_time_series(bounded, spec, entity=entity)
 
 

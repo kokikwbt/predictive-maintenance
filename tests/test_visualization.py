@@ -43,6 +43,23 @@ class VisualizationTest(unittest.TestCase):
         self.assertLessEqual(len(figure.data[0].x), 10)
         self.assertEqual(figure.layout.xaxis.title.text, "Time [s]")
 
+    def test_lazy_time_series_spans_the_whole_range(self):
+        from pdmdata.visualization.plots import plot_large_time_series
+
+        frame = pl.DataFrame({"time": range(1_000), "value": range(1_000)})
+        spec = TimeSeriesSpec(
+            title="Test",
+            x=AxisSpec("time", "Time"),
+            y=(AxisSpec("value", "Value"),),
+            max_points=100,
+        )
+        eager = plot_time_series(frame, spec)
+        lazy = plot_large_time_series(frame.lazy(), spec)
+        x = list(lazy.data[0].x)
+        self.assertLessEqual(len(x), 100)
+        self.assertEqual(x, list(eager.data[0].x))
+        self.assertGreater(max(x), 900)
+
     def test_missing_columns_have_actionable_error(self):
         with self.assertRaisesRegex(ValueError, "sensor_12"):
             pdmdata.visualize(
