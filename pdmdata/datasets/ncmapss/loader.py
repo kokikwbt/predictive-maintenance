@@ -200,6 +200,19 @@ def inventory(variant: str | None = None) -> pl.DataFrame:
     return pl.DataFrame(rows)
 
 
+def units(variant: str = "ds01", split: str = "dev") -> list[int]:
+    """Return sorted unit ids for one local variant/split.
+
+    Only the unit column is read, so this is cheap even for large files.
+    """
+    path = _path(_variant(variant))
+    split = _split(split)
+    with h5py.File(path, "r") as handle:
+        column = _decode_names(handle["A_var"][()]).index("unit")
+        values = handle[f"A_{split}"][:, column]
+    return [int(value) for value in np.unique(values)]
+
+
 def available_variants() -> list[str]:
     """Return locally downloaded N-CMAPSS variant IDs."""
     found = []

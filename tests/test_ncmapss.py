@@ -10,7 +10,12 @@ import numpy as np
 import polars as pl
 from support_ncmapss import write_tiny_fixture
 
-from pdmdata.datasets.ncmapss import inventory, load, loader as ncmapss_loader
+from pdmdata.datasets.ncmapss import (
+    inventory,
+    load,
+    loader as ncmapss_loader,
+    units,
+)
 
 
 class NcmapssTest(TestCase):
@@ -38,6 +43,8 @@ class NcmapssTest(TestCase):
                 )
                 with self.assertRaises(ValueError):
                     load("ds01", "dev", unit=99)
+                self.assertEqual(units("ds01", "dev"), [1, 2])
+                self.assertEqual(units("ds01", "test"), [3])
 
     def test_unit_filter_reads_only_selected_rows(self):
         with TemporaryDirectory() as temporary:

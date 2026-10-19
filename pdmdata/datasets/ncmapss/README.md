@@ -79,11 +79,12 @@ The full NASA bundle is about 15 GB. Download one HDF5 variant at a time
 
 ```python
 import pdmdata
-from pdmdata.datasets.ncmapss import load, inventory
+from pdmdata.datasets.ncmapss import load, inventory, units
 
 pdmdata.download("ncmapss", variant="ds01")
 inventory("ds01")
-dev = load("ds01", "dev", unit=1, with_rul=True)
+units("ds01", "dev")  # reads only the unit column
+dev = load("ds01", "dev", unit=1, with_rul=True)  # reads only unit 1's rows
 test = load("ds01", "test", with_rul=True)
 ```
 
