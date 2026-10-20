@@ -1,0 +1,33 @@
+{
+  "source_record": "https://zenodo.org/records/8196385",
+  "archive_bytes": 57489019,
+  "archive_md5": "4452953c470f2d95fcb32d5f6e733f7a",
+  "archive_sha256": "d67fd82a711aea0157a9b83175892c6ee60e384a2ddf5bc51f39118453816da8",
+  "zip_crc_passed": true,
+  "members": [
+    {
+      "name": "BGL.log",
+      "size": 743185031,
+      "compressed": 57488000,
+      "crc": 1334389820
+    },
+    {
+      "name": "README.md",
+      "size": 1246,
+      "compressed": 741,
+      "crc": 3871394511
+    }
+  ],
+  "license_repository_revision": "dd61d0952749ee7963bde24220d1be5ede023033",
+  "license_url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/LICENSE",
+  "license_sha256": "9ffa6ae259833cdc6e7ed8a0219fec72ef6455fb457b3c44096cb1ac1f0696d4",
+  "download_helper_sha256": "4bde8a73172764d3bd311c0c1100524b6d4d0f21e08cf568faeafdeec5f09aaa",
+  "raw_values_parsed": false,
+  "task_adopted": false,
+  "command": [
+    "/Users/kokik/Research/predictive-maintenance/.venv/bin/python",
+    "/private/tmp/probe_bgl_source.py"
+  ],
+  "pdmdata_commit": "a2c5ced04ad86f3f33b9f09f469e33a3f4b9640c",
+  "pdmdata_dirty": true
+}

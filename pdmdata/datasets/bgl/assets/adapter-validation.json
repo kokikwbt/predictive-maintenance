@@ -1,0 +1,21 @@
+{
+  "all_checks_passed": true,
+  "isolated_HEAD_plus_BGL_tests": 122,
+  "isolated_log_sha256": "626169d985055d4f43159c052dbd41ee99c751cf17e9ea3947ea238850ff05e1",
+  "local_checkout_tests_including_unrelated_uncommitted_fixtures": 127,
+  "new_BGL_fixture_methods": 7,
+  "standard_download_cli_verified": true,
+  "standard_download_log_sha256": "def203b6822d6a3bb95afd5712a65919d2b0033477a492990813ef93c17c2eca",
+  "source_sha256": {
+    "pdmdata/datasets/bgl/__init__.py": "fdac98ee27b7f9b8cca8f2914cdd9a302f0e1e41c1e7260d8e516b6a6e618f50",
+    "pdmdata/datasets/bgl/loader.py": "4793874c5880c9f8380c6953cad6ade2f409770182f78755c90e8f5bcad061db",
+    "pdmdata/datasets/bgl/metadata.json": "37fa1e0304d91374640671f92c91ad9492aa3222880b6db9e6214543bdb13725",
+    "pdmdata/datasets/bgl/README.md": "06300db0f3dc9830a97ec5a765bb22c498dbcd13225ee002d0134918cad8efa0",
+    "tests/test_bgl.py": "3cd190d135b1707cab3f07d5dca0c5139d2d46019338037e413bbcebd8788da2",
+    "pdmdata/datasets/load.py": "77c85d3ce3894ed1478d24ad88046f0bb57ea4ea8d0e8b4ae5b42e0887debcce"
+  },
+  "source_root_commit": "a2c5ced04ad86f3f33b9f09f469e33a3f4b9640c",
+  "unrelated_changes_excluded": true,
+  "raw_data_committed": false,
+  "forecasting_task_adopted": false
+}

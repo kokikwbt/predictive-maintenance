@@ -17,6 +17,7 @@ useful life.
 |---|---|---|---|---|
 | [ALPI](datasets/alpi/README.md) | Industrial alarm event sequences | Next-alarm prediction, Future-window alarm prediction, Event-sequence forecasting, Anomaly detection research | CC BY 4.0 | Direct Mendeley file download; CLI transfer and provider SHA-256 verified |
 | [Backblaze](datasets/backblaze/README.md) | Fleet-scale daily reliability panel | Drive failure prediction, Survival analysis, Time-to-event prediction | Backblaze Drive Stats terms | Direct quarterly downloads |
+| [BGL](datasets/bgl/README.md) | Real computer-system alert event logs | Log parsing research, Alert detection research, Event-sequence analysis | Loghub research/academic use conditions | Public fixed archive; pdmdata CLI-helper transfer, provider MD5 and ZIP CRC verified |
 | [CARE](datasets/care/README.md) | Large labeled wind-turbine SCADA time series | Early fault detection, Anomaly detection, Failure prediction | CC BY-SA 4.0 | Direct download from Zenodo |
 | [C-MAPSS](datasets/cmapss/README.md) | Multivariate run-to-failure time series | RUL estimation, Prognostics, Anomaly detection | Unspecified | Direct download from NASA |
 | [GDD](datasets/gdd/README.md) | Multivariate time series | Anomaly detection, State classification | Requires verification | Kaggle |
@@ -68,6 +69,7 @@ CARE, MAPM, and Scania Component X. See
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | [ALPI](datasets/alpi/README.md) | △ | — | — | — | — | △ | — | ✓ | — |
 | [Backblaze](datasets/backblaze/README.md) | △ | — | — | △ | △ | ✓ | ✓ | — | — |
+| [BGL](datasets/bgl/README.md) | △ | — | — | — | — | — | — | △ | — |
 | [CARE](datasets/care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
 | [C-MAPSS](datasets/cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
 | [GDD](datasets/gdd/README.md) | ✓ | — | ✓ | — | — | — | — | — | — |
@@ -90,6 +92,7 @@ CARE, MAPM, and Scania Component X. See
 
 - [ALPI — Alarm Logs in Packaging Industry](https://data.mendeley.com/datasets/4nhx2x67cd/1)
 - [Backblaze — Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+- [BGL — BlueGene/L alert logs](https://zenodo.org/records/8196385)
 - [CARE — Wind Turbine SCADA Data for Early Fault Detection](https://zenodo.org/records/15846963)
 - [C-MAPSS — Turbofan Engine Degradation Simulation Data Set](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
 - [GDD — Genesis Demonstrator Data for Machine Learning](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning)

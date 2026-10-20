@@ -9,6 +9,7 @@ import polars as pl
 _LOADER_MODULES = {
     "alpi": "pdmdata.datasets.alpi.loader",
     "backblaze": "pdmdata.datasets.backblaze.loader",
+    "bgl": "pdmdata.datasets.bgl.loader",
     "care": "pdmdata.datasets.care.loader",
     "cmapss": "pdmdata.datasets.cmapss.loader",
     "gdd": "pdmdata.datasets.gdd.loader",

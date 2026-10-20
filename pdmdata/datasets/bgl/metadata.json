@@ -1,0 +1,96 @@
+{
+  "id": "bgl",
+  "short_name": "BGL",
+  "name": "BlueGene/L alert logs",
+  "summary": "Literal alert and non-alert messages from a real BlueGene/L supercomputer. The adapter preserves raw lines and source order; failure targets, time interpretation, templates and forecasting splits are not inferred.",
+  "source": {
+    "name": "Loghub v8 and USENIX HPC4",
+    "landing_page": "https://zenodo.org/records/8196385",
+    "doi": "10.5281/zenodo.8196385",
+    "doi_url": "https://doi.org/10.5281/zenodo.8196385"
+  },
+  "license": {
+    "name": "Loghub research/academic use conditions",
+    "url": "https://github.com/logpai/loghub/blob/dd61d0952749ee7963bde24220d1be5ede023033/LICENSE",
+    "commercial_use": false,
+    "redistribution": true
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-21",
+    "access": "Public fixed archive; pdmdata CLI-helper transfer, provider MD5 and ZIP CRC verified"
+  },
+  "download": {
+    "url": "https://zenodo.org/records/8196385/files/BGL.zip?download=1",
+    "filename": "BGL.zip",
+    "archive": "zip",
+    "checksum": "md5:4452953c470f2d95fcb32d5f6e733f7a",
+    "expected_files": [
+      "BGL.log"
+    ],
+    "bulk": false
+  },
+  "characteristics": {
+    "kind": "Real computer-system alert event logs",
+    "feature_dimensions": {
+      "summary": "Raw text, nine literal header fields and message content; no analogue sensor channels",
+      "counting": "Source rows are not templates or confirmed failures. Clock precision, node field semantics and event-type construction require a separate audit.",
+      "sources": [
+        {
+          "name": "Loghub BGL source description",
+          "url": "https://github.com/logpai/loghub/blob/dd61d0952749ee7963bde24220d1be5ede023033/BGL/README.md"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Log parsing research",
+    "Alert detection research",
+    "Event-sequence analysis"
+  ],
+  "task_support": {
+    "anomaly_detection": "derived",
+    "event_forecasting": "derived"
+  },
+  "attributes": [
+    {
+      "name": "raw_line",
+      "dtype": "String",
+      "role": "source",
+      "description": "Original decoded UTF-8 line, including its line ending; retained even if the header cannot be parsed."
+    },
+    {
+      "name": "source_row",
+      "dtype": "UInt64",
+      "role": "provenance",
+      "description": "Zero-based source line index, preserved across streaming batch boundaries."
+    },
+    {
+      "name": "source_file",
+      "dtype": "String",
+      "role": "provenance",
+      "description": "BGL.zip!BGL.log, BGL.log, or extracted/BGL.log, retaining the installed source path."
+    },
+    {
+      "name": "parse_ok",
+      "dtype": "Boolean",
+      "role": "validation",
+      "description": "Whether the nine header fields and an optional message could be split. An empty message is retained as an empty string. Malformed rows remain present."
+    },
+    {
+      "name": "label / epoch / date / node / time / node_repeat / type / component / level / content",
+      "dtype": "String",
+      "role": "raw-fields",
+      "description": "Literal source tokens, without timestamp, timezone, entity, anomaly or physical-failure coercion."
+    }
+  ],
+  "notes": [
+    "The archive was fully downloaded using the pdmdata HTTP runtime, matched the provider MD5, and passed ZIP CRC verification. No performance result or forecasting-task adoption follows from this transfer.",
+    "The full archive is used for sequential audits; the 2,000-line parsing sample is not treated as a contiguous history.",
+    "Loading preserves source order, duplicates, malformed rows and original line endings. Invalid UTF-8 raises an error. Neither jitter nor template inference is performed.",
+    "The source use conditions require the Loghub URL, the relevant paper citation, and inclusion of its notice in copies. The license notice is stored in assets/SOURCE_LICENSE.",
+    "The native text and epoch clock relationship and the meaning of the two node fields are not assumed by the loader. An alert tag is not a verified physical failure.",
+    "A full-source audit found 34,470 complete nine-field headers with empty messages. These are parsed without dropping the row or its clock. The initial parser required a nonempty message; its source and audit were retained before this correction."
+  ],
+  "citation": "Oliner, A. J., and Stearley, J. (2007). What Supercomputers Say: A Study of Five System Logs. DSN. Zhu, J., He, S., He, P., Liu, J., and Lyu, M. R. (2023). Loghub: A Large Collection of System Log Datasets for AI-driven Log Analytics. ISSRE."
+}

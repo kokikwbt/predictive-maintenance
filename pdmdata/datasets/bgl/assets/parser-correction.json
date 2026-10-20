@@ -1,0 +1,10 @@
+{
+  "reason": "The original parser required ten nonempty split fields; complete nine-field headers with empty content were incorrectly marked unparsed.",
+  "source_rows_affected": 34470,
+  "all_failed_rows_had_nine_header_fields": true,
+  "all_affected_epoch_date_and_microsecond_clock_shapes_valid": true,
+  "rows_discarded": 0,
+  "raw_line_preserved": true,
+  "correction": "Accept an absent message as an empty content string; retain all literal header fields.",
+  "new_regression_fixture": "test_complete_header_with_empty_message"
+}
