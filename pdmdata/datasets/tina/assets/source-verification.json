@@ -1,0 +1,61 @@
+{
+  "status": "candidate adapter; not registered in the generic catalog",
+  "source_repository": "https://github.com/ari-dasci/OD-TINA",
+  "source_revision": "927b1584ea4aeac2ac7daa084a82f899b114419b",
+  "verified_days": [
+    "2017-09-06",
+    "2017-09-07",
+    "2017-09-08"
+  ],
+  "verified_files": [
+    {
+      "source_path": "data/day=2017-09-06/data.parquet",
+      "url": "https://raw.githubusercontent.com/ari-dasci/OD-TINA/927b1584ea4aeac2ac7daa084a82f899b114419b/data/day=2017-09-06/data.parquet",
+      "bytes": 859492,
+      "github_blob_sha1": "33e965b32cda2d17180cf28fd62326ef91b8ba4e",
+      "sha256": "e73c30b03465f2a93ceac07f8a209004a9f729ec320b11573c8913cfc7e239d2"
+    },
+    {
+      "source_path": "data/day=2017-09-07/data.parquet",
+      "url": "https://raw.githubusercontent.com/ari-dasci/OD-TINA/927b1584ea4aeac2ac7daa084a82f899b114419b/data/day=2017-09-07/data.parquet",
+      "bytes": 909315,
+      "github_blob_sha1": "c7bdcde031474f1a3264bb4efb1ef4e92618cf67",
+      "sha256": "031380fd9c6655579b53bcafb7e485a681ea5d978ab8beeba2414b92090a1fb0"
+    },
+    {
+      "source_path": "data/day=2017-09-08/data.parquet",
+      "url": "https://raw.githubusercontent.com/ari-dasci/OD-TINA/927b1584ea4aeac2ac7daa084a82f899b114419b/data/day=2017-09-08/data.parquet",
+      "bytes": 1151240,
+      "github_blob_sha1": "43542cabad9699093352c88e74b04fca9920c96d",
+      "sha256": "7389a5347a95b6a03018879380859b68ac811fec939be297732696dd46157977"
+    }
+  ],
+  "source_sha256": {
+    "pdmdata/datasets/tina/loader.py": "6d83f00763f331118d00568c27c2983b05e5ea8f9939758a2ba53731f17293bc",
+    "pdmdata/datasets/tina/__init__.py": "0e76f312da25479f6e5093cef49d2dedf0bf9f7059fb5da990a6621378c03b36",
+    "tests/test_tina.py": "13dc2c9bfb642971b2786fbf49769608efe31b6ed1d08b91675e5a9d4df66a27"
+  },
+  "environment": {
+    "python": "3.14.6 (main, Jul 23 2026, 14:51:00) [Clang 22.1.3 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "numpy": "2.4.6",
+      "polars": "1.44.1"
+    }
+  },
+  "source_transfer_verified": true,
+  "fixture_validation": {
+    "command": ".venv/bin/python -m unittest discover -s tests -p test_tina.py -v",
+    "tests_run": 5,
+    "passed": true
+  },
+  "observed_subset": {
+    "rows": 246826,
+    "unique_clocks": 246826,
+    "ordered_clock_step": 1,
+    "active_sample_rows": 4489,
+    "active_label_runs": 8,
+    "physical_alarm_onset_confirmed": false
+  },
+  "scope": "Three fixed earliest days only. Values and original row identities are preserved. No full-dataset validation, event targets, or failure labels. The original files are not clock-sorted."
+}
