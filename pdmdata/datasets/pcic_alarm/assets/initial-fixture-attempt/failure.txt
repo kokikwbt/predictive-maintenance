@@ -1,0 +1,22 @@
+test_ambiguous_and_unsafe_members_are_rejected (tests.test_pcic_alarm.PcicAlarmTest.test_ambiguous_and_unsafe_members_are_rejected) ... ok
+test_columns_and_invalid_options (tests.test_pcic_alarm.PcicAlarmTest.test_columns_and_invalid_options) ... /private/tmp/pdmdata-pcic-alarm-20261021/pdmdata/datasets/pcic_alarm/loader.py:74: DeprecationWarning: the argument `missing_utf8_is_empty_string` for `read_csv` is deprecated. It was renamed to `empty_string_is_null` in version 1.43.0.
+  frame = pl.read_csv(BytesIO(raw), infer_schema=False, try_parse_dates=False,
+ok
+test_graph_is_separate_and_numeric_only (tests.test_pcic_alarm.PcicAlarmTest.test_graph_is_separate_and_numeric_only) ... ok
+test_raw_tokens_duplicates_and_order_are_preserved (tests.test_pcic_alarm.PcicAlarmTest.test_raw_tokens_duplicates_and_order_are_preserved) ... ok
+test_source_inventory_hashes_and_headers (tests.test_pcic_alarm.PcicAlarmTest.test_source_inventory_hashes_and_headers) ... ok
+test_variants_are_pinned_and_not_bulk_downloaded (tests.test_pcic_alarm.PcicAlarmTest.test_variants_are_pinned_and_not_bulk_downloaded) ... ERROR
+
+======================================================================
+ERROR: test_variants_are_pinned_and_not_bulk_downloaded (tests.test_pcic_alarm.PcicAlarmTest.test_variants_are_pinned_and_not_bulk_downloaded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/pdmdata-pcic-alarm-20261021/tests/test_pcic_alarm.py", line 79, in test_variants_are_pinned_and_not_bulk_downloaded
+    self.assertEqual(result['variant'],'microwave439')
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'variant'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.083s
+
+FAILED (errors=1)

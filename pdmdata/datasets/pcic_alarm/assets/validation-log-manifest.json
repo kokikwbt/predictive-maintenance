@@ -1,0 +1,21 @@
+{
+  "reason": "Preserve the exact reported logs using tracked text filenames; original reports and hashes are unchanged.",
+  "logs": {
+    "full-suite-validation.log": {
+      "tracked_path": "full-suite-validation.txt",
+      "sha256": "d4a5fb6ea508efc16446c47ac3ebbc6855417ca0a3a705987ccd0edb402808bc"
+    },
+    "fixture-validation.log": {
+      "tracked_path": "fixture-validation.txt",
+      "sha256": "bb2c9e4761bdedb1601e0b06dc3c0df5545af904d17090cd0d5fb52a5f68f0f8"
+    },
+    "full-suite-sandbox-attempt.log": {
+      "tracked_path": "full-suite-sandbox-attempt.txt",
+      "sha256": "6b57c4c1a623e20493d57746392d5506b6e761a5f41df1abd4337793c7da9799"
+    },
+    "initial-fixture-attempt/failure.log": {
+      "tracked_path": "initial-fixture-attempt/failure.txt",
+      "sha256": "d7228081e671c6501d3173d19be6cc7f0f7846ded87a617b7ca7622e53b3cffb"
+    }
+  }
+}

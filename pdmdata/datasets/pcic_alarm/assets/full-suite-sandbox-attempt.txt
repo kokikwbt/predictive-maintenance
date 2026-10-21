@@ -1,0 +1,161 @@
+/Users/kokik/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/xm/kbtqnfjd0hv_5n3x7yfzypg40000gn/T/matplotlib-0wkiirtb because there was an issue with the default path ({configdir}); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	/Users/kokik/.cache/fontconfig
+	/Users/kokik/.fontconfig
+Matplotlib is building the font cache; this may take a moment.
+test_download_is_pinned_and_bad_checksum_prevents_extraction (test_alpi.AlpiTest.test_download_is_pinned_and_bad_checksum_prevents_extraction) ... ok
+test_filters_are_half_open_and_keep_original_row_numbers (test_alpi.AlpiTest.test_filters_are_half_open_and_keep_original_row_numbers) ... ok
+test_ids_precision_duplicates_and_source_order_are_preserved (test_alpi.AlpiTest.test_ids_precision_duplicates_and_source_order_are_preserved) ... ok
+test_invalid_options_and_schema_do_not_silently_reinterpret (test_alpi.AlpiTest.test_invalid_options_and_schema_do_not_silently_reinterpret) ... ok
+test_verify_reports_out_of_order_without_sorting_and_rejects_nulls (test_alpi.AlpiTest.test_verify_reports_out_of_order_without_sorting_and_rejects_nulls) ... ok
+test_invalid_selections_and_missing_files (test_backblaze.BackblazeTest.test_invalid_selections_and_missing_files) ... ok
+test_quarter_coverage_content_and_archive_integrity (test_backblaze.BackblazeTest.test_quarter_coverage_content_and_archive_integrity) ... ok
+test_selection_sparse_schemas_and_raw_preservation (test_backblaze.BackblazeTest.test_selection_sparse_schemas_and_raw_preservation) ... ok
+test_batch_boundaries_and_public_dispatch (test_bgl.BglTest.test_batch_boundaries_and_public_dispatch) ... ok
+test_complete_header_with_empty_message (test_bgl.BglTest.test_complete_header_with_empty_message) ... ok
+test_invalid_options (test_bgl.BglTest.test_invalid_options) ... ok
+test_invalid_utf8_raises (test_bgl.BglTest.test_invalid_utf8_raises) ... ok
+test_missing_source_and_member (test_bgl.BglTest.test_missing_source_and_member) ... ok
+test_raw_reconstruction_duplicates_and_malformed (test_bgl.BglTest.test_raw_reconstruction_duplicates_and_malformed) ... ok
+test_zero_rows_and_archive_precedence (test_bgl.BglTest.test_zero_rows_and_archive_precedence) ... ok
+test_common_direct_and_previous_apis_agree (test_care.CareLoaderTest.test_common_direct_and_previous_apis_agree) ... ok
+test_event_tables_normalize_asset_column_and_features_load (test_care.CareLoaderTest.test_event_tables_normalize_asset_column_and_features_load) ... ok
+test_farm_and_event_resolve_the_correct_recording (test_care.CareLoaderTest.test_farm_and_event_resolve_the_correct_recording) ... ok
+test_invalid_selectors_fail_before_reading_files (test_care.CareLoaderTest.test_invalid_selectors_fail_before_reading_files) ... ok
+test_missing_event_does_not_download (test_care.CareLoaderTest.test_missing_event_does_not_download) ... ok
+test_split_filters_without_modifying_raw_data (test_care.CareLoaderTest.test_split_filters_without_modifying_raw_data) ... ok
+test_empty_selection_and_non_numeric_columns_are_rejected (test_care_waveforms.CareWaveformTest.test_empty_selection_and_non_numeric_columns_are_rejected) ... ok
+test_full_recording_and_numeric_signal_selection (test_care_waveforms.CareWaveformTest.test_full_recording_and_numeric_signal_selection) ... ok
+test_missing_source_markers_does_not_overwrite_readme (test_catalog.CatalogDocumentationTest.test_missing_source_markers_does_not_overwrite_readme) ... ok
+test_regeneration_updates_sources_and_preserves_manual_content (test_catalog.CatalogDocumentationTest.test_regeneration_updates_sources_and_preserves_manual_content) ... ok
+test_source_list_includes_every_dataset_in_catalog_order (test_catalog.CatalogDocumentationTest.test_source_list_includes_every_dataset_in_catalog_order) ... ok
+test_catalog_can_filter_by_canonical_task (test_catalog.CatalogTest.test_catalog_can_filter_by_canonical_task) ... ok
+test_large_download_variants_are_explicit (test_catalog.CatalogTest.test_large_download_variants_are_explicit) ... ok
+test_metadata_readme_section_is_renderable (test_catalog.CatalogTest.test_metadata_readme_section_is_renderable) ... ok
+test_summary_is_available_from_top_level_package (test_catalog.CatalogTest.test_summary_is_available_from_top_level_package) ... ok
+test_task_support_uses_canonical_ids_and_levels (test_catalog.CatalogTest.test_task_support_uses_canonical_ids_and_levels) ... ok
+test_rul_alignment_selectors_and_invalid_sources (test_cmapss.CmapssTest.test_rul_alignment_selectors_and_invalid_sources) ... ok
+test_configuration_is_reread_and_paths_are_relative_to_file (test_config.ConfigTest.test_configuration_is_reread_and_paths_are_relative_to_file) ... ok
+test_download_and_load_share_configured_root_and_reuse_archive (test_config.ConfigTest.test_download_and_load_share_configured_root_and_reuse_archive) ... ok
+test_fresh_import_and_catalog_do_not_download_or_create_data (test_config.ConfigTest.test_fresh_import_and_catalog_do_not_download_or_create_data) ... ok
+test_invalid_configuration_fails_clearly (test_config.ConfigTest.test_invalid_configuration_fails_clearly) ... ok
+test_repository_default_is_independent_of_working_directory (test_config.ConfigTest.test_repository_default_is_independent_of_working_directory) ... ok
+test_dataset_directories_do_not_contain_data_files (test_data_layout.DataLayoutTest.test_dataset_directories_do_not_contain_data_files) ... ok
+test_download_checks_provider_checksum_before_extraction (test_download.DownloadTest.test_download_checks_provider_checksum_before_extraction) ... ok
+test_expected_paths_distinguish_wind_farms (test_download.DownloadTest.test_expected_paths_distinguish_wind_farms) ... ok
+test_files_method_verifies_per_file_checksums (test_download.DownloadTest.test_files_method_verifies_per_file_checksums) ... ok
+test_kaggle_authentication_retry_is_bounded (test_download.DownloadTest.test_kaggle_authentication_retry_is_bounded) ... Kaggle authentication is required. Complete the official login flow; the download will then retry.
+Kaggle authentication is required. Complete the official login flow; the download will then retry.
+Kaggle authentication is required. Complete the official login flow; the download will then retry.
+ok
+test_kaggle_download_delegates_authentication (test_download.DownloadTest.test_kaggle_download_delegates_authentication) ... ok
+test_kaggle_noninteractive_and_non_auth_failures_do_not_login (test_download.DownloadTest.test_kaggle_noninteractive_and_non_auth_failures_do_not_login) ... ok
+test_microsoft_files_bundle_reuse_and_failed_refresh (test_download.DownloadTest.test_microsoft_files_bundle_reuse_and_failed_refresh) ... ok
+test_missing_kaggle_cli_has_actionable_error (test_download.DownloadTest.test_missing_kaggle_cli_has_actionable_error) ... ok
+test_nested_zip_is_extracted_before_validation (test_download.DownloadTest.test_nested_zip_is_extracted_before_validation) ... ok
+test_scania_component_x_files_are_pinned (test_download.DownloadTest.test_scania_component_x_files_are_pinned) ... ok
+test_unknown_download_variant_has_clear_error (test_download.DownloadTest.test_unknown_download_variant_has_clear_error) ... ok
+test_unsupported_dataset_has_clear_error (test_download.DownloadTest.test_unsupported_dataset_has_clear_error) ... ok
+test_zip_extraction_and_file_validation (test_download.DownloadTest.test_zip_extraction_and_file_validation) ... ok
+test_zip_path_traversal_is_rejected (test_download.DownloadTest.test_zip_path_traversal_is_rejected) ... ok
+test_range_failure_preserves_existing_target (test_download_ranges.RangeDownloadTest.test_range_failure_preserves_existing_target) ... ok
+test_ranges_resume_truncation_and_publish_exact_content (test_download_ranges.RangeDownloadTest.test_ranges_resume_truncation_and_publish_exact_content) ... ERROR
+test_worker_count_is_bounded (test_download_ranges.RangeDownloadTest.test_worker_count_is_bounded) ... ok
+test_series_selection_and_invalid_options (test_gdd.GddTest.test_series_selection_and_invalid_options) ... ok
+test_state_segments_preserve_source_order (test_gdd.GddTest.test_state_segments_preserve_source_order) ... ok
+test_load_casts_channels_and_rejects_bad_options (test_gfd.GfdTest.test_load_casts_channels_and_rejects_bad_options) ... ok
+test_native_rate_cycles_match_matrix_rows_and_profile (test_hydsys.HydsysTest.test_native_rate_cycles_match_matrix_rows_and_profile) ... ok
+test_experiment_selection_chronology_and_matrix_integrity (test_ims.ImsTest.test_experiment_selection_chronology_and_matrix_integrity) ... ok
+test_nested_7z_extraction_reuse_and_interruption (test_ims.ImsTest.test_nested_7z_extraction_reuse_and_interruption) ... ok
+test_table_selection_and_unknown_table (test_mapm.MapmTest.test_table_selection_and_unknown_table) ... ok
+test_lazy_default_and_eager_collect (test_metropt2.Metropt2Test.test_lazy_default_and_eager_collect) ... ok
+test_load_inventory_and_unit_filter (test_ncmapss.NcmapssTest.test_load_inventory_and_unit_filter) ... ok
+test_all_notebooks_are_valid_json (test_notebooks.NotebookStructureTest.test_all_notebooks_are_valid_json) ... ok
+test_load_inventory_and_validation (test_oyicd.OyicdTest.test_load_inventory_and_validation) ... ok
+test_ambiguous_and_unsafe_members_are_rejected (test_pcic_alarm.PcicAlarmTest.test_ambiguous_and_unsafe_members_are_rejected) ... ok
+test_columns_and_invalid_options (test_pcic_alarm.PcicAlarmTest.test_columns_and_invalid_options) ... ok
+test_graph_is_separate_and_numeric_only (test_pcic_alarm.PcicAlarmTest.test_graph_is_separate_and_numeric_only) ... ok
+test_raw_tokens_duplicates_and_order_are_preserved (test_pcic_alarm.PcicAlarmTest.test_raw_tokens_duplicates_and_order_are_preserved) ... ok
+test_source_inventory_hashes_and_headers (test_pcic_alarm.PcicAlarmTest.test_source_inventory_hashes_and_headers) ... ok
+test_variants_are_pinned_and_not_bulk_downloaded (test_pcic_alarm.PcicAlarmTest.test_variants_are_pinned_and_not_bulk_downloaded) ... ok
+test_backblaze_loader_scans_a_quarter_lazily (test_polars_io.PolarsIoTest.test_backblaze_loader_scans_a_quarter_lazily) ... ok
+test_gfd_loader_reads_tab_delimited_source (test_polars_io.PolarsIoTest.test_gfd_loader_reads_tab_delimited_source) ... ok
+test_gfd_loader_rejects_incomplete_or_nonfinite_measurements (test_polars_io.PolarsIoTest.test_gfd_loader_rejects_incomplete_or_nonfinite_measurements) ... ok
+test_metropt2_loader_is_lazy_by_default (test_polars_io.PolarsIoTest.test_metropt2_loader_is_lazy_by_default) ... ok
+test_oyicd_duplicate_copies_are_verified_and_counted_once (test_polars_io.PolarsIoTest.test_oyicd_duplicate_copies_are_verified_and_counted_once) ... ok
+test_oyicd_loader_adds_filename_metadata (test_polars_io.PolarsIoTest.test_oyicd_loader_adds_filename_metadata) ... ok
+test_ppd_loader_preserves_missing_rows_and_rejects_bad_time_order (test_polars_io.PolarsIoTest.test_ppd_loader_preserves_missing_rows_and_rejects_bad_time_order) ... ok
+test_ppd_sequence_loading_joins_parts_and_inventory_has_eight_sequences (test_polars_io.PolarsIoTest.test_ppd_sequence_loading_joins_parts_and_inventory_has_eight_sequences) ... ok
+test_unified_loader_rejects_unknown_dataset (test_polars_io.PolarsIoTest.test_unified_loader_rejects_unknown_dataset) ... ok
+test_whitespace_reader_returns_polars_dataframe (test_polars_io.PolarsIoTest.test_whitespace_reader_returns_polars_dataframe) ... ok
+test_sequence_parts_join_and_reject_bad_ids (test_ppd.PpdTest.test_sequence_parts_join_and_reject_bad_ids) ... ok
+test_module_export (test_rul_cmapss.RulCmapssTest.test_module_export) ... ok
+test_numpy_boundary_and_metrics (test_rul_cmapss.RulCmapssTest.test_numpy_boundary_and_metrics) ... ok
+test_prepare_caps_splits_and_official_eval (test_rul_cmapss.RulCmapssTest.test_prepare_caps_splits_and_official_eval) ... ok
+test_validation_fraction_zero_keeps_all_train_units (test_rul_cmapss.RulCmapssTest.test_validation_fraction_zero_keeps_all_train_units) ... ok
+test_prepare_caps_splits_and_official_eval (test_rul_ncmapss.RulNcmapssTest.test_prepare_caps_splits_and_official_eval) ... ok
+test_tiny_fixture_prepare (test_rul_ncmapss.RulNcmapssTest.test_tiny_fixture_prepare) ... ok
+test_prepare_holdouts_and_full_trajectory_eval (test_rul_xjtu_sy.RulXjtuSyTest.test_prepare_holdouts_and_full_trajectory_eval) ... ok
+test_challenge_cost_matches_published_matrix (test_scania_x.ScaniaComponentXTest.test_challenge_cost_matches_published_matrix) ... ok
+test_counter_trajectory_plot (test_scania_x.ScaniaComponentXTest.test_counter_trajectory_plot) ... ok
+test_invalid_selections_raise (test_scania_x.ScaniaComponentXTest.test_invalid_selections_raise) ... ok
+test_readouts_are_typed_lazy_and_selectable (test_scania_x.ScaniaComponentXTest.test_readouts_are_typed_lazy_and_selectable) ... ok
+test_train_targets_follow_windows_and_censoring (test_scania_x.ScaniaComponentXTest.test_train_targets_follow_windows_and_censoring) ... ok
+test_vehicle_tables_and_last_readouts (test_scania_x.ScaniaComponentXTest.test_vehicle_tables_and_last_readouts) ... ok
+test_failure_day_and_censored_drive (test_tte_backblaze.TteBackblazeTest.test_failure_day_and_censored_drive) ... ok
+test_onset_and_censored_normal_event (test_tte_care.TteCareTest.test_onset_and_censored_normal_event) ... ok
+test_module_export (test_tte_cmapss.TteCmapssTest.test_module_export) ... ok
+test_prepare_labels_censoring_and_entity_table (test_tte_cmapss.TteCmapssTest.test_prepare_labels_censoring_and_entity_table) ... ok
+test_single_entity_holdout_stays_in_train (test_tte_cmapss.TteCmapssTest.test_single_entity_holdout_stays_in_train) ... ok
+test_validation_fraction_zero (test_tte_cmapss.TteCmapssTest.test_validation_fraction_zero) ... ok
+test_all_missing_is_preserved_and_no_noise_is_identity (test_tte_higs.HigsTests.test_all_missing_is_preserved_and_no_noise_is_identity) ... ok
+test_label_dependent_noise_is_explicit (test_tte_higs.HigsTests.test_label_dependent_noise_is_explicit) ... ok
+test_seed_masks_times_and_label_free_mode (test_tte_higs.HigsTests.test_seed_masks_times_and_label_free_mode) ... ok
+test_next_failure_and_following_censored_spell (test_tte_mapm.TteMapmTest.test_next_failure_and_following_censored_spell) ... ok
+test_prepare_entity_table_and_eval (test_tte_ncmapss.TteNcmapssTest.test_prepare_entity_table_and_eval) ... ok
+test_holdout_keeps_censoring_and_uncapped_duration (test_tte_scania_x.TteScaniaXTest.test_holdout_keeps_censoring_and_uncapped_duration) ... ok
+test_default_metadata_remains_compatible (test_tte_sequence_profiles.SequenceProfileTests.test_default_metadata_remains_compatible) ... ok
+test_short_test_line_uses_only_available_history (test_tte_sequence_profiles.SequenceProfileTests.test_short_test_line_uses_only_available_history) ... ok
+test_smoothing_does_not_use_future_rows (test_tte_sequence_profiles.SequenceProfileTests.test_smoothing_does_not_use_future_rows) ... ok
+test_derivation_hashes_same_endpoint_and_no_test_access (test_tte_sequences.SequenceTest.test_derivation_hashes_same_endpoint_and_no_test_access) ... ok
+test_invalid_settings_rejected (test_tte_sequences.SequenceTest.test_invalid_settings_rejected) ... ok
+test_outer_split_and_official_test_is_never_read (test_tte_sequences.SequenceTest.test_outer_split_and_official_test_is_never_read) ... ok
+test_past_only_with_fixed_normalization_and_duplicate_times_rejected (test_tte_sequences.SequenceTest.test_past_only_with_fixed_normalization_and_duplicate_times_rejected) ... ok
+test_reordered_points_and_too_short_endpoint_rejected (test_tte_sequences.SequenceTest.test_reordered_points_and_too_short_endpoint_rejected) ... ok
+test_target_and_entity_columns_cannot_be_requested_as_features (test_tte_sequences.SequenceTest.test_target_and_entity_columns_cannot_be_requested_as_features) ... ok
+test_train_scaling_split_final_endpoint_and_short_test (test_tte_sequences.SequenceTest.test_train_scaling_split_final_endpoint_and_short_test) ... ok
+test_unclipped_labels_and_no_validation (test_tte_sequences.SequenceTest.test_unclipped_labels_and_no_validation) ... ok
+test_prepare_entity_table_and_eval (test_tte_xjtu_sy.TteXjtuSyTest.test_prepare_entity_table_and_eval) ... ok
+test_backblaze_visualization_aggregates_daily_failures (test_visualization.VisualizationTest.test_backblaze_visualization_aggregates_daily_failures) ... ok
+test_care_visualization_supports_explicit_schema (test_visualization.VisualizationTest.test_care_visualization_supports_explicit_schema) ... ok
+test_metropt2_visualization_accepts_lazy_data (test_visualization.VisualizationTest.test_metropt2_visualization_accepts_lazy_data) ... ok
+test_missing_columns_have_actionable_error (test_visualization.VisualizationTest.test_missing_columns_have_actionable_error) ... ok
+test_registered_time_series_uses_dataset_labels (test_visualization.VisualizationTest.test_registered_time_series_uses_dataset_labels) ... ok
+test_shared_time_series_downsamples_large_frames (test_visualization.VisualizationTest.test_shared_time_series_downsamples_large_frames) ... ok
+test_inventory_and_snapshot_rul (test_xjtu_sy.XjtuSyTest.test_inventory_and_snapshot_rul) ... ok
+test_missing_data_raises (test_xjtu_sy.XjtuSyTest.test_missing_data_raises) ... ok
+
+======================================================================
+ERROR: test_ranges_resume_truncation_and_publish_exact_content (test_download_ranges.RangeDownloadTest.test_ranges_resume_truncation_and_publish_exact_content)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/pdmdata-pcic-alarm-20261021/tests/test_download_ranges.py", line 46, in test_ranges_resume_truncation_and_publish_exact_content
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+  File "/Users/kokik/.local/share/uv/python/cpython-3.14.6-macos-aarch64-none/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Users/kokik/.local/share/uv/python/cpython-3.14.6-macos-aarch64-none/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/kokik/.local/share/uv/python/cpython-3.14.6-macos-aarch64-none/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+----------------------------------------------------------------------
+Ran 128 tests in 4.407s
+
+FAILED (errors=1)
