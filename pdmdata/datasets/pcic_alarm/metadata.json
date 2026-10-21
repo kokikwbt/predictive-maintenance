@@ -1,0 +1,95 @@
+{
+  "id": "pcic_alarm",
+  "short_name": "PCIC alarm",
+  "name": "PCIC 2021 real network alarm sources",
+  "summary": "Original real network alarm tables with separate reference arrays. Candidate adapter; source clocks, observation windows and reference graph semantics require an audit.",
+  "source": {
+    "name": "gcastle-hub PCIC dataset distribution",
+    "landing_page": "https://github.com/gcastle-hub/dataset/tree/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/alarm",
+    "doi": null,
+    "doi_url": ""
+  },
+  "license": {
+    "name": "Repository MIT; dataset-specific terms unconfirmed",
+    "url": "https://github.com/gcastle-hub/dataset/blob/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/LICENSE",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-21",
+    "access": "Public pinned archives; actual transfer and source audit pending"
+  },
+  "download": {
+    "default_variant": "wireless",
+    "bulk": false,
+    "variants": {
+      "wireless": {
+        "url": "https://raw.githubusercontent.com/gcastle-hub/dataset/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/alarm/18V_55N_Wireless.tar.gz",
+        "filename": "18V_55N_Wireless.tar.gz",
+        "archive": "file",
+        "expected_files": [
+          "18V_55N_Wireless.tar.gz"
+        ]
+      },
+      "microwave439": {
+        "url": "https://raw.githubusercontent.com/gcastle-hub/dataset/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/alarm/24V_439N_Microwave.tar.gz",
+        "filename": "24V_439N_Microwave.tar.gz",
+        "archive": "file",
+        "expected_files": [
+          "24V_439N_Microwave.tar.gz"
+        ]
+      },
+      "microwave474": {
+        "url": "https://raw.githubusercontent.com/gcastle-hub/dataset/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/alarm/25V_474N_Microwave.tar.gz",
+        "filename": "25V_474N_Microwave.tar.gz",
+        "archive": "file",
+        "expected_files": [
+          "25V_474N_Microwave.tar.gz"
+        ]
+      }
+    }
+  },
+  "characteristics": {
+    "kind": "Real network alarm source candidate",
+    "feature_dimensions": {
+      "summary": "Raw categorical fields and recorded clock strings; no analogue channels",
+      "counting": "All source columns remain strings until a separate clock and schema audit. Source row is provenance, not an input feature.",
+      "sources": [
+        {
+          "name": "Provider README",
+          "url": "https://github.com/gcastle-hub/dataset/blob/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/README.md"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Alarm sequence analysis research",
+    "Reference graph analysis research"
+  ],
+  "task_support": {
+    "event_forecasting": "derived"
+  },
+  "attributes": [
+    {
+      "name": "source_row",
+      "dtype": "UInt32",
+      "role": "provenance",
+      "description": "Original Alarm.csv row index, excluding the header; retained without sorting or deduplication."
+    },
+    {
+      "name": "Original Alarm.csv fields",
+      "dtype": "String",
+      "role": "raw-fields",
+      "description": "Original field names, ID tokens and clock text. No automatic datetime or future-label conversion."
+    }
+  ],
+  "notes": [
+    "The pinned distribution contains Wireless and two Microwave archives. Download is opt-in and is excluded from bulk downloads.",
+    "The downloader stores tar.gz as an opaque file. The loader reads bounded members without filesystem extraction.",
+    "Reference arrays are never loaded by the alarm API; explicit numeric NPY loading disables pickle.",
+    "A repository-level MIT notice is present. Original competition conditions and the scope of that notice for data are not yet independently confirmed.",
+    "The adapter does not establish causal ground truth, topology direction, synchronized device clocks, physical onset or survival censoring."
+  ],
+  "citation": "PCIC 2021 causal discovery competition, gcastle-hub dataset distribution; Qiao et al. (2023), Structural Hawkes Processes, IJCAI, doi:10.24963/ijcai.2023/633."
+}

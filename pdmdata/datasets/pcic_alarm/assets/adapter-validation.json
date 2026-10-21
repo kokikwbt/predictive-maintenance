@@ -1,0 +1,20 @@
+{
+  "all_checks_passed": true,
+  "fixture_tests": 6,
+  "full_suite_tests": 128,
+  "actual_source_downloaded": false,
+  "source_sha256": {
+    "tests/test_pcic_alarm.py": "e89eb71732e3e4f3e6bdbb587e22d9c332d88e9847e27d0fd583f50946a672b9",
+    "pdmdata/datasets/load.py": "753fea871dd4ab8a325a26a9031516321f4d7c64ab96b85b6e8cadbccea59a38",
+    "pdmdata/datasets/pcic_alarm/__init__.py": "12997216109d8ac83f3e641e7e54ac42393a725a6c38bb04878a30d3a8e2023f",
+    "pdmdata/datasets/pcic_alarm/loader.py": "39b12e401ecfba27be39c98eef5db5327b6dacb3af884e25c07c37f699692c90",
+    "pdmdata/datasets/pcic_alarm/metadata.json": "76a8c39b9dae71dcd941c31e08a03945dd25e792b4e0ca51d094c64f6d988e78"
+  },
+  "logs_sha256": {
+    "full-suite-validation.log": "d4a5fb6ea508efc16446c47ac3ebbc6855417ca0a3a705987ccd0edb402808bc",
+    "fixture-validation.log": "bb2c9e4761bdedb1601e0b06dc3c0df5545af904d17090cd0d5fb52a5f68f0f8",
+    "full-suite-sandbox-attempt.log": "6b57c4c1a623e20493d57746392d5506b6e761a5f41df1abd4337793c7da9799"
+  },
+  "sandbox_suite_attempt": "127 passed, one existing localhost HTTP fixture could not bind under sandbox; full rerun with localhost allowed passed all 128.",
+  "source_revision": "1858e9c39d90a524e7d8ff8b9456f4b1f231ff03"
+}

@@ -20,6 +20,7 @@ _LOADER_MODULES = {
     "metropt2": "pdmdata.datasets.metropt2.loader",
     "ncmapss": "pdmdata.datasets.ncmapss.loader",
     "oyicd": "pdmdata.datasets.oyicd.loader",
+    "pcic_alarm": "pdmdata.datasets.pcic_alarm.loader",
     "ppd": "pdmdata.datasets.ppd.loader",
     "scania_x": "pdmdata.datasets.scania_x.loader",
     "xjtu_sy": "pdmdata.datasets.xjtu_sy.loader",

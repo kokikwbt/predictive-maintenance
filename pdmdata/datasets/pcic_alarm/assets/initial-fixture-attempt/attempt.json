@@ -1,0 +1,10 @@
+{
+  "reason": "Fixture expected variant in the return dictionary; shared API stores it in the manifest JSON.",
+  "source_loader_failure": false,
+  "actual_source_read": false,
+  "files_sha256": {
+    "failure.log": "d7228081e671c6501d3173d19be6cc7f0f7846ded87a617b7ca7622e53b3cffb",
+    "test_pcic_alarm.py": "32b706a37f171ceb7430cee8de4c7149d85ef050fba3e2a2d5c801184cb64dc8",
+    "loader.py": "62f3fe2523ae3b5e48932f937cef355dd492321ad0aad7819f4559778108acee"
+  }
+}

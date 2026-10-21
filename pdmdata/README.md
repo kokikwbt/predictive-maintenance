@@ -28,6 +28,7 @@ useful life.
 | [MetroPT2](datasets/metropt2/README.md) | Large multivariate equipment time series | Online anomaly detection, Failure prediction, RUL research | CC BY 4.0 | Direct download from Zenodo |
 | [N-CMAPSS](datasets/ncmapss/README.md) | Multivariate run-to-failure time series under real flight conditions | RUL estimation, Prognostics, Fault diagnostics | U.S. Government Works / provider terms | Per-subset HDF5 downloads via Kaggle mirror (official NASA bundle is a 15 GB nested ZIP) |
 | [OYICD](datasets/oyicd/README.md) | Multivariate degradation time series | Degradation estimation, Anomaly detection, Operating-mode classification, RUL research | CC BY-SA 3.0 | Kaggle |
+| [PCIC alarm](datasets/pcic_alarm/README.md) | Real network alarm source candidate | Alarm sequence analysis research, Reference graph analysis research | Repository MIT; dataset-specific terms unconfirmed | Public pinned archives; actual transfer and source audit pending |
 | [PPD](datasets/ppd/README.md) | Run-to-failure time series | Degradation estimation, Anomaly detection, RUL research | CC BY-SA 3.0 | Kaggle |
 | [Scania Component X](datasets/scania_x/README.md) | Fleet-scale irregular multivariate time series with repair records | Imminent-failure classification, Time-to-event prediction, Survival analysis | CC BY 4.0 | Direct per-file CSV downloads from Researchdata.se (~1.65 GB; no account required) |
 | [XJTU-SY](datasets/xjtu_sy/README.md) | Run-to-failure vibration time series | RUL estimation, Prognostics, Fault diagnostics | Public research use (citation requested) | Direct ZIP download via Hugging Face mirror of the official bundle (~5.4 GB) |
@@ -80,6 +81,7 @@ CARE, MAPM, and Scania Component X. See
 | [MetroPT2](datasets/metropt2/README.md) | △ | △ | — | △ | △ | △ | — | — | — |
 | [N-CMAPSS](datasets/ncmapss/README.md) | △ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | — |
 | [OYICD](datasets/oyicd/README.md) | △ | — | ✓ | △ | △ | △ | △ | — | — |
+| [PCIC alarm](datasets/pcic_alarm/README.md) | — | — | — | — | — | — | — | △ | — |
 | [PPD](datasets/ppd/README.md) | △ | — | — | △ | △ | △ | △ | — | — |
 | [Scania Component X](datasets/scania_x/README.md) | △ | — | — | △ | △ | ✓ | ✓ | — | — |
 | [XJTU-SY](datasets/xjtu_sy/README.md) | △ | △ | — | △ | ✓ | ✓ | △ | — | — |
@@ -103,6 +105,7 @@ CARE, MAPM, and Scania Component X. See
 - [MetroPT2 — MetroPT2: A Benchmark Dataset for Predictive Maintenance](https://zenodo.org/records/7766691)
 - [N-CMAPSS — Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions](https://data.phmsociety.org/nasa/)
 - [OYICD — One Year Industrial Component Degradation](https://www.kaggle.com/datasets/inIT-OWL/one-year-industrial-component-degradation)
+- [PCIC alarm — PCIC 2021 real network alarm sources](https://github.com/gcastle-hub/dataset/tree/1858e9c39d90a524e7d8ff8b9456f4b1f231ff03/alarm)
 - [PPD — Production Plant Data for Condition Monitoring](https://www.kaggle.com/datasets/inIT-OWL/production-plant-data-for-condition-monitoring)
 - [Scania Component X — SCANIA Component X Dataset](https://researchdata.se/en/catalogue/dataset/2024-34)
 - [XJTU-SY — XJTU-SY Bearing Datasets](https://biaowang.tech/xjtu-sy-bearing-datasets/)
