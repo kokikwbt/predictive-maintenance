@@ -1,0 +1,16 @@
+{
+  "all_checks_passed": true,
+  "fixture_tests": 6,
+  "full_suite_tests": 134,
+  "observed_source_exported": false,
+  "reference_values_loaded": false,
+  "source_sha256": {
+    "tests/test_record_set_forecasting.py": "658df0b3c76a04be8034736f6b9bb68890004ffc14796b2dff534e0d534ebf20",
+    "pdmdata/tasks/event_forecasting/__init__.py": "227984703bd1f781b504a5607da6385476d0d3a6e8fe71892e15d20d0507e6cf",
+    "pdmdata/tasks/event_forecasting/prepare.py": "fc329a07216fa9dcd87cace482e5ff4ecbdf9bbb3ebfc187acf60a7b9c703b24"
+  },
+  "logs_sha256": {
+    "full-suite-validation.txt": "05b4bccb4ccf382434c0d42eb5ecb9fdd33d4fbebb8bbfc7f230cee377dc223a",
+    "fixture-validation.txt": "d413b72b3ad1007d963b5f08b533b7907d7a8533e821b700f7e72d20d2588354"
+  }
+}

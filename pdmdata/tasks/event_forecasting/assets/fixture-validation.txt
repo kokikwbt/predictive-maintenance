@@ -1,0 +1,11 @@
+test_export_keeps_provenance_and_never_opens_reference_values (tests.test_record_set_forecasting.RecordSetForecastingTest.test_export_keeps_provenance_and_never_opens_reference_values) ... ok
+test_future_label_changes_do_not_change_train_or_validation_features (tests.test_record_set_forecasting.RecordSetForecastingTest.test_future_label_changes_do_not_change_train_or_validation_features) ... ok
+test_invalid_clock_and_spec_fail_without_jitter_or_silent_reconnection (tests.test_record_set_forecasting.RecordSetForecastingTest.test_invalid_clock_and_spec_fail_without_jitter_or_silent_reconnection) ... ok
+test_permuting_equal_tick_rows_cannot_change_forecast_arrays (tests.test_record_set_forecasting.RecordSetForecastingTest.test_permuting_equal_tick_rows_cannot_change_forecast_arrays) ... ok
+test_short_history_and_empty_splits_remain_well_shaped (tests.test_record_set_forecasting.RecordSetForecastingTest.test_short_history_and_empty_splits_remain_well_shaped) ... ok
+test_tied_rows_are_one_set_and_future_tokens_do_not_define_vocabulary (tests.test_record_set_forecasting.RecordSetForecastingTest.test_tied_rows_are_one_set_and_future_tokens_do_not_define_vocabulary) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.234s
+
+OK

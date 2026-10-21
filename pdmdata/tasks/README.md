@@ -24,7 +24,7 @@ useful life.
 | Remaining useful life prediction | `rul_prediction` | Package | [rul/](rul/README.md) |
 | Time-to-event prediction | `time_to_event` | Package | [tte/](tte/README.md) |
 | Survival analysis | `survival_analysis` | Taxonomy only | — |
-| Event or sequence forecasting | `event_forecasting` | Taxonomy only | — |
+| Event or sequence forecasting | `event_forecasting` | Package (PCIC recorded sets) | [event_forecasting/](event_forecasting/README.md) |
 | Maintenance-policy evaluation | `maintenance_policy` | Taxonomy only | — |
 
 - **Package:** `pdmdata/tasks/<id>/` with `prepare.py` and a user-facing README.
