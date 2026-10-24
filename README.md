@@ -1,5 +1,8 @@
 # PdMData: Datasets for Predictive Maintenance
 
+[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/kokikwbt/badge.svg)](https://hub.xerj.org/contributors/kokikwbt)
+[![TimeCast paper (KDD 2026)](https://img.shields.io/badge/TimeCast-KDD%202026-blue)](https://doi.org/10.1145/3770854.3780164)
+
 A Python toolkit to download, load, and visualize predictive-maintenance
 datasets for research. Use a shared API with dataset-specific loaders; download
 only what you need.
