@@ -23,6 +23,7 @@ def _plots() -> dict[str, dict[str, object]]:
     from pdmdata.datasets.backblaze.viz import PLOTS as BACKBLAZE_PLOTS
     from pdmdata.datasets.care.viz import PLOTS as CARE_PLOTS
     from pdmdata.datasets.cmapss.viz import PLOTS as CMAPSS_PLOTS
+    from pdmdata.datasets.cwru.viz import PLOTS as CWRU_PLOTS
     from pdmdata.datasets.gdd.viz import PLOTS as GDD_PLOTS
     from pdmdata.datasets.gfd.viz import PLOTS as GFD_PLOTS
     from pdmdata.datasets.hydsys.viz import PLOTS as HYDSYS_PLOTS
@@ -40,6 +41,7 @@ def _plots() -> dict[str, dict[str, object]]:
         "backblaze": BACKBLAZE_PLOTS,
         "care": CARE_PLOTS,
         "cmapss": CMAPSS_PLOTS,
+        "cwru": CWRU_PLOTS,
         "gdd": GDD_PLOTS,
         "gfd": GFD_PLOTS,
         "hydsys": HYDSYS_PLOTS,

@@ -1,0 +1,1240 @@
+{
+  "id": "cwru",
+  "short_name": "CWRU",
+  "name": "CWRU Bearing Data Center",
+  "summary": "Official MATLAB vibration recordings for normal bearings and drive-end/fan-end seeded faults, covering all 161 file links across the four provider collections with channel-aware loading.",
+  "source": {
+    "name": "Case Western Reserve University Bearing Data Center",
+    "landing_page": "https://engineering.case.edu/bearingdatacenter/download-data-file"
+  },
+  "license": {
+    "name": "Unspecified on the provider pages",
+    "url": "https://engineering.case.edu/bearingdatacenter/welcome",
+    "commercial_use": null,
+    "redistribution": null
+  },
+  "availability": {
+    "status": "available",
+    "checked_at": "2026-10-30",
+    "access": "Official per-file MATLAB downloads; collection bundles and bounded recording selection"
+  },
+  "download": {
+    "method": "files",
+    "bulk": false,
+    "filename": "cwru-12k-faults.zip",
+    "archive": "zip",
+    "default_variant": "load0",
+    "variants": {
+      "load0": {
+        "files": [
+          {
+            "filename": "105.mat",
+            "url": "https://engineering.case.edu/sites/default/files/105.mat"
+          },
+          {
+            "filename": "118.mat",
+            "url": "https://engineering.case.edu/sites/default/files/118.mat"
+          },
+          {
+            "filename": "130.mat",
+            "url": "https://engineering.case.edu/sites/default/files/130.mat"
+          },
+          {
+            "filename": "144.mat",
+            "url": "https://engineering.case.edu/sites/default/files/144.mat"
+          },
+          {
+            "filename": "156.mat",
+            "url": "https://engineering.case.edu/sites/default/files/156.mat"
+          },
+          {
+            "filename": "169.mat",
+            "url": "https://engineering.case.edu/sites/default/files/169.mat"
+          },
+          {
+            "filename": "185.mat",
+            "url": "https://engineering.case.edu/sites/default/files/185.mat"
+          },
+          {
+            "filename": "197.mat",
+            "url": "https://engineering.case.edu/sites/default/files/197.mat"
+          },
+          {
+            "filename": "209.mat",
+            "url": "https://engineering.case.edu/sites/default/files/209.mat"
+          },
+          {
+            "filename": "222.mat",
+            "url": "https://engineering.case.edu/sites/default/files/222.mat"
+          },
+          {
+            "filename": "234.mat",
+            "url": "https://engineering.case.edu/sites/default/files/234.mat"
+          },
+          {
+            "filename": "246.mat",
+            "url": "https://engineering.case.edu/sites/default/files/246.mat"
+          },
+          {
+            "filename": "258.mat",
+            "url": "https://engineering.case.edu/sites/default/files/258.mat"
+          }
+        ],
+        "expected_files": [
+          "105.mat",
+          "118.mat",
+          "130.mat",
+          "144.mat",
+          "156.mat",
+          "169.mat",
+          "185.mat",
+          "197.mat",
+          "209.mat",
+          "222.mat",
+          "234.mat",
+          "246.mat",
+          "258.mat"
+        ]
+      },
+      "load1": {
+        "files": [
+          {
+            "filename": "106.mat",
+            "url": "https://engineering.case.edu/sites/default/files/106.mat"
+          },
+          {
+            "filename": "119.mat",
+            "url": "https://engineering.case.edu/sites/default/files/119.mat"
+          },
+          {
+            "filename": "131.mat",
+            "url": "https://engineering.case.edu/sites/default/files/131.mat"
+          },
+          {
+            "filename": "145.mat",
+            "url": "https://engineering.case.edu/sites/default/files/145.mat"
+          },
+          {
+            "filename": "158.mat",
+            "url": "https://engineering.case.edu/sites/default/files/158.mat"
+          },
+          {
+            "filename": "170.mat",
+            "url": "https://engineering.case.edu/sites/default/files/170.mat"
+          },
+          {
+            "filename": "186.mat",
+            "url": "https://engineering.case.edu/sites/default/files/186.mat"
+          },
+          {
+            "filename": "198.mat",
+            "url": "https://engineering.case.edu/sites/default/files/198.mat"
+          },
+          {
+            "filename": "210.mat",
+            "url": "https://engineering.case.edu/sites/default/files/210.mat"
+          },
+          {
+            "filename": "223.mat",
+            "url": "https://engineering.case.edu/sites/default/files/223.mat"
+          },
+          {
+            "filename": "235.mat",
+            "url": "https://engineering.case.edu/sites/default/files/235.mat"
+          },
+          {
+            "filename": "247.mat",
+            "url": "https://engineering.case.edu/sites/default/files/247.mat"
+          },
+          {
+            "filename": "259.mat",
+            "url": "https://engineering.case.edu/sites/default/files/259.mat"
+          }
+        ],
+        "expected_files": [
+          "106.mat",
+          "119.mat",
+          "131.mat",
+          "145.mat",
+          "158.mat",
+          "170.mat",
+          "186.mat",
+          "198.mat",
+          "210.mat",
+          "223.mat",
+          "235.mat",
+          "247.mat",
+          "259.mat"
+        ]
+      },
+      "load2": {
+        "files": [
+          {
+            "filename": "107.mat",
+            "url": "https://engineering.case.edu/sites/default/files/107.mat"
+          },
+          {
+            "filename": "120.mat",
+            "url": "https://engineering.case.edu/sites/default/files/120.mat"
+          },
+          {
+            "filename": "132.mat",
+            "url": "https://engineering.case.edu/sites/default/files/132.mat"
+          },
+          {
+            "filename": "146.mat",
+            "url": "https://engineering.case.edu/sites/default/files/146.mat"
+          },
+          {
+            "filename": "159.mat",
+            "url": "https://engineering.case.edu/sites/default/files/159.mat"
+          },
+          {
+            "filename": "171.mat",
+            "url": "https://engineering.case.edu/sites/default/files/171.mat"
+          },
+          {
+            "filename": "187.mat",
+            "url": "https://engineering.case.edu/sites/default/files/187.mat"
+          },
+          {
+            "filename": "199.mat",
+            "url": "https://engineering.case.edu/sites/default/files/199.mat"
+          },
+          {
+            "filename": "211.mat",
+            "url": "https://engineering.case.edu/sites/default/files/211.mat"
+          },
+          {
+            "filename": "224.mat",
+            "url": "https://engineering.case.edu/sites/default/files/224.mat"
+          },
+          {
+            "filename": "236.mat",
+            "url": "https://engineering.case.edu/sites/default/files/236.mat"
+          },
+          {
+            "filename": "248.mat",
+            "url": "https://engineering.case.edu/sites/default/files/248.mat"
+          },
+          {
+            "filename": "260.mat",
+            "url": "https://engineering.case.edu/sites/default/files/260.mat"
+          }
+        ],
+        "expected_files": [
+          "107.mat",
+          "120.mat",
+          "132.mat",
+          "146.mat",
+          "159.mat",
+          "171.mat",
+          "187.mat",
+          "199.mat",
+          "211.mat",
+          "224.mat",
+          "236.mat",
+          "248.mat",
+          "260.mat"
+        ]
+      },
+      "load3": {
+        "files": [
+          {
+            "filename": "108.mat",
+            "url": "https://engineering.case.edu/sites/default/files/108.mat"
+          },
+          {
+            "filename": "121.mat",
+            "url": "https://engineering.case.edu/sites/default/files/121.mat"
+          },
+          {
+            "filename": "133.mat",
+            "url": "https://engineering.case.edu/sites/default/files/133.mat"
+          },
+          {
+            "filename": "147.mat",
+            "url": "https://engineering.case.edu/sites/default/files/147.mat"
+          },
+          {
+            "filename": "160.mat",
+            "url": "https://engineering.case.edu/sites/default/files/160.mat"
+          },
+          {
+            "filename": "172.mat",
+            "url": "https://engineering.case.edu/sites/default/files/172.mat"
+          },
+          {
+            "filename": "188.mat",
+            "url": "https://engineering.case.edu/sites/default/files/188.mat"
+          },
+          {
+            "filename": "200.mat",
+            "url": "https://engineering.case.edu/sites/default/files/200.mat"
+          },
+          {
+            "filename": "212.mat",
+            "url": "https://engineering.case.edu/sites/default/files/212.mat"
+          },
+          {
+            "filename": "225.mat",
+            "url": "https://engineering.case.edu/sites/default/files/225.mat"
+          },
+          {
+            "filename": "237.mat",
+            "url": "https://engineering.case.edu/sites/default/files/237.mat"
+          },
+          {
+            "filename": "249.mat",
+            "url": "https://engineering.case.edu/sites/default/files/249.mat"
+          },
+          {
+            "filename": "261.mat",
+            "url": "https://engineering.case.edu/sites/default/files/261.mat"
+          }
+        ],
+        "expected_files": [
+          "108.mat",
+          "121.mat",
+          "133.mat",
+          "147.mat",
+          "160.mat",
+          "172.mat",
+          "188.mat",
+          "200.mat",
+          "212.mat",
+          "225.mat",
+          "237.mat",
+          "249.mat",
+          "261.mat"
+        ]
+      },
+      "normal": {
+        "filename": "cwru-normal.zip",
+        "files": [
+          {
+            "filename": "97.mat",
+            "url": "https://engineering.case.edu/sites/default/files/97.mat"
+          },
+          {
+            "filename": "98.mat",
+            "url": "https://engineering.case.edu/sites/default/files/98.mat"
+          },
+          {
+            "filename": "99.mat",
+            "url": "https://engineering.case.edu/sites/default/files/99.mat"
+          },
+          {
+            "filename": "100.mat",
+            "url": "https://engineering.case.edu/sites/default/files/100.mat"
+          }
+        ],
+        "expected_files": [
+          "97.mat",
+          "98.mat",
+          "99.mat",
+          "100.mat"
+        ]
+      },
+      "12k_de": {
+        "filename": "cwru-12k_de.zip",
+        "files": [
+          {
+            "filename": "105.mat",
+            "url": "https://engineering.case.edu/sites/default/files/105.mat"
+          },
+          {
+            "filename": "118.mat",
+            "url": "https://engineering.case.edu/sites/default/files/118.mat"
+          },
+          {
+            "filename": "130.mat",
+            "url": "https://engineering.case.edu/sites/default/files/130.mat"
+          },
+          {
+            "filename": "144.mat",
+            "url": "https://engineering.case.edu/sites/default/files/144.mat"
+          },
+          {
+            "filename": "156.mat",
+            "url": "https://engineering.case.edu/sites/default/files/156.mat"
+          },
+          {
+            "filename": "106.mat",
+            "url": "https://engineering.case.edu/sites/default/files/106.mat"
+          },
+          {
+            "filename": "119.mat",
+            "url": "https://engineering.case.edu/sites/default/files/119.mat"
+          },
+          {
+            "filename": "131.mat",
+            "url": "https://engineering.case.edu/sites/default/files/131.mat"
+          },
+          {
+            "filename": "145.mat",
+            "url": "https://engineering.case.edu/sites/default/files/145.mat"
+          },
+          {
+            "filename": "158.mat",
+            "url": "https://engineering.case.edu/sites/default/files/158.mat"
+          },
+          {
+            "filename": "107.mat",
+            "url": "https://engineering.case.edu/sites/default/files/107.mat"
+          },
+          {
+            "filename": "120.mat",
+            "url": "https://engineering.case.edu/sites/default/files/120.mat"
+          },
+          {
+            "filename": "132.mat",
+            "url": "https://engineering.case.edu/sites/default/files/132.mat"
+          },
+          {
+            "filename": "146.mat",
+            "url": "https://engineering.case.edu/sites/default/files/146.mat"
+          },
+          {
+            "filename": "159.mat",
+            "url": "https://engineering.case.edu/sites/default/files/159.mat"
+          },
+          {
+            "filename": "108.mat",
+            "url": "https://engineering.case.edu/sites/default/files/108.mat"
+          },
+          {
+            "filename": "121.mat",
+            "url": "https://engineering.case.edu/sites/default/files/121.mat"
+          },
+          {
+            "filename": "133.mat",
+            "url": "https://engineering.case.edu/sites/default/files/133.mat"
+          },
+          {
+            "filename": "147.mat",
+            "url": "https://engineering.case.edu/sites/default/files/147.mat"
+          },
+          {
+            "filename": "160.mat",
+            "url": "https://engineering.case.edu/sites/default/files/160.mat"
+          },
+          {
+            "filename": "169.mat",
+            "url": "https://engineering.case.edu/sites/default/files/169.mat"
+          },
+          {
+            "filename": "185.mat",
+            "url": "https://engineering.case.edu/sites/default/files/185.mat"
+          },
+          {
+            "filename": "197.mat",
+            "url": "https://engineering.case.edu/sites/default/files/197.mat"
+          },
+          {
+            "filename": "170.mat",
+            "url": "https://engineering.case.edu/sites/default/files/170.mat"
+          },
+          {
+            "filename": "186.mat",
+            "url": "https://engineering.case.edu/sites/default/files/186.mat"
+          },
+          {
+            "filename": "198.mat",
+            "url": "https://engineering.case.edu/sites/default/files/198.mat"
+          },
+          {
+            "filename": "171.mat",
+            "url": "https://engineering.case.edu/sites/default/files/171.mat"
+          },
+          {
+            "filename": "187.mat",
+            "url": "https://engineering.case.edu/sites/default/files/187.mat"
+          },
+          {
+            "filename": "199.mat",
+            "url": "https://engineering.case.edu/sites/default/files/199.mat"
+          },
+          {
+            "filename": "172.mat",
+            "url": "https://engineering.case.edu/sites/default/files/172.mat"
+          },
+          {
+            "filename": "188.mat",
+            "url": "https://engineering.case.edu/sites/default/files/188.mat"
+          },
+          {
+            "filename": "200.mat",
+            "url": "https://engineering.case.edu/sites/default/files/200.mat"
+          },
+          {
+            "filename": "209.mat",
+            "url": "https://engineering.case.edu/sites/default/files/209.mat"
+          },
+          {
+            "filename": "222.mat",
+            "url": "https://engineering.case.edu/sites/default/files/222.mat"
+          },
+          {
+            "filename": "234.mat",
+            "url": "https://engineering.case.edu/sites/default/files/234.mat"
+          },
+          {
+            "filename": "246.mat",
+            "url": "https://engineering.case.edu/sites/default/files/246.mat"
+          },
+          {
+            "filename": "258.mat",
+            "url": "https://engineering.case.edu/sites/default/files/258.mat"
+          },
+          {
+            "filename": "210.mat",
+            "url": "https://engineering.case.edu/sites/default/files/210.mat"
+          },
+          {
+            "filename": "223.mat",
+            "url": "https://engineering.case.edu/sites/default/files/223.mat"
+          },
+          {
+            "filename": "235.mat",
+            "url": "https://engineering.case.edu/sites/default/files/235.mat"
+          },
+          {
+            "filename": "247.mat",
+            "url": "https://engineering.case.edu/sites/default/files/247.mat"
+          },
+          {
+            "filename": "259.mat",
+            "url": "https://engineering.case.edu/sites/default/files/259.mat"
+          },
+          {
+            "filename": "211.mat",
+            "url": "https://engineering.case.edu/sites/default/files/211.mat"
+          },
+          {
+            "filename": "224.mat",
+            "url": "https://engineering.case.edu/sites/default/files/224.mat"
+          },
+          {
+            "filename": "236.mat",
+            "url": "https://engineering.case.edu/sites/default/files/236.mat"
+          },
+          {
+            "filename": "248.mat",
+            "url": "https://engineering.case.edu/sites/default/files/248.mat"
+          },
+          {
+            "filename": "260.mat",
+            "url": "https://engineering.case.edu/sites/default/files/260.mat"
+          },
+          {
+            "filename": "212.mat",
+            "url": "https://engineering.case.edu/sites/default/files/212.mat"
+          },
+          {
+            "filename": "225.mat",
+            "url": "https://engineering.case.edu/sites/default/files/225.mat"
+          },
+          {
+            "filename": "237.mat",
+            "url": "https://engineering.case.edu/sites/default/files/237.mat"
+          },
+          {
+            "filename": "249.mat",
+            "url": "https://engineering.case.edu/sites/default/files/249.mat"
+          },
+          {
+            "filename": "261.mat",
+            "url": "https://engineering.case.edu/sites/default/files/261.mat"
+          },
+          {
+            "filename": "3001.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3001.mat"
+          },
+          {
+            "filename": "3005.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3005.mat"
+          },
+          {
+            "filename": "3002.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3002.mat"
+          },
+          {
+            "filename": "3006.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3006.mat"
+          },
+          {
+            "filename": "3003.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3003.mat"
+          },
+          {
+            "filename": "3007.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3007.mat"
+          },
+          {
+            "filename": "3004.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3004.mat"
+          },
+          {
+            "filename": "3008.mat",
+            "url": "https://engineering.case.edu/sites/default/files/3008.mat"
+          }
+        ],
+        "expected_files": [
+          "105.mat",
+          "118.mat",
+          "130.mat",
+          "144.mat",
+          "156.mat",
+          "106.mat",
+          "119.mat",
+          "131.mat",
+          "145.mat",
+          "158.mat",
+          "107.mat",
+          "120.mat",
+          "132.mat",
+          "146.mat",
+          "159.mat",
+          "108.mat",
+          "121.mat",
+          "133.mat",
+          "147.mat",
+          "160.mat",
+          "169.mat",
+          "185.mat",
+          "197.mat",
+          "170.mat",
+          "186.mat",
+          "198.mat",
+          "171.mat",
+          "187.mat",
+          "199.mat",
+          "172.mat",
+          "188.mat",
+          "200.mat",
+          "209.mat",
+          "222.mat",
+          "234.mat",
+          "246.mat",
+          "258.mat",
+          "210.mat",
+          "223.mat",
+          "235.mat",
+          "247.mat",
+          "259.mat",
+          "211.mat",
+          "224.mat",
+          "236.mat",
+          "248.mat",
+          "260.mat",
+          "212.mat",
+          "225.mat",
+          "237.mat",
+          "249.mat",
+          "261.mat",
+          "3001.mat",
+          "3005.mat",
+          "3002.mat",
+          "3006.mat",
+          "3003.mat",
+          "3007.mat",
+          "3004.mat",
+          "3008.mat"
+        ]
+      },
+      "48k_de": {
+        "filename": "cwru-48k_de.zip",
+        "files": [
+          {
+            "filename": "109.mat",
+            "url": "https://engineering.case.edu/sites/default/files/109.mat"
+          },
+          {
+            "filename": "122.mat",
+            "url": "https://engineering.case.edu/sites/default/files/122.mat"
+          },
+          {
+            "filename": "135.mat",
+            "url": "https://engineering.case.edu/sites/default/files/135.mat"
+          },
+          {
+            "filename": "148.mat",
+            "url": "https://engineering.case.edu/sites/default/files/148.mat"
+          },
+          {
+            "filename": "161.mat",
+            "url": "https://engineering.case.edu/sites/default/files/161.mat"
+          },
+          {
+            "filename": "110.mat",
+            "url": "https://engineering.case.edu/sites/default/files/110.mat"
+          },
+          {
+            "filename": "123.mat",
+            "url": "https://engineering.case.edu/sites/default/files/123.mat"
+          },
+          {
+            "filename": "136.mat",
+            "url": "https://engineering.case.edu/sites/default/files/136.mat"
+          },
+          {
+            "filename": "149.mat",
+            "url": "https://engineering.case.edu/sites/default/files/149.mat"
+          },
+          {
+            "filename": "162.mat",
+            "url": "https://engineering.case.edu/sites/default/files/162.mat"
+          },
+          {
+            "filename": "111.mat",
+            "url": "https://engineering.case.edu/sites/default/files/111.mat"
+          },
+          {
+            "filename": "124.mat",
+            "url": "https://engineering.case.edu/sites/default/files/124.mat"
+          },
+          {
+            "filename": "137.mat",
+            "url": "https://engineering.case.edu/sites/default/files/137.mat"
+          },
+          {
+            "filename": "150.mat",
+            "url": "https://engineering.case.edu/sites/default/files/150.mat"
+          },
+          {
+            "filename": "163.mat",
+            "url": "https://engineering.case.edu/sites/default/files/163.mat"
+          },
+          {
+            "filename": "112.mat",
+            "url": "https://engineering.case.edu/sites/default/files/112.mat"
+          },
+          {
+            "filename": "125.mat",
+            "url": "https://engineering.case.edu/sites/default/files/125.mat"
+          },
+          {
+            "filename": "138.mat",
+            "url": "https://engineering.case.edu/sites/default/files/138.mat"
+          },
+          {
+            "filename": "151.mat",
+            "url": "https://engineering.case.edu/sites/default/files/151.mat"
+          },
+          {
+            "filename": "164.mat",
+            "url": "https://engineering.case.edu/sites/default/files/164.mat"
+          },
+          {
+            "filename": "174.mat",
+            "url": "https://engineering.case.edu/sites/default/files/174.mat"
+          },
+          {
+            "filename": "189.mat",
+            "url": "https://engineering.case.edu/sites/default/files/189.mat"
+          },
+          {
+            "filename": "201.mat",
+            "url": "https://engineering.case.edu/sites/default/files/201.mat"
+          },
+          {
+            "filename": "175.mat",
+            "url": "https://engineering.case.edu/sites/default/files/175.mat"
+          },
+          {
+            "filename": "190.mat",
+            "url": "https://engineering.case.edu/sites/default/files/190.mat"
+          },
+          {
+            "filename": "202.mat",
+            "url": "https://engineering.case.edu/sites/default/files/202.mat"
+          },
+          {
+            "filename": "176.mat",
+            "url": "https://engineering.case.edu/sites/default/files/176.mat"
+          },
+          {
+            "filename": "191.mat",
+            "url": "https://engineering.case.edu/sites/default/files/191.mat"
+          },
+          {
+            "filename": "203.mat",
+            "url": "https://engineering.case.edu/sites/default/files/203.mat"
+          },
+          {
+            "filename": "177.mat",
+            "url": "https://engineering.case.edu/sites/default/files/177.mat"
+          },
+          {
+            "filename": "192.mat",
+            "url": "https://engineering.case.edu/sites/default/files/192.mat"
+          },
+          {
+            "filename": "204.mat",
+            "url": "https://engineering.case.edu/sites/default/files/204.mat"
+          },
+          {
+            "filename": "213.mat",
+            "url": "https://engineering.case.edu/sites/default/files/213.mat"
+          },
+          {
+            "filename": "226.mat",
+            "url": "https://engineering.case.edu/sites/default/files/226.mat"
+          },
+          {
+            "filename": "238.mat",
+            "url": "https://engineering.case.edu/sites/default/files/238.mat"
+          },
+          {
+            "filename": "250.mat",
+            "url": "https://engineering.case.edu/sites/default/files/250.mat"
+          },
+          {
+            "filename": "262.mat",
+            "url": "https://engineering.case.edu/sites/default/files/262.mat"
+          },
+          {
+            "filename": "214.mat",
+            "url": "https://engineering.case.edu/sites/default/files/214.mat"
+          },
+          {
+            "filename": "227.mat",
+            "url": "https://engineering.case.edu/sites/default/files/227.mat"
+          },
+          {
+            "filename": "239.mat",
+            "url": "https://engineering.case.edu/sites/default/files/239.mat"
+          },
+          {
+            "filename": "251.mat",
+            "url": "https://engineering.case.edu/sites/default/files/251.mat"
+          },
+          {
+            "filename": "263.mat",
+            "url": "https://engineering.case.edu/sites/default/files/263.mat"
+          },
+          {
+            "filename": "215.mat",
+            "url": "https://engineering.case.edu/sites/default/files/215.mat"
+          },
+          {
+            "filename": "228.mat",
+            "url": "https://engineering.case.edu/sites/default/files/228.mat"
+          },
+          {
+            "filename": "240.mat",
+            "url": "https://engineering.case.edu/sites/default/files/240.mat"
+          },
+          {
+            "filename": "252.mat",
+            "url": "https://engineering.case.edu/sites/default/files/252.mat"
+          },
+          {
+            "filename": "264.mat",
+            "url": "https://engineering.case.edu/sites/default/files/264.mat"
+          },
+          {
+            "filename": "217.mat",
+            "url": "https://engineering.case.edu/sites/default/files/217.mat"
+          },
+          {
+            "filename": "229.mat",
+            "url": "https://engineering.case.edu/sites/default/files/229.mat"
+          },
+          {
+            "filename": "241.mat",
+            "url": "https://engineering.case.edu/sites/default/files/241.mat"
+          },
+          {
+            "filename": "253.mat",
+            "url": "https://engineering.case.edu/sites/default/files/253.mat"
+          },
+          {
+            "filename": "265.mat",
+            "url": "https://engineering.case.edu/sites/default/files/265.mat"
+          }
+        ],
+        "expected_files": [
+          "109.mat",
+          "122.mat",
+          "135.mat",
+          "148.mat",
+          "161.mat",
+          "110.mat",
+          "123.mat",
+          "136.mat",
+          "149.mat",
+          "162.mat",
+          "111.mat",
+          "124.mat",
+          "137.mat",
+          "150.mat",
+          "163.mat",
+          "112.mat",
+          "125.mat",
+          "138.mat",
+          "151.mat",
+          "164.mat",
+          "174.mat",
+          "189.mat",
+          "201.mat",
+          "175.mat",
+          "190.mat",
+          "202.mat",
+          "176.mat",
+          "191.mat",
+          "203.mat",
+          "177.mat",
+          "192.mat",
+          "204.mat",
+          "213.mat",
+          "226.mat",
+          "238.mat",
+          "250.mat",
+          "262.mat",
+          "214.mat",
+          "227.mat",
+          "239.mat",
+          "251.mat",
+          "263.mat",
+          "215.mat",
+          "228.mat",
+          "240.mat",
+          "252.mat",
+          "264.mat",
+          "217.mat",
+          "229.mat",
+          "241.mat",
+          "253.mat",
+          "265.mat"
+        ]
+      },
+      "12k_fe": {
+        "filename": "cwru-12k_fe.zip",
+        "files": [
+          {
+            "filename": "278.mat",
+            "url": "https://engineering.case.edu/sites/default/files/278.mat"
+          },
+          {
+            "filename": "282.mat",
+            "url": "https://engineering.case.edu/sites/default/files/282.mat"
+          },
+          {
+            "filename": "294.mat",
+            "url": "https://engineering.case.edu/sites/default/files/294.mat"
+          },
+          {
+            "filename": "298.mat",
+            "url": "https://engineering.case.edu/sites/default/files/298.mat"
+          },
+          {
+            "filename": "302.mat",
+            "url": "https://engineering.case.edu/sites/default/files/302.mat"
+          },
+          {
+            "filename": "279.mat",
+            "url": "https://engineering.case.edu/sites/default/files/279.mat"
+          },
+          {
+            "filename": "283.mat",
+            "url": "https://engineering.case.edu/sites/default/files/283.mat"
+          },
+          {
+            "filename": "295.mat",
+            "url": "https://engineering.case.edu/sites/default/files/295.mat"
+          },
+          {
+            "filename": "299.mat",
+            "url": "https://engineering.case.edu/sites/default/files/299.mat"
+          },
+          {
+            "filename": "305.mat",
+            "url": "https://engineering.case.edu/sites/default/files/305.mat"
+          },
+          {
+            "filename": "280.mat",
+            "url": "https://engineering.case.edu/sites/default/files/280.mat"
+          },
+          {
+            "filename": "284.mat",
+            "url": "https://engineering.case.edu/sites/default/files/284.mat"
+          },
+          {
+            "filename": "296.mat",
+            "url": "https://engineering.case.edu/sites/default/files/296.mat"
+          },
+          {
+            "filename": "300.mat",
+            "url": "https://engineering.case.edu/sites/default/files/300.mat"
+          },
+          {
+            "filename": "306.mat",
+            "url": "https://engineering.case.edu/sites/default/files/306.mat"
+          },
+          {
+            "filename": "281.mat",
+            "url": "https://engineering.case.edu/sites/default/files/281.mat"
+          },
+          {
+            "filename": "285.mat",
+            "url": "https://engineering.case.edu/sites/default/files/285.mat"
+          },
+          {
+            "filename": "297.mat",
+            "url": "https://engineering.case.edu/sites/default/files/297.mat"
+          },
+          {
+            "filename": "301.mat",
+            "url": "https://engineering.case.edu/sites/default/files/301.mat"
+          },
+          {
+            "filename": "307.mat",
+            "url": "https://engineering.case.edu/sites/default/files/307.mat"
+          },
+          {
+            "filename": "274.mat",
+            "url": "https://engineering.case.edu/sites/default/files/274.mat"
+          },
+          {
+            "filename": "286.mat",
+            "url": "https://engineering.case.edu/sites/default/files/286.mat"
+          },
+          {
+            "filename": "313.mat",
+            "url": "https://engineering.case.edu/sites/default/files/313.mat"
+          },
+          {
+            "filename": "310.mat",
+            "url": "https://engineering.case.edu/sites/default/files/310.mat"
+          },
+          {
+            "filename": "275.mat",
+            "url": "https://engineering.case.edu/sites/default/files/275.mat"
+          },
+          {
+            "filename": "287.mat",
+            "url": "https://engineering.case.edu/sites/default/files/287.mat"
+          },
+          {
+            "filename": "309.mat",
+            "url": "https://engineering.case.edu/sites/default/files/309.mat"
+          },
+          {
+            "filename": "276.mat",
+            "url": "https://engineering.case.edu/sites/default/files/276.mat"
+          },
+          {
+            "filename": "288.mat",
+            "url": "https://engineering.case.edu/sites/default/files/288.mat"
+          },
+          {
+            "filename": "311.mat",
+            "url": "https://engineering.case.edu/sites/default/files/311.mat"
+          },
+          {
+            "filename": "277.mat",
+            "url": "https://engineering.case.edu/sites/default/files/277.mat"
+          },
+          {
+            "filename": "289.mat",
+            "url": "https://engineering.case.edu/sites/default/files/289.mat"
+          },
+          {
+            "filename": "312.mat",
+            "url": "https://engineering.case.edu/sites/default/files/312.mat"
+          },
+          {
+            "filename": "270.mat",
+            "url": "https://engineering.case.edu/sites/default/files/270.mat"
+          },
+          {
+            "filename": "290.mat",
+            "url": "https://engineering.case.edu/sites/default/files/290.mat"
+          },
+          {
+            "filename": "315.mat",
+            "url": "https://engineering.case.edu/sites/default/files/315.mat"
+          },
+          {
+            "filename": "271.mat",
+            "url": "https://engineering.case.edu/sites/default/files/271.mat"
+          },
+          {
+            "filename": "291.mat",
+            "url": "https://engineering.case.edu/sites/default/files/291.mat"
+          },
+          {
+            "filename": "316.mat",
+            "url": "https://engineering.case.edu/sites/default/files/316.mat"
+          },
+          {
+            "filename": "272.mat",
+            "url": "https://engineering.case.edu/sites/default/files/272.mat"
+          },
+          {
+            "filename": "292.mat",
+            "url": "https://engineering.case.edu/sites/default/files/292.mat"
+          },
+          {
+            "filename": "317.mat",
+            "url": "https://engineering.case.edu/sites/default/files/317.mat"
+          },
+          {
+            "filename": "273.mat",
+            "url": "https://engineering.case.edu/sites/default/files/273.mat"
+          },
+          {
+            "filename": "293.mat",
+            "url": "https://engineering.case.edu/sites/default/files/293.mat"
+          },
+          {
+            "filename": "318.mat",
+            "url": "https://engineering.case.edu/sites/default/files/318.mat"
+          }
+        ],
+        "expected_files": [
+          "278.mat",
+          "282.mat",
+          "294.mat",
+          "298.mat",
+          "302.mat",
+          "279.mat",
+          "283.mat",
+          "295.mat",
+          "299.mat",
+          "305.mat",
+          "280.mat",
+          "284.mat",
+          "296.mat",
+          "300.mat",
+          "306.mat",
+          "281.mat",
+          "285.mat",
+          "297.mat",
+          "301.mat",
+          "307.mat",
+          "274.mat",
+          "286.mat",
+          "313.mat",
+          "310.mat",
+          "275.mat",
+          "287.mat",
+          "309.mat",
+          "276.mat",
+          "288.mat",
+          "311.mat",
+          "277.mat",
+          "289.mat",
+          "312.mat",
+          "270.mat",
+          "290.mat",
+          "315.mat",
+          "271.mat",
+          "291.mat",
+          "316.mat",
+          "272.mat",
+          "292.mat",
+          "317.mat",
+          "273.mat",
+          "293.mat",
+          "318.mat"
+        ]
+      }
+    }
+  },
+  "characteristics": {
+    "kind": "Seeded-fault vibration recordings",
+    "feature_dimensions": {
+      "summary": "Up to three source accelerometer channels (DE, FE, BA), depending on recording",
+      "counting": "Long-form rows retain independent channel sample indices and unmodified source values. Channels may have different lengths. Channel rates are documented where unambiguous; otherwise sample_rate_hz and time_s are null unless explicitly overridden.",
+      "sources": [
+        {
+          "name": "CWRU collection and channel documentation",
+          "url": "https://engineering.case.edu/bearingdatacenter/download-data-file"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    "Fault classification",
+    "Healthy/faulty discrimination",
+    "Anomaly detection research",
+    "Cross-condition adaptation",
+    "Vibration signal analysis"
+  ],
+  "task_support": {
+    "anomaly_detection": "direct",
+    "fault_classification": "direct"
+  },
+  "attributes": [
+    {
+      "name": "amplitude",
+      "dtype": "Float64",
+      "role": "sensor",
+      "description": "Unmodified selected accelerometer sample from the source MATLAB array."
+    },
+    {
+      "name": "recording, collection",
+      "dtype": "Mixed",
+      "role": "entity",
+      "description": "Official file identifier and collection: normal, 12k_de, 48k_de, or 12k_fe. Recordings are not independent machines."
+    },
+    {
+      "name": "channel, source_variable",
+      "dtype": "String",
+      "role": "sensor",
+      "description": "DE, FE or BA and the exact MATLAB variable name. Available channels are inspected per file."
+    },
+    {
+      "name": "sample, time_s",
+      "dtype": "Mixed",
+      "role": "time",
+      "description": "Original zero-based per-channel sample index; time_s is sample/rate when rate is known. Neither is an absolute timestamp."
+    },
+    {
+      "name": "sample_rate_hz, rate_source",
+      "dtype": "Mixed",
+      "role": "provenance",
+      "description": "Documented or user-overridden channel rate; null with unspecified origin when ambiguous. Overrides remain explicitly labeled."
+    },
+    {
+      "name": "load_hp",
+      "dtype": "UInt8",
+      "role": "operating-condition",
+      "description": "Motor load (0, 1, 2 or 3 horsepower) transcribed from the source table."
+    },
+    {
+      "name": "fault, fault_location",
+      "dtype": "String",
+      "role": "target",
+      "description": "normal, inner_race, ball or outer_race; fault_location identifies the defective bearing (DE/FE), not the accelerometer used."
+    },
+    {
+      "name": "diameter_in, outer_race_position",
+      "dtype": "Mixed",
+      "role": "operating-condition",
+      "description": "Seeded diameter (0 for normal) and clock position for outer-race defects, null when not applicable."
+    },
+    {
+      "name": "rpm",
+      "dtype": "Float64",
+      "role": "operating-condition",
+      "description": "Actual scalar source RPM if present, otherwise null; approximate source-table RPM is not substituted."
+    }
+  ],
+  "notes": [
+    "All 161 official links are indexed: normal (4), 12k_de (60), 48k_de (52), and 12k_fe (45). A missing source-table combination is not fabricated.",
+    "Collection names identify the provider pages, not a guarantee that all channels share the heading's sampling rate. Normal rates, non-DE channels in 48k_de and the 0.028 inch files on the 12k page are left unspecified unless explicitly overridden.",
+    "All collections are opt-in. The load0..load3 aliases preserve the original 52-file 12k_de subset (excluding 0.028 inch files), with 13 files per load. New collection variants include the complete source tables.",
+    "The default loader remains recording 105, channel DE. Select channels='all' for long-form multi-channel output; unequal lengths are retained without padding or resampling.",
+    "Normal and seeded-fault recordings support static healthy/faulty detection and fault-location classification. No within-run fault-onset, RUL, censoring, maintenance outcome, or naturally progressing failure labels are supplied.",
+    "Use recording identity and operating conditions for experiment splits; random overlapping windows can leak source information. Only one test rig and four motor loads are represented.",
+    "The provider's general apparatus narrative and collection tables use different outer-race orientation wording. The manifest retains clock positions from the collection tables without inferring a load-zone orientation.",
+    "Official pages publish no versioned immutable release or source checksums. Local SHA-256 records identify downloaded bytes but are not provider-authenticated checksums.",
+    "Identical copies across collection bundles and older load bundles are reused. Conflicting local copies raise an error instead of silently selecting one.",
+    "Windowing, support/query episodes, normalization, class remapping and model training belong in task packages. Data loading never downloads implicitly."
+  ],
+  "citation": "Case Western Reserve University Bearing Data Center. Bearing fault data and experiment documentation. https://engineering.case.edu/bearingdatacenter/welcome"
+}

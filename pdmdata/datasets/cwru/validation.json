@@ -1,0 +1,4090 @@
+{
+  "checked_at": "2026-10-30",
+  "scope": "All 161 official file links across normal, 12k_de, 48k_de and 12k_fe; all selected recording channels",
+  "provider_checksum_available": false,
+  "hash_origin": "Locally computed SHA-256; not a provider checksum",
+  "parser": "scipy.io.loadmat",
+  "comparison": "Adapter versus source arrays from the same parser; not independent-parser or physical sampling-rate validation",
+  "total_recordings": 161,
+  "total_channels": 411,
+  "total_samples": 82607847,
+  "total_source_bytes": 688307872,
+  "recordings": [
+    {
+      "recording": 97,
+      "collection": "normal",
+      "source_url": "https://engineering.case.edu/sites/default/files/97.mat",
+      "bytes": 3903344,
+      "sha256": "16bf48babcf1c7ac224bc1a81cd9eafdb27e42d5cf559761907e067e8eeadf3c",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X097_DE_time",
+          "samples": 243938,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X097_FE_time",
+          "samples": 243938,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 98,
+      "collection": "normal",
+      "source_url": "https://engineering.case.edu/sites/default/files/98.mat",
+      "bytes": 7742720,
+      "sha256": "37e6612c05e65c415dcfa2ab27a3fda648a5863160fa898b884a14743044e045",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X098_DE_time",
+          "samples": 483903,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X098_FE_time",
+          "samples": 483903,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 99,
+      "collection": "normal",
+      "source_url": "https://engineering.case.edu/sites/default/files/99.mat",
+      "bytes": 15503928,
+      "sha256": "4b97e6b5361f45efb6951dc3b1aebcdb3b89cb69d0f96d6f5c297dd9f45eee75",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X099_DE_time",
+          "samples": 485063,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X099_FE_time",
+          "samples": 485063,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 100,
+      "collection": "normal",
+      "source_url": "https://engineering.case.edu/sites/default/files/100.mat",
+      "bytes": 7770624,
+      "sha256": "88a5990cb541320e91505a1d72139e1993500ffe6e292a451011667f4138ca78",
+      "rpm": 1725,
+      "channels": {
+        "DE": {
+          "source_variable": "X100_DE_time",
+          "samples": 485643,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X100_FE_time",
+          "samples": 485643,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 105,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/105.mat",
+      "bytes": 2910768,
+      "sha256": "f80b0ea04fd06b372a0eaec7c056543ea37e4bb4727a5b173d2a5bacd2aa9cab",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X105_DE_time",
+          "samples": 121265,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X105_FE_time",
+          "samples": 121265,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X105_BA_time",
+          "samples": 121265,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 106,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/106.mat",
+      "bytes": 2928192,
+      "sha256": "e5cec7cdd138e6cd1deb9ed8634e5aaa9bc1bd7094ddc075bff606580eb6e883",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X106_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X106_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X106_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 107,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/107.mat",
+      "bytes": 2931672,
+      "sha256": "111ba8996a115684661a13c913bd74d8029a59294492f88aec7b03e175fdd388",
+      "rpm": 1748,
+      "channels": {
+        "DE": {
+          "source_variable": "X107_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X107_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X107_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 108,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/108.mat",
+      "bytes": 2950416,
+      "sha256": "d415f0e65128bfa0b118c2051c988fb0dc6ce3e4c8aa45fdc5ad1d0967462e7d",
+      "rpm": 1721,
+      "channels": {
+        "DE": {
+          "source_variable": "X108_DE_time",
+          "samples": 122917,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X108_FE_time",
+          "samples": 122917,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X108_BA_time",
+          "samples": 122917,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 109,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/109.mat",
+      "bytes": 3903344,
+      "sha256": "daddef5f784879becdf8fefbe2453f11c3cfc8d061a2a671da2f546d1bb48460",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X109_DE_time",
+          "samples": 243938,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X109_FE_time",
+          "samples": 243938,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 110,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/110.mat",
+      "bytes": 7779920,
+      "sha256": "9e2bc579af6f4e6d9d26bf63b7ed84ecba7775740d56a3737cc8f04f73c22d1a",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X110_DE_time",
+          "samples": 486224,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X110_FE_time",
+          "samples": 486224,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 111,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/111.mat",
+      "bytes": 7770624,
+      "sha256": "a2e64a397a990efb91ba55252a84796f755bda3eb097c4b47cc0730a08dab309",
+      "rpm": 1748,
+      "channels": {
+        "DE": {
+          "source_variable": "X111_DE_time",
+          "samples": 485643,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X111_FE_time",
+          "samples": 485643,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 112,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/112.mat",
+      "bytes": 7770624,
+      "sha256": "1775db11999f268c6ccf04b3ee19857f90a3636f4a582f1abd9a627f991e72d4",
+      "rpm": 1721,
+      "channels": {
+        "DE": {
+          "source_variable": "X112_DE_time",
+          "samples": 485643,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X112_FE_time",
+          "samples": 485643,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 118,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/118.mat",
+      "bytes": 2942112,
+      "sha256": "b00628f8dd8d1d930af77fa465d1e5cdb385fe259489053f91f3680bda7f640e",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X118_DE_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X118_FE_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X118_BA_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 119,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/119.mat",
+      "bytes": 2914248,
+      "sha256": "bc72d9df7668219e004a0f711232b23ec0aed393eb9bd8f9f5483426f6b51330",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X119_DE_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X119_FE_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X119_BA_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 120,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/120.mat",
+      "bytes": 2917752,
+      "sha256": "e0b7a584c49af52335ff0904a97d4afcf02d045625c582de63a7c85ce10b489c",
+      "rpm": 1748,
+      "channels": {
+        "DE": {
+          "source_variable": "X120_DE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X120_FE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X120_BA_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 121,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/121.mat",
+      "bytes": 2917752,
+      "sha256": "52f686e984ba8e9b04a047a57416271cdb322cee57ee105dce58926a24b966cb",
+      "rpm": 1722,
+      "channels": {
+        "DE": {
+          "source_variable": "X121_DE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X121_FE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X121_BA_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 122,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/122.mat",
+      "bytes": 3916160,
+      "sha256": "f392129bf3b43360b964d4e5b3479d0797d1647af8359934b0f56b9abab4739a",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X122_DE_time",
+          "samples": 244739,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X122_FE_time",
+          "samples": 244739,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 123,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/123.mat",
+      "bytes": 7798480,
+      "sha256": "a1932ec4bad2460238088ca523fdcec6498e562e91f86255863d3987d9fcd558",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X123_DE_time",
+          "samples": 487384,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X123_FE_time",
+          "samples": 487384,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 124,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/124.mat",
+      "bytes": 7789200,
+      "sha256": "88719243f1b7dbe795c108acaf67ca0115c51517ac35a3fe3460eb07917b2a9a",
+      "rpm": 1747,
+      "channels": {
+        "DE": {
+          "source_variable": "X124_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X124_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 125,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/125.mat",
+      "bytes": 7817056,
+      "sha256": "2607d0c291ed9a6138aed3eed7015e133f1cf866ac5cdf2251921f08d058f362",
+      "rpm": 1721,
+      "channels": {
+        "DE": {
+          "source_variable": "X125_DE_time",
+          "samples": 488545,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X125_FE_time",
+          "samples": 488545,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 130,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/130.mat",
+      "bytes": 2928192,
+      "sha256": "35a095307d0971477049b343a1b5981dde465a58fb7f233ad89b035068c1717d",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X130_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X130_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X130_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 131,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/131.mat",
+      "bytes": 2938632,
+      "sha256": "7883f7b83beadc54b2f301767f9145ce07055707182fb0278fdf0a6bb53ce3cb",
+      "rpm": 1773,
+      "channels": {
+        "DE": {
+          "source_variable": "X131_DE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X131_FE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X131_BA_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 132,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/132.mat",
+      "bytes": 2914248,
+      "sha256": "17a69ed5d2270b42532e678e35bbe2fa04a2cc413cf2bf9e88c7692de8662d18",
+      "rpm": 1750,
+      "channels": {
+        "DE": {
+          "source_variable": "X132_DE_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X132_FE_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X132_BA_time",
+          "samples": 121410,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 133,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/133.mat",
+      "bytes": 2942112,
+      "sha256": "53f076cb0d905cf46bffaee7736abce8224ffed777deed03c0c863d762a90c71",
+      "rpm": 1725,
+      "channels": {
+        "DE": {
+          "source_variable": "X133_DE_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X133_FE_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X133_BA_time",
+          "samples": 122571,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 135,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/135.mat",
+      "bytes": 3896944,
+      "sha256": "5a1c3ceec1f2b58af9e01051e425aa9d31dd018f58a8d31cda25bbdb1ac6dca9",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X135_DE_time",
+          "samples": 243538,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X135_FE_time",
+          "samples": 243538,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 136,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/136.mat",
+      "bytes": 7789200,
+      "sha256": "37f259eebbc92afa8bd1b445d02af14e83608a48cd7a3cf5c323515ddc2d0f24",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X136_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X136_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 137,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/137.mat",
+      "bytes": 7789200,
+      "sha256": "a81b621153e426aa32848be8157c42bcd81065a28ac7655a9a6597f3889fa3ef",
+      "rpm": 1750,
+      "channels": {
+        "DE": {
+          "source_variable": "X137_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X137_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 138,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/138.mat",
+      "bytes": 7807760,
+      "sha256": "b43eeb67badeb129047ddd3658bf673815dc4bd445facb4217eb04653bb2e11d",
+      "rpm": 1725,
+      "channels": {
+        "DE": {
+          "source_variable": "X138_DE_time",
+          "samples": 487964,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X138_FE_time",
+          "samples": 487964,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 144,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/144.mat",
+      "bytes": 2935152,
+      "sha256": "f1f51d8c3b66e90fcdd8de15be95c2d4d3e9bac018dbba57f3006e930eec6b22",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X144_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X144_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X144_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 145,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/145.mat",
+      "bytes": 2924712,
+      "sha256": "2ea3b3e021ec0024a6b85573035e4ca76856180c875fed7740a2ee7216ad84a2",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X145_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X145_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X145_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 146,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/146.mat",
+      "bytes": 2917752,
+      "sha256": "1be984f637243ce8e0bf801a6a82b0b024abd6d0f71aa9d759330ccc898d7b7b",
+      "rpm": 1751,
+      "channels": {
+        "DE": {
+          "source_variable": "X146_DE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X146_FE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X146_BA_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 147,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/147.mat",
+      "bytes": 2935152,
+      "sha256": "cb8a4440866359a664200b5cf774c567accdbf12a56a4854d137a4638cfe43fb",
+      "rpm": 1725,
+      "channels": {
+        "DE": {
+          "source_variable": "X147_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X147_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X147_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 148,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/148.mat",
+      "bytes": 1993968,
+      "sha256": "917d93670a6de924298c8e393d079495bfb2f8d6dd3ade60871b1aede9f9bef4",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X148_DE_time",
+          "samples": 124602,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X148_FE_time",
+          "samples": 124602,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 149,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/149.mat",
+      "bytes": 7761344,
+      "sha256": "6b94cdfeedfbd21c58e201c33f6d9af9f2eb9692445dbf6910b3755efc6e15c9",
+      "rpm": 1773,
+      "channels": {
+        "DE": {
+          "source_variable": "X149_DE_time",
+          "samples": 485063,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X149_FE_time",
+          "samples": 485063,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 150,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/150.mat",
+      "bytes": 7770624,
+      "sha256": "7dcfad2d179ad9272704e0cdf9f118452ebdf4e6ba73c571f9ffd7ae71272bc2",
+      "rpm": 1750,
+      "channels": {
+        "DE": {
+          "source_variable": "X150_DE_time",
+          "samples": 485643,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X150_FE_time",
+          "samples": 485643,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 151,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/151.mat",
+      "bytes": 7779920,
+      "sha256": "e0339d60f58930fe419981f412965b8bd597aabe7a7b03dac0aa2f0459235496",
+      "rpm": 1724,
+      "channels": {
+        "DE": {
+          "source_variable": "X151_DE_time",
+          "samples": 486224,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X151_FE_time",
+          "samples": 486224,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 156,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/156.mat",
+      "bytes": 2935152,
+      "sha256": "d6ebef8850c114f136018381f6d3fa1c700073a784fffac72c0c8a3e21a227e3",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X156_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X156_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X156_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 158,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/158.mat",
+      "bytes": 2928192,
+      "sha256": "9ca1d5954e2ab970d3e8e87d069a1a468151f177071b4b7dc6f9ca1acfd0dfcd",
+      "rpm": 1773,
+      "channels": {
+        "DE": {
+          "source_variable": "X158_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X158_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X158_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 159,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/159.mat",
+      "bytes": 2935152,
+      "sha256": "a0544e211cda781e06c70a29fbbc34ff871625dd9929917cfb5367b8bc59d236",
+      "rpm": 1750,
+      "channels": {
+        "DE": {
+          "source_variable": "X159_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X159_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X159_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 160,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/160.mat",
+      "bytes": 2931672,
+      "sha256": "e3385b0ba00274a35405205622b9513cbd0b2a3e62116d50adf477a1def0e8d2",
+      "rpm": 1724,
+      "channels": {
+        "DE": {
+          "source_variable": "X160_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X160_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X160_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 161,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/161.mat",
+      "bytes": 2079840,
+      "sha256": "bd426b6fb9501b5d29de17dd85a1e31b06031c4b018b5bb6ce1ec87895d60ce2",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X161_DE_time",
+          "samples": 129969,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X161_FE_time",
+          "samples": 129969,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 162,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/162.mat",
+      "bytes": 7724208,
+      "sha256": "c61dfb2600ac9cbadea425d45c72025ed7432a1b99f1989c6870b714d8fd92c9",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X162_DE_time",
+          "samples": 482742,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X162_FE_time",
+          "samples": 482742,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 163,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/163.mat",
+      "bytes": 7733504,
+      "sha256": "77e38a8b8e67d82012700607d47e79718dd039f230853e8652a21778b1d2e374",
+      "rpm": 1749,
+      "channels": {
+        "DE": {
+          "source_variable": "X163_DE_time",
+          "samples": 483323,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X163_FE_time",
+          "samples": 483323,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 164,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/164.mat",
+      "bytes": 7752064,
+      "sha256": "baf59b7f7052bde9c64af8e83a8453ae3f207029f790efd45556e112c673be7a",
+      "rpm": 1723,
+      "channels": {
+        "DE": {
+          "source_variable": "X164_DE_time",
+          "samples": 484483,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X164_FE_time",
+          "samples": 484483,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 169,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/169.mat",
+      "bytes": 2924712,
+      "sha256": "f5448673725c4ea2735fe7d3fe4b16ad82b217eac6b62c4bf351c4549b0a5229",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X169_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X169_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X169_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 170,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/170.mat",
+      "bytes": 2924712,
+      "sha256": "bcb73a5208b67265468232a2e342f53719850901671d0ee28494f3af97621f46",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X170_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X170_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X170_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 171,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/171.mat",
+      "bytes": 2924712,
+      "sha256": "63d0fdc1a68e64610ddfaf56a9c224d6137ab7b5c0d318eea1d542b9e5ffc029",
+      "rpm": 1752,
+      "channels": {
+        "DE": {
+          "source_variable": "X171_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X171_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X171_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 172,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/172.mat",
+      "bytes": 2921232,
+      "sha256": "f75170ceef70d5da475671de0d2e52a0acd9b3883ad422b6deaf2907d888ba24",
+      "rpm": 1728,
+      "channels": {
+        "DE": {
+          "source_variable": "X172_DE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X172_FE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X172_BA_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 174,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/174.mat",
+      "bytes": 1020944,
+      "sha256": "ca7113a900d9217aa5632e0dad4f8791caed4d314321daa011719e1bc99f3026",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X173_DE_time",
+          "samples": 63788,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X173_FE_time",
+          "samples": 63788,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 175,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/175.mat",
+      "bytes": 17849704,
+      "sha256": "18302e96425ad163db699da3a2ca63d8f6ef4dfc99172e97ab21a8a77a83ac17",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X175_DE_time",
+          "samples": 381890,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X175_FE_time",
+          "samples": 381890,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 176,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/176.mat",
+      "bytes": 7807760,
+      "sha256": "569c7b292018e7e88cf4b375b091433c7566b9503545188979e93f6428427247",
+      "rpm": 1751,
+      "channels": {
+        "DE": {
+          "source_variable": "X176_DE_time",
+          "samples": 487964,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X176_FE_time",
+          "samples": 487964,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 177,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/177.mat",
+      "bytes": 7761344,
+      "sha256": "5cffc5aa2b1e5cc65a97ebcfaa369b886ad8db8b8840e0e0095e97b8b9be4c16",
+      "rpm": 1726,
+      "channels": {
+        "DE": {
+          "source_variable": "X177_DE_time",
+          "samples": 485063,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X177_FE_time",
+          "samples": 485063,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 185,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/185.mat",
+      "bytes": 2924712,
+      "sha256": "5bea2c60f177215ba3ec4ae287faf745d7e14aed1a12efe9e37b27c27044bafc",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X185_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X185_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X185_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 186,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/186.mat",
+      "bytes": 2931672,
+      "sha256": "1b3b6f3ad38e891feaa8026fe957b34f62f9082785089cc74f6878acdfe88ec5",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X186_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X186_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X186_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 187,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/187.mat",
+      "bytes": 2928192,
+      "sha256": "0f1338cce89beb5c8d8e5e154579bc576354e7c7d1617ebd1759662c6f3100b2",
+      "rpm": 1749,
+      "channels": {
+        "DE": {
+          "source_variable": "X187_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X187_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X187_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 188,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/188.mat",
+      "bytes": 2931672,
+      "sha256": "1981614324d653c2522bea68fd4fd87e337495b117d12596db67abd1e10e7443",
+      "rpm": 1724,
+      "channels": {
+        "DE": {
+          "source_variable": "X188_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X188_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X188_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 189,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/189.mat",
+      "bytes": 3986672,
+      "sha256": "6fd84310f781e1ab54a9a746b8626c73a863f2b02cea4c86229ca2444cb20a9a",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X189_DE_time",
+          "samples": 249146,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X189_FE_time",
+          "samples": 249146,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 190,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/190.mat",
+      "bytes": 7779920,
+      "sha256": "ae5fb00ce1eeefa5e21013197b186c0496f52820bdff00b385c58dfcb64a5b2f",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X190_DE_time",
+          "samples": 486224,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X190_FE_time",
+          "samples": 486224,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 191,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/191.mat",
+      "bytes": 7798480,
+      "sha256": "bb39df077745821a3917e432ab1bc2f5d7c4e01a6e2338d1271b6994ec68dc7f",
+      "rpm": 1748,
+      "channels": {
+        "DE": {
+          "source_variable": "X191_DE_time",
+          "samples": 487384,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X191_FE_time",
+          "samples": 487384,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 192,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/192.mat",
+      "bytes": 7789200,
+      "sha256": "099b7f3399d0ea81aedfab20667a9517059441c10f2a9d52130687cc9643e2c7",
+      "rpm": 1725,
+      "channels": {
+        "DE": {
+          "source_variable": "X192_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X192_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 197,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/197.mat",
+      "bytes": 2924712,
+      "sha256": "fa571b47cd942f9514a920b403fb7c053cd442bb2963a360a96d0f61432f03e9",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X197_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X197_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X197_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 198,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/198.mat",
+      "bytes": 2931672,
+      "sha256": "dbd58e4585ca8f8332c708b15936987ec0990ca701359fd2483dae2719df5b49",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X198_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X198_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X198_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 199,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/199.mat",
+      "bytes": 2924712,
+      "sha256": "ca4e6407fdb68845a6973da6028477911a62d018580063749fe956441be95cf2",
+      "rpm": 1749,
+      "channels": {
+        "DE": {
+          "source_variable": "X199_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X199_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X199_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 200,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/200.mat",
+      "bytes": 2928192,
+      "sha256": "2526483d2701220a700df8e6c9db0c527641b0887225907f4096610dd7120f4b",
+      "rpm": 1723,
+      "channels": {
+        "DE": {
+          "source_variable": "X200_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X200_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X200_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 201,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/201.mat",
+      "bytes": 3922576,
+      "sha256": "6c27615a61f19f05f65cf2cc2aa4bca5bda051c9d93a708d0ee8baf5138834fa",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X201_DE_time",
+          "samples": 245140,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X201_FE_time",
+          "samples": 245140,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 202,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/202.mat",
+      "bytes": 7752064,
+      "sha256": "16f1a7eadbd6703a7a1ab1a32f8d7b97b6b85c1b31b1e760c123a9e175d8ae63",
+      "rpm": 1772,
+      "channels": {
+        "DE": {
+          "source_variable": "X202_DE_time",
+          "samples": 484483,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X202_FE_time",
+          "samples": 484483,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 203,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/203.mat",
+      "bytes": 7789200,
+      "sha256": "3cad2848f4c96cde04fc06ca0f541ad663298ecb50eb7fc74e25b72ab29e1c5a",
+      "rpm": 1749,
+      "channels": {
+        "DE": {
+          "source_variable": "X203_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X203_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 204,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/204.mat",
+      "bytes": 7817056,
+      "sha256": "f3b1736698a580c2ea44cce78045833a9e76476d9153da8af5275c2e30e38a10",
+      "rpm": 1723,
+      "channels": {
+        "DE": {
+          "source_variable": "X204_DE_time",
+          "samples": 488545,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X204_FE_time",
+          "samples": 488545,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 209,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/209.mat",
+      "bytes": 2931672,
+      "sha256": "9f723d6d9d2eba714c6dc50f99321dffa73d8b1e4d3605675b2c2251511eff80",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X209_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X209_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X209_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 210,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/210.mat",
+      "bytes": 2917752,
+      "sha256": "596692397e77e129a00f7b7a61c4c3ffd6c7a59979b89039e7f70a7431cce1c7",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X210_DE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X210_FE_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X210_BA_time",
+          "samples": 121556,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 211,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/211.mat",
+      "bytes": 2924712,
+      "sha256": "8296a02ee489c2d16cbd9fc278ca2e29b22475cec70ebe840558c78b6b743dc1",
+      "rpm": 1752,
+      "channels": {
+        "DE": {
+          "source_variable": "X211_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X211_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X211_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 212,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/212.mat",
+      "bytes": 2928192,
+      "sha256": "bfe13761f545a26b217db897a12d27e16fec74306aa86ade8dbdc8ebe587c253",
+      "rpm": 1728,
+      "channels": {
+        "DE": {
+          "source_variable": "X212_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X212_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X212_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 213,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/213.mat",
+      "bytes": 3909760,
+      "sha256": "6afb81f36a9efcdd370a52166d71c13cb42278c7de22752c81d4b2a22fa133f0",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X213_DE_time",
+          "samples": 244339,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X213_FE_time",
+          "samples": 244339,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 214,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/214.mat",
+      "bytes": 7761344,
+      "sha256": "a8fe29f358b7f9c140f38e0cd7fbafdd7441c44e30a5b704ecb9be64cbb841ed",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X214_DE_time",
+          "samples": 485063,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X214_FE_time",
+          "samples": 485063,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 215,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/215.mat",
+      "bytes": 7863472,
+      "sha256": "1e3d65088782a29aa70004896db4b9836499dd12edd3c58fb496f4befca6f746",
+      "rpm": 1752,
+      "channels": {
+        "DE": {
+          "source_variable": "X215_DE_time",
+          "samples": 491446,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X215_FE_time",
+          "samples": 491446,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 217,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/217.mat",
+      "bytes": 15689680,
+      "sha256": "fb5b067c04b4c8449cbdd4ac4e376d7eb0804b9203efcab513e42aaf2f6a2cf7",
+      "rpm": 1727,
+      "channels": {
+        "DE": {
+          "source_variable": "X217_DE_time",
+          "samples": 489125,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X217_FE_time",
+          "samples": 489125,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 222,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/222.mat",
+      "bytes": 2928192,
+      "sha256": "fcc0ee740fa123b1f4683f555458891719efb2857afd9fdee63e8fde0ed14469",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X222_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X222_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X222_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 223,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/223.mat",
+      "bytes": 2921232,
+      "sha256": "7287410fd2217e3b332c5ab4732a68963be046d7d17bd40efa41cabe6a0514e5",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X223_DE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X223_FE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X223_BA_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 224,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/224.mat",
+      "bytes": 2931672,
+      "sha256": "8a16894c2ff4d6bcdb9f4c345c0d5f13737b3bd6d15015d6b566c86e7a3ee7b7",
+      "rpm": 1754,
+      "channels": {
+        "DE": {
+          "source_variable": "X224_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X224_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X224_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 225,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/225.mat",
+      "bytes": 2931672,
+      "sha256": "ece92fa141af03473fdfca80d00d9112472a20340224514e79979c6ddc97a6cf",
+      "rpm": 1729,
+      "channels": {
+        "DE": {
+          "source_variable": "X225_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X225_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X225_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 226,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/226.mat",
+      "bytes": 3903344,
+      "sha256": "fc78f08085760f2e17bcf7efe486b3a278e108093cd184acf278daecad6765e4",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X226_DE_time",
+          "samples": 243938,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X226_FE_time",
+          "samples": 243938,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 227,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/227.mat",
+      "bytes": 7789200,
+      "sha256": "c5c7aa64243ecd1428999aae4be29ba5d4de9235fee9731352c6cce7de604675",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X227_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X227_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 228,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/228.mat",
+      "bytes": 7798480,
+      "sha256": "ea819eb0404f76ccdbe6074463469bda8fbbe04b7c0c75cf1443d2b5ac3484f6",
+      "rpm": 1754,
+      "channels": {
+        "DE": {
+          "source_variable": "X228_DE_time",
+          "samples": 487384,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X228_FE_time",
+          "samples": 487384,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 229,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/229.mat",
+      "bytes": 7789200,
+      "sha256": "4fc20e3eeef375dc1a8ac577f04b4b0e0fa9e319ec51a61f7a02e756b0069499",
+      "rpm": 1729,
+      "channels": {
+        "DE": {
+          "source_variable": "X229_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X229_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 234,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/234.mat",
+      "bytes": 2938632,
+      "sha256": "ebcbdb96612e8085bbdbf81f0e5e8e8a8d1a693d1ec559c4894f7792771aa9b2",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X234_DE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X234_FE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X234_BA_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 235,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/235.mat",
+      "bytes": 2928192,
+      "sha256": "667e4bf1f213f92d10dca71d494ad002d8fd22bfd8004b31a4c71ccf0d764b66",
+      "rpm": 1771,
+      "channels": {
+        "DE": {
+          "source_variable": "X235_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X235_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X235_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 236,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/236.mat",
+      "bytes": 2935152,
+      "sha256": "c411d6d9826cba8073430555dc833e05fcbe4c38535f3eb7f03c525ea6797589",
+      "rpm": 1748,
+      "channels": {
+        "DE": {
+          "source_variable": "X236_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X236_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X236_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 237,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/237.mat",
+      "bytes": 2928192,
+      "sha256": "233d1edb2daa963658369119e389e30f02aca551dd7bb028ab33e7ba63edfd20",
+      "rpm": 1721,
+      "channels": {
+        "DE": {
+          "source_variable": "X237_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X237_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X237_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 238,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/238.mat",
+      "bytes": 3941808,
+      "sha256": "63209a4057f199beb42beedf5b4481987fdb3ac746c46777dd385d689bc481df",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X238_DE_time",
+          "samples": 246342,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X238_FE_time",
+          "samples": 246342,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 239,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/239.mat",
+      "bytes": 7826336,
+      "sha256": "4ba7dc55258359577a68f6de5c0ff6675776d2b2c30d691dd4d71640e34834af",
+      "rpm": 1771,
+      "channels": {
+        "DE": {
+          "source_variable": "X239_DE_time",
+          "samples": 489125,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X239_FE_time",
+          "samples": 489125,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 240,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/240.mat",
+      "bytes": 7807760,
+      "sha256": "c5d8b4db09880b660da88865fff0e81afef0f5ad68bdf0ad7b75c722ae3e7e1c",
+      "rpm": 1747,
+      "channels": {
+        "DE": {
+          "source_variable": "X240_DE_time",
+          "samples": 487964,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X240_FE_time",
+          "samples": 487964,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 241,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/241.mat",
+      "bytes": 7826336,
+      "sha256": "cb64eed96d401837c25df63598b7d1a00868368e1ed503a8dcef1e5226ec9caa",
+      "rpm": 1719,
+      "channels": {
+        "DE": {
+          "source_variable": "X241_DE_time",
+          "samples": 489125,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X241_FE_time",
+          "samples": 489125,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 246,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/246.mat",
+      "bytes": 2921232,
+      "sha256": "9e02c5e5785f51cc9a60bf31ccb14e6869ff7d452e4aedefa325aa8a6d9da4e9",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X246_DE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X246_FE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X246_BA_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 247,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/247.mat",
+      "bytes": 2928192,
+      "sha256": "83ed7f952bd0e1c412ca490e1757a36c4f91ffdef75ce359daaeec4a5b0466fa",
+      "rpm": 1771,
+      "channels": {
+        "DE": {
+          "source_variable": "X247_DE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X247_FE_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X247_BA_time",
+          "samples": 121991,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 248,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/248.mat",
+      "bytes": 2935152,
+      "sha256": "d3418e8f9884493548bdddb5406f84a4fd0e73ec153b8f3dfd4633525685ff10",
+      "rpm": 1747,
+      "channels": {
+        "DE": {
+          "source_variable": "X248_DE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X248_FE_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X248_BA_time",
+          "samples": 122281,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 249,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/249.mat",
+      "bytes": 2931672,
+      "sha256": "2468c6faf7d93483ffba1f2a10b17820f024d5a34037256e7ee38dfde541e974",
+      "rpm": 1719,
+      "channels": {
+        "DE": {
+          "source_variable": "X249_DE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X249_FE_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X249_BA_time",
+          "samples": 122136,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 250,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/250.mat",
+      "bytes": 2058944,
+      "sha256": "0c4a4f6eab7745dac244a118aed50b7a2c57f95759aa91ed2f2428fb8b2c538d",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X250_DE_time",
+          "samples": 128663,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X250_FE_time",
+          "samples": 128663,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 251,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/251.mat",
+      "bytes": 7835616,
+      "sha256": "5d88b77ea2d24a5f9ee1c9cb52a85fcb8b925c81534f2c1021cde21c1b3bc53b",
+      "rpm": 1770,
+      "channels": {
+        "DE": {
+          "source_variable": "X251_DE_time",
+          "samples": 489705,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X251_FE_time",
+          "samples": 489705,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 252,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/252.mat",
+      "bytes": 7798480,
+      "sha256": "5f41f6ad32cfab90259a82bf814434a88e55f548eeac9ceb8eeae25bf43c57b4",
+      "rpm": 1746,
+      "channels": {
+        "DE": {
+          "source_variable": "X252_DE_time",
+          "samples": 487384,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X252_FE_time",
+          "samples": 487384,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 253,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/253.mat",
+      "bytes": 7752064,
+      "sha256": "9039c52a922d6fd8a15192d4615401b15e6752b85b47d3b5ec2168f13f878c99",
+      "rpm": 1719,
+      "channels": {
+        "DE": {
+          "source_variable": "X253_DE_time",
+          "samples": 484483,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X253_FE_time",
+          "samples": 484483,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 258,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/258.mat",
+      "bytes": 2924712,
+      "sha256": "0b9c84acca45c3ee6ecbd697eb186a903293809625fda231a18da8c588e34383",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X258_DE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X258_FE_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X258_BA_time",
+          "samples": 121846,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 259,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/259.mat",
+      "bytes": 2938632,
+      "sha256": "7d9f99e3a85d10d9c9548d09a2990f5dd35dd8a634d2f71ac1192a03ffadf1f2",
+      "rpm": 1771,
+      "channels": {
+        "DE": {
+          "source_variable": "X259_DE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X259_FE_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X259_BA_time",
+          "samples": 122426,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 260,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/260.mat",
+      "bytes": 2945592,
+      "sha256": "75b92225df9bdc8053809d9732fec4a5eac27e770bb78f9796998f8b7f6a15df",
+      "rpm": 1746,
+      "channels": {
+        "DE": {
+          "source_variable": "X260_DE_time",
+          "samples": 122716,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X260_FE_time",
+          "samples": 122716,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X260_BA_time",
+          "samples": 122716,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 261,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/261.mat",
+      "bytes": 2921232,
+      "sha256": "d89e31d7ba9f08e183e9acdea10f814a89837e38e6762a7dde4d871a976437a1",
+      "rpm": 1718,
+      "channels": {
+        "DE": {
+          "source_variable": "X261_DE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X261_FE_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X261_BA_time",
+          "samples": 121701,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 262,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/262.mat",
+      "bytes": 2089120,
+      "sha256": "aacd79e77bc712768ed7062e6c893257e2f8daf95ef0da40a80532d657c5d461",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X262_DE_time",
+          "samples": 130549,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X262_FE_time",
+          "samples": 130549,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 263,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/263.mat",
+      "bytes": 7779920,
+      "sha256": "7f9b92bb538bbddadc0a000dec739dc814e329a5a5183f4dabe30bf13b3f57ad",
+      "rpm": 1771,
+      "channels": {
+        "DE": {
+          "source_variable": "X263_DE_time",
+          "samples": 486224,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X263_FE_time",
+          "samples": 486224,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 264,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/264.mat",
+      "bytes": 7789200,
+      "sha256": "0a2c21b416386a7d7f7e69ca4b863172359eeca37276d092ffb2e72377b75a7c",
+      "rpm": 1746,
+      "channels": {
+        "DE": {
+          "source_variable": "X264_DE_time",
+          "samples": 486804,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X264_FE_time",
+          "samples": 486804,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 265,
+      "collection": "48k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/265.mat",
+      "bytes": 7779920,
+      "sha256": "de8e9f58f73b75c0a4be6df43435ccc67fa7bce5e237eeed0d90ccedf283c479",
+      "rpm": 1718,
+      "channels": {
+        "DE": {
+          "source_variable": "X265_DE_time",
+          "samples": 486224,
+          "sample_rate_hz": 48000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X265_FE_time",
+          "samples": 486224,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 270,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/270.mat",
+      "bytes": 2908440,
+      "sha256": "fd7c20f53af7ccaf7ab6b08b885fbe4bf27ce44d9739af2725dc94c8130af953",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X270_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X270_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X270_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 271,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/271.mat",
+      "bytes": 2908440,
+      "sha256": "2362b0f50519001004b6167b6344deae2c1387121c532366855ce0df51c1a872",
+      "rpm": 1776,
+      "channels": {
+        "DE": {
+          "source_variable": "X271_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X271_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X271_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 272,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/272.mat",
+      "bytes": 2904024,
+      "sha256": "7b9b455d79d696d1fc5762ef058a6363cb153dabdf404100cb4247af767acbd1",
+      "rpm": 1758,
+      "channels": {
+        "DE": {
+          "source_variable": "X272_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X272_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X272_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 273,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/273.mat",
+      "bytes": 2908440,
+      "sha256": "990bd16b90bf70650f102962331b066242792f285612d5081c2ba80053b2e637",
+      "rpm": 1737,
+      "channels": {
+        "DE": {
+          "source_variable": "X273_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X273_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X273_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 274,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/274.mat",
+      "bytes": 2912832,
+      "sha256": "f39ea799aeffceb012dbfb7b58fbe52c80df4cdab64da9ad96eed03e5118e9a6",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X274_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X274_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X274_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 275,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/275.mat",
+      "bytes": 2912832,
+      "sha256": "6677df8434d4dc6f5130bdd4c07e25be562b5b93a49ff867a724f424fb11c577",
+      "rpm": 1775,
+      "channels": {
+        "DE": {
+          "source_variable": "X275_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X275_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X275_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 276,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/276.mat",
+      "bytes": 2912832,
+      "sha256": "d1558eb6bd464e2a9e515bb4b2251814d53d61ab9c1f67ba25fbffe8dad47b5d",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X276_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X276_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X276_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 277,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/277.mat",
+      "bytes": 2928496,
+      "sha256": "6abdf2d5dc823f50d95814c488735ca2083def087233608e2f2cd718782985a6",
+      "rpm": 1733,
+      "channels": {
+        "DE": {
+          "source_variable": "X277_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X277_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X277_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 278,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/278.mat",
+      "bytes": 2937304,
+      "sha256": "1ad584953158dcdf4eb1ceba71dee781e5596163aad37a2619b0649213f9e3dd",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X278_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X278_FE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X278_BA_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 279,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/279.mat",
+      "bytes": 2912832,
+      "sha256": "6bfa8b958280248fbec06b0d543f532b3571e03550f6ac466de59cc215264595",
+      "rpm": 1732,
+      "channels": {
+        "DE": {
+          "source_variable": "X279_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X279_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X279_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 280,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/280.mat",
+      "bytes": 2912832,
+      "sha256": "9ba0712567e9bc2a43ccb8d37e8f1c594cf671babcee7313150ae145a15c365d",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X280_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X280_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X280_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 281,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/281.mat",
+      "bytes": 2917248,
+      "sha256": "0f1a41d62797039139cf27c6f8b823fe87de44dfb4b2ef03fc6e0ef4d3734992",
+      "rpm": 1732,
+      "channels": {
+        "DE": {
+          "source_variable": "X281_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X281_FE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X281_BA_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 282,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/282.mat",
+      "bytes": 2908440,
+      "sha256": "e7447bf84ff363c0e49f651f76b502ab34b58653d53156faa852033cef8da947",
+      "rpm": 1798,
+      "channels": {
+        "DE": {
+          "source_variable": "X282_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X282_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X282_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 283,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/283.mat",
+      "bytes": 2899632,
+      "sha256": "ec58fd361b56b645ce3811352ec4ae947fbdfc053cede581738129d02ea8928b",
+      "rpm": 1777,
+      "channels": {
+        "DE": {
+          "source_variable": "X283_DE_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X283_FE_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X283_BA_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 284,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/284.mat",
+      "bytes": 2921664,
+      "sha256": "f6179084903e78126b7728f267125f0d387f79eb69742145fc1047fdfc938d8b",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X284_DE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X284_FE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X284_BA_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 285,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/285.mat",
+      "bytes": 2908440,
+      "sha256": "0536eee89c111af8c4ecbf8dd580bc63a35df480795d837d1e9a0d036c62ed4b",
+      "rpm": 1732,
+      "channels": {
+        "DE": {
+          "source_variable": "X285_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X285_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X285_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 286,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/286.mat",
+      "bytes": 2930472,
+      "sha256": "ffef67be62c7f4395c3c0d69684ee7b7772d5c6f6c4f5f67b6791fa66d2489ea",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X286_DE_time",
+          "samples": 122086,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X286_FE_time",
+          "samples": 122086,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X286_BA_time",
+          "samples": 122086,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 287,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/287.mat",
+      "bytes": 2921664,
+      "sha256": "11838a991ec50b1f34f786ca8431e0ef1ff81df072a66e9740e6488da5be8627",
+      "rpm": 1775,
+      "channels": {
+        "DE": {
+          "source_variable": "X287_DE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X287_FE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X287_BA_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 288,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/288.mat",
+      "bytes": 2934864,
+      "sha256": "1c16e412208b2f7d43779ba6654fdc76781bd118071a27442338cae781a22bd5",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X288_DE_time",
+          "samples": 122269,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X288_FE_time",
+          "samples": 122269,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X288_BA_time",
+          "samples": 122269,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 289,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/289.mat",
+      "bytes": 2908440,
+      "sha256": "5fb1247048f7773b2bc023afed156f7708d6a03fe78f7aa33f0a202beef6b2de",
+      "rpm": 1732,
+      "channels": {
+        "DE": {
+          "source_variable": "X289_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X289_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X289_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 290,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/290.mat",
+      "bytes": 2912832,
+      "sha256": "53146773c3f3b844a6aaaf57fbbe4a821c4e887bb9ad20af49c4bf904e4d9096",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X290_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X290_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X290_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 291,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/291.mat",
+      "bytes": 2912832,
+      "sha256": "1511ae3611d67c9cfa697ba2b204332ab52337a95e22eba9ebde172e3385d69d",
+      "rpm": 1775,
+      "channels": {
+        "DE": {
+          "source_variable": "X291_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X291_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X291_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 292,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/292.mat",
+      "bytes": 2917248,
+      "sha256": "09d10a867b780b4d214453a31c6c85963b7a5c67eb51a70e382902f37b202123",
+      "rpm": 1756,
+      "channels": {
+        "DE": {
+          "source_variable": "X292_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X292_FE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X292_BA_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 293,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/293.mat",
+      "bytes": 2899632,
+      "sha256": "9133e6cdc952670aca0a1a5576c24b1075c7701c956f43083bc38a3505af0271",
+      "rpm": 1734,
+      "channels": {
+        "DE": {
+          "source_variable": "X293_DE_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X293_FE_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X293_BA_time",
+          "samples": 120801,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 294,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/294.mat",
+      "bytes": 2908440,
+      "sha256": "6b774ffb83a046a6a4402221c2bc02c84c8e4494ea8457452e366ccc048c7d5e",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X294_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X294_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X294_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 295,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/295.mat",
+      "bytes": 2917248,
+      "sha256": "13f7052f2422f19858f4136aa645dcfefc28f474c6b7e54b6ffcc4abedee8e26",
+      "rpm": 1776,
+      "channels": {
+        "DE": {
+          "source_variable": "X295_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X295_FE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X295_BA_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 296,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/296.mat",
+      "bytes": 2908440,
+      "sha256": "00785405cb36ab8c96a63b43d77e5016477e276154f7bd0a5f74f13825030150",
+      "rpm": 1756,
+      "channels": {
+        "DE": {
+          "source_variable": "X296_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X296_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X296_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 297,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/297.mat",
+      "bytes": 2926056,
+      "sha256": "858c409a74f0dcbd31af28f79175daf5e494fe194269909c18c579851aaf3c1d",
+      "rpm": 1733,
+      "channels": {
+        "DE": {
+          "source_variable": "X297_DE_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X297_FE_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X297_BA_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 298,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/298.mat",
+      "bytes": 2904024,
+      "sha256": "a954b389feafb8c60e3ba1d04226d0511a340aad8fce082ab920c564b2012423",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X298_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X298_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X298_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 299,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/299.mat",
+      "bytes": 2908440,
+      "sha256": "503fc5bd97d151ee053eb89562a4e2f2b24095b15c798600b66e17c87a48a29e",
+      "rpm": 1776,
+      "channels": {
+        "DE": {
+          "source_variable": "X299_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X299_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X299_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 300,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/300.mat",
+      "bytes": 2926056,
+      "sha256": "0b4ac23bbd279760fe3b8873ea257eab562718b5de44c4c617d309fb792550a1",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X300_DE_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X300_FE_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X300_BA_time",
+          "samples": 121902,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 301,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/301.mat",
+      "bytes": 2921664,
+      "sha256": "c709cd9f9ddf4a074850bce3384b14fad7f210b188da32d23cc6e6ab68f7a616",
+      "rpm": 1733,
+      "channels": {
+        "DE": {
+          "source_variable": "X301_DE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X301_FE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X301_BA_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 302,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/302.mat",
+      "bytes": 2908440,
+      "sha256": "c82d3ac43ed7d4e5dc41d6e0498e43754f7326f1c80d983afbfec2a8dfc3299e",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X302_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X302_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X302_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 305,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/305.mat",
+      "bytes": 2904024,
+      "sha256": "1e31694e7b03e57f45bcd49dddbfb1a36b6e7237c32505c9333a3f2bb3ef10ed",
+      "rpm": 1775,
+      "channels": {
+        "DE": {
+          "source_variable": "X305_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X305_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X305_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 306,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/306.mat",
+      "bytes": 2921664,
+      "sha256": "66ff410ca987b3561a121cb67d154a85057760bc6a72f30bafda8ee163712fd4",
+      "rpm": 1755,
+      "channels": {
+        "DE": {
+          "source_variable": "X306_DE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X306_FE_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X306_BA_time",
+          "samples": 121719,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 307,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/307.mat",
+      "bytes": 2908440,
+      "sha256": "8e5a47da86128668332fa6d17736515fcb1101c4e5a1e890cdb11e662a0573ca",
+      "rpm": 1733,
+      "channels": {
+        "DE": {
+          "source_variable": "X307_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X307_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X307_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 309,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/309.mat",
+      "bytes": 2908440,
+      "sha256": "af7f88db380cc666a06d14c465f7e2bb9b6c5db53daf2fbcfc966654f01577ce",
+      "rpm": 1774,
+      "channels": {
+        "DE": {
+          "source_variable": "X309_DE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X309_FE_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X309_BA_time",
+          "samples": 121168,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 310,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/310.mat",
+      "bytes": 2917248,
+      "sha256": "09e94ad346b84bbeb4cd172d5d66aacd08857369b23547a540cd266f71a18c17",
+      "rpm": 1796,
+      "channels": {
+        "DE": {
+          "source_variable": "X310_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X310_FE_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X310_BA_time",
+          "samples": 121535,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 311,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/311.mat",
+      "bytes": 2904024,
+      "sha256": "8b5f2efba1c9d45cc88b9ced3bb02a2963ecbcc4ed15034f91e1295bf19db4fb",
+      "rpm": 1752,
+      "channels": {
+        "DE": {
+          "source_variable": "X311_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X311_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X311_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 312,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/312.mat",
+      "bytes": 2904024,
+      "sha256": "e4f22d6012d316f62f9a46add474af6f956a8365a3eb2115904be0a9abc29f7f",
+      "rpm": 1728,
+      "channels": {
+        "DE": {
+          "source_variable": "X312_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X312_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X312_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 313,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/313.mat",
+      "bytes": 2904024,
+      "sha256": "74adda10ce37f133a16d1caf62f2a2c17434a56c18db5af2612eaf127897bc1f",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X313_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X313_FE_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X313_BA_time",
+          "samples": 120984,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 315,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/315.mat",
+      "bytes": 2895216,
+      "sha256": "e1f6acfe79b622a24bf2ed3d092b83342c9a280a0e443df480c7220a49fff392",
+      "rpm": 1797,
+      "channels": {
+        "DE": {
+          "source_variable": "X315_DE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X315_FE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X315_BA_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 316,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/316.mat",
+      "bytes": 2895216,
+      "sha256": "4b0730d494cdf33b8aea1ab2195be5fcd408f37c0fe12d0a2644c88bc59657ff",
+      "rpm": 1773,
+      "channels": {
+        "DE": {
+          "source_variable": "X316_DE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X316_FE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X316_BA_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 317,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/317.mat",
+      "bytes": 2895216,
+      "sha256": "ed46ca719883b337f75cffcf5d0024386f26c1591dd4163892b48f02d25b40e0",
+      "rpm": 1751,
+      "channels": {
+        "DE": {
+          "source_variable": "X317_DE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X317_FE_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X317_BA_time",
+          "samples": 120617,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 318,
+      "collection": "12k_fe",
+      "source_url": "https://engineering.case.edu/sites/default/files/318.mat",
+      "bytes": 2912832,
+      "sha256": "307d56daeffb9e45a0aee649031e83b4165adb8a32cefabb925e540ca51aad8e",
+      "rpm": 1728,
+      "channels": {
+        "DE": {
+          "source_variable": "X318_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "FE": {
+          "source_variable": "X318_FE_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        },
+        "BA": {
+          "source_variable": "X318_BA_time",
+          "samples": 121351,
+          "sample_rate_hz": 12000,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3001,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3001.mat",
+      "bytes": 966608,
+      "sha256": "2e7400f922b75888dbee1fc3ab8c7cd770822127aa97353b7b622de103e79d46",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X056_DE_time",
+          "samples": 120801,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3002,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3002.mat",
+      "bytes": 971008,
+      "sha256": "13556b993e01d95a48c6693f592bbea4da2252c99eb94d2f4a0961d8b3af033a",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X057_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3003,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3003.mat",
+      "bytes": 971008,
+      "sha256": "ef7ebceaee0a1da63c6da18f227e3582d6c626dbce2d84a06674872645cb8272",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X058_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3004,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3004.mat",
+      "bytes": 972480,
+      "sha256": "5c0a940bcef2b4850c826f3480f493ea69c68a09b79a70e79c7fa5cb39020c32",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X059_DE_time",
+          "samples": 121535,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3005,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3005.mat",
+      "bytes": 966608,
+      "sha256": "37f3f8e0268a9cd7df8ff5e15e326be06ab099b2291a2282041d01bb89a7c924",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X048_DE_time",
+          "samples": 120801,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3006,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3006.mat",
+      "bytes": 971008,
+      "sha256": "b642c57602deaeecfa33291d9179a2d2c2d997e0c23b44598a3cdecb9533d3f1",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X049_DE_time",
+          "samples": 121351,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3007,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3007.mat",
+      "bytes": 968072,
+      "sha256": "9b1ce8c46b4df3c3a8ab5f18a3fceaa78b0c17904716abc1bf6066c7235a226c",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X050_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    },
+    {
+      "recording": 3008,
+      "collection": "12k_de",
+      "source_url": "https://engineering.case.edu/sites/default/files/3008.mat",
+      "bytes": 968072,
+      "sha256": "ac958f7b5a1c00469849e6104a1869d75231cddd0742a39d36475fce589ee475",
+      "rpm": null,
+      "channels": {
+        "DE": {
+          "source_variable": "X051_DE_time",
+          "samples": 120984,
+          "sample_rate_hz": null,
+          "exact_array_match": true
+        }
+      }
+    }
+  ]
+}

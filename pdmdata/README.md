@@ -6,6 +6,9 @@ task packages are documented under [tasks/](tasks/README.md).
 
 [Getting started](../README.md#getting-started) · [Usage guide](../docs/usage.md)
 
+For adaptation across machines, conditions and recordings, see the
+[meta-learning data guide](../docs/meta-learning-data.md).
+
 ## Available datasets
 
 The following table summarizes the available datasets. RUL means remaining
@@ -19,6 +22,7 @@ useful life.
 | [Backblaze](datasets/backblaze/README.md) | Fleet-scale daily reliability panel | Drive failure prediction, Survival analysis, Time-to-event prediction | Backblaze Drive Stats terms | Direct quarterly downloads |
 | [CARE](datasets/care/README.md) | Large labeled wind-turbine SCADA time series | Early fault detection, Anomaly detection, Failure prediction | CC BY-SA 4.0 | Direct download from Zenodo |
 | [C-MAPSS](datasets/cmapss/README.md) | Multivariate run-to-failure time series | RUL estimation, Prognostics, Anomaly detection | Unspecified | Direct download from NASA |
+| [CWRU](datasets/cwru/README.md) | Seeded-fault vibration recordings | Fault classification, Healthy/faulty discrimination, Anomaly detection research, Cross-condition adaptation, Vibration signal analysis | Unspecified on the provider pages | Official per-file MATLAB downloads; collection bundles and bounded recording selection |
 | [GDD](datasets/gdd/README.md) | Multivariate time series | Anomaly detection, State classification | Requires verification | Kaggle |
 | [GFD](datasets/gfd/README.md) | Vibration time series | Fault classification, Signal analysis | CC BY 4.0 | Direct download |
 | [HydSys](datasets/hydsys/README.md) | Multirate multivariate time series | Fault classification, Condition estimation, Regression | CC BY 4.0 | Direct ZIP download from UCI |
@@ -70,6 +74,7 @@ CARE, MAPM, and Scania Component X. See
 | [Backblaze](datasets/backblaze/README.md) | △ | — | — | △ | △ | ✓ | ✓ | — | — |
 | [CARE](datasets/care/README.md) | ✓ | ✓ | — | △ | — | ✓ | △ | — | — |
 | [C-MAPSS](datasets/cmapss/README.md) | △ | — | — | △ | ✓ | ✓ | ✓ | — | — |
+| [CWRU](datasets/cwru/README.md) | ✓ | ✓ | — | — | — | — | — | — | — |
 | [GDD](datasets/gdd/README.md) | ✓ | — | ✓ | — | — | — | — | — | — |
 | [GFD](datasets/gfd/README.md) | △ | ✓ | — | — | — | — | — | — | — |
 | [HydSys](datasets/hydsys/README.md) | — | ✓ | — | ✓ | — | — | — | — | — |
@@ -92,6 +97,7 @@ CARE, MAPM, and Scania Component X. See
 - [Backblaze — Backblaze Drive Stats](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 - [CARE — Wind Turbine SCADA Data for Early Fault Detection](https://zenodo.org/records/15846963)
 - [C-MAPSS — Turbofan Engine Degradation Simulation Data Set](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/)
+- [CWRU — CWRU Bearing Data Center](https://engineering.case.edu/bearingdatacenter/download-data-file)
 - [GDD — Genesis Demonstrator Data for Machine Learning](https://www.kaggle.com/datasets/inIT-OWL/genesis-demonstrator-data-for-machine-learning)
 - [GFD — Gearbox Fault Diagnosis Data](https://data.openei.org/submissions/623)
 - [HydSys — Condition Monitoring of Hydraulic Systems](https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems)
@@ -119,9 +125,6 @@ registered.
 - [FEMTO / PRONOSTIA (IEEE PHM 2012)](https://github.com/Lucky-Loek/ieee-phm-2012-data-challenge-dataset)
   — Accelerated bearing run-to-failure challenge corpus (FEMTO-ST /
   PRONOSTIA; original challenge page offline; community mirror).
-- [CWRU Bearing Dataset mirror](https://www.kaggle.com/datasets/brjapon/cwru-bearing-datasets)
-  — Classic bearing vibration fault-classification corpus
-  (Case Western Reserve University; Kaggle mirror).
 - [Oxford Battery Degradation Dataset 1](https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac)
   — Lab battery aging trajectories under controlled cycling
   (University of Oxford).

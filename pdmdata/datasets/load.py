@@ -10,6 +10,7 @@ _LOADER_MODULES = {
     "backblaze": "pdmdata.datasets.backblaze.loader",
     "care": "pdmdata.datasets.care.loader",
     "cmapss": "pdmdata.datasets.cmapss.loader",
+    "cwru": "pdmdata.datasets.cwru.loader",
     "gdd": "pdmdata.datasets.gdd.loader",
     "gfd": "pdmdata.datasets.gfd.loader",
     "hydsys": "pdmdata.datasets.hydsys.loader",

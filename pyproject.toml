@@ -58,6 +58,8 @@ include = ["pdmdata*"]
 pdmdata = [
   "README.md",
   "datasets/*/metadata.json",
+  "datasets/cwru/recordings.json",
+  "datasets/cwru/validation.json",
   "datasets/*/README.md",
   "datasets/*/assets/*.png",
   "datasets/*/assets/*.json",
