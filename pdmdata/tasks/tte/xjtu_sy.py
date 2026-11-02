@@ -8,24 +8,28 @@ from dataclasses import dataclass
 import polars as pl
 
 from pdmdata.datasets.xjtu_sy import load_many
-from pdmdata.tasks.cmapss_common import label_failed_rows, summary_frame
-from pdmdata.tasks.metrics import score_split
-from pdmdata.tasks.rul.xjtu_sy import (
-    ENTITY_COLUMN,
-    TIME_COLUMN,
-    _features,
-    _select_bearings,
-    _split_test,
+from pdmdata.tasks.common import (
+    XJTU_SY_ENTITY_COLUMN,
+    XJTU_SY_TIME_COLUMN,
+    label_failed_rows,
+    select_xjtu_sy_bearings,
+    split_xjtu_sy_test_bearings,
+    summary_frame,
+    xjtu_sy_feature_columns,
 )
-from pdmdata.tasks.tte.common import cohort_frame
-from pdmdata.tasks.tte.prepare import (
+from pdmdata.tasks.metrics import score_split
+from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TARGET_COLUMN,
     TIME_TO_EVENT_COLUMN,
     filter_entities,
     split_entities,
 )
+from pdmdata.tasks.tte.common import cohort_frame
 from pdmdata.tasks.types import TabularSplit
+
+ENTITY_COLUMN = XJTU_SY_ENTITY_COLUMN
+TIME_COLUMN = XJTU_SY_TIME_COLUMN
 
 
 @dataclass(frozen=True)
@@ -124,16 +128,16 @@ def prepare_xjtu_sy(
     if not 0.0 < test_fraction < 1.0 and test_bearings is None:
         raise ValueError("test_fraction must satisfy 0 < f < 1")
 
-    selected = _select_bearings(bearings=bearings, condition=condition)
+    selected = select_xjtu_sy_bearings(bearings=bearings, condition=condition)
     frame = load_many(selected, with_rul=True)
     labeled = label_failed_rows(frame, time_cap=time_cap)
-    features = _features(
+    features = xjtu_sy_feature_columns(
         labeled,
         feature_columns=feature_columns,
         drop_constant_features=drop_constant_features,
     )
 
-    train_pool, test_ids = _split_test(
+    train_pool, test_ids = split_xjtu_sy_test_bearings(
         selected,
         test_bearings=test_bearings,
         test_fraction=test_fraction,
@@ -195,7 +199,6 @@ def eval_xjtu_sy(
 ) -> dict[str, float]:
     """Score predictions on held-out XJTU-SY trajectories."""
     return score_split(bundle.test_eval_split(), predictions)
-
 
 
 __all__ = [

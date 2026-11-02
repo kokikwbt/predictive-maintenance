@@ -180,7 +180,7 @@ samplers, teacher predictions, and learned features belong to model code.
 ## Related
 
 - RUL profile: [RUL task](../rul/README.md)
-- Shared helpers: `pdmdata.tasks.cmapss_common`, `pdmdata.tasks.metrics`
+- Shared helpers: `pdmdata.tasks.common`, `pdmdata.tasks.metrics`
 - Usage notes: [usage guide](../../../docs/usage.md#tte-task-view-c-mapss)
 - Notebook: [time-to-event-prediction](../../../notebooks/tasks/time-to-event-prediction.ipynb)
 - Dataset: [C-MAPSS](../../datasets/cmapss/README.md)

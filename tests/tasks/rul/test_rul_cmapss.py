@@ -165,4 +165,13 @@ class RulCmapssTest(TestCase):
             prepare_cmapss("FD005")
 
     def test_module_export(self):
+        from pdmdata.tasks import cmapss_common, common
+        from pdmdata.tasks.rul import (
+            cmapss as rul_cmapss,
+            prepare as rul_prepare,
+        )
+
         self.assertIs(rul.prepare_cmapss, prepare_cmapss)
+        self.assertIs(rul_cmapss.prepare_cmapss, prepare_cmapss)
+        self.assertIs(rul_prepare.prepare_cmapss, prepare_cmapss)
+        self.assertIs(cmapss_common.feature_columns, common.feature_columns)

@@ -6,10 +6,10 @@ from collections.abc import Sequence
 
 import polars as pl
 
-from pdmdata.tasks.cmapss_common import (
+from pdmdata.tasks.common import (
     drop_constant_columns,
 )
-from pdmdata.tasks.tte.prepare import (
+from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TIME_TO_EVENT_COLUMN,
     filter_entities,

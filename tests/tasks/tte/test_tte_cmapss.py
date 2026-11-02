@@ -124,7 +124,14 @@ class TteCmapssTest(TestCase):
                 self.assertEqual(groups.shape[0], X.shape[0])
 
     def test_module_export(self):
+        from pdmdata.tasks.tte import (
+            cmapss as tte_cmapss,
+            prepare as tte_prepare,
+        )
+
         self.assertIs(tte.prepare_cmapss, prepare_cmapss)
+        self.assertIs(tte_cmapss.prepare_cmapss, prepare_cmapss)
+        self.assertIs(tte_prepare.prepare_cmapss, prepare_cmapss)
 
     def test_single_entity_holdout_stays_in_train(self):
         train, validation = split_entities([7], validation_fraction=0.2)

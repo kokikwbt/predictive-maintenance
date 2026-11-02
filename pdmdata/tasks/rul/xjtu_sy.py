@@ -8,11 +8,15 @@ from dataclasses import dataclass
 import polars as pl
 
 from pdmdata.datasets.xjtu_sy import load_many
-from pdmdata.datasets.xjtu_sy.loader import BEARING_INFO, available_bearings
-from pdmdata.tasks.cmapss_common import (
-    drop_constant_columns,
+from pdmdata.tasks.common import (
+    XJTU_SY_DEFAULT_FEATURES,
+    XJTU_SY_ENTITY_COLUMN,
+    XJTU_SY_TIME_COLUMN,
     label_rul_rows,
+    select_xjtu_sy_bearings,
+    split_xjtu_sy_test_bearings,
     summary_frame,
+    xjtu_sy_feature_columns,
 )
 from pdmdata.tasks.metrics import score_split
 from pdmdata.tasks.splits import (
@@ -23,15 +27,13 @@ from pdmdata.tasks.splits import (
 )
 from pdmdata.tasks.types import TabularSplit
 
-ENTITY_COLUMN = "bearing"
-TIME_COLUMN = "cycle"
+ENTITY_COLUMN = XJTU_SY_ENTITY_COLUMN
+TIME_COLUMN = XJTU_SY_TIME_COLUMN
 TARGET_COLUMN = "RUL"
-DEFAULT_FEATURES = (
-    "rms_horizontal",
-    "rms_vertical",
-    "rpm",
-    "load_kn",
-)
+DEFAULT_FEATURES = XJTU_SY_DEFAULT_FEATURES
+_features = xjtu_sy_feature_columns
+_select_bearings = select_xjtu_sy_bearings
+_split_test = split_xjtu_sy_test_bearings
 
 
 @dataclass(frozen=True)
@@ -113,17 +115,17 @@ def prepare_xjtu_sy(
     if not 0.0 < test_fraction < 1.0 and test_bearings is None:
         raise ValueError("test_fraction must satisfy 0 < f < 1")
 
-    selected = _select_bearings(bearings=bearings, condition=condition)
+    selected = select_xjtu_sy_bearings(bearings=bearings, condition=condition)
     frame = load_many(selected, with_rul=True)
     labeled = label_rul_rows(frame, rul_cap=rul_cap)
 
-    features = _features(
+    features = xjtu_sy_feature_columns(
         labeled,
         feature_columns=feature_columns,
         drop_constant_features=drop_constant_features,
     )
 
-    train_pool, test_ids = _split_test(
+    train_pool, test_ids = split_xjtu_sy_test_bearings(
         selected,
         test_bearings=test_bearings,
         test_fraction=test_fraction,
@@ -189,98 +191,6 @@ def eval_xjtu_sy(
     keyed by bearing id reuses one value for every snapshot of that bearing.
     """
     return score_split(bundle.test_eval_split(), predictions)
-
-
-def _select_bearings(
-    *,
-    bearings: Sequence[str] | None,
-    condition: str | None,
-) -> tuple[str, ...]:
-    available = available_bearings()
-    if bearings is not None:
-        selected = tuple(bearings)
-        unknown = [name for name in selected if name not in BEARING_INFO]
-        if unknown:
-            raise ValueError(f"Unknown bearings: {unknown}")
-        missing = [name for name in selected if name not in available]
-        if missing:
-            raise FileNotFoundError(
-                f"Bearings not available locally: {missing}"
-            )
-    else:
-        selected = tuple(
-            name
-            for name in available
-            if condition is None
-            or BEARING_INFO[name]["condition"] == condition
-        )
-    if len(selected) < 2:
-        raise ValueError(
-            "Need at least two local bearings to form train and test"
-        )
-    if condition is not None:
-        bad = [
-            name
-            for name in selected
-            if BEARING_INFO[name]["condition"] != condition
-        ]
-        if bad:
-            raise ValueError(
-                f"Bearings outside condition {condition!r}: {bad}"
-            )
-    return selected
-
-
-def _split_test(
-    bearings: Sequence[str],
-    *,
-    test_bearings: Sequence[str] | None,
-    test_fraction: float,
-    random_state: int,
-) -> tuple[tuple[str, ...], tuple[str, ...]]:
-    if test_bearings is not None:
-        test_ids = tuple(sorted({str(name) for name in test_bearings}))
-        unknown = set(test_ids) - set(bearings)
-        if unknown:
-            raise ValueError(
-                f"test_bearings not in selected set: {sorted(unknown)}"
-            )
-        if set(test_ids) == set(bearings):
-            raise ValueError(
-                "test_bearings must leave at least one training bearing"
-            )
-        train_pool = tuple(
-            name for name in bearings if name not in set(test_ids)
-        )
-        return train_pool, test_ids
-    train_pool, test_ids = split_entities(
-        bearings,
-        validation_fraction=test_fraction,
-        random_state=random_state,
-    )
-    # split_entities names the hold-out "validation"; here it is the test set.
-    return train_pool, test_ids
-
-
-
-def _features(
-    train: pl.DataFrame,
-    *,
-    feature_columns: Sequence[str] | None,
-    drop_constant_features: bool,
-) -> tuple[str, ...]:
-    columns = (
-        tuple(feature_columns) if feature_columns is not None
-        else DEFAULT_FEATURES
-    )
-    missing = [name for name in columns if name not in train.columns]
-    if missing:
-        raise ValueError(f"Missing feature columns: {missing}")
-    if drop_constant_features:
-        columns = drop_constant_columns(train, columns)
-        if not columns:
-            raise ValueError("All candidate features are constant on train")
-    return tuple(columns)
 
 
 __all__ = [

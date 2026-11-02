@@ -9,19 +9,17 @@ import polars as pl
 
 from pdmdata.datasets.ncmapss import load as load_ncmapss
 from pdmdata.datasets.ncmapss.loader import VARIANTS
-from pdmdata.tasks.cmapss_common import (
+from pdmdata.tasks.common import (
+    NCMAPSS_ENTITY_COLUMN,
+    NCMAPSS_TIME_COLUMN,
     failure_and_censoring_durations,
     label_failed_rows,
     last_rows_per_entity,
+    ncmapss_feature_columns,
     summary_frame,
 )
 from pdmdata.tasks.metrics import score_split
-from pdmdata.tasks.rul.ncmapss import (
-    ENTITY_COLUMN,
-    TIME_COLUMN,
-    _feature_columns,
-)
-from pdmdata.tasks.tte.prepare import (
+from pdmdata.tasks.splits import (
     EVENT_OBSERVED_COLUMN,
     TARGET_COLUMN,
     TIME_TO_EVENT_COLUMN,
@@ -29,6 +27,9 @@ from pdmdata.tasks.tte.prepare import (
     split_entities,
 )
 from pdmdata.tasks.types import TabularSplit
+
+ENTITY_COLUMN = NCMAPSS_ENTITY_COLUMN
+TIME_COLUMN = NCMAPSS_TIME_COLUMN
 
 
 @dataclass(frozen=True)
@@ -133,7 +134,7 @@ def prepare_ncmapss(
     )
 
     train_labeled = label_failed_rows(train_raw, time_cap=time_cap)
-    features = _feature_columns(
+    features = ncmapss_feature_columns(
         train_labeled,
         include_flight_conditions=include_flight_conditions,
         include_aux=include_aux,
@@ -194,7 +195,6 @@ def eval_ncmapss(
 ) -> dict[str, float]:
     """Score predictions on the last-row remaining-time protocol."""
     return score_split(bundle.test_eval_split(), predictions)
-
 
 
 __all__ = [

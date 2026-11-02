@@ -73,8 +73,10 @@ and versioned NPZ exports. See [sequence samples](tte/README.md#sequence-samples
 |---|---|
 | `taxonomy.py` | Canonical task ids and support levels |
 | `types.py` | `TabularSplit` container |
+| `splits.py` | Generic TTE column vocabulary and entity-split helpers |
+| `common.py` | Cross-dataset feature selection, target capping, and summary helpers |
 | `metrics.py` | Shared scoring helpers (MAE, RMSE, NASA score) |
-| `cmapss_common.py` | C-MAPSS feature/split helpers used by RUL and TTE |
+| `cmapss_common.py` | Backward-compatible re-exports of `common.py` |
 
 ## Related
 

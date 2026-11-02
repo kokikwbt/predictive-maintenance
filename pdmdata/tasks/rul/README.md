@@ -64,7 +64,7 @@ bearing level.
 ## Related
 
 - General TTE formulation: [TTE task](../tte/README.md)
-- Shared helpers: `pdmdata.tasks.cmapss_common`, `pdmdata.tasks.metrics`
+- Shared helpers: `pdmdata.tasks.common`, `pdmdata.tasks.metrics`
 - Usage notes: [usage guide](../../../docs/usage.md#rul-task-view-c-mapss)
 - Notebook: [remaining-useful-life-prediction](../../../notebooks/tasks/remaining-useful-life-prediction.ipynb)
 - Datasets: [C-MAPSS](../../datasets/cmapss/README.md),
