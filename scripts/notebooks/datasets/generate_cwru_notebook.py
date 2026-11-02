@@ -79,7 +79,7 @@ also contains X098 arrays. variables() exposes these, while load() selects X099.
 if not cwru.inventory(recording=99, installed=True).is_empty():
     display(cwru.variables(99))
     print("Embedded array shape:", cwru.load_variable(99, "X098_DE_time").shape)
-display(cwru.validate(recording=RECORDING))
+display(cwru.verify(recording=RECORDING))
 """,
         ),
         (

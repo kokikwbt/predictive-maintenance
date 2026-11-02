@@ -8,7 +8,7 @@ C-MAPSS TTE experiment bundle.
 Exported `ENTITY_COLUMN` / `TIME_COLUMN` (`"entity"` / `"time"`) are the
 generic vocabulary defaults for future adapters. The C-MAPSS bundle keeps
 native names (`unit_number`, `cycle`) via `CMAPSS_ENTITY_COLUMN` /
-`CMAPSS_TIME_COLUMN` in `pdmdata.tasks.cmapss_common`; do not assume frames
+`CMAPSS_TIME_COLUMN` in `pdmdata.tasks.common`; do not assume frames
 use `"entity"` or `"time"`.
 
 RUL is a TTE profile (event = end of useful life) with a NASA-oriented `RUL`

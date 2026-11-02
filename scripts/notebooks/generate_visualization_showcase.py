@@ -173,7 +173,7 @@ backblaze_figure.show()""",
     markdown(
         """## Extending the showcase
 
-Add typed specifications to `pdmdata/<dataset-id>/viz.py` and
+Add typed specifications to `pdmdata/datasets/<dataset-id>/viz.py` and
 register them in `pdmdata/visualization/registry.py`. Extend the shared
 plotting functions only when a genuinely reusable chart type is needed.""",
         identifier="extension",
