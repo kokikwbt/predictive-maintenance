@@ -102,7 +102,7 @@ Min, Max and Std statistics contain known inconsistencies.
 To repeat the offline integrity and loading checks after downloading:
 
 ```bash
-uv run --locked python scripts/verify_care.py
+uv run --locked python scripts/maintenance/verify_care.py
 ```
 
 or:

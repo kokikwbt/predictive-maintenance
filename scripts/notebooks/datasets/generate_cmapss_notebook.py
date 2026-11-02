@@ -1,6 +1,11 @@
 """Generate C-MAPSS trajectory, operating-setting, and RUL examples."""
 
-from notebook_cells import ROOT, NotebookBuilder
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from notebook_cells import ROOT, NotebookBuilder  # noqa: E402
 
 
 def main():

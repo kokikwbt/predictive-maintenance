@@ -3,7 +3,12 @@
 
 from __future__ import annotations
 
-from notebook_cells import ROOT, code, markdown, notebook, write_document
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from notebook_cells import ROOT, code, markdown, notebook, write_document  # noqa: E402
 
 OUTPUT = ROOT / "notebooks" / "tasks"
 

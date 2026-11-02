@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Generate the ALPI raw-event inspection notebook without downloading data."""
 
-from notebook_cells import ROOT, code, markdown, write_notebook
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from notebook_cells import ROOT, code, markdown, write_notebook  # noqa: E402
 
 
 def main():

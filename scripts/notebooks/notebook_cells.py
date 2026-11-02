@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 METADATA = {
     "kernelspec": {
@@ -45,9 +45,37 @@ def notebook(cells: list[dict]) -> dict:
     }
 
 
+def _preserve_saved_outputs(path: Path, document: dict) -> None:
+    """Keep saved outputs and execution metadata when code cells match."""
+    if not path.is_file():
+        return
+    try:
+        existing = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+    old_cells = existing.get("cells")
+    new_cells = document.get("cells")
+    if not isinstance(old_cells, list) or not isinstance(new_cells, list):
+        return
+    if len(old_cells) != len(new_cells):
+        return
+    for old_cell, new_cell in zip(old_cells, new_cells):
+        if (
+            old_cell.get("cell_type") == "code"
+            and new_cell.get("cell_type") == "code"
+            and old_cell.get("source") == new_cell.get("source")
+            and old_cell.get("outputs")
+        ):
+            new_cell["outputs"] = old_cell["outputs"]
+            new_cell["execution_count"] = old_cell.get("execution_count")
+            if old_cell.get("metadata"):
+                new_cell["metadata"] = old_cell["metadata"]
+
+
 def write_document(path: Path, document: dict) -> Path:
     """Write a notebook document as stable JSON and print the relative path."""
     path = Path(path)
+    _preserve_saved_outputs(path, document)
     path.write_text(
         json.dumps(document, indent=1, sort_keys=True, ensure_ascii=False)
         + "\n",

@@ -1,9 +1,12 @@
 """Generate the CWRU discovery, source loading and visualization notebook."""
 
 import json
+import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from notebook_cells import ROOT  # noqa: E402
 
 
 def main():
@@ -121,7 +124,7 @@ not observed in these experiments.
     }
     path = ROOT / "notebooks" / "datasets" / "cwru.ipynb"
     path.write_text(json.dumps(notebook, indent=1) + "\n", encoding="utf-8")
-    print(path)
+    print(path.relative_to(ROOT))
 
 
 if __name__ == "__main__":

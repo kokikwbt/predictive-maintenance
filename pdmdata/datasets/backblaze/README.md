@@ -98,7 +98,7 @@ and their provenance are stored here; raw data stays in the ignored data root.
 To regenerate from the already downloaded `2025-q1` quarter:
 
 ```bash
-uv run --locked python scripts/generate_backblaze_samples.py
+uv run --locked python scripts/maintenance/generate_backblaze_samples.py
 ```
 
 
