@@ -6,7 +6,6 @@ from unittest import TestCase
 from unittest.mock import patch
 
 import polars as pl
-from support_xjtu_sy import write_bearing
 
 from pdmdata.datasets.xjtu_sy import loader as xjtu_loader
 from pdmdata.tasks.rul import (
@@ -14,6 +13,7 @@ from pdmdata.tasks.rul import (
     prepare_xjtu_sy,
 )
 from pdmdata.tasks.tte import EVENT_OBSERVED_COLUMN
+from tests.fixtures.xjtu_sy import write_bearing
 
 
 class RulXjtuSyTest(TestCase):

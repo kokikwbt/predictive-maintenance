@@ -8,7 +8,6 @@ from unittest.mock import patch
 import h5py
 import numpy as np
 import polars as pl
-from support_ncmapss import write_tiny_fixture
 
 from pdmdata.datasets.ncmapss import (
     inventory,
@@ -16,6 +15,7 @@ from pdmdata.datasets.ncmapss import (
     loader as ncmapss_loader,
     units,
 )
+from tests.fixtures.ncmapss import write_tiny_fixture
 
 
 class NcmapssTest(TestCase):

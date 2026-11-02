@@ -6,7 +6,6 @@ from unittest import TestCase
 from unittest.mock import patch
 
 import polars as pl
-from support_xjtu_sy import write_bearing
 
 from pdmdata.datasets.xjtu_sy import (
     inventory,
@@ -14,6 +13,7 @@ from pdmdata.datasets.xjtu_sy import (
     load_many,
     loader as xjtu_loader,
 )
+from tests.fixtures.xjtu_sy import write_bearing
 
 
 class XjtuSyTest(TestCase):
