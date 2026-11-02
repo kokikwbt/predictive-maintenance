@@ -1,6 +1,6 @@
 # Usage guide
 
-[Project overview](../README.md) · [Dataset catalog](../pdmdata/README.md)
+[Project overview](../README.md) · [Documentation index](README.md) · [Dataset catalog](../pdmdata/README.md)
 
 ## Installation
 
@@ -293,10 +293,11 @@ pdmdata/
     care/
       __init__.py           # Direct CARE API
       loader.py             # CARE layout, selectors, parsing
-      validation.py         # CARE-specific verification
+      validation.py         # CARE-specific verification (verify())
       viz.py                # CARE-specific plots
       metadata.json
       README.md
+      assets/               # Compact preview images and JSON records
     cmapss/
       loader.py
       ...
@@ -304,8 +305,10 @@ pdmdata/
   tasks/
     README.md               # Task package index
     taxonomy.py             # Canonical task ids
-    rul/                    # RUL package (prepare.py, README)
-    tte/                    # TTE package (prepare.py, README)
+    splits.py               # Entity-split helpers and TTE vocabulary
+    common.py               # Cross-dataset feature and target helpers
+    rul/                    # RUL package (cmapss.py, ncmapss.py, xjtu_sy.py)
+    tte/                    # TTE package (cmapss.py, backblaze.py, ...)
   visualization/            # Shared plotting models and registry
 ```
 

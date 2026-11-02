@@ -76,8 +76,9 @@ figure.show()
 |---|---|
 | Choose a dataset and compare support | [Dataset catalog](pdmdata/README.md) |
 | Browse the task list and experiment views | [Task overview](pdmdata/tasks/README.md) |
-| Configure paths, downloads, and Kaggle auth | [Usage guide](docs/usage.md) |
+| Configure paths, downloads, and Kaggle auth | [Usage guide](docs/usage.md) · [Documentation index](docs/README.md) |
 | Explore data or task examples | [Notebooks](notebooks/README.md) |
+| Run CLI and maintenance scripts | [Scripts guide](scripts/README.md) |
 | Run tests | `uv run --locked python -m unittest discover -s tests -q` |
 
 Open a dataset README from the catalog for selectors, schema details, and
