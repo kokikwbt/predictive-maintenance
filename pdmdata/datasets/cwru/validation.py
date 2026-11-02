@@ -8,7 +8,7 @@ import polars as pl
 from .loader import _read, inventory, load
 
 
-def validate(
+def verify(
     *,
     recording=None,
     collection=None,
@@ -65,3 +65,8 @@ def validate(
     return pl.DataFrame(
         rows, schema_overrides={"rpm": pl.Float64, "sample_rate_hz": pl.UInt32}
     )
+
+
+validate = verify
+
+__all__ = ["validate", "verify"]

@@ -8,7 +8,8 @@ from unittest.mock import patch
 import polars as pl
 
 import pdmdata
-from pdmdata.datasets.gdd.preprocessing import state_segments
+from pdmdata.datasets import gdd
+from pdmdata.datasets.gdd import GDD_FILES, MOTOR_SIGNALS, state_segments
 
 HEADER = (
     "Timestamp,Label,MotorData.ActCurrent,MotorData.ActPosition,"
@@ -52,6 +53,9 @@ class GddTest(unittest.TestCase):
                     pdmdata.load("gdd", series="unknown")
 
     def test_state_segments_preserve_source_order(self):
+        self.assertIn("state", GDD_FILES)
+        self.assertEqual(len(MOTOR_SIGNALS), 5)
+        self.assertIs(gdd.state_segments, state_segments)
         frame = pl.DataFrame({"Label": [0, 0, 1, 1, 1, 0]})
         segments = state_segments(frame)
         self.assertEqual(segments["Label"].to_list(), [0, 1, 0])

@@ -9,7 +9,7 @@ from .loader import (
     load_variable,
     variables,
 )
-from .validation import validate
+from .validation import validate, verify
 
 __all__ = [
     "channel_info",
@@ -20,4 +20,5 @@ __all__ = [
     "load_variable",
     "validate",
     "variables",
+    "verify",
 ]

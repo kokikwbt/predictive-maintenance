@@ -265,12 +265,13 @@ class CwruTest(unittest.TestCase):
 
     def test_validation_reports_all_channels_and_missing_coverage(self):
         self.source()
-        rows = cwru.validate(recording=105)
+        self.assertIs(cwru.validate, cwru.verify)
+        rows = cwru.verify(recording=105)
         self.assertTrue(rows["exact_array_match"].all())
         self.assertEqual(rows["samples"].to_list(), [8])
         self.assertEqual(cwru.validate(installed_only=True).height, 1)
         with self.assertRaises(FileNotFoundError):
-            cwru.validate(recording=[105, 106])
+            cwru.verify(recording=[105, 106])
 
     def test_truncated_transfer_retries_before_publish(self):
         source = self.source(97)

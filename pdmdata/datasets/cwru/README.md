@@ -192,19 +192,21 @@ copies of the same official filename fail explicitly.
 ## Validation and plotting
 
 ```python
-checks = cwru.validate(recording=[97, 105, 109, 278, 3001])
-local_checks = cwru.validate(installed_only=True)
+checks = cwru.verify(recording=[97, 105, 109, 278, 3001])
+local_checks = cwru.verify(installed_only=True)
 
 pdmdata.visualize("cwru", "waveform", cwru.load(278, channels="all")).show()
 pdmdata.visualize("cwru", "spectrum", cwru.load(105), nperseg=4096).show()
 ```
 
-Validation reports per-channel samples, measured RPM, source variable and
+Validation (`cwru.verify` or `cwru.validate`) reports per-channel samples,
+measured RPM, source variable and
 source-file SHA-256, checking exact equality of adapter and source arrays.
 It fails on malformed/non-finite vectors, ambiguous variables and missing
 selected files. `installed_only=True` explicitly limits coverage to installed
 files. Source and adapter use the same SciPy reader; this is not independent
-parser validation or physical validation. See [validation.json](validation.json)
+parser validation or physical validation. See
+[assets/validation.json](assets/validation.json)
 for the actual coverage and hashes.
 
 Waveforms keep recording/channel traces separate and limit displayed points

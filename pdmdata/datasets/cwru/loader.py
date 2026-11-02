@@ -17,7 +17,8 @@ CHANNELS = ("DE", "FE", "BA")
 
 
 def _manifest() -> pl.DataFrame:
-    with Path(__file__).with_name("recordings.json").open() as stream:
+    path = Path(__file__).parent / "assets" / "recordings.json"
+    with path.open(encoding="utf-8") as stream:
         return pl.DataFrame(json.load(stream))
 
 

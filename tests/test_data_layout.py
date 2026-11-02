@@ -24,5 +24,13 @@ class DataLayoutTest(unittest.TestCase):
         ]
         self.assertEqual(files, [])
 
+    def test_auxiliary_dataset_json_files_live_under_assets(self):
+        misplaced = [
+            path.relative_to(ROOT).as_posix()
+            for path in (DATASETS / "datasets").rglob("*.json")
+            if path.name != "metadata.json" and path.parent.name != "assets"
+        ]
+        self.assertEqual(misplaced, [])
+
 if __name__ == "__main__":
     unittest.main()
