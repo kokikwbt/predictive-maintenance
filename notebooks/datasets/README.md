@@ -15,8 +15,8 @@ before executing a notebook.
 | Notebook | Dataset ID | Key topics | Generator script |
 |---|---|---|---|
 | [alpi.ipynb](alpi.ipynb) | `alpi` | Source-faithful alarm event loading, per-machine inventory, and duplicate/timestamp diagnostics | `scripts/notebooks/datasets/generate_alpi_notebook.py` |
-| [backblaze.ipynb](backblaze.ipynb) | `backblaze` | Quarterly local inventory, drive selection, and daily S.M.A.R.T. waveforms | Maintained directly (saved outputs) |
-| [care.ipynb](care.ipynb) | `care` | Wind-farm event selection and full-period / prediction-detail SCADA waveforms | Maintained directly (saved outputs) |
+| [backblaze.ipynb](backblaze.ipynb) | `backblaze` | Quarterly local inventory, drive selection, and daily S.M.A.R.T. waveforms | `scripts/notebooks/datasets/generate_backblaze_notebook.py` |
+| [care.ipynb](care.ipynb) | `care` | Wind-farm event selection and full-period / prediction-detail SCADA waveforms | `scripts/notebooks/datasets/generate_care_notebook.py` |
 | [cmapss.ipynb](cmapss.ipynb) | `cmapss` | Subset inventories, engine trajectories, operating-condition jumps, and explicit RUL targets | `scripts/notebooks/datasets/generate_cmapss_notebook.py` |
 | [cwru.ipynb](cwru.ipynb) | `cwru` | Source collections, normal/fault discovery, channel inspection, bounded downloads, and spectra | `scripts/notebooks/datasets/generate_cwru_notebook.py` |
 | [gdd.ipynb](gdd.ipynb) | `gdd` | State IDs, contiguous segment durations, state transitions, and motor waveforms | `scripts/notebooks/datasets/generate_gdd_notebook.py` |

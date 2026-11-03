@@ -64,9 +64,13 @@ def _preserve_saved_outputs(path: Path, document: dict) -> None:
             old_cell.get("cell_type") == "code"
             and new_cell.get("cell_type") == "code"
             and old_cell.get("source") == new_cell.get("source")
-            and old_cell.get("outputs")
+            and (
+                old_cell.get("outputs")
+                or old_cell.get("execution_count") is not None
+                or old_cell.get("metadata")
+            )
         ):
-            new_cell["outputs"] = old_cell["outputs"]
+            new_cell["outputs"] = old_cell.get("outputs", [])
             new_cell["execution_count"] = old_cell.get("execution_count")
             if old_cell.get("metadata"):
                 new_cell["metadata"] = old_cell["metadata"]
