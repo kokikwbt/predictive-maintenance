@@ -27,6 +27,9 @@ jupyter = [
   "ipykernel",
 ]
 
+[project.scripts]
+pdmdata = "pdmdata.cli:main"
+
 [dependency-groups]
 dev = [
   "ruff>=0.8",

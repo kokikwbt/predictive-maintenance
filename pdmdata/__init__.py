@@ -2,7 +2,7 @@
 
 from pdmdata.catalog import format_summary, load_catalog, load_metadata, summary
 from pdmdata.config import Settings, get_settings
-from pdmdata.datasets import load
+from pdmdata.datasets import load, supported_verifications, verify
 from pdmdata.io import (
     bulk_downloads,
     download,
@@ -26,5 +26,7 @@ __all__ = [
     "load_metadata",
     "summary",
     "supported_downloads",
+    "supported_verifications",
+    "verify",
     "visualize",
 ]

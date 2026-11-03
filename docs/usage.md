@@ -111,7 +111,7 @@ dataset explicitly first.
 
 ## Downloading datasets
 
-Use `pdmdata.download("<id>")` or
+Use `pdmdata.download("<id>")`, `uv run --locked pdmdata download <id>`, or
 `uv run --locked python scripts/download.py <id>`. Files go under the
 configured `data_root` (default `data/raw/<id>/`). This project does not ship
 or redistribute dataset files; downloads come from the original providers (or

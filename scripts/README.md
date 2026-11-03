@@ -41,9 +41,11 @@ Synchronize the locked Python 3.14 environment and register the
 ### Download datasets
 
 Download and extract one dataset into the configured `data_root`
-(default: `data/raw/<dataset-id>`):
+(default: `data/raw/<dataset-id>`) using either the `pdmdata` CLI or
+`scripts/download.py`:
 
 ```bash
+uv run --locked pdmdata download cmapss
 uv run --locked python scripts/download.py cmapss
 uv run --locked python scripts/download.py backblaze --variant 2025-q1
 ```
@@ -51,13 +53,27 @@ uv run --locked python scripts/download.py backblaze --variant 2025-q1
 Inspect the external download command without executing it:
 
 ```bash
+uv run --locked pdmdata download hydsys --print-command
 uv run --locked python scripts/download.py hydsys --print-command
 ```
 
 Download all bulk-enabled datasets (excludes large opt-in datasets):
 
 ```bash
+uv run --locked pdmdata download --all
 uv run --locked python scripts/download_all.py
+```
+
+### Inspect the catalog and verify local datasets
+
+Display the dataset catalog summary or run offline verification for datasets
+with source verification routines (`alpi`, `backblaze`, `care`, `cmapss`,
+`cwru`, `ims`):
+
+```bash
+uv run --locked pdmdata summary
+uv run --locked pdmdata verify cmapss
+uv run --locked pdmdata verify cwru --installed-only
 ```
 
 ## Maintainer commands
