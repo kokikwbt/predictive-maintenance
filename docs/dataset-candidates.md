@@ -7,7 +7,7 @@ source files have not been validated. A dataset can be useful to PdMData without
 supporting a particular research method. Research-specific eligibility and
 effectiveness must be assessed separately.
 
-[Supported catalog](../pdmdata/README.md) · [Usage guide](usage.md)
+[Supported catalog](../pdmdata/README.md) · [Usage guide](usage.md) · [Contributing dataset adapters](contributing-datasets.md)
 
 ## Recommended additions
 
@@ -41,6 +41,10 @@ and REFIT remain unimplemented candidates. ALPI is excluded from bulk downloads.
   reuse the existing dataset IDs rather than add duplicate adapters.
 
 ## Adapter acceptance criteria
+
+Every candidate must satisfy the five acceptance criteria and follow the
+standard adapter layout documented in
+[Contributing dataset adapters](contributing-datasets.md):
 
 1. Pin a provider version, file manifest, download URLs, checksums when supplied,
    citation, and dataset-specific terms. Retain the source terms; do not infer
