@@ -17,9 +17,6 @@ COUNTERS = (
 )
 HISTOGRAMS = {"167": 10, "272": 10, "291": 11, "158": 10, "459": 20, "397": 36}
 SPECIFICATIONS = tuple(f"Spec_{index}" for index in range(8))
-# Upper bounds of the provider's time windows before repair, for classes 4..1.
-# The provider does not state boundary inclusion; windows are half-open here.
-WINDOW_BOUNDS = ((4, 6.0), (3, 12.0), (2, 24.0), (1, 48.0))
 
 
 def histogram_columns(variable: str) -> list[str]:
@@ -129,6 +126,9 @@ def load(
                 "with_labels is only supported for train readouts; use "
                 "last_readouts() for validation and test labels"
             )
+        # Imported lazily to keep the loader free of a tasks-layer cycle.
+        from pdmdata.tasks.tte.scania_x import add_tte_targets
+
         frame = add_tte_targets(frame, load("train", "tte"))
     selection = _vehicle_filter(vehicle_id)
     if selection is not None:
@@ -150,35 +150,10 @@ def load(
 def add_tte_targets(
     readouts: pl.DataFrame | pl.LazyFrame, tte: pl.DataFrame
 ) -> pl.DataFrame | pl.LazyFrame:
-    """Join train repair records and derive per-readout targets.
+    """Backward-compatible re-export of the TTE target helper."""
+    from pdmdata.tasks.tte.scania_x import add_tte_targets as _add
 
-    Adds ``time_to_event`` (study end minus ``time_step``), ``event_observed``
-    (``in_study_repair``), and ``class_label`` using the provider's windows.
-    Censored readouts closer than 48 time steps to the end of observation
-    have an unknown class and receive a null label.
-    """
-    lazy = isinstance(readouts, pl.LazyFrame)
-    records = tte.lazy().select(
-        "vehicle_id",
-        "length_of_study_time_step",
-        pl.col("in_study_repair").alias("event_observed"),
-    )
-    remaining = pl.col("length_of_study_time_step") - pl.col("time_step")
-    label = pl.when(remaining >= WINDOW_BOUNDS[-1][1]).then(pl.lit(0))
-    for value, upper in WINDOW_BOUNDS:
-        label = label.when(
-            (pl.col("event_observed") == 1) & (remaining < upper)
-        ).then(pl.lit(value))
-    frame = (
-        readouts.lazy()
-        .join(records, on="vehicle_id", how="left", validate="m:1")
-        .with_columns(
-            remaining.alias("time_to_event"),
-            label.otherwise(None).cast(pl.UInt8).alias("class_label"),
-        )
-        .drop("length_of_study_time_step")
-    )
-    return frame if lazy else frame.collect()
+    return _add(readouts, tte)
 
 
 def vehicles(split: str = "train") -> pl.DataFrame:
