@@ -11,11 +11,14 @@ import sys
 import tempfile
 import threading
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
+
+ProgressCallback = Callable[[int, int | None], None]
 
 from pdmdata.catalog import load_catalog, load_metadata
 from pdmdata.config import get_settings
@@ -194,25 +197,74 @@ def _dataset_directory(
     return directory / variant if variant else directory
 
 
-def _download_file(url: str, target: Path) -> None:
+def _download_file(
+    url: str,
+    target: Path,
+    *,
+    max_bytes: int | None = None,
+    progress_callback: ProgressCallback | None = None,
+) -> None:
+    """Publish one HTTP response to ``target``.
+
+    When ``max_bytes`` is set, reject oversized Content-Length headers and
+    truncate bodies that exceed the cap (used by opt-in CWRU transfers).
+    ``progress_callback``, when provided, receives ``(written, expected)``
+    after each chunk; ``expected`` is Content-Length when known.
+    """
+    if max_bytes is not None and (type(max_bytes) is not int or max_bytes <= 0):
+        raise ValueError("max_bytes must be a positive integer")
     workers = int(os.environ.get("PDMDATA_DOWNLOAD_WORKERS", "1"))
     if not 1 <= workers <= 8:
         raise ValueError("PDMDATA_DOWNLOAD_WORKERS must be between 1 and 8")
-    if workers > 1 and _download_in_ranges(url, target, workers):
+    # Bounded downloads stay single-stream so the byte cap is enforced.
+    if (
+        max_bytes is None
+        and progress_callback is None
+        and workers > 1
+        and _download_in_ranges(url, target, workers)
+    ):
         return
-    request = Request(url, headers={"User-Agent": "pdmdata/0 (+dataset downloader)"})
+    request = Request(
+        url, headers={"User-Agent": "pdmdata/0 (+dataset downloader)"}
+    )
     temporary = target.with_suffix(target.suffix + ".part")
     try:
         with (
             urlopen(request, timeout=REQUEST_TIMEOUT) as response,
             temporary.open("wb") as stream,
         ):
-            shutil.copyfileobj(response, stream, length=CHUNK_SIZE)
-        os.replace(str(temporary), str(target))
-    except Exception:
-        if temporary.exists():
-            temporary.unlink()
-        raise
+            if max_bytes is None and progress_callback is None:
+                shutil.copyfileobj(response, stream, length=CHUNK_SIZE)
+            else:
+                length = response.headers.get("Content-Length")
+                expected = int(length) if length is not None else None
+                if max_bytes is not None and expected is not None and (
+                    expected < 0 or expected > max_bytes
+                ):
+                    raise ValueError(
+                        "Download Content-Length exceeds the byte cap"
+                    )
+                written = 0
+                while True:
+                    if max_bytes is None:
+                        chunk = response.read(CHUNK_SIZE)
+                    else:
+                        chunk = response.read(
+                            min(CHUNK_SIZE, max_bytes - written + 1)
+                        )
+                    if not chunk:
+                        break
+                    if max_bytes is not None and written + len(chunk) > max_bytes:
+                        raise ValueError("Download body exceeds the byte cap")
+                    stream.write(chunk)
+                    written += len(chunk)
+                    if progress_callback is not None:
+                        progress_callback(written, expected)
+                if expected is not None and written != expected:
+                    raise OSError("Truncated HTTP response")
+        temporary.replace(target)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def _download_in_ranges(url: str, target: Path, workers: int) -> bool:

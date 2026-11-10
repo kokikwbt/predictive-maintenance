@@ -317,15 +317,21 @@ class CwruTest(unittest.TestCase):
         for payload, headers, limit, error in cases:
             response = BytesIO(payload)
             response.headers = headers
-            with patch("pdmdata.datasets.cwru.download.urlopen", return_value=response):
+            with patch("pdmdata.io.download.urlopen", return_value=response):
                 with self.assertRaises(error):
-                    transfer("https://example.org/recording.mat", target, max_bytes=limit)
+                    transfer(
+                        "https://example.org/recording.mat",
+                        target,
+                        max_bytes=limit,
+                    )
             self.assertEqual(target.read_bytes(), b"previous")
             self.assertFalse(target.with_suffix(".mat.part").exists())
         response = BytesIO(b"abc")
         response.headers = {"Content-Length": "3"}
-        with patch("pdmdata.datasets.cwru.download.urlopen", return_value=response):
-            transfer("https://example.org/recording.mat", target, max_bytes=3)
+        with patch("pdmdata.io.download.urlopen", return_value=response):
+            transfer(
+                "https://example.org/recording.mat", target, max_bytes=3
+            )
         self.assertEqual(target.read_bytes(), b"abc")
 
     def test_waveform_and_spectrum_respect_recording_channel_and_rate(self):

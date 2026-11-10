@@ -2,37 +2,14 @@
 
 import hashlib
 import json
-from urllib.request import Request, urlopen
 
 from scipy.io import loadmat
 from scipy.io.matlab import MatReadError
 
 from pdmdata.config import get_settings
+from pdmdata.io.download import _download_file
 
 from .loader import _path, inventory
-
-
-def _download_file(url, target, *, max_bytes):
-    """Publish a complete bounded HTTP response without altering source bytes."""
-    request = Request(url, headers={"User-Agent": "pdmdata/0 (+dataset downloader)"})
-    temporary = target.with_suffix(target.suffix + ".part")
-    try:
-        with urlopen(request, timeout=60) as response, temporary.open("wb") as stream:
-            length = response.headers.get("Content-Length")
-            expected = int(length) if length is not None else None
-            if expected is not None and (expected < 0 or expected > max_bytes):
-                raise ValueError("Download Content-Length exceeds the byte cap")
-            written = 0
-            while chunk := response.read(min(1024 * 1024, max_bytes - written + 1)):
-                if written + len(chunk) > max_bytes:
-                    raise ValueError("Download body exceeds the byte cap")
-                stream.write(chunk)
-                written += len(chunk)
-            if expected is not None and written != expected:
-                raise OSError("Truncated HTTP response")
-        temporary.replace(target)
-    finally:
-        temporary.unlink(missing_ok=True)
 
 
 def download(
@@ -93,7 +70,9 @@ def download(
             try:
                 for attempt in range(3):
                     try:
-                        _download_file(info["url"], staged, max_bytes=remaining)
+                        _download_file(
+                            info["url"], staged, max_bytes=remaining
+                        )
                     except OSError:
                         if attempt == 2:
                             raise
