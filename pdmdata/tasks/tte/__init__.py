@@ -35,6 +35,7 @@ from pdmdata.tasks.tte.ncmapss import (
     eval_ncmapss,
     prepare_ncmapss,
 )
+from pdmdata.tasks.tte.prepare import prepare_tte, supported_tte_datasets
 from pdmdata.tasks.tte.scania_x import (
     CLASSES,
     COST_MATRIX,
@@ -105,6 +106,8 @@ __all__ = [
     "prepare_mapm",
     "prepare_ncmapss",
     "prepare_scania_x",
+    "prepare_tte",
     "prepare_xjtu_sy",
     "split_entities",
+    "supported_tte_datasets",
 ]

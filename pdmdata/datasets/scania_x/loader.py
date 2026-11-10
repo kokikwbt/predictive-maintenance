@@ -126,8 +126,7 @@ def load(
                 "with_labels is only supported for train readouts; use "
                 "last_readouts() for validation and test labels"
             )
-        # Imported lazily to keep the loader free of a tasks-layer cycle.
-        from pdmdata.tasks.tte.scania_x import add_tte_targets
+        from pdmdata.tasks.tte.scania_x_labels import add_tte_targets
 
         frame = add_tte_targets(frame, load("train", "tte"))
     selection = _vehicle_filter(vehicle_id)
@@ -151,7 +150,9 @@ def add_tte_targets(
     readouts: pl.DataFrame | pl.LazyFrame, tte: pl.DataFrame
 ) -> pl.DataFrame | pl.LazyFrame:
     """Backward-compatible re-export of the TTE target helper."""
-    from pdmdata.tasks.tte.scania_x import add_tte_targets as _add
+    from pdmdata.tasks.tte.scania_x_labels import (
+        add_tte_targets as _add,
+    )
 
     return _add(readouts, tte)
 

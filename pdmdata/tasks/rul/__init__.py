@@ -15,6 +15,7 @@ from pdmdata.tasks.rul.ncmapss import (
     eval_ncmapss,
     prepare_ncmapss,
 )
+from pdmdata.tasks.rul.prepare import prepare_rul, supported_rul_datasets
 from pdmdata.tasks.rul.xjtu_sy import (
     XjtuSyRulBundle,
     eval_xjtu_sy,
@@ -35,6 +36,8 @@ __all__ = [
     "nasa_score",
     "prepare_cmapss",
     "prepare_ncmapss",
+    "prepare_rul",
     "prepare_xjtu_sy",
     "regression_metrics",
+    "supported_rul_datasets",
 ]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from pdmdata.tasks.tte.scania_x import (
+from pdmdata.tasks.tte.scania_x_labels import (
     CLASSES,
     COST_MATRIX,
     challenge_cost,
