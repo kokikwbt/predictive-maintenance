@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate the Backblaze drive-history exploration notebook."""
 
 import sys
@@ -9,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from notebook_cells import ROOT, NotebookBuilder  # noqa: E402
 
 
-def main() -> None:
+def main():
     nb = NotebookBuilder()
 
     nb.markdown(
