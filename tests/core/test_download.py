@@ -186,6 +186,56 @@ class DownloadTest(unittest.TestCase):
             )
             self.assertTrue(target.is_file())
 
+    def test_bounded_download_reports_progress_and_enforces_cap(self):
+        from io import BytesIO
+
+        class Response:
+            headers = {"Content-Length": "4"}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
+            def read(self, size=-1):
+                return self._body.read(size)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / "file.bin"
+            progress = []
+            response = Response()
+            response._body = BytesIO(b"abcd")
+            with patch.dict(
+                download_module.os.environ, {"PDMDATA_DOWNLOAD_WORKERS": "1"}
+            ), patch.object(
+                download_module, "urlopen", return_value=response
+            ):
+                download_module._download_file(
+                    "https://example.invalid",
+                    target,
+                    max_bytes=4,
+                    progress_callback=lambda written, expected: progress.append(
+                        (written, expected)
+                    ),
+                )
+            self.assertEqual(target.read_bytes(), b"abcd")
+            self.assertEqual(progress, [(4, 4)])
+
+            oversized = Response()
+            oversized.headers = {"Content-Length": "8"}
+            oversized._body = BytesIO(b"abcdefgh")
+            with patch.object(
+                download_module, "urlopen", return_value=oversized
+            ):
+                with self.assertRaisesRegex(ValueError, "Content-Length"):
+                    download_module._download_file(
+                        "https://example.invalid",
+                        target,
+                        max_bytes=4,
+                    )
+            self.assertEqual(target.read_bytes(), b"abcd")
+
     def test_files_method_verifies_per_file_checksums(self):
         import hashlib
 

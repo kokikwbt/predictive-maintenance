@@ -158,5 +158,10 @@
     "stable_flag=0 means stable conditions; 1 means that steady state may not have been reached. Stability does not imply healthy components.",
     "VS1 is sampled at 1 Hz. CE and CP are virtual channels; their derived nature matters when interpreting dependence graphs."
   ],
-  "citation": "Helwig, N., Pignanelli, E. and Schütze, A. (2015). Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics."
+  "citation": "Helwig, N., Pignanelli, E. and Sch\u00fctze, A. (2015). Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics.",
+  "notebook": {
+    "path": "notebooks/datasets/hydsys.ipynb",
+    "topics": "Native multirate sampling (100/10/1 Hz), cycle-level condition labels, and valve comparisons",
+    "generator": "scripts/notebooks/datasets/generate_hydsys_notebook.py"
+  }
 }

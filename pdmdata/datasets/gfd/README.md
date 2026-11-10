@@ -57,6 +57,14 @@ Source archive: [gearbox-fault-diagnosis.zip](https://data.openei.org/files/623/
 
 Pandya, Y. and Parey, A. Gearbox Fault Diagnosis Data. OpenEI submission 623.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/gfd.ipynb).
+
+Key topics: Healthy/broken vibration comparisons, load profiles, RMS summaries, and sensor correlations.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_gfd_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Explore vibration recordings

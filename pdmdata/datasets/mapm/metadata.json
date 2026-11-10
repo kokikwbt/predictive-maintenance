@@ -149,5 +149,10 @@
     "Treat this as synthetic data.",
     "No dataset-specific license was found, so redistribution and commercial-use rights cannot be asserted."
   ],
-  "citation": "Microsoft Azure Predictive Maintenance sample dataset."
+  "citation": "Microsoft Azure Predictive Maintenance sample dataset.",
+  "notebook": {
+    "path": "notebooks/datasets/mapm.ipynb",
+    "topics": "Five-table Azure telemetry/error/failure loading and interactive Plotly views",
+    "generator": "scripts/notebooks/datasets/generate_mapm_notebook.py"
+  }
 }

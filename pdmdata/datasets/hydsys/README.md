@@ -70,6 +70,14 @@ Source archive: [condition-monitoring-of-hydraulic-systems.zip](https://archive.
 
 Helwig, N., Pignanelli, E. and Schütze, A. (2015). Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/hydsys.ipynb).
+
+Key topics: Native multirate sampling (100/10/1 Hz), cycle-level condition labels, and valve comparisons.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_hydsys_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Load a cycle and its labels

@@ -17,6 +17,9 @@ TASKS_BEGIN = "<!-- BEGIN GENERATED TASK TABLE -->"
 TASKS_END = "<!-- END GENERATED TASK TABLE -->"
 SOURCES_BEGIN = "<!-- BEGIN GENERATED DATASET SOURCES -->"
 SOURCES_END = "<!-- END GENERATED DATASET SOURCES -->"
+NOTEBOOKS_BEGIN = "<!-- BEGIN GENERATED NOTEBOOK TABLE -->"
+NOTEBOOKS_END = "<!-- END GENERATED NOTEBOOK TABLE -->"
+REPO_ROOT = PACKAGE_ROOT.parent
 
 
 def _yes_no(value: Any) -> str:
@@ -195,6 +198,35 @@ def render_metadata(metadata: dict[str, Any]) -> str:
     if citation:
         lines.extend(["", "## Suggested citation", "", citation])
 
+    notebook = metadata.get("notebook")
+    if notebook:
+        notebook_path = notebook.get(
+            "path", f"notebooks/datasets/{metadata['id']}.ipynb"
+        )
+        relative = Path("../../../") / notebook_path
+        topics = notebook.get("topics", "Dataset loading and inspection")
+        generator = notebook.get("generator")
+        lines.extend(
+            [
+                "",
+                "## Notebook",
+                "",
+                "Walk through local loading and inspection in the "
+                f"[dataset notebook]({relative.as_posix()}).",
+                "",
+                f"Key topics: {topics}.",
+            ]
+        )
+        if generator:
+            lines.extend(
+                [
+                    "",
+                    "Regenerate with "
+                    f"`uv run --locked python {generator}` "
+                    "(or `scripts/notebooks/generate_all.py`).",
+                ]
+            )
+
     lines.extend(["", END])
     return "\n".join(lines)
 
@@ -305,6 +337,56 @@ def render_dataset_sources(catalog: Iterable[dict[str, Any]]) -> str:
         )
         for item in catalog
     )
+
+
+def render_notebook_table(catalog: Iterable[dict[str, Any]]) -> str:
+    """Render the dataset notebook index table from catalog metadata."""
+    lines = [
+        "| Notebook | Dataset ID | Key topics | Generator script |",
+        "|---|---|---|---|",
+    ]
+    for item in catalog:
+        notebook = item.get("notebook") or {}
+        dataset_id = item["id"]
+        topics = notebook.get(
+            "topics", "Dataset loading, inspection, and visualization"
+        )
+        generator = notebook.get(
+            "generator",
+            f"scripts/notebooks/datasets/generate_{dataset_id}_notebook.py",
+        )
+        lines.append(
+            "| [{name}.ipynb]({name}.ipynb) | `{id}` | {topics} | "
+            "`{generator}` |".format(
+                name=dataset_id,
+                id=dataset_id,
+                topics=topics,
+                generator=generator,
+            )
+        )
+    return "\n".join(lines)
+
+
+def update_notebooks_readme() -> Path:
+    """Synchronize notebooks/datasets/README.md from catalog metadata."""
+    readme = REPO_ROOT / "notebooks" / "datasets" / "README.md"
+    current = readme.read_text(encoding="utf-8")
+    if NOTEBOOKS_BEGIN not in current or NOTEBOOKS_END not in current:
+        raise ValueError(f"{readme} does not contain notebook-table markers")
+    generated = "\n".join(
+        [
+            NOTEBOOKS_BEGIN,
+            "",
+            render_notebook_table(load_catalog()),
+            "",
+            NOTEBOOKS_END,
+        ]
+    )
+    before, remainder = current.split(NOTEBOOKS_BEGIN, 1)
+    _, after = remainder.split(NOTEBOOKS_END, 1)
+    updated = before.rstrip() + "\n\n" + generated + after
+    readme.write_text(updated, encoding="utf-8")
+    return readme
 
 
 def update_catalog_readme() -> Path:

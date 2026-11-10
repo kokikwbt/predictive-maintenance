@@ -12,6 +12,8 @@ All dataset notebooks are listed alphabetically below. Download the required
 dataset first (for example, `uv run --locked python scripts/download.py cmapss`)
 before executing a notebook.
 
+<!-- BEGIN GENERATED NOTEBOOK TABLE -->
+
 | Notebook | Dataset ID | Key topics | Generator script |
 |---|---|---|---|
 | [alpi.ipynb](alpi.ipynb) | `alpi` | Source-faithful alarm event loading, per-machine inventory, and duplicate/timestamp diagnostics | `scripts/notebooks/datasets/generate_alpi_notebook.py` |
@@ -30,6 +32,8 @@ before executing a notebook.
 | [ppd.ipynb](ppd.ipynb) | `ppd` | Eight-sequence loading, joined parts, missing-value intervals, and Leave-One-Out folds | `scripts/notebooks/datasets/generate_ppd_notebook.py` |
 | [scania_x.ipynb](scania_x.ipynb) | `scania_x` | Truck fleet inventory, training TTE repair targets, and counter trajectories | `scripts/notebooks/datasets/generate_scania_x_notebook.py` |
 | [xjtu_sy.ipynb](xjtu_sy.ipynb) | `xjtu_sy` | Bearing run-to-failure inventory, minute-level RMS features, and RUL plots | `scripts/notebooks/datasets/generate_xjtu_sy_notebook.py` |
+
+<!-- END GENERATED NOTEBOOK TABLE -->
 
 ## Cross-dataset visualization showcase
 

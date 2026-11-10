@@ -58,8 +58,9 @@ pdmdata/datasets/<id>/
 1. **Metadata and loader**:
    - Create `pdmdata/datasets/<id>/metadata.json` with `id`, `name`,
      `short_name`, `summary`, `source`, `license`, `availability`,
-     `characteristics`, `task_support`, `attributes`, and optional `download`
-     and `citation`.
+     `characteristics`, `task_support`, `attributes`, optional `download`
+     and `citation`, and a `notebook` object (`path`, `topics`, `generator`)
+     used to sync dataset READMEs and `notebooks/datasets/README.md`.
    - Implement `load(...)` (and optional `inventory(...)`) in
      `pdmdata/datasets/<id>/loader.py` and re-export them from
      `pdmdata/datasets/<id>/__init__.py`.

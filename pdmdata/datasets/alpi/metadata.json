@@ -87,5 +87,10 @@
     "The 8,517,314-byte ZIP expands to about 163 MB of raw and processed files. Download is opt-in; processed JSON/NPZ/pickle files are not loaded or executed by this adapter.",
     "Prediction windows, entity/time splits, future labels, and end-of-record handling belong to task construction. The loader does not manufacture failure, RUL, or censoring labels."
   ],
-  "citation": "Dalle Pezze, D., Tosato, D., Masiero, C., Susto, G. A., and Beghi, A. (2021). ALARM LOGS IN PACKAGING INDUSTRY (ALPI), version 1. Mendeley Data. https://doi.org/10.17632/4nhx2x67cd.1"
+  "citation": "Dalle Pezze, D., Tosato, D., Masiero, C., Susto, G. A., and Beghi, A. (2021). ALARM LOGS IN PACKAGING INDUSTRY (ALPI), version 1. Mendeley Data. https://doi.org/10.17632/4nhx2x67cd.1",
+  "notebook": {
+    "path": "notebooks/datasets/alpi.ipynb",
+    "topics": "Source-faithful alarm event loading, per-machine inventory, and duplicate/timestamp diagnostics",
+    "generator": "scripts/notebooks/datasets/generate_alpi_notebook.py"
+  }
 }

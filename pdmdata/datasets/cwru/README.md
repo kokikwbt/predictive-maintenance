@@ -71,6 +71,14 @@ Source page: [Case Western Reserve University Bearing Data Center](https://engin
 
 Case Western Reserve University Bearing Data Center. Bearing fault data and experiment documentation. https://engineering.case.edu/bearingdatacenter/welcome
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/cwru.ipynb).
+
+Key topics: Source collections, normal/fault discovery, channel inspection, bounded downloads, and spectra.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_cwru_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Collections and downloads

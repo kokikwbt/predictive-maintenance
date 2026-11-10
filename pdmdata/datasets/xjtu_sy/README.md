@@ -64,6 +64,14 @@ Source archive: [XJTU-SY_Bearing_Datasets.zip](https://huggingface.co/datasets/D
 
 B. Wang, Y. Lei, N. Li and N. Li (2020). A Hybrid Prognostics Approach for Estimating Remaining Useful Life of Rolling Element Bearings. IEEE Transactions on Reliability, 69(1), 401-412.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/xjtu_sy.ipynb).
+
+Key topics: Bearing run-to-failure inventory, minute-level RMS features, and RUL plots.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_xjtu_sy_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Load bearings

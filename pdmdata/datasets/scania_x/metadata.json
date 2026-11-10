@@ -167,5 +167,10 @@
     "Downloads use the nine CSVs of version 3 (DOI 10.5878/bnh5-ka77), verify each SND-published SHA-256, and bundle them locally. Data files are identical to version 2 (DOI 10.5878/jvb5-d390), which the Scientific Data paper cites.",
     "Expect about 3.3 GB on disk after extraction (local bundle plus extracted CSVs)."
   ],
-  "citation": "Z. Kharazian, T. Lindgren, S. Magnússon, O. Steinert and O. Andersson Reyna (2025). SCANIA Component X dataset: a real-world multivariate time series dataset for predictive maintenance. Scientific Data, 12, 493. https://doi.org/10.1038/s41597-025-04802-6"
+  "citation": "Z. Kharazian, T. Lindgren, S. Magnússon, O. Steinert and O. Andersson Reyna (2025). SCANIA Component X dataset: a real-world multivariate time series dataset for predictive maintenance. Scientific Data, 12, 493. https://doi.org/10.1038/s41597-025-04802-6",
+  "notebook": {
+    "path": "notebooks/datasets/scania_x.ipynb",
+    "topics": "Truck fleet inventory, training TTE repair targets, and counter trajectories",
+    "generator": "scripts/notebooks/datasets/generate_scania_x_notebook.py"
+  }
 }

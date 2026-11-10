@@ -1236,5 +1236,10 @@
     "Identical copies across collection bundles and older load bundles are reused. Conflicting local copies raise an error instead of silently selecting one.",
     "Windowing, support/query episodes, normalization, class remapping and model training belong in task packages. Data loading never downloads implicitly."
   ],
-  "citation": "Case Western Reserve University Bearing Data Center. Bearing fault data and experiment documentation. https://engineering.case.edu/bearingdatacenter/welcome"
+  "citation": "Case Western Reserve University Bearing Data Center. Bearing fault data and experiment documentation. https://engineering.case.edu/bearingdatacenter/welcome",
+  "notebook": {
+    "path": "notebooks/datasets/cwru.ipynb",
+    "topics": "Source collections, normal/fault discovery, channel inspection, bounded downloads, and spectra",
+    "generator": "scripts/notebooks/datasets/generate_cwru_notebook.py"
+  }
 }

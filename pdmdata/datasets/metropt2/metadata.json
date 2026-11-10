@@ -86,5 +86,10 @@
     "The source CSV is unlabeled; task targets must be derived from the two provider-documented failure intervals.",
     "The 1.2 GB CSV is opt-in and is not downloaded by scripts/bootstrap.sh."
   ],
-  "citation": "Veloso, B., Gama, J., Ribeiro, R. and Pereira, P. (2023). MetroPT2: A Benchmark dataset for predictive maintenance. Zenodo. https://doi.org/10.5281/zenodo.7766691"
+  "citation": "Veloso, B., Gama, J., Ribeiro, R. and Pereira, P. (2023). MetroPT2: A Benchmark dataset for predictive maintenance. Zenodo. https://doi.org/10.5281/zenodo.7766691",
+  "notebook": {
+    "path": "notebooks/datasets/metropt2.ipynb",
+    "topics": "Compressor analogue waveforms, binary control combinations, and interval zoom",
+    "generator": "scripts/notebooks/datasets/generate_metropt2_notebook.py"
+  }
 }

@@ -94,6 +94,14 @@ Kaggle dataset: [`inIT-OWL/production-plant-data-for-condition-monitoring`](http
 
 von Birgelen, A. et al. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/ppd.ipynb).
+
+Key topics: Eight-sequence loading, joined parts, missing-value intervals, and Leave-One-Out folds.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_ppd_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Load a complete sequence

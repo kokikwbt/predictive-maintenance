@@ -47,5 +47,10 @@
     {"name": "Label", "dtype": "Integer", "role": "target", "description": "File-dependent target: state-machine IDs 0–8 in Genesis_StateMachineLabel.csv; separate anomaly IDs 0–2 in Genesis_AnomalyLabels.csv. No verified mapping from state IDs to named actions is supplied here."}
   ],
   "notes": ["Distribution depends on Kaggle.", "The column set and presence of the Label column vary by file."],
-  "citation": "Schuster, R., Moriz, N. and von Birgelen, A. (2018). Genesis demonstrator data for machine learning."
+  "citation": "Schuster, R., Moriz, N. and von Birgelen, A. (2018). Genesis demonstrator data for machine learning.",
+  "notebook": {
+    "path": "notebooks/datasets/gdd.ipynb",
+    "topics": "State IDs, contiguous segment durations, state transitions, and motor waveforms",
+    "generator": "scripts/notebooks/datasets/generate_gdd_notebook.py"
+  }
 }

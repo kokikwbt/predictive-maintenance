@@ -214,5 +214,10 @@
     "Unit IDs are local to each subset file; do not join units across variants.",
     "Cite Chao, Kulkarni, Goebel, and Fink (2021) when using this dataset."
   ],
-  "citation": "M. Chao, C. Kulkarni, K. Goebel and O. Fink (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions. NASA Prognostics Data Repository, NASA Ames Research Center."
+  "citation": "M. Chao, C. Kulkarni, K. Goebel and O. Fink (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions. NASA Prognostics Data Repository, NASA Ames Research Center.",
+  "notebook": {
+    "path": "notebooks/datasets/ncmapss.ipynb",
+    "topics": "HDF5 variant inventory, per-unit flight trajectories, RUL targets, and sensor plots",
+    "generator": "scripts/notebooks/datasets/generate_ncmapss_notebook.py"
+  }
 }

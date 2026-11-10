@@ -483,5 +483,10 @@
     "Backblaze permits derivative works but asks users not to sell the source data itself.",
     "Quarterly archives are opt-in and are not downloaded by scripts/bootstrap.sh."
   ],
-  "citation": "Backblaze. Drive Stats: Hard Drive Test Data. https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data"
+  "citation": "Backblaze. Drive Stats: Hard Drive Test Data. https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data",
+  "notebook": {
+    "path": "notebooks/datasets/backblaze.ipynb",
+    "topics": "Quarterly local inventory, drive selection, and daily S.M.A.R.T. waveforms",
+    "generator": "scripts/notebooks/datasets/generate_backblaze_notebook.py"
+  }
 }

@@ -60,6 +60,14 @@ Source archive: [MetroPT2.csv](https://zenodo.org/records/7766691/files/MetroPT2
 
 Veloso, B., Gama, J., Ribeiro, R. and Pereira, P. (2023). MetroPT2: A Benchmark dataset for predictive maintenance. Zenodo. https://doi.org/10.5281/zenodo.7766691
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/metropt2.ipynb).
+
+Key topics: Compressor analogue waveforms, binary control combinations, and interval zoom.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_metropt2_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Explore operating cycles

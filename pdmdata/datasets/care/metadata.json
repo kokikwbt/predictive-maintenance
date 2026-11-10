@@ -189,5 +189,10 @@
     "The provider recommends Avg signals for analysis; Min, Max, and Std can be implausible, especially in Wind Farm B.",
     "The 5.5 GB archive is opt-in and is not downloaded by scripts/bootstrap.sh."
   ],
-  "citation": "Gück, C. and Roelofs, C. (2025). Wind Turbine SCADA Data For Early Fault Detection, Version 6. Zenodo. https://doi.org/10.5281/zenodo.15846963"
+  "citation": "G\u00fcck, C. and Roelofs, C. (2025). Wind Turbine SCADA Data For Early Fault Detection, Version 6. Zenodo. https://doi.org/10.5281/zenodo.15846963",
+  "notebook": {
+    "path": "notebooks/datasets/care.ipynb",
+    "topics": "Wind-farm event selection and full-period / prediction-detail SCADA waveforms",
+    "generator": "scripts/notebooks/datasets/generate_care_notebook.py"
+  }
 }

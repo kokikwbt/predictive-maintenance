@@ -168,5 +168,10 @@
     "Explicit per-sample wear, fault, and state annotations are not distributed. Timestamp physical units are not established by the CSVs.",
     "The provider describes selecting eight features for an analysis; the raw recording schema contains 25 process signals."
   ],
-  "citation": "von Birgelen, A. et al. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems."
+  "citation": "von Birgelen, A. et al. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems.",
+  "notebook": {
+    "path": "notebooks/datasets/ppd.ipynb",
+    "topics": "Eight-sequence loading, joined parts, missing-value intervals, and Leave-One-Out folds",
+    "generator": "scripts/notebooks/datasets/generate_ppd_notebook.py"
+  }
 }

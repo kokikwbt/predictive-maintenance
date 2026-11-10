@@ -101,5 +101,10 @@
     "RUL is derived from complete run-to-failure trajectories (minutes until the last CSV), not a separate label file.",
     "Cite Wang, Lei, Li, and Li (IEEE Transactions on Reliability, 2020)."
   ],
-  "citation": "B. Wang, Y. Lei, N. Li and N. Li (2020). A Hybrid Prognostics Approach for Estimating Remaining Useful Life of Rolling Element Bearings. IEEE Transactions on Reliability, 69(1), 401-412."
+  "citation": "B. Wang, Y. Lei, N. Li and N. Li (2020). A Hybrid Prognostics Approach for Estimating Remaining Useful Life of Rolling Element Bearings. IEEE Transactions on Reliability, 69(1), 401-412.",
+  "notebook": {
+    "path": "notebooks/datasets/xjtu_sy.ipynb",
+    "topics": "Bearing run-to-failure inventory, minute-level RMS features, and RUL plots",
+    "generator": "scripts/notebooks/datasets/generate_xjtu_sy_notebook.py"
+  }
 }

@@ -22,6 +22,17 @@ class CatalogTest(unittest.TestCase):
             self.assertIn(BEGIN, rendered)
             self.assertIn(END, rendered)
             self.assertIn("## Attributes", rendered)
+            self.assertIn("## Notebook", rendered)
+            notebook = item["notebook"]
+            self.assertEqual(
+                notebook["path"],
+                f"notebooks/datasets/{item['id']}.ipynb",
+            )
+            self.assertTrue(notebook["topics"])
+            self.assertTrue(
+                (Path(__file__).resolve().parents[2] / notebook["generator"])
+                .is_file()
+            )
 
     def test_task_support_uses_canonical_ids_and_levels(self):
         task_ids = {task["id"] for task in TASKS}
@@ -146,6 +157,30 @@ class CatalogDocumentationTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "dataset-source markers"):
                     docs.update_catalog_readme()
             self.assertEqual(readme.read_text(encoding="utf-8"), template)
+
+    def test_notebook_table_syncs_from_catalog_metadata(self):
+        catalog = load_catalog()
+        template = "\n\n".join([
+            "# Dataset notebooks\n\nManual intro.",
+            docs.NOTEBOOKS_BEGIN + "\nOld table\n" + docs.NOTEBOOKS_END,
+            "## Authoring\n\nKeep manual text.",
+        ])
+        with TemporaryDirectory() as directory:
+            readme = Path(directory) / "notebooks" / "datasets" / "README.md"
+            readme.parent.mkdir(parents=True)
+            readme.write_text(template, encoding="utf-8")
+            with patch.object(docs, "REPO_ROOT", Path(directory)), patch.object(
+                docs, "load_catalog", return_value=catalog
+            ):
+                self.assertEqual(docs.update_notebooks_readme(), readme)
+                updated = readme.read_text(encoding="utf-8")
+            self.assertNotIn("Old table", updated)
+            self.assertIn("Keep manual text.", updated)
+            for item in catalog:
+                self.assertIn(f"`{item['id']}`", updated)
+                self.assertIn(item["notebook"]["generator"], updated)
+            docs_table = docs.render_notebook_table(catalog)
+            self.assertIn(docs_table, updated)
 
 
 if __name__ == "__main__":

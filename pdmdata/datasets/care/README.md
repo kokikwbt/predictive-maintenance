@@ -61,6 +61,14 @@ Source archive: [CARE_To_Compare.zip](https://zenodo.org/records/15846963/files/
 
 Gück, C. and Roelofs, C. (2025). Wind Turbine SCADA Data For Early Fault Detection, Version 6. Zenodo. https://doi.org/10.5281/zenodo.15846963
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/care.ipynb).
+
+Key topics: Wind-farm event selection and full-period / prediction-detail SCADA waveforms.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_care_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 

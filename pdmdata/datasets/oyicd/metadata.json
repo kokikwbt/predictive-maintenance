@@ -97,5 +97,10 @@
     "The Kaggle ZIP contains two byte-identical copies of every recording. Loading and inventory verify duplicate agreement and count each filename only once.",
     "Operating modes label entire recordings. Within-recording cycle phases, wear levels, and state-transition boundaries are not annotated."
   ],
-  "citation": "von Birgelen, A., Buratti, D., Mager, J. and Niggemann, O. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems."
+  "citation": "von Birgelen, A., Buratti, D., Mager, J. and Niggemann, O. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems.",
+  "notebook": {
+    "path": "notebooks/datasets/oyicd.ipynb",
+    "topics": "Unique recording inventory, relative month/mode coverage, and eight-signal waveforms",
+    "generator": "scripts/notebooks/datasets/generate_oyicd_notebook.py"
+  }
 }

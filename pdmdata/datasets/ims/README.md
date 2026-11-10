@@ -69,6 +69,14 @@ Source archive: [IMS.zip](https://phm-datasets.s3.amazonaws.com/NASA/4.+Bearings
 
 J. Lee, H. Qiu, G. Yu, J. Lin, and Rexnord Technical Services (2007). IMS, University of Cincinnati. Bearing Data Set. NASA Prognostics Data Repository, NASA Ames Research Center, Moffett Field, CA.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/ims.ipynb).
+
+Key topics: 20 kHz vibration snapshots, bearing channel assignments, early/late comparisons, and RMS histories.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_ims_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 

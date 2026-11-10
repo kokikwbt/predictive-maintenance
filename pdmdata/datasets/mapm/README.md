@@ -75,4 +75,12 @@ Source files (bundled locally without changing their contents):
 
 Microsoft Azure Predictive Maintenance sample dataset.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/mapm.ipynb).
+
+Key topics: Five-table Azure telemetry/error/failure loading and interactive Plotly views.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_mapm_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->

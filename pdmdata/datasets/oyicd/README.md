@@ -65,6 +65,14 @@ Kaggle dataset: [`inIT-OWL/one-year-industrial-component-degradation`](https://w
 
 von Birgelen, A., Buratti, D., Mager, J. and Niggemann, O. (2018). Self-Organizing Maps for Anomaly Localization and Predictive Maintenance in Cyber-Physical Production Systems.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/oyicd.ipynb).
+
+Key topics: Unique recording inventory, relative month/mode coverage, and eight-signal waveforms.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_oyicd_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 

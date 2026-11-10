@@ -108,5 +108,10 @@
     "Default loading preserves all 26 columns. Unit selection and RUL augmentation are explicit; no smoothing, RUL cap, normalization, or constant-channel removal is applied.",
     "NASA does not specify a license in the dataset metadata, so this project does not classify it as CC0."
   ],
-  "citation": "Saxena, A. and Goebel, K. (2008). Turbofan Engine Degradation Simulation Data Set. NASA Ames Prognostics Data Repository."
+  "citation": "Saxena, A. and Goebel, K. (2008). Turbofan Engine Degradation Simulation Data Set. NASA Ames Prognostics Data Repository.",
+  "notebook": {
+    "path": "notebooks/datasets/cmapss.ipynb",
+    "topics": "Subset inventories, engine trajectories, operating-condition jumps, and explicit RUL targets",
+    "generator": "scripts/notebooks/datasets/generate_cmapss_notebook.py"
+  }
 }

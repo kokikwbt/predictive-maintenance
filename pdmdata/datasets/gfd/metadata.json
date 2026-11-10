@@ -94,5 +94,10 @@
     "The raw files contain no timestamps or column headers. This package does not infer a sampling rate from the 30hz filename token; plots use sample index.",
     "Each file is a separate condition/load recording. There are no within-recording state-transition annotations; concatenating files would create artificial boundaries."
   ],
-  "citation": "Pandya, Y. and Parey, A. Gearbox Fault Diagnosis Data. OpenEI submission 623."
+  "citation": "Pandya, Y. and Parey, A. Gearbox Fault Diagnosis Data. OpenEI submission 623.",
+  "notebook": {
+    "path": "notebooks/datasets/gfd.ipynb",
+    "topics": "Healthy/broken vibration comparisons, load profiles, RMS summaries, and sensor correlations",
+    "generator": "scripts/notebooks/datasets/generate_gfd_notebook.py"
+  }
 }

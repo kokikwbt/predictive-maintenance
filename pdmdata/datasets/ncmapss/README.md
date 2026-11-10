@@ -70,6 +70,14 @@ Source page: [NASA Prognostics Center of Excellence](https://data.phmsociety.org
 
 M. Chao, C. Kulkarni, K. Goebel and O. Fink (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions. NASA Prognostics Data Repository, NASA Ames Research Center.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/ncmapss.ipynb).
+
+Key topics: HDF5 variant inventory, per-unit flight trajectories, RUL targets, and sensor plots.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_ncmapss_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Load a subset

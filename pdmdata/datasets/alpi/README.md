@@ -60,6 +60,14 @@ Source archive: [alarms_log_data.zip](https://data.mendeley.com/public-files/dat
 
 Dalle Pezze, D., Tosato, D., Masiero, C., Susto, G. A., and Beghi, A. (2021). ALARM LOGS IN PACKAGING INDUSTRY (ALPI), version 1. Mendeley Data. https://doi.org/10.17632/4nhx2x67cd.1
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/alpi.ipynb).
+
+Key topics: Source-faithful alarm event loading, per-machine inventory, and duplicate/timestamp diagnostics.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_alpi_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 

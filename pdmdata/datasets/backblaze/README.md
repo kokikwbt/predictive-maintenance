@@ -65,6 +65,14 @@ Source page: [Backblaze](https://www.backblaze.com/cloud-storage/resources/hard-
 
 Backblaze. Drive Stats: Hard Drive Test Data. https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/backblaze.ipynb).
+
+Key topics: Quarterly local inventory, drive selection, and daily S.M.A.R.T. waveforms.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_backblaze_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Real-data waveform samples

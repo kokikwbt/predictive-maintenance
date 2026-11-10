@@ -77,6 +77,14 @@ Source files (bundled locally without changing their contents):
 
 Z. Kharazian, T. Lindgren, S. Magnússon, O. Steinert and O. Andersson Reyna (2025). SCANIA Component X dataset: a real-world multivariate time series dataset for predictive maintenance. Scientific Data, 12, 493. https://doi.org/10.1038/s41597-025-04802-6
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/scania_x.ipynb).
+
+Key topics: Truck fleet inventory, training TTE repair targets, and counter trajectories.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_scania_x_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 

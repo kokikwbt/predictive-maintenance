@@ -66,6 +66,14 @@ Source archive: [turbofan-engine-degradation-simulation.zip](https://phm-dataset
 
 Saxena, A. and Goebel, K. (2008). Turbofan Engine Degradation Simulation Data Set. NASA Ames Prognostics Data Repository.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/cmapss.ipynb).
+
+Key topics: Subset inventories, engine trajectories, operating-condition jumps, and explicit RUL targets.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_cmapss_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Load an engine trajectory

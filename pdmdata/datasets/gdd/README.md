@@ -60,6 +60,14 @@ Kaggle dataset: [`inIT-OWL/genesis-demonstrator-data-for-machine-learning`](http
 
 Schuster, R., Moriz, N. and von Birgelen, A. (2018). Genesis demonstrator data for machine learning.
 
+## Notebook
+
+Walk through local loading and inspection in the [dataset notebook](../../../notebooks/datasets/gdd.ipynb).
+
+Key topics: State IDs, contiguous segment durations, state transitions, and motor waveforms.
+
+Regenerate with `uv run --locked python scripts/notebooks/datasets/generate_gdd_notebook.py` (or `scripts/notebooks/generate_all.py`).
+
 <!-- END GENERATED METADATA -->
 
 ## Explore machine states
