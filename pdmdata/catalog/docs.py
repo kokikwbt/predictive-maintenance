@@ -356,13 +356,8 @@ def render_notebook_table(catalog: Iterable[dict[str, Any]]) -> str:
             f"scripts/notebooks/datasets/generate_{dataset_id}_notebook.py",
         )
         lines.append(
-            "| [{name}.ipynb]({name}.ipynb) | `{id}` | {topics} | "
-            "`{generator}` |".format(
-                name=dataset_id,
-                id=dataset_id,
-                topics=topics,
-                generator=generator,
-            )
+            f"| [{dataset_id}.ipynb]({dataset_id}.ipynb) | "
+            f"`{dataset_id}` | {topics} | `{generator}` |"
         )
     return "\n".join(lines)
 

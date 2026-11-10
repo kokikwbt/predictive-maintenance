@@ -4,8 +4,11 @@ import unittest
 from unittest.mock import patch
 
 from pdmdata.tasks import rul
-from pdmdata.tasks.rul import prepare_rul, supported_rul_datasets
-from pdmdata.tasks.rul import prepare as rul_prepare
+from pdmdata.tasks.rul import (
+    prepare as rul_prepare,
+    prepare_rul,
+    supported_rul_datasets,
+)
 
 
 class RulDispatchTest(unittest.TestCase):

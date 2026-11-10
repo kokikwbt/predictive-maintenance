@@ -18,10 +18,10 @@ from typing import Any
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
-ProgressCallback = Callable[[int, int | None], None]
-
 from pdmdata.catalog import load_catalog, load_metadata
 from pdmdata.config import get_settings
+
+ProgressCallback = Callable[[int, int | None], None]
 
 CHUNK_SIZE = 1024 * 1024
 # Seconds without received bytes before a request is abandoned.

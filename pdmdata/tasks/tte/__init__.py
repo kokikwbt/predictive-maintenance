@@ -39,8 +39,8 @@ from pdmdata.tasks.tte.prepare import prepare_tte, supported_tte_datasets
 from pdmdata.tasks.tte.scania_x import (
     CLASSES,
     COST_MATRIX,
-    ScaniaXTteBundle,
     WINDOW_BOUNDS,
+    ScaniaXTteBundle,
     add_tte_targets,
     challenge_cost,
     cost_table,

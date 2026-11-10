@@ -4,8 +4,11 @@ import unittest
 from unittest.mock import patch
 
 from pdmdata.tasks import tte
-from pdmdata.tasks.tte import prepare_tte, supported_tte_datasets
-from pdmdata.tasks.tte import prepare as tte_prepare
+from pdmdata.tasks.tte import (
+    prepare as tte_prepare,
+    prepare_tte,
+    supported_tte_datasets,
+)
 
 
 class TteDispatchTest(unittest.TestCase):
